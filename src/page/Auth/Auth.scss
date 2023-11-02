@@ -1,4 +1,23 @@
 @import "../../scss/index.scss";
 
 .auth {
+    &__left {
+        overflow: hidden;
+        min-height: 100vh;
+        background-color: $primary-light;
+        display: flex;
+        align-items: center;
+    }
+
+    div {
+        z-index: 1;
+
+        h2 {
+            display: flex;
+            align-items: center;
+            font-size: 30px;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+    }
 }
