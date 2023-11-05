@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import BasicModal from "../../components/Modal/BasicModal";
 import "./Auth.scss";
+import PropTypes from "prop-types"; // PropTypesをインポート
 
 export default function Auth() {
+  const [showModal, setShowModal] = useState(false);
+  const [contentModal, setContentModal] = useState(null);
+
+  const openModal = (content) => {
+    setShowModal(true);
+    setContentModal(content);
+  };
   return (
-    <Container className="auth" fluid>
-      <Row>
-        <LeftComponent />
-        <RightComponent />
-      </Row>
-    </Container>
+    <>
+      <Container className="auth" fluid>
+        <Row>
+          <LeftComponent />
+          <RightComponent openModal={openModal} setShowModal={setShowModal} />
+        </Row>
+      </Container>
+      <BasicModal show={showModal} setShow={setShowModal}>
+        {contentModal}
+      </BasicModal>
+    </>
   );
 }
 
@@ -24,13 +38,30 @@ function LeftComponent() {
   );
 }
 
-function RightComponent() {
+function RightComponent(props) {
+  const {
+    openModal,
+    // setShowModal
+  } = props;
   return (
-    <Col className="auth__right">
+    <Col className="auth__right" xs={6}>
       <div>
-        <Button variant="primary">新規登録</Button>
-        <Button variant="outline-primary">ログイン</Button>
+        <Button variant="primary" onClick={() => openModal(<h2>新規登録</h2>)}>
+          新規登録
+        </Button>
+        <Button
+          variant="outline-primary"
+          onClick={() => openModal(<h2>ログイン</h2>)}
+        >
+          ログイン
+        </Button>
       </div>
     </Col>
   );
 }
+
+// propTypesを追加してプロパティの型情報を指定
+RightComponent.propTypes = {
+  openModal: PropTypes.func.isRequired,
+  setShowModal: PropTypes.func.isRequired,
+};
