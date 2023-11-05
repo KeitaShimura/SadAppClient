@@ -15,13 +15,13 @@ export default function RegisterForm(props) {
     <div className="register-form">
       <h2>新規登録フォーム</h2>
       <Form onSubmit={onSubmit}>
-        <Form.Group>
+        <Form.Group className="form-group">
           <Form.Control type="text" placeholder="名前" />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="form-group">
           <Form.Control type="email" placeholder="メールアドレス" />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="form-group">
           <Row>
             <Col>
               <Form.Control type="password" placeholder="パスワード" />
