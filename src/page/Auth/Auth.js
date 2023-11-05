@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import BasicModal from "../../components/Modal/BasicModal";
+import RegisterForm from "../../components/RegisterForm";
 import "./Auth.scss";
-import PropTypes from "prop-types"; // PropTypesをインポート
+import PropTypes from "prop-types";
 
 export default function Auth() {
   const [showModal, setShowModal] = useState(false);
@@ -39,14 +40,16 @@ function LeftComponent() {
 }
 
 function RightComponent(props) {
-  const {
-    openModal,
-    // setShowModal
-  } = props;
+  const { openModal, setShowModal } = props;
   return (
     <Col className="auth__right" xs={6}>
       <div>
-        <Button variant="primary" onClick={() => openModal(<h2>新規登録</h2>)}>
+        <Button
+          variant="primary"
+          onClick={() =>
+            openModal(<RegisterForm setShowModal={setShowModal} />)
+          }
+        >
           新規登録
         </Button>
         <Button

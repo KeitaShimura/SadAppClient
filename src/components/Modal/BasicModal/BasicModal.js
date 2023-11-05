@@ -1,7 +1,6 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import PropTypes from "prop-types"; // PropTypesをインポート
-
+import PropTypes from "prop-types";
 import "./BasicModal.scss";
 
 export default function BasicModel(props) {
