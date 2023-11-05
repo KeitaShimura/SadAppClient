@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import "./Auth.scss";
 
 export default function Auth() {
@@ -27,7 +27,10 @@ function LeftComponent() {
 function RightComponent() {
   return (
     <Col className="auth__right">
-      <h2>右側</h2>
+      <div>
+        <Button variant="primary">新規登録</Button>
+        <Button variant="outline-primary">ログイン</Button>
+      </div>
     </Col>
   );
 }
