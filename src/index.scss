@@ -38,3 +38,18 @@ code {
     background-color: rgba(218, 26, 87, 0.1) !important;
   }
 }
+
+input.form-control,
+textarea.form-control {
+  background-color: $background-light;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid $border-dark;
+  color: $font-dark !important;
+
+  &:focus {
+    border-color: $background-grey-dark;
+    box-shadow: none;
+    border-bottom: 1px solid $border-dark;
+  }
+}
