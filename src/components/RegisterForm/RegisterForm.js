@@ -35,9 +35,9 @@ export default function RegisterForm(props) {
       } else if (formData.password !== formData.confirmPassword) {
         toast.warning("パスワードが一致しません。");
       } else if (size(formData.password) < 6) {
-        toast.warning("パスワードは6文字以上に設定してください。")
+        toast.warning("パスワードは6文字以上に設定してください。");
       } else {
-        toast.success("アカウントを登録しました。")
+        toast.success("アカウントを登録しました。");
       }
     }
   };
