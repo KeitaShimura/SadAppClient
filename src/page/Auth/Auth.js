@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import BasicModal from "../../components/Modal/BasicModal";
 import RegisterForm from "../../components/RegisterForm";
+import LoginForm from "../../components/LoginForm";
 import "./Auth.scss";
 import PropTypes from "prop-types";
 
@@ -54,7 +55,7 @@ function RightComponent(props) {
         </Button>
         <Button
           variant="outline-primary"
-          onClick={() => openModal(<h2>ログイン</h2>)}
+          onClick={() => openModal(<LoginForm />)}
         >
           ログイン
         </Button>
