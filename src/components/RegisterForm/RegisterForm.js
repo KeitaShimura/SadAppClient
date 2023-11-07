@@ -1,18 +1,28 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-
-import "./RegisterForm.scss";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import {
+  values,
+  // size
+} from "lodash";
+// import { toast } from 'react-toastify';
+import "./RegisterForm.scss";
 
 export default function RegisterForm(props) {
-  const { setShowModal } = props;
+  // const { setShowModal } = props;
   const [formData, setFormData] = useState(initialFromValue());
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setShowModal(false);
-
     console.log(formData);
+
+    let validCount = 0;
+    values(formData).some((value) => {
+      value && validCount++;
+      return null;
+    });
+
+    console.log(validCount);
   };
 
   const onChange = (e) => {
