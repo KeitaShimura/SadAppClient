@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import {
+  size,
   values,
   // size
 } from "lodash";
 // import { toast } from 'react-toastify';
 import "./RegisterForm.scss";
+import { toast } from "react-toastify";
+import { isEmailValid } from "../../utils/validation";
 
 export default function RegisterForm(props) {
   // const { setShowModal } = props;
@@ -23,6 +26,20 @@ export default function RegisterForm(props) {
     });
 
     console.log(validCount);
+
+    if (validCount !== size(formData)) {
+      toast.warning("全ての項目を入力してください。");
+    } else {
+      if (!isEmailValid(formData.email)) {
+        toast.warning("メールアドレスの形式が異なります。");
+      } else if (formData.password !== formData.confirmPassword) {
+        toast.warning("パスワードが一致しません。");
+      } else if (size(formData.password) < 6) {
+        toast.warning("パスワードは6文字以上に設定してください。")
+      } else {
+        toast.success("アカウントを登録しました。")
+      }
+    }
   };
 
   const onChange = (e) => {
