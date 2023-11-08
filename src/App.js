@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Auth from "./page/Auth";
 import { ToastContainer } from "react-toastify";
+import Routing from "./routes/Routing";
 
 export default function App() {
   const [
@@ -12,10 +13,10 @@ export default function App() {
     <div>
       {user ? (
         <div>
-          <Auth />
+          <Routing />
         </div>
       ) : (
-        <h1>ログインしていません。</h1>
+        <Auth />
       )}
       <ToastContainer
         position="top-right"
