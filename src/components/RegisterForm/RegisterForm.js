@@ -53,16 +53,16 @@ export default function RegisterForm(props) {
         <Form.Group className="form-group">
           <Form.Control
             type="text"
-            placeholder="名前"
             name="name"
+            placeholder="名前"
             defaultValue={formData.name}
           />
         </Form.Group>
         <Form.Group className="form-group">
           <Form.Control
             type="email"
-            placeholder="メールアドレス"
             name="email"
+            placeholder="メールアドレス"
             defaultValue={formData.email}
           />
         </Form.Group>
@@ -71,16 +71,16 @@ export default function RegisterForm(props) {
             <Col>
               <Form.Control
                 type="password"
-                placeholder="パスワード"
                 name="password"
+                placeholder="パスワード"
                 defaultValue={formData.password}
               />
             </Col>
             <Col>
               <Form.Control
                 type="password"
-                placeholder="パスワード確認"
                 name="confirmPassword"
+                placeholder="パスワード確認"
                 defaultValue={formData.confirmPassword}
               />
             </Col>
