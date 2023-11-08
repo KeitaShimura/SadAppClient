@@ -6,10 +6,10 @@ import {
   values,
   // size
 } from "lodash";
-// import { toast } from 'react-toastify';
-import "./RegisterForm.scss";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../../utils/validation";
+
+import "./RegisterForm.scss";
 
 export default function RegisterForm(props) {
   // const { setShowModal } = props;
@@ -24,8 +24,6 @@ export default function RegisterForm(props) {
       value && validCount++;
       return null;
     });
-
-    console.log(validCount);
 
     if (validCount !== size(formData)) {
       toast.warning("全ての項目を入力してください。");

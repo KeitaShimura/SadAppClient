@@ -1,14 +1,38 @@
 import React, { useState } from "react";
 
 import "./LoginForm.scss";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
+import {
+  size,
+  values,
+  // size
+} from "lodash";
+import { toast } from "react-toastify";
+import { isEmailValid } from "../../utils/validation";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState(initialFromValue());
+  const [loginLoading, setLoginLoading] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    let validCount = 0;
+    values(formData).some((value) => {
+      value && validCount++;
+      return null;
+    });
+
+    if (validCount !== size(formData)) {
+      toast.warning("全ての項目を入力してください。");
+    } else {
+      if (!isEmailValid(formData.email)) {
+        toast.warning("メールアドレスの形式が異なります。");
+      } else {
+        setLoginLoading(true);
+        toast.success("アカウントを登録しました。");
+      }
+    }
   };
 
   const onChange = (e) => {
@@ -36,7 +60,7 @@ export default function LoginForm() {
           ></Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit">
-          ログイン
+          {!loginLoading ? "ログイン" : <Spinner animation="border" />}
         </Button>
       </Form>
     </div>
@@ -45,9 +69,7 @@ export default function LoginForm() {
 
 function initialFromValue() {
   return {
-    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   };
 }
