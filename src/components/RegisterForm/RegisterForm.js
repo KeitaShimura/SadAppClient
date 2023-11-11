@@ -92,6 +92,7 @@ export default function RegisterForm(props) {
   );
 }
 
+// propTypesでプロパティの型情報を指定
 RegisterForm.propTypes = {
   setShowModal: PropTypes.func.isRequired,
 };

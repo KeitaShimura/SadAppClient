@@ -21,7 +21,7 @@ export default function BasicModel(props) {
   );
 }
 
-// propTypesを追加してプロパティの型情報を指定
+// propTypesでプロパティの型情報を指定
 BasicModel.propTypes = {
   show: PropTypes.bool.isRequired, // 'show' プロパティの型情報を指定し、isRequiredを使って必須フィールドであることを示す
   setShow: PropTypes.func.isRequired, // 'setShow' プロパティの型情報を指定し、isRequiredを使って必須フィールドであることを示す

@@ -64,7 +64,7 @@ function RightComponent(props) {
   );
 }
 
-// propTypesを追加してプロパティの型情報を指定
+// propTypesでプロパティの型情報を指定
 RightComponent.propTypes = {
   openModal: PropTypes.func.isRequired,
   setShowModal: PropTypes.func.isRequired,
