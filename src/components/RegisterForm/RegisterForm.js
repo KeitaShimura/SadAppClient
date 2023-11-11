@@ -16,7 +16,6 @@ export default function RegisterForm(props) {
   const [formData, setFormData] = useState(initialFromValue());
   const [registerLoading, setRegisterLoading] = useState(false);
 
-
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
