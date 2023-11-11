@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Auth from "./page/Auth";
 import { ToastContainer } from "react-toastify";
-import Routing from "./routes/Routing";
+// import Routing from "./routes/Routing";
 
 export default function App() {
   const [
@@ -13,7 +13,8 @@ export default function App() {
     <div>
       {user ? (
         <div>
-          <Routing />
+          {/* <Routing /> */}
+          <Auth />
         </div>
       ) : (
         <Auth />

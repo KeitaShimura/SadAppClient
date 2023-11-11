@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import {
   size,
   values,
@@ -14,6 +14,8 @@ import "./RegisterForm.scss";
 export default function RegisterForm(props) {
   // const { setShowModal } = props;
   const [formData, setFormData] = useState(initialFromValue());
+  const [registerLoading, setRegisterLoading] = useState(false);
+
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -35,6 +37,7 @@ export default function RegisterForm(props) {
       } else if (size(formData.password) < 6) {
         toast.warning("パスワードは6文字以上に設定してください。");
       } else {
+        setRegisterLoading(true);
         toast.success("アカウントを登録しました。");
       }
     }
@@ -85,7 +88,7 @@ export default function RegisterForm(props) {
           </Row>
         </Form.Group>
         <Button variant="primary" type="submit">
-          登録
+          {!registerLoading ? "登録" : <Spinner animation="border" />}
         </Button>
       </Form>
     </div>
