@@ -13,7 +13,7 @@ import { registerApi } from "../../api/auth";
 import "./RegisterForm.scss";
 
 export default function RegisterForm(props) {
-  // const { setShowModal } = props;
+  const { setShowModal } = props;
   const [formData, setFormData] = useState(initialFromValue());
   const [registerLoading, setRegisterLoading] = useState(false);
 
@@ -32,13 +32,30 @@ export default function RegisterForm(props) {
     } else {
       if (!isEmailValid(formData.email)) {
         toast.warning("メールアドレスの形式が異なります。");
-      } else if (formData.password !== formData.confirmPassword) {
+      } else if (formData.password !== formData.password_confirm) {
         toast.warning("パスワードが一致しません。");
       } else if (size(formData.password) < 6) {
         toast.warning("パスワードは6文字以上に設定してください。");
       } else {
         setRegisterLoading(true);
-        registerApi(formData);
+        registerApi(formData)
+          .then((response) => {
+            if (response.code) {
+              toast.warning(response.message);
+            } else {
+              toast.success("アカウントを登録しました。");
+              setShowModal(false);
+              setFormData(initialFromValue());
+            }
+          })
+          .catch(() => {
+            toast.error(
+              "サーバーエラーが起こりました。時間を置いてもう一度試してください。",
+            );
+          })
+          .finally(() => {
+            setRegisterLoading(false);
+          });
       }
     }
   };
@@ -80,9 +97,9 @@ export default function RegisterForm(props) {
             <Col>
               <Form.Control
                 type="password"
-                name="confirmPassword"
+                name="password_confirm"
                 placeholder="パスワード確認"
-                defaultValue={formData.confirmPassword}
+                defaultValue={formData.password_confirm}
               />
             </Col>
           </Row>
@@ -105,6 +122,6 @@ function initialFromValue() {
     name: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    password_confirm: "",
   };
 }
