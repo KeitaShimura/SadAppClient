@@ -9,6 +9,7 @@ import {
 } from "lodash";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../../utils/validation";
+import { loginApi } from "../../api/auth";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState(initialFromValue());
@@ -30,7 +31,23 @@ export default function LoginForm() {
         toast.warning("メールアドレスの形式が異なります。");
       } else {
         setLoginLoading(true);
-        toast.success("アカウントを登録しました。");
+        loginApi(formData)
+          .then((response) => {
+            if (response.message) {
+              toast.warning(response.message);
+            } else {
+              toast.success("ログインしました。");
+              console.log(response.token);
+            }
+          })
+          .catch(() => {
+            toast.error(
+              "サーバーエラーが起こりました。時間を置いてもう一度試してください。",
+            );
+          })
+          .finally(() => {
+            setLoginLoading(false);
+          });
       }
     }
   };
