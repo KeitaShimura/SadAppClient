@@ -8,11 +8,11 @@ export default function App() {
   const [user, setUser] = useState(null);
   useEffect(() => {
     setUser(isUserLoggedAPI());
-  }, [])
+  }, []);
 
   return (
     <AuthContext.Provider value={user}>
-      {user ? <h1 style={{ color: 'red' }}>ログインしていますか</h1> : <Auth />}
+      {user ? <h1 style={{ color: "red" }}>ログインしていますか</h1> : <Auth />}
       <ToastContainer
         position="top-right"
         autoClose={5000}

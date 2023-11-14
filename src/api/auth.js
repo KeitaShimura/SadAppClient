@@ -60,36 +60,36 @@ export function setTokenApi(token) {
 }
 
 export function getTokenApi(token) {
-    return localStorage.getItem(TOKEN);
+  return localStorage.getItem(TOKEN);
 }
 
 export function logoutApi(token) {
-    return localStorage.removeItem(TOKEN);
+  return localStorage.removeItem(TOKEN);
 }
 
 export function isUserLoggedAPI() {
-    const token = getTokenApi();
+  const token = getTokenApi();
 
-    if (!token) {
-        logoutApi();
-        return null;
-    }
+  if (!token) {
+    logoutApi();
+    return null;
+  }
 
-    if (isExpired(token)) {
-        logoutApi();
-    }
+  if (isExpired(token)) {
+    logoutApi();
+  }
 
-    return jwtDecode(token);
+  return jwtDecode(token);
 }
 
 function isExpired(token) {
-    const { exp } = jwtDecode(token);
-    const expire = exp * 1000;
-    const timeout = expire - Date.new();
+  const { exp } = jwtDecode(token);
+  const expire = exp * 1000;
+  const timeout = expire - Date.new();
 
-    if (timeout < 0) {
-        return true;
-    }
+  if (timeout < 0) {
+    return true;
+  }
 
-    return false;
+  return false;
 }
