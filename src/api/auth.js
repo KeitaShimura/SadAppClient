@@ -55,5 +55,5 @@ export function loginApi(user) {
 }
 
 export function setTokenApi(token) {
-    localStorage.setItem(TOKEN, token);
+  localStorage.setItem(TOKEN, token);
 }
