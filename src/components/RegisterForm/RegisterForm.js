@@ -8,6 +8,7 @@ import {
 } from "lodash";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../../utils/validation";
+import { registerApi } from "../../api/auth";
 
 import "./RegisterForm.scss";
 
@@ -37,7 +38,7 @@ export default function RegisterForm(props) {
         toast.warning("パスワードは6文字以上に設定してください。");
       } else {
         setRegisterLoading(true);
-        toast.success("アカウントを登録しました。");
+        registerApi(formData);
       }
     }
   };
