@@ -8,7 +8,7 @@ import {
 } from "lodash";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../../utils/validation";
-import { registerApi } from "../../api/auth";
+import { registerApi, setTokenApi } from "../../api/auth";
 
 import "./RegisterForm.scss";
 
@@ -44,6 +44,7 @@ export default function RegisterForm(props) {
               toast.warning(response.message);
             } else {
               toast.success("アカウントを登録しました。");
+              setTokenApi(response.token);
               setShowModal(false);
               setFormData(initialFromValue());
             }

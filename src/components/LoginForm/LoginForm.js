@@ -9,7 +9,7 @@ import {
 } from "lodash";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../../utils/validation";
-import { loginApi } from "../../api/auth";
+import { loginApi, setTokenApi } from "../../api/auth";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState(initialFromValue());
@@ -37,7 +37,7 @@ export default function LoginForm() {
               toast.warning(response.message);
             } else {
               toast.success("ログインしました。");
-              console.log(response.token);
+              setTokenApi(response.token);
             }
           })
           .catch(() => {

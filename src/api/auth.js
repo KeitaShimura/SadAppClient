@@ -1,4 +1,4 @@
-import { API_HOST } from "../utils/constant";
+import { API_HOST, TOKEN } from "../utils/constant";
 
 export function registerApi(user) {
   const url = `${API_HOST}/api/user/register`;
@@ -52,4 +52,8 @@ export function loginApi(user) {
     .catch((err) => {
       return err;
     });
+}
+
+export function setTokenApi(token) {
+    localStorage.setItem(TOKEN, token);
 }
