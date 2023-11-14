@@ -6,13 +6,24 @@ import { isUserLoggedAPI } from "./api/auth";
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [refreshCheckLogin, setRefreshCheckLogin] = useState(false);
+  const [loadUser, setLoadUser] = useState(false);
+
   useEffect(() => {
     setUser(isUserLoggedAPI());
-  }, []);
+    setRefreshCheckLogin(false);
+    setLoadUser(true);
+  }, [refreshCheckLogin]);
+
+  if (!loadUser) return null;
 
   return (
     <AuthContext.Provider value={user}>
-      {user ? <h1 style={{ color: "red" }}>ログインしていますか</h1> : <Auth />}
+      {user ? (
+        <h1 style={{ color: "red" }}>ログインしていますか</h1>
+      ) : (
+        <Auth setRefreshCheckLogin={setRefreshCheckLogin} />
+      )}
       <ToastContainer
         position="top-right"
         autoClose={5000}

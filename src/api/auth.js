@@ -85,9 +85,9 @@ export function isUserLoggedAPI() {
 function isExpired(token) {
   const { exp } = jwtDecode(token);
   const expire = exp * 1000;
-  const timeout = expire - Date.new();
+  const currentTime = new Date().getTime(); // Use new Date() to get the current date and time
 
-  if (timeout < 0) {
+  if (expire < currentTime) {
     return true;
   }
 

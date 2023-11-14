@@ -6,7 +6,8 @@ import LoginForm from "../../components/LoginForm";
 import "./Auth.scss";
 import PropTypes from "prop-types";
 
-export default function Auth() {
+export default function Auth(props) {
+  const { setRefreshCheckLogin } = props;
   const [showModal, setShowModal] = useState(false);
   const [contentModal, setContentModal] = useState(null);
 
@@ -19,7 +20,11 @@ export default function Auth() {
       <Container className="auth" fluid>
         <Row>
           <LeftComponent />
-          <RightComponent openModal={openModal} setShowModal={setShowModal} />
+          <RightComponent
+            openModal={openModal}
+            setShowModal={setShowModal}
+            setRefreshCheckLogin={setRefreshCheckLogin}
+          />
         </Row>
       </Container>
       <BasicModal show={showModal} setShow={setShowModal}>
@@ -41,7 +46,7 @@ function LeftComponent() {
 }
 
 function RightComponent(props) {
-  const { openModal, setShowModal } = props;
+  const { openModal, setShowModal, setRefreshCheckLogin } = props;
   return (
     <Col className="auth__right" xs={6}>
       <div>
@@ -55,7 +60,9 @@ function RightComponent(props) {
         </Button>
         <Button
           variant="outline-primary"
-          onClick={() => openModal(<LoginForm />)}
+          onClick={() =>
+            openModal(<LoginForm setRefreshCheckLogin={setRefreshCheckLogin} />)
+          }
         >
           ログイン
         </Button>
@@ -64,8 +71,13 @@ function RightComponent(props) {
   );
 }
 
+Auth.propTypes = {
+  setRefreshCheckLogin: PropTypes.func.isRequired,
+};
+
 // propTypesでプロパティの型情報を指定
 RightComponent.propTypes = {
+  setRefreshCheckLogin: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
   setShowModal: PropTypes.func.isRequired,
 };

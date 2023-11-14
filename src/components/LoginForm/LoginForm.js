@@ -10,8 +10,10 @@ import {
 import { toast } from "react-toastify";
 import { isEmailValid } from "../../utils/validation";
 import { loginApi, setTokenApi } from "../../api/auth";
+import PropTypes from "prop-types";
 
-export default function LoginForm() {
+export default function LoginForm(props) {
+  const { setRefreshCheckLogin } = props;
   const [formData, setFormData] = useState(initialFromValue());
   const [loginLoading, setLoginLoading] = useState(false);
 
@@ -36,8 +38,8 @@ export default function LoginForm() {
             if (response.message) {
               toast.warning(response.message);
             } else {
-              toast.success("ログインしました。");
               setTokenApi(response.token);
+              setRefreshCheckLogin(true);
             }
           })
           .catch(() => {
@@ -90,3 +92,7 @@ function initialFromValue() {
     password: "",
   };
 }
+
+LoginForm.propTypes = {
+  setRefreshCheckLogin: PropTypes.func.isRequired,
+};
