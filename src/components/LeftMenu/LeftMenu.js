@@ -11,8 +11,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { logoutApi } from "../../api/auth";
 import { Button } from "react-bootstrap";
+import useAuth from "../../hooks/useAuth";
 
 export default function LeftMenu() {
+  const user = useAuth();
+  console.log(user);
   const logout = () => {
     logoutApi();
     window.location.reload();
@@ -27,11 +30,11 @@ export default function LeftMenu() {
         <FontAwesomeIcon icon={faVideo} />
         イベント一覧
       </Link>
-      <Link to="/users">
+      <Link to="/users/">
         <FontAwesomeIcon icon={faUsers} />
         ユーザー一覧
       </Link>
-      <Link to="/user">
+      <Link to={`user/${user?.sub}`}>
         <FontAwesomeIcon icon={faUser} />
         プロフィール
       </Link>
