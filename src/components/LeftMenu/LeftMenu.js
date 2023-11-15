@@ -9,9 +9,14 @@ import {
   faUsers,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
+import { logoutApi } from "../../api/auth";
 import { Button } from "react-bootstrap";
 
 export default function LeftMenu() {
+  const logout = () => {
+    logoutApi();
+    window.location.reload();
+  };
   return (
     <div className="left-menu">
       <h2>COCOLOTalk</h2>
@@ -30,7 +35,7 @@ export default function LeftMenu() {
         <FontAwesomeIcon icon={faUser} />
         プロフィール
       </Link>
-      <Link to="/logout">
+      <Link to="" onClick={logout}>
         <FontAwesomeIcon icon={faPowerOff} />
         ログアウト
       </Link>
