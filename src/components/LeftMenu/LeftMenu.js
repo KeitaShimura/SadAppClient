@@ -31,7 +31,7 @@ export default function LeftMenu() {
         <FontAwesomeIcon icon={faUsers} />
         ユーザー一覧
       </Link>
-      <Link to="/profile">
+      <Link to="/user">
         <FontAwesomeIcon icon={faUser} />
         プロフィール
       </Link>
