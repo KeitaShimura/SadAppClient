@@ -24,7 +24,8 @@ export default function LeftMenu() {
     <div className="left-menu">
       <h2>COCOLOTalk</h2>
       <Link to="/">
-        <FontAwesomeIcon icon={faHome} /> 投稿一覧
+        <FontAwesomeIcon icon={faHome} />
+        投稿一覧
       </Link>
       <Link to="/events">
         <FontAwesomeIcon icon={faVideo} />
