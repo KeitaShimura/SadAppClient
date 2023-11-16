@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import IconNotFound from "../../../assets/png/icon-no-found.png";
+import { Button } from "react-bootstrap";
 import "./BannerAvatar.scss";
 
 export default function BannerAvatar(props) {
@@ -11,13 +12,16 @@ export default function BannerAvatar(props) {
   console.log(user);
 
   return (
-    <div>
-      <div
-        className="banner-icon"
-        style={{ backgroundImage: `url(${bannerUrl})` }}
-      >
-        <div className="icon" style={{ backgroundImage: `url(${iconUrl})` }} />
-      </div>
+    <div
+      className="banner-icon"
+      style={{ backgroundImage: `url(${bannerUrl})` }}
+    >
+      <div className="icon" style={{ backgroundImage: `url(${iconUrl})` }} />
+      {user && (
+        <div className="options">
+          <Button>プロフィール編集</Button>
+        </div>
+      )}
     </div>
   );
 }
