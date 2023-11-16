@@ -1,8 +1,17 @@
 import React from "react";
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import BasicLayout from "../../layout/BasicLayout";
 import "./User.scss";
 
-export default function User() {
+function User() {
+  const location = useLocation();
+  const params = useParams();
+  const navigate = useNavigate();
+
+  console.log(location);
+  console.log(params.id);
+  console.log(navigate);
+
   return (
     <BasicLayout className="user">
       <div className="user__title">
@@ -14,3 +23,5 @@ export default function User() {
     </BasicLayout>
   );
 }
+
+export default User;
