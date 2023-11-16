@@ -35,7 +35,7 @@ function User() {
         <h2>{user ? user.name : "このユーザーは存在しません。"}</h2>
       </div>
       <div>バナー</div>
-      <div>ユーザー情報</div>
+      <div>{user ? user.bio : "このユーザーは存在しません。"}</div>
       <div className="user__posts">投稿一覧</div>
     </BasicLayout>
   );
