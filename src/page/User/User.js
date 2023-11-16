@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import BasicLayout from "../../layout/BasicLayout";
-import "./User.scss";
+import BannerAvatar from "../../components/User/BannerAvatar";
 import { getUserApi } from "../../api/user";
 import { toast } from "react-toastify";
+
+import "./User.scss";
 
 function User() {
   const location = useLocation();
@@ -34,7 +36,7 @@ function User() {
       <div className="user__title">
         <h2>{user ? user.name : "このユーザーは存在しません。"}</h2>
       </div>
-      <div>バナー</div>
+      <BannerAvatar user={user} />
       <div>{user ? user.bio : "このユーザーは存在しません。"}</div>
       <div className="user__posts">投稿一覧</div>
     </BasicLayout>
