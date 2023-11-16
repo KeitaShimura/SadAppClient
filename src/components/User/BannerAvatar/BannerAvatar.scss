@@ -1,10 +1,24 @@
 @import "../../../scss/index.scss";
 
-.banner-avatar {
+.banner-icon {
   position: relative;
-  background-color: $background-dark-light;
+  background-color: $background-light;
   height: 220px;
   margin-bottom: 60px;
   background-color: cover;
   background-position: center;
+
+  .icon {
+    position: absolute;
+    bottom: -50px;
+    left: 20px;
+    background-color: $background-light;
+    width: 150px;
+    height: 150px;
+    border: 4px solid $border-dark;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
