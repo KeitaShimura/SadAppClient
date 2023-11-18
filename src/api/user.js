@@ -9,7 +9,7 @@ export function getUserApi(id) {
   const params = {
     headers: {
       "Content-Type": "application/json",
-      Authenticator: `${getTokenApi()}`, // トークンを取得して認証ヘッダーに設定
+      Authorization: `Bearer ${getTokenApi()}`
     },
   };
 
