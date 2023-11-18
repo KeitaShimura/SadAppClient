@@ -1,7 +1,8 @@
 import React from "react";
-
-import "./EditUserForm.scss";
+import DatePicker from "react-datepicker";
+import ja from "date-fns/locale/ja";
 import { Button, Form } from "react-bootstrap";
+import "./EditUserForm.scss";
 
 export default function EdigUserForm() {
   const onSubmit = (e) => {
@@ -25,6 +26,15 @@ export default function EdigUserForm() {
         </Form.Group>
         <Form.Group className="form-group">
           <Form.Control type="text" name="website" placeholder="ウェブサイト" />
+        </Form.Group>
+
+        <Form.Group>
+          <DatePicker
+            dateFormat="yyyy/MM/dd"
+            locale={ja}
+            selected={new Date()}
+            placeholder="生年月日"
+          />
         </Form.Group>
         <Button variant="primary" type="submit">
           更新
