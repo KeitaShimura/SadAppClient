@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import IconNotFound from "../../../assets/png/icon-no-found.png";
 import { Button } from "react-bootstrap";
 import ConfigModal from "../../Modal/ConfigModal";
+import EditUserForm from "../../User/EdigUserForm";
+import IconNotFound from "../../../assets/png/icon-no-found.png";
 
 import "./BannerAvatar.scss";
 
@@ -33,16 +34,7 @@ export default function BannerAvatar(props) {
         setShow={setShowModal}
         title="プロフィール編集"
       >
-        <p>dddd</p>
-        <p>dddd</p>
-        <p>dddd</p>
-        <p>dddd</p>
-        <p>dddd</p>
-        <p>dddd</p>
-        <p>dddd</p>
-        <p>dddd</p>
-        <p>dddd</p>
-        <p>dddd</p>
+        <EditUserForm user={user} setShowModal={setShowModal} />
       </ConfigModal>
     </div>
   );

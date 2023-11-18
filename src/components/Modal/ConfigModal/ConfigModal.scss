@@ -4,15 +4,13 @@
   .modal-content {
     background-color: $background-light;
     border-radius: 25px;
-    overflow: hidden;
 
     .modal-header {
-      border-bottom: 1px solid $border-gray;
       padding: 15px;
+      border: 0;
 
       .modal-title {
-        display: flex;
-        align-items: center;
+        margin: 0 auto;
 
         svg {
           width: 15px;
@@ -25,16 +23,11 @@
             cursor: center;
           }
         }
-
-        h2 {
-          font-size: 18px;
-          margin: 0;
-        }
       }
     }
 
     .modal-body {
-      padding: 0;
+      padding: 20px 40px 40px 40px;
     }
   }
 }
