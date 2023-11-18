@@ -1,4 +1,45 @@
 @import "../../../scss/index.scss";
 
 .user-info {
+  margin: 20px;
+
+  * {
+    margin: 0;
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+    fill: $font-grey;
+  }
+
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .bio {
+    margin: 10px 0;
+    white-space: pre-line;
+  }
+
+  .more-info {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    p,
+    a {
+      color: $font-grey;
+      padding-bottom: 5px;
+
+      svg {
+        margin-right: 10px;
+      }
+    }
+
+    a {
+      color: $primary;
+    }
+  }
 }
