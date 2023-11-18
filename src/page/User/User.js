@@ -6,12 +6,16 @@ import { getUserApi } from "../../api/user";
 import { toast } from "react-toastify";
 
 import "./User.scss";
+import useAuth from "../../hooks/useAuth";
 
 function User() {
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const authUser = useAuth();
+
+  console.log(authUser);
 
   console.log(location);
   console.log(params.id);
@@ -36,7 +40,7 @@ function User() {
       <div className="user__title">
         <h2>{user ? user.name : "このユーザーは存在しません。"}</h2>
       </div>
-      <BannerAvatar user={user} />
+      <BannerAvatar user={user} authUser={authUser} />
       <div>{user ? user.bio : "このユーザーは存在しません。"}</div>
       <div className="user__posts">投稿一覧</div>
     </BasicLayout>
