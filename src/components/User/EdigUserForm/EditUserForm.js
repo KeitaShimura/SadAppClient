@@ -5,16 +5,22 @@ import ja from "date-fns/locale/ja";
 import moment from "moment";
 import { useDropzone } from "react-dropzone";
 import PropTypes from "prop-types";
+import { Camera } from "../../../utils/icons";
 
 import "./EditUserForm.scss";
 
 export default function EditUserForm(props) {
   const { user, setShowModal } = props;
   const [formData, setFormData] = useState(initialFromValue(user));
-  const bannerUrl = user?.banner ? user.banner : null;
+  const [bannerUrl, setBannerUrl] = useState(user?.banner || null);
+  const [bannerFile, setBannerFile] = useState(null);
+  const [iconUrl, setIconUrl] = useState(user?.icon || null);
+  const [iconFile, setIconFile] = useState(null);
 
   const onDropBanner = useCallback((acceptedFile) => {
-    console.log(acceptedFile);
+    const file = acceptedFile[0];
+    setBannerUrl(URL.createObjectURL(file));
+    setBannerFile(file);
   });
 
   const {
@@ -27,7 +33,19 @@ export default function EditUserForm(props) {
     onDrop: onDropBanner,
   });
 
-  console.log(user.banner);
+  const onDropIcon = useCallback((acceptedFile) => {
+    const file = acceptedFile[0];
+    setIconUrl(URL.createObjectURL(file));
+    setIconFile(file);
+  });
+
+  const { getRootProps: getRootIconProps, getInputProps: getInputIconProps } =
+    useDropzone({
+      accept: "image/jpeg, image/png",
+      noKeyboard: true,
+      multiple: false,
+      onDrop: onDropIcon,
+    });
 
   useEffect(() => {
     setFormData(initialFromValue(user));
@@ -39,17 +57,27 @@ export default function EditUserForm(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log(bannerFile);
+    console.log(iconFile);
   };
 
   return (
     <div className="edit-user-form">
       <div
-        className="banner-icon"
+        className="banner"
         style={{ backgroundImage: `url(${bannerUrl})` }}
         {...getRootBannerProps()}
       >
         <input {...getInputBannerProps()} />
+        <Camera />
+      </div>
+      <div
+        className="icon"
+        style={{ backgroundImage: `url(${iconUrl})` }}
+        {...getRootIconProps()}
+      >
+        <input {...getInputIconProps()} />
+        <Camera />
       </div>
       <Form onSubmit={onSubmit}>
         <Form.Group className="form-group">
