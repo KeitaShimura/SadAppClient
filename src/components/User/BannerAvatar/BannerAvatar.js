@@ -42,9 +42,9 @@ export default function BannerAvatar(props) {
 
 BannerAvatar.propTypes = {
   user: PropTypes.shape({
+    id: PropTypes.number,
     icon: PropTypes.string,
     banner: PropTypes.string,
-    id: PropTypes.number,
   }),
   authUser: PropTypes.shape({
     sub: PropTypes.string,

@@ -1,15 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Button, Form } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import ja from "date-fns/locale/ja";
-import { Button, Form } from "react-bootstrap";
+import moment from "moment";
+import { useDropzone } from "react-dropzone";
 import PropTypes from "prop-types";
 
 import "./EditUserForm.scss";
-import moment from "moment";
 
 export default function EditUserForm(props) {
   const { user, setShowModal } = props;
   const [formData, setFormData] = useState(initialFromValue(user));
+  const bannerUrl = user?.banner ? user.banner : null;
+
+  const onDropBanner = useCallback((acceptedFile) => {
+    console.log(acceptedFile);
+  });
+
+  const {
+    getRootProps: getRootBannerProps,
+    getInputProps: getInputBannerProps,
+  } = useDropzone({
+    accept: "image/jpeg, image/png",
+    noKeyboard: true,
+    multiple: false,
+    onDrop: onDropBanner,
+  });
+
+  console.log(user.banner);
 
   useEffect(() => {
     setFormData(initialFromValue(user));
@@ -26,6 +44,13 @@ export default function EditUserForm(props) {
 
   return (
     <div className="edit-user-form">
+      <div
+        className="banner-icon"
+        style={{ backgroundImage: `url(${bannerUrl})` }}
+        {...getRootBannerProps()}
+      >
+        <input {...getInputBannerProps()} />
+      </div>
       <Form onSubmit={onSubmit}>
         <Form.Group className="form-group">
           <Form.Control
@@ -105,6 +130,8 @@ EditUserForm.propTypes = {
     website: PropTypes.string,
     location: PropTypes.string,
     birth_date: PropTypes.string,
+    icon: PropTypes.string,
+    banner: PropTypes.string,
   }),
   setShowModal: PropTypes.func.isRequired,
 };
