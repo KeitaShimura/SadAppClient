@@ -1,0 +1,26 @@
+@import "../../scss/index.scss";
+
+.post-modal {
+  .modal-content {
+    background-color: $background-light;
+    border-radius: 25px;
+    overflow: hidden;
+
+    .modal-header {
+      border-bottom: 1px solid $border-gray;
+      padding: 15px;
+
+      .modal-title {
+        svg {
+          width: 15px;
+          height: 15px;
+          fill: $primary;
+          margin-left: 10px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

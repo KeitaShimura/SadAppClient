@@ -1,6 +1,8 @@
-import React from "react";
-import "./LeftMenu.scss";
+import React, { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
+import { logoutApi } from "../../api/auth";
+import PostModal from "../PostModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -9,11 +11,13 @@ import {
   faUsers,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
-import { logoutApi } from "../../api/auth";
 import { Button } from "react-bootstrap";
-import useAuth from "../../hooks/useAuth";
+
+import "./LeftMenu.scss";
 
 export default function LeftMenu() {
+  const [showModal, setShowModal] = useState(true);
+
   const user = useAuth();
   console.log(user);
   const logout = () => {
@@ -43,7 +47,11 @@ export default function LeftMenu() {
         <FontAwesomeIcon icon={faPowerOff} />
         ログアウト
       </Link>
-      <Button>COCOLOTalk</Button>
+
+      <Button onClick={() => setShowModal(true)}>投稿する</Button>
+      <PostModal show={showModal} setShow={setShowModal} />
+
+      <Button>イベントを投稿する</Button>
     </div>
   );
 }
