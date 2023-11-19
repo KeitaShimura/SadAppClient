@@ -1,57 +1,35 @@
-import { jwtDecode } from "jwt-decode";
+import axios from 'axios';
 import { API_HOST, TOKEN } from "../utils/constant";
+import { jwtDecode } from 'jwt-decode';
 
 export function registerApi(user) {
   const url = `${API_HOST}/api/user/register`;
-  const userTemp = user;
 
-  const params = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userTemp),
-  };
-
-  return fetch(url, params)
-    .then((response) => {
-      if (response.status >= 200 && response.status < 300) {
-        return response.json();
-      }
-      return { code: 404, message: "このメールは利用できません。" };
+  return axios.post(url, user, { withCredentials: true })
+    .then(response => {
+      // 登録成功時の処理
+      return response.data;
     })
-    .then((result) => {
-      return result;
-    })
-    .catch((err) => {
-      return err;
+    .catch(err => {
+      // エラーハンドリング
+      return err.response.data;
     });
 }
 
 export function loginApi(user) {
   const url = `${API_HOST}/api/user/login`;
-  const userTemp = user;
 
-  const params = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userTemp),
-  };
-
-  return fetch(url, params)
-    .then((response) => {
-      if (response.status >= 200 && response.status < 300) {
-        return response.json();
+  return axios.post(url, user, { withCredentials: true })
+    .then(response => {
+      // ログイン成功時の処理
+      if (response.data.token) {
+        setTokenApi(response.data.token);
       }
-      return { message: "ユーザーネームまたはパスワードが違います。" };
+      return response.data;
     })
-    .then((result) => {
-      return result;
-    })
-    .catch((err) => {
-      return err;
+    .catch(err => {
+      // エラーハンドリング
+      return err.response.data;
     });
 }
 
@@ -59,7 +37,7 @@ export function setTokenApi(token) {
   localStorage.setItem(TOKEN, token);
 }
 
-export function getTokenApi(token) {
+export function getTokenApi() {
   return localStorage.getItem(TOKEN);
 }
 

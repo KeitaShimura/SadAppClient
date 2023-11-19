@@ -1,4 +1,5 @@
-import { API_HOST } from "../utils/constant";
+import axios from "axios";
+import { API_HOST, TOKEN } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
 export function getUserApi(id) {
@@ -32,4 +33,38 @@ export function getUserApi(id) {
       // エラーフラグとメッセージを含むオブジェクトを返す
       return { error: true, message: err.message };
     });
+}
+
+export function updateUserData(bannerFile, iconFile, profileData) {
+  const formData = new FormData();
+
+  // バナーとアバターファイルを追加（存在する場合）
+  if (bannerFile) formData.append("banner", bannerFile);
+  if (iconFile) formData.append("icon", iconFile);
+
+  // プロフィールデータを追加（存在する場合）
+  if (profileData) {
+    for (const key in profileData) {
+      formData.append(key, profileData[key]);
+    }
+  }
+
+  const token = localStorage.getItem(TOKEN);
+
+  return axios.put(`${API_HOST}/api/user/user`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  })
+  .then(response => {
+    // 成功時の処理
+    console.log("Updated Data:", response.data);
+    return response.data;
+  })
+  .catch(error => {
+    // エラーハンドリング
+    console.error('Error:', error.response ? error.response.data : error);
+  });
 }

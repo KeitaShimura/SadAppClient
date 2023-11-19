@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button } from "react-bootstrap";
 import ConfigModal from "../../Modal/ConfigModal";
-import EditUserForm from "../../User/EdigUserForm";
+import EditUserForm from "../../User/EditUserForm";
 import IconNotFound from "../../../assets/png/icon-no-found.png";
 
 import "./BannerAvatar.scss";
