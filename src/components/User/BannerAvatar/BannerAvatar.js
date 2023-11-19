@@ -14,6 +14,10 @@ export default function BannerAvatar(props) {
   const iconUrl = user?.icon ? user.icon : IconNotFound;
   const bannerUrl = user?.banner ? user.banner : null;
 
+  if (user) {
+    console.log(user.id, typeof authUser.sub);
+  }
+  
   return (
     <div
       className="banner-icon"
@@ -22,10 +26,10 @@ export default function BannerAvatar(props) {
       <div className="icon" style={{ backgroundImage: `url(${iconUrl})` }} />
       {user && (
         <div className="options">
-          {authUser.sub !== user.id && (
+          {Number(authUser.sub) === user.id && (
             <Button onClick={() => setShowModal(true)}>プロフィール編集</Button>
           )}
-          {authUser.sub !== user.id && <Button>フォローする</Button>}
+          {Number(authUser.sub) !== user.id && <Button>フォローする</Button>}
         </div>
       )}
 
