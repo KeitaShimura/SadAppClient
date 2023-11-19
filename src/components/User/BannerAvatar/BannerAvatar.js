@@ -75,8 +75,11 @@ export default function BannerAvatar(props) {
           )}
           {Number(authUser.sub) !== user.id &&
             (isFollowing ? (
-              <Button onClick={(event) => handleUnfollow(user.id, event)}>
-                フォロー解除
+              <Button
+                className="unfollow"
+                onClick={(event) => handleUnfollow(user.id, event)}
+              >
+                <span>フォロー解除</span>
               </Button>
             ) : (
               <Button onClick={(event) => handleFollow(user.id, event)}>
