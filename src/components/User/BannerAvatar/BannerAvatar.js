@@ -17,7 +17,7 @@ export default function BannerAvatar(props) {
   if (user) {
     console.log(user.id, typeof authUser.sub);
   }
-  
+
   return (
     <div
       className="banner-icon"
