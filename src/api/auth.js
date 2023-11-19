@@ -1,16 +1,17 @@
-import axios from 'axios';
+import axios from "axios";
 import { API_HOST, TOKEN } from "../utils/constant";
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 export function registerApi(user) {
   const url = `${API_HOST}/api/user/register`;
 
-  return axios.post(url, user, { withCredentials: true })
-    .then(response => {
+  return axios
+    .post(url, user, { withCredentials: true })
+    .then((response) => {
       // 登録成功時の処理
       return response.data;
     })
-    .catch(err => {
+    .catch((err) => {
       // エラーハンドリング
       return err.response.data;
     });
@@ -19,15 +20,16 @@ export function registerApi(user) {
 export function loginApi(user) {
   const url = `${API_HOST}/api/user/login`;
 
-  return axios.post(url, user, { withCredentials: true })
-    .then(response => {
+  return axios
+    .post(url, user, { withCredentials: true })
+    .then((response) => {
       // ログイン成功時の処理
       if (response.data.token) {
         setTokenApi(response.data.token);
       }
       return response.data;
     })
-    .catch(err => {
+    .catch((err) => {
       // エラーハンドリング
       return err.response.data;
     });

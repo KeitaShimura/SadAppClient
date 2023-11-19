@@ -51,20 +51,21 @@ export function updateUserData(bannerFile, iconFile, profileData) {
 
   const token = localStorage.getItem(TOKEN);
 
-  return axios.put(`${API_HOST}/api/user/user`, formData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-    withCredentials: true
-  })
-  .then(response => {
-    // 成功時の処理
-    console.log("Updated Data:", response.data);
-    return response.data;
-  })
-  .catch(error => {
-    // エラーハンドリング
-    console.error('Error:', error.response ? error.response.data : error);
-  });
+  return axios
+    .put(`${API_HOST}/api/user/user`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    })
+    .then((response) => {
+      // 成功時の処理
+      console.log("Updated Data:", response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      // エラーハンドリング
+      console.error("Error:", error.response ? error.response.data : error);
+    });
 }

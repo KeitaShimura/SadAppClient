@@ -56,12 +56,12 @@ export default function EditUserForm(props) {
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };  
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     await updateUserData(bannerFile, iconFile, formData)
       .then(() => {
         setShowModal(false);
@@ -70,11 +70,10 @@ export default function EditUserForm(props) {
       .catch(() => {
         toast.error("Error al actualizar los datos");
       });
-  
-    setLoading(false);
-  };
-  
 
+    setLoading(false);
+    window.location.reload(); // この行は必要に応じて調整
+  };
 
   return (
     <div className="edit-user-form">
