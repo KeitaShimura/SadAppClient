@@ -16,7 +16,7 @@ import { Button } from "react-bootstrap";
 import "./LeftMenu.scss";
 
 export default function LeftMenu() {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const user = useAuth();
   console.log(user);

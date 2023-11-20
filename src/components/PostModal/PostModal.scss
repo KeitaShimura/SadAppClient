@@ -40,6 +40,9 @@
         }
         .count {
           margin: 15px;
+          &.error {
+            color: $danger;
+          }
         }
         button {
           width: 100%;

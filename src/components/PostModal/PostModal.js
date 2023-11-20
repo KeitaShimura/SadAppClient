@@ -2,19 +2,17 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Modal, Form } from "react-bootstrap";
 import { Close } from "../../utils/icons";
+import classNames from "classnames";
 import "./PostModal.scss";
 
 export default function PostModal(props) {
   const { show, setShow } = props;
   const [message, setMessage] = useState("");
+  const maxLength = 200;
 
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const onSubmit = (e) => {
+    e.preventDefault();
     console.log("Message submitted:", message);
-  };
-
-  const handleChange = (event) => {
-    setMessage(event.target.value);
   };
 
   return (
@@ -36,11 +34,22 @@ export default function PostModal(props) {
             as="textarea"
             rows={6}
             value={message}
-            onChange={handleChange}
+            onChange={(e) => setMessage(e.target.value)}
             placeholder="今の気持ちを共有してみましょう！"
           />
-          <span className="count">{message.length}</span>
-          <Button type="submit">投稿する</Button>
+          <span
+            className={classNames("count", {
+              error: message.length > maxLength,
+            })}
+          >
+            {message.length}
+          </span>
+          <Button
+            type="submit"
+            disabled={message.length > maxLength || message.length < 1}
+          >
+            投稿する
+          </Button>
         </Form>
       </Modal.Body>
     </Modal>
