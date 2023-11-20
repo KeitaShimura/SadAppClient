@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_HOST, TOKEN } from "../utils/constant";
+import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
 export function getUserApi(id) {
@@ -49,12 +49,10 @@ export function updateUserData(bannerFile, iconFile, profileData) {
     }
   }
 
-  const token = localStorage.getItem(TOKEN);
-
   return axios
     .put(`${API_HOST}/api/user/user`, formData, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getTokenApi()}`,
         "Content-Type": "application/json",
       },
       withCredentials: true,

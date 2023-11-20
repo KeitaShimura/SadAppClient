@@ -1,10 +1,8 @@
 import axios from "axios";
-import { API_HOST, TOKEN } from "../utils/constant";
+import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
 export function followUserApi(userId) {
-  const token = localStorage.getItem(TOKEN);
-
   const url = `${API_HOST}/api/user/follow/${userId}`; // Adjust the endpoint as needed
 
   return axios
@@ -13,7 +11,7 @@ export function followUserApi(userId) {
       {},
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${getTokenApi()}`,
           "Content-Type": "application/json",
         },
         withCredentials: true,
@@ -28,14 +26,12 @@ export function followUserApi(userId) {
 }
 
 export function unfollowUserApi(userId) {
-  const token = localStorage.getItem(TOKEN);
-
   const url = `${API_HOST}/api/user/unfollow/${userId}`; // Replace with your API endpoint for unfollow
 
   return axios
     .delete(url, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getTokenApi()}`,
         "Content-Type": "application/json",
       },
       withCredentials: true,
@@ -49,14 +45,12 @@ export function unfollowUserApi(userId) {
 }
 
 export function checkIfFollowingApi(authUserId, targetUserId) {
-  console.log(targetUserId);
-  const token = localStorage.getItem(TOKEN);
   const url = `${API_HOST}/api/user/check_if_following/${targetUserId}`;
 
   return axios
     .get(url, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getTokenApi()}`,
         "Content-Type": "application/json",
       },
       withCredentials: true,
@@ -70,14 +64,12 @@ export function checkIfFollowingApi(authUserId, targetUserId) {
 }
 
 export function getFollowingListApi(userId) {
-  const token = localStorage.getItem(TOKEN);
-
   const url = `${API_HOST}/api/following/${userId}`; // Replace with your API endpoint for fetching following list
 
   return axios
     .get(url, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getTokenApi()}`,
         "Content-Type": "application/json",
       },
     })
@@ -90,13 +82,12 @@ export function getFollowingListApi(userId) {
 }
 
 export function getFollowerListApi(userId) {
-  const token = getTokenApi(); // Retrieve the token
   const url = `${API_HOST}/api/followers/${userId}`; // Replace with your API endpoint for fetching followers list
 
   return axios
     .get(url, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getTokenApi()}`,
       },
     })
     .then((response) => {
