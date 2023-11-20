@@ -3,16 +3,33 @@ import PropTypes from "prop-types";
 import { Button, Modal, Form } from "react-bootstrap";
 import { Close } from "../../utils/icons";
 import classNames from "classnames";
+import { createPostApi } from "../../api/post";
 import "./PostModal.scss";
+import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 export default function PostModal(props) {
   const { show, setShow } = props;
   const [message, setMessage] = useState("");
   const maxLength = 200;
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("Message submitted:", message);
+    try {
+      // Call createPostApi with the message
+      const response = await createPostApi({ description: message });
+      console.log("Post created:", response.data);
+
+      // Clear the message and close the modal
+      toast.success(response.message);
+      setShow(false);
+    } catch (error) {
+      // Handle any errors here
+      console.error("Error creating post:", error);
+      toast.warning(
+        "ツイートの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
+      );
+    }
   };
 
   return (
@@ -33,6 +50,8 @@ export default function PostModal(props) {
           <Form.Control
             as="textarea"
             rows={6}
+            type="text"
+            name="description"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="今の気持ちを共有してみましょう！"
