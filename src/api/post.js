@@ -12,8 +12,8 @@ export function getPostsApi() {
 }
 
 // Fetch all posts
-export function getUserPostsApi(id) {
-  const url = `${API_HOST}/api/user/user_posts/${id}`;
+export function getUserPostsApi(id, page, pageSize) {
+  const url = `${API_HOST}/api/user/user_posts/${id}?page=${page}&pageSize=${pageSize}`;
 
   const params = {
     headers: {

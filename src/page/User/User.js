@@ -10,15 +10,30 @@ import UserInfo from "../../components/User/UserInfo";
 import ListPosts from "../../components/ListPosts";
 
 import "./User.scss";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 
 function User() {
   const params = useParams();
   const authUser = useAuth();
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState(null);
+  const [page, setPage] = useState(1);
+  const [loadingPosts, setLoadingPosts] = useState(false);
+
   const moreData = () => {
-    console.log("テストテスト");
+    const pageTemp = page + 1;
+    const pageSize = 50;
+    setLoadingPosts(true);
+
+    getUserPostsApi(params.id, pageTemp, pageSize).then((response) => {
+      if (!response) {
+        setLoadingPosts(0);
+      } else {
+        setPosts([...posts, ...response]);
+        setPage(pageTemp);
+        setLoadingPosts(false);
+      }
+    });
   };
 
   useEffect(() => {
@@ -56,7 +71,19 @@ function User() {
       <div className="user__posts">
         <h3>投稿一覧</h3>
         {posts && <ListPosts posts={posts} />}
-        <Button onClick={moreData}>もっと見る</Button>
+        <Button onClick={moreData}>
+          {!loadingPosts ? (
+            loadingPosts !== 0 && "もっと見る"
+          ) : (
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          )}
+        </Button>
       </div>
     </BasicLayout>
   );
