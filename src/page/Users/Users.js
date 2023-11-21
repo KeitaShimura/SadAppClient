@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./Users.scss";
 import BasicLayout from "../../layout/BasicLayout";
+import { Button, ButtonGroup } from "react-bootstrap";
 
 export default function Users(props) {
   const { setRefreshCheckLogin } = props;
@@ -11,8 +12,16 @@ export default function Users(props) {
       className="users"
       title="users"
       setRefreshCheckLogin={setRefreshCheckLogin}
-    >
-      <h2>ユーザー一覧</h2>
+      >
+          <div className="users__title">
+              <h2>ユーザー一覧</h2>
+              <input type="text" placeholder="同じ悩みを持つ仲間を探してみましょう！" />
+          </div>
+    
+          <ButtonGroup className="users__options">
+              <Button>フォロー中</Button>
+              <Button>フォロワー</Button>
+          </ButtonGroup>
     </BasicLayout>
   );
 }
