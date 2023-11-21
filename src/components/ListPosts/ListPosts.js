@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 import { Image } from "react-bootstrap";
 import { map } from "lodash";
-
-import IconNotFound from "../../assets/png/icon-no-found.png";
-
+import { replaceURLWithHTMLLinks } from "../../utils/functions";
 import "./ListPosts.scss";
-import moment from "moment";
+import IconNotFound from "../../assets/png/icon-no-found.png";
 
 export default function ListPosts(props) {
   const { posts } = props;
@@ -40,7 +39,11 @@ function Post(props) {
           {post.user.name}
           <span>{moment(post.created_at).calendar()}</span>
         </div>
-        <div>{post.description}</div>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: replaceURLWithHTMLLinks(post.description),
+          }}
+        ></div>
       </div>
     </div>
   );
