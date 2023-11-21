@@ -23,12 +23,14 @@ export default function PostModal(props) {
       // Clear the message and close the modal
       toast.success(response.message);
       setShow(false);
+      window.location.reload();
     } catch (error) {
       // Handle any errors here
       console.error("Error creating post:", error);
       toast.warning(
         "ツイートの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
       );
+      window.location.reload();
     }
   };
 

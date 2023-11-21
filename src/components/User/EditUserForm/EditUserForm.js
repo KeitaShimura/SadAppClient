@@ -7,9 +7,9 @@ import moment from "moment";
 import { useDropzone } from "react-dropzone";
 import PropTypes from "prop-types";
 import { Camera } from "../../../utils/icons";
+import { toast } from "react-toastify";
 
 import "./EditUserForm.scss";
-import { toast } from "react-toastify";
 
 export default function EditUserForm(props) {
   const { user, setShowModal } = props;

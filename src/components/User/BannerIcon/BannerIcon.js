@@ -7,12 +7,12 @@ import {
 import PropTypes from "prop-types";
 import { Button } from "react-bootstrap";
 import ConfigModal from "../../Modal/ConfigModal";
-import EditUserForm from "../../User/EditUserForm";
+import EditUserForm from "../EditUserForm";
 import IconNotFound from "../../../assets/png/icon-no-found.png";
 
-import "./BannerAvatar.scss";
+import "./BannerIcon.scss";
 
-export default function BannerAvatar(props) {
+export default function BannerIcon(props) {
   const { user, authUser } = props;
   // Correct usage of useState
   const [showModal, setShowModal] = useState(false);
@@ -100,7 +100,7 @@ export default function BannerAvatar(props) {
   );
 }
 
-BannerAvatar.propTypes = {
+BannerIcon.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number,
     icon: PropTypes.string,

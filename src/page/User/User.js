@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { getUserPostsApi } from "../../api/post";
 import { getUserApi } from "../../api/user";
 import BasicLayout from "../../layout/BasicLayout";
-import BannerAvatar from "../../components/User/BannerAvatar";
+import BannerIcon from "../../components/User/BannerIcon";
 import UserInfo from "../../components/User/UserInfo";
-import { toast } from "react-toastify";
+import ListPosts from "../../components/ListPosts";
 
 import "./User.scss";
 
@@ -46,16 +47,11 @@ function User() {
       <div className="user__title">
         <h2>{user ? user.name : "このユーザーは存在しません。"}</h2>
       </div>
-      <BannerAvatar user={user} authUser={authUser} />
+      <BannerIcon user={user} authUser={authUser} />
       <UserInfo user={user} />
       <div className="user__posts">
-        {posts &&
-          posts.map((post) => (
-            <div key={post.id}>
-              <p>{post.description}</p>
-              <p>{post.created_at}</p>
-            </div>
-          ))}
+        <h3>投稿一覧</h3>
+        {posts && <ListPosts posts={posts} />}
       </div>
     </BasicLayout>
   );
