@@ -10,12 +10,16 @@ import UserInfo from "../../components/User/UserInfo";
 import ListPosts from "../../components/ListPosts";
 
 import "./User.scss";
+import { Button } from "react-bootstrap";
 
 function User() {
   const params = useParams();
   const authUser = useAuth();
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState(null);
+  const moreData = () => {
+    console.log("テストテスト");
+  };
 
   useEffect(() => {
     getUserApi(params.id)
@@ -52,6 +56,7 @@ function User() {
       <div className="user__posts">
         <h3>投稿一覧</h3>
         {posts && <ListPosts posts={posts} />}
+        <Button onClick={moreData}>もっと見る</Button>
       </div>
     </BasicLayout>
   );
