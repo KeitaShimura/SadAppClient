@@ -1,6 +1,7 @@
 import Error404 from "../page/Error404";
 import Home from "../page/Home";
 import User from "../page/User";
+import Users from "../page/Users";
 
 export default [
   {
@@ -10,6 +11,10 @@ export default [
   {
     path: "/user/:id",
     element: <User />,
+  },
+  {
+    path: "/users",
+    element: <Users />,
   },
   {
     path: "*",
