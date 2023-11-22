@@ -22,6 +22,7 @@ function User(props) {
   const [page, setPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(false);
 
+  console.log(posts);
   const moreData = () => {
     const pageTemp = page + 1;
     const pageSize = 50;

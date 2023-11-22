@@ -36,8 +36,12 @@ function Post(props) {
       <Image className="icon" src={iconUrl} roundedCircle />
       <div>
         <div className="name">
-          {post.user.name}
-          <span>{moment(post.created_at).calendar()}</span>
+          {post.user && (
+            <div className="name">
+              {post.user.name}
+              <span>{moment(post.created_at).calendar()}</span>
+            </div>
+          )}
         </div>
         <div
           dangerouslySetInnerHTML={{
@@ -51,8 +55,6 @@ function Post(props) {
 
 Post.propTypes = {
   post: PropTypes.shape({
-    user_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-      .isRequired,
     user: PropTypes.shape({
       icon: PropTypes.string,
       name: PropTypes.string,

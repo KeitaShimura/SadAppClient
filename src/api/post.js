@@ -3,13 +3,52 @@ import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
 // Fetch all posts
-export function getPostsApi() {
-  return axios.get(`${API_HOST}/api/user/posts`, {
-    headers: {
-      Authorization: `Bearer ${getTokenApi()}`,
+export function getPostsApi(page, pageSize) {
+  return axios.get(
+    `${API_HOST}/api/user/posts?page=${page}&pageSize=${pageSize}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+      withCredentials: true,
     },
-  });
+  );
 }
+
+// export function getPostsApi(page, pageSize) {
+//   const url = `${API_HOST}/api/user/posts?page=${page}&pageSize=${pageSize}`;
+
+//   const params = {
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${getTokenApi()}`,
+//     },
+//     withCredentials: true,
+//   };
+
+//   return fetch(url, params)
+//     .then((response) => {
+//       // レスポンスのステータスコードが400以上の場合はエラーとして扱う
+//       if (response.status >= 400) {
+//         // エラーメッセージを含むErrorオブジェクトを投げる
+
+//         throw new Error(`Error ${response.status}: ${response.statusText}`);
+//       }
+//       return response.json(); // レスポンスのJSONを解析
+//     })
+//     .then((result) => {
+//       // 解析されたJSONデータを返す
+//       console.log(result);
+
+//       return result;
+//     })
+//     .catch((err) => {
+//       // エラー発生時の処理を行う
+//       // エラーフラグとメッセージを含むオブジェクトを返す
+//       return { error: true, message: err.message };
+//     });
+// }
 
 // Fetch all posts
 export function getUserPostsApi(id, page, pageSize) {
