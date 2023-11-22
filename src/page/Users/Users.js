@@ -12,16 +12,22 @@ export default function Users(props) {
   const { setRefreshCheckLogin } = props;
   const [users, setUsers] = useState(null);
   const params = useParams();
-  const [userType, setUserType] = useState('all'); // New state for user type
+  const [userType, setUserType] = useState("all"); // New state for user type
 
   useEffect(() => {
     const fetchUsers = () => {
-      if (userType === 'following') {
-        getFollowingApi(params.id).then(setUsers).catch(() => setUsers([]));
-      } else if (userType === 'followers') {
-        getFollowersApi(params.id).then(setUsers).catch(() => setUsers([]));
+      if (userType === "following") {
+        getFollowingApi(params.id)
+          .then(setUsers)
+          .catch(() => setUsers([]));
+      } else if (userType === "followers") {
+        getFollowersApi(params.id)
+          .then(setUsers)
+          .catch(() => setUsers([]));
       } else {
-        getAllUsersApi().then(setUsers).catch(() => setUsers([]));
+        getAllUsersApi()
+          .then(setUsers)
+          .catch(() => setUsers([]));
       }
     };
 
@@ -29,8 +35,11 @@ export default function Users(props) {
   }, [userType]); // Depend on userType
 
   return (
-    <BasicLayout className="users" title="users" setRefreshCheckLogin={setRefreshCheckLogin}>
-
+    <BasicLayout
+      className="users"
+      title="users"
+      setRefreshCheckLogin={setRefreshCheckLogin}
+    >
       <div className="users__title">
         <h2>ユーザー一覧</h2>
         <input
@@ -41,18 +50,21 @@ export default function Users(props) {
 
       <ButtonGroup className="users__options">
         <Button
-          className={userType === 'following' ? 'active' : ''}
-          onClick={() => setUserType('following')}>
+          className={userType === "following" ? "active" : ""}
+          onClick={() => setUserType("following")}
+        >
           フォロー中
         </Button>
         <Button
-          className={userType === 'followers' ? 'active' : ''}
-          onClick={() => setUserType('followers')}>
+          className={userType === "followers" ? "active" : ""}
+          onClick={() => setUserType("followers")}
+        >
           フォロワー
         </Button>
         <Button
-          className={userType === 'all' ? 'active' : ''}
-          onClick={() => setUserType('all')}>
+          className={userType === "all" ? "active" : ""}
+          onClick={() => setUserType("all")}
+        >
           全ユーザー
         </Button>
       </ButtonGroup>
