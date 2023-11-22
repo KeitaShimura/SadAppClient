@@ -1,24 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "./Users.scss";
 import BasicLayout from "../../layout/BasicLayout";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import { getAllUsersApi } from "../../api/user";
+import ListUsers from "../../components/ListUsers";
+import { isEmpty } from "lodash";
+// import ListUsers from "../../components/ListUsers";
 
 export default function Users(props) {
   const { setRefreshCheckLogin } = props;
+  const [users, setUsers] = useState(null);
 
   useEffect(() => {
     getAllUsersApi()
-      .then((users) => {
-        // ユーザーデータを扱う処理
-        console.log(users);
+      .then((response) => {
+        if (isEmpty(response)) {
+          setUsers([]);
+        } else {
+          setUsers(response);
+        }
       })
       .catch((err) => {
         // エラーハンドリング
         console.error(err);
       });
-  });
+  }, []);
 
   return (
     <BasicLayout
@@ -38,6 +45,15 @@ export default function Users(props) {
         <Button>フォロー中</Button>
         <Button>フォロワー</Button>
       </ButtonGroup>
+
+      {!users ? (
+        <div className="users__loading">
+          <Spinner animation="border" variant="info" />
+          テスト
+        </div>
+      ) : (
+        <ListUsers users={users} />
+      )}
     </BasicLayout>
   );
 }
