@@ -26,7 +26,7 @@ export function followUserApi(userId) {
 }
 
 export function unfollowUserApi(userId) {
-  const url = `${API_HOST}/api//unfollow/${userId}`; // Replace with your API endpoint for unfollow
+  const url = `${API_HOST}/api/user/unfollow/${userId}`; // Replace with your API endpoint for unfollow
 
   return axios
     .delete(url, {

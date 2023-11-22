@@ -11,28 +11,51 @@ import { useParams } from "react-router-dom";
 export default function Users(props) {
   const { setRefreshCheckLogin } = props;
   const [users, setUsers] = useState(null);
+  const [filteredUsers, setFilteredUsers] = useState(null); // State for filtered users
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const params = useParams();
-  const [userType, setUserType] = useState("all"); // New state for user type
+  const [userType, setUserType] = useState("all");
 
+  console.log("Users data: ", users);
   useEffect(() => {
-    const fetchUsers = () => {
-      if (userType === "following") {
-        getFollowingApi(params.id)
-          .then(setUsers)
-          .catch(() => setUsers([]));
-      } else if (userType === "followers") {
-        getFollowersApi(params.id)
-          .then(setUsers)
-          .catch(() => setUsers([]));
-      } else {
-        getAllUsersApi()
-          .then(setUsers)
-          .catch(() => setUsers([]));
+    const fetchUsers = async () => {
+      try {
+        const allUsers = await getAllUsersApi();
+        if (userType === "following") {
+          const followingData = await getFollowingApi(params.id);
+          const followingUsers = allUsers.filter((user) =>
+            followingData.some((f) => f.following_id === user.id),
+          );
+          setUsers(followingUsers);
+        } else if (userType === "followers") {
+          const followersData = await getFollowersApi(params.id);
+          const followerUsers = allUsers.filter((user) =>
+            followersData.some((f) => f.follower_id === user.id),
+          );
+          setUsers(followerUsers);
+        } else {
+          setUsers(allUsers);
+        }
+      } catch (error) {
+        setUsers([]);
       }
     };
 
     fetchUsers();
-  }, [userType]); // Depend on userType
+  }, [userType, params.id]);
+
+  useEffect(() => {
+    // This useEffect handles the filtering of users based on the search term
+    if (searchTerm === "") {
+      setFilteredUsers(users);
+    } else {
+      const filtered = users?.filter(
+        (user) => user.name.toLowerCase().includes(searchTerm.toLowerCase()),
+        // You can add more conditions to filter by different user attributes
+      );
+      setFilteredUsers(filtered);
+    }
+  }, [searchTerm, users]);
 
   return (
     <BasicLayout
@@ -45,6 +68,8 @@ export default function Users(props) {
         <input
           type="text"
           placeholder="同じ悩みを持つ仲間を探してみましょう！"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
@@ -69,13 +94,13 @@ export default function Users(props) {
         </Button>
       </ButtonGroup>
 
-      {!users ? (
+      {!filteredUsers ? (
         <div className="users__loading">
           <Spinner animation="border" variant="info" />
           テスト
         </div>
       ) : (
-        <ListUsers users={users} />
+        <ListUsers users={filteredUsers} />
       )}
     </BasicLayout>
   );
