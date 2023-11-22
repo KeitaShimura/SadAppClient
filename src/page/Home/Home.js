@@ -53,12 +53,12 @@ export default function Home(props) {
   console.log(posts);
 
   return (
-    <BasicLayout className="user" setRefreshCheckLogin={setRefreshCheckLogin}>
+    <BasicLayout className="home" setRefreshCheckLogin={setRefreshCheckLogin}>
       <div className="home__title">
         <h2>投稿一覧</h2>
       </div>
       {posts && <ListPosts posts={posts} />}
-      <Button onClick={moreData}>
+      <Button className="load-button" onClick={moreData}>
         {!loadingPosts ? (
           loadingPosts !== 0 && "もっと見る"
         ) : (
