@@ -1,5 +1,4 @@
 import Error404 from "../page/Error404";
-import Follows from "../page/Follows";
 import Home from "../page/Home";
 import User from "../page/User";
 import Users from "../page/Users";
@@ -14,12 +13,8 @@ export default [
     element: <User />,
   },
   {
-    path: "/users",
+    path: "/users/:id",
     element: <Users />,
-  },
-  {
-    path: "/follows/:id",
-    element: <Follows />,
   },
   {
     path: "*",

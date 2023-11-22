@@ -35,13 +35,9 @@ export default function LeftMenu() {
         <FontAwesomeIcon icon={faVideo} />
         イベント一覧
       </Link>
-      <Link to="/users/">
+      <Link to={`users/${user?.sub}`}>
         <FontAwesomeIcon icon={faUsers} />
         ユーザー一覧
-      </Link>
-      <Link to={`follows/${user?.sub}`}>
-        <FontAwesomeIcon icon={faUsers} />
-        フォロー一覧
       </Link>
       <Link to={`user/${user?.sub}`}>
         <FontAwesomeIcon icon={faUser} />

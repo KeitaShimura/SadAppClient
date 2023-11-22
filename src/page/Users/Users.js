@@ -5,45 +5,32 @@ import BasicLayout from "../../layout/BasicLayout";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import { getAllUsersApi } from "../../api/user";
 import ListUsers from "../../components/ListUsers";
-import { isEmpty } from "lodash";
+import { getFollowersApi, getFollowingApi } from "../../api/follow";
 import { useParams } from "react-router-dom";
-// import ListUsers from "../../components/ListUsers";
 
 export default function Users(props) {
   const { setRefreshCheckLogin } = props;
   const [users, setUsers] = useState(null);
   const params = useParams();
-  const [typeUser, setTypeUser] = useState(params.type || "followings");
+  const [userType, setUserType] = useState('all'); // New state for user type
 
   useEffect(() => {
-    getAllUsersApi()
-      .then((response) => {
-        if (isEmpty(response)) {
-          setUsers([]);
-        } else {
-          setUsers(response);
-        }
-      })
-      .catch(() => {
-        setUsers([]);
-      });
-  }, []);
+    const fetchUsers = () => {
+      if (userType === 'following') {
+        getFollowingApi(params.id).then(setUsers).catch(() => setUsers([]));
+      } else if (userType === 'followers') {
+        getFollowersApi(params.id).then(setUsers).catch(() => setUsers([]));
+      } else {
+        getAllUsersApi().then(setUsers).catch(() => setUsers([]));
+      }
+    };
 
-  const onChangeType = (type) => {
-    setUsers(null);
-    if (type === "following") {
-      setTypeUser("followings");
-    } else if (type === "followers") {
-      setTypeUser("followers");
-    }
-  };
+    fetchUsers();
+  }, [userType]); // Depend on userType
 
   return (
-    <BasicLayout
-      className="users"
-      title="users"
-      setRefreshCheckLogin={setRefreshCheckLogin}
-    >
+    <BasicLayout className="users" title="users" setRefreshCheckLogin={setRefreshCheckLogin}>
+
       <div className="users__title">
         <h2>ユーザー一覧</h2>
         <input
@@ -53,18 +40,9 @@ export default function Users(props) {
       </div>
 
       <ButtonGroup className="users__options">
-        <Button
-          className={typeUser === "following" && "active"}
-          onClick={() => onChangeType("following")}
-        >
-          フォロー中
-        </Button>
-        <Button
-          className={typeUser === "followers" && "active"}
-          onClick={() => onChangeType("followers")}
-        >
-          フォロワー
-        </Button>
+        <Button onClick={() => setUserType('following')}>フォロー中</Button>
+        <Button onClick={() => setUserType('followers')}>フォロワー</Button>
+        <Button onClick={() => setUserType('all')}>全ユーザー</Button>
       </ButtonGroup>
 
       {!users ? (

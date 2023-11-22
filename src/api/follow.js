@@ -64,7 +64,7 @@ export function checkIfFollowingApi(authUserId, targetUserId) {
 }
 
 export function getFollowingApi(userId) {
-  const url = `${API_HOST}/api/user/following/${userId}`; // Replace with your API endpoint for fetching following list
+  const url = `${API_HOST}/api/user/followings/${userId}`; // Replace with your API endpoint for fetching following list
 
   return axios
     .get(url, {
