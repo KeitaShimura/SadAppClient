@@ -2,6 +2,38 @@ import axios from "axios";
 import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
+export function getAllUsersApi() {
+  // APIのURLを構築する
+  const url = `${API_HOST}/api/user/users`;
+
+  // fetchリクエスト用のパラメータを設定する
+  const params = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getTokenApi()}`, // 認証トークンを含める
+    },
+    withCredentials: true,
+  };
+
+  // fetchリクエストを実行
+  return fetch(url, params)
+    .then((response) => {
+      // レスポンスのステータスコードが400以上の場合はエラーとして扱う
+      if (response.status >= 400) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+      return response.json(); // レスポンスのJSONを解析
+    })
+    .then((result) => {
+      // 解析されたJSONデータ（ユーザーデータの配列）を返す
+      return result;
+    })
+    .catch((err) => {
+      // エラー発生時の処理
+      return { error: true, message: err.message };
+    });
+}
+
 export function getUserApi(id) {
   // APIのURLを構築する
   const url = `${API_HOST}/api/user/user/${id}`;

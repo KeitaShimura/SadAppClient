@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import "./Users.scss";
 import BasicLayout from "../../layout/BasicLayout";
 import { Button, ButtonGroup } from "react-bootstrap";
+import { getAllUsersApi } from "../../api/user";
 
 export default function Users(props) {
-  const { setRefreshCheckLogin } = props;
+    const { setRefreshCheckLogin } = props;
+    
+    useEffect(() => {
+        getAllUsersApi()
+            .then(users => {
+                // ユーザーデータを扱う処理
+                console.log(users);
+            })
+            .catch(err => {
+                // エラーハンドリング
+                console.error(err);
+            });
+    });
 
   return (
     <BasicLayout

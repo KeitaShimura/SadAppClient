@@ -63,7 +63,7 @@ export function checkIfFollowingApi(authUserId, targetUserId) {
     });
 }
 
-export function getFollowingListApi(userId) {
+export function getFollowingApi(userId) {
   const url = `${API_HOST}/api/following/${userId}`; // Replace with your API endpoint for fetching following list
 
   return axios
@@ -81,7 +81,7 @@ export function getFollowingListApi(userId) {
     });
 }
 
-export function getFollowerListApi(userId) {
+export function getFollowersApi(userId) {
   const url = `${API_HOST}/api/followers/${userId}`; // Replace with your API endpoint for fetching followers list
 
   return axios

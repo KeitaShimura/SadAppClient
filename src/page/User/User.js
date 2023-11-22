@@ -53,11 +53,9 @@ function User() {
       .then((response) => {
         console.log(response); // レスポンスの構造を確認
         setPosts(response); // この行を変更
-        if (!response) toast.error("このユーザーは存在しません。");
       })
       .catch((error) => {
         console.error("API Error:", error);
-        toast.error("このユーザーは存在しません。");
       });
   }, [params]);
 
