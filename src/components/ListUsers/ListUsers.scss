@@ -1,4 +1,26 @@
 @import "../../scss/index.scss";
 
 .list-users {
+  padding: 0;
+  .user {
+    display: flex;
+    padding: 10px 20px;
+    border-bottom: 1px solid $border-gray;
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      margin-right: 20px;
+    }
+
+    .name {
+      font-weight: bold;
+
+      span {
+        font-size: 12px;
+        font-weight: normal;
+        color: $font-grey;
+      }
+    }
+  }
 }
