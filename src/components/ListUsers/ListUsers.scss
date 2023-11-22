@@ -22,5 +22,10 @@
         color: $font-grey;
       }
     }
+
+    &:hover {
+      color: $font-grey;
+      text-decoration: none;
+    }
   }
 }
