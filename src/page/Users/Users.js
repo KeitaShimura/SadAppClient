@@ -40,9 +40,21 @@ export default function Users(props) {
       </div>
 
       <ButtonGroup className="users__options">
-        <Button onClick={() => setUserType('following')}>フォロー中</Button>
-        <Button onClick={() => setUserType('followers')}>フォロワー</Button>
-        <Button onClick={() => setUserType('all')}>全ユーザー</Button>
+        <Button
+          className={userType === 'following' ? 'active' : ''}
+          onClick={() => setUserType('following')}>
+          フォロー中
+        </Button>
+        <Button
+          className={userType === 'followers' ? 'active' : ''}
+          onClick={() => setUserType('followers')}>
+          フォロワー
+        </Button>
+        <Button
+          className={userType === 'all' ? 'active' : ''}
+          onClick={() => setUserType('all')}>
+          全ユーザー
+        </Button>
       </ButtonGroup>
 
       {!users ? (
