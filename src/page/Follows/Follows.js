@@ -8,15 +8,15 @@ import { useParams } from "react-router-dom";
 
 export default function Follows(props) {
   const params = useParams();
-    const { setRefreshCheckLogin } = props;
-  
+  const { setRefreshCheckLogin } = props;
+
   useEffect(() => {
     getFollowersApi(params.id)
-      .then(users => {
+      .then((users) => {
         // ユーザーデータを扱う処理
         console.log(users);
       })
-      .catch(err => {
+      .catch((err) => {
         // エラーハンドリング
         console.error(err);
       });
@@ -24,11 +24,11 @@ export default function Follows(props) {
 
   useEffect(() => {
     getFollowingApi(params.id)
-      .then(users => {
+      .then((users) => {
         // ユーザーデータを扱う処理
         console.log(users);
       })
-      .catch(err => {
+      .catch((err) => {
         // エラーハンドリング
         console.error(err);
       });

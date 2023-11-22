@@ -6,19 +6,19 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import { getAllUsersApi } from "../../api/user";
 
 export default function Users(props) {
-    const { setRefreshCheckLogin } = props;
-    
-    useEffect(() => {
-        getAllUsersApi()
-            .then(users => {
-                // ユーザーデータを扱う処理
-                console.log(users);
-            })
-            .catch(err => {
-                // エラーハンドリング
-                console.error(err);
-            });
-    });
+  const { setRefreshCheckLogin } = props;
+
+  useEffect(() => {
+    getAllUsersApi()
+      .then((users) => {
+        // ユーザーデータを扱う処理
+        console.log(users);
+      })
+      .catch((err) => {
+        // エラーハンドリング
+        console.error(err);
+      });
+  });
 
   return (
     <BasicLayout
