@@ -6,11 +6,14 @@ import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import { getAllUsersApi } from "../../api/user";
 import ListUsers from "../../components/ListUsers";
 import { isEmpty } from "lodash";
+import { useParams } from "react-router-dom";
 // import ListUsers from "../../components/ListUsers";
 
 export default function Users(props) {
   const { setRefreshCheckLogin } = props;
   const [users, setUsers] = useState(null);
+  const params = useParams();
+  const [typeUser, setTypeUser] = useState(params.type || "followings");
 
   useEffect(() => {
     getAllUsersApi()
@@ -21,11 +24,19 @@ export default function Users(props) {
           setUsers(response);
         }
       })
-      .catch((err) => {
-        // エラーハンドリング
-        console.error(err);
+      .catch(() => {
+        setUsers([]);
       });
   }, []);
+
+  const onChangeType = (type) => {
+    setUsers(null);
+    if (type === "following") {
+      setTypeUser("followings");
+    } else if (type === "followers") {
+      setTypeUser("followers");
+    }
+  };
 
   return (
     <BasicLayout
@@ -42,8 +53,18 @@ export default function Users(props) {
       </div>
 
       <ButtonGroup className="users__options">
-        <Button>フォロー中</Button>
-        <Button>フォロワー</Button>
+        <Button
+          className={typeUser === "following" && "active"}
+          onClick={() => onChangeType("following")}
+        >
+          フォロー中
+        </Button>
+        <Button
+          className={typeUser === "followers" && "active"}
+          onClick={() => onChangeType("followers")}
+        >
+          フォロワー
+        </Button>
       </ButtonGroup>
 
       {!users ? (
@@ -60,5 +81,5 @@ export default function Users(props) {
 
 // propTypes の宣言
 Users.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired, // setRefreshCheckLogin は関数であり、必須であることを示す
+  setRefreshCheckLogin: PropTypes.func.isRequired,
 };

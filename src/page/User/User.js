@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
@@ -15,7 +16,7 @@ import { Button, Spinner } from "react-bootstrap";
 function User(props) {
   const params = useParams();
   const authUser = useAuth();
-  const [setRefreshCheckLogin] = props;
+  const { setRefreshCheckLogin } = props;
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState(null);
   const [page, setPage] = useState(1);
@@ -40,7 +41,6 @@ function User(props) {
   useEffect(() => {
     getUserApi(params.id)
       .then((response) => {
-        console.log(response);
         setUser(response);
         if (!response) toast.error("このユーザーは存在しません。");
       })
@@ -52,11 +52,10 @@ function User(props) {
   useEffect(() => {
     getUserPostsApi(params.id)
       .then((response) => {
-        console.log(response); // レスポンスの構造を確認
         setPosts(response); // この行を変更
       })
       .catch((error) => {
-        console.error("API Error:", error);
+        toast.error(error);
       });
   }, [params]);
 
@@ -89,3 +88,8 @@ function User(props) {
 }
 
 export default User;
+
+// propTypes の宣言
+User.propTypes = {
+  setRefreshCheckLogin: PropTypes.func.isRequired,
+};
