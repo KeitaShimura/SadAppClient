@@ -36,7 +36,7 @@ export default function Auth(props) {
 
 function LeftComponent() {
   return (
-    <Col className="auth__left" xs={6}>
+    <Col className="auth__top" xs={12}>
       <div>
         <h2>人と話すのが怖い</h2>
         <h2>同じ悩みを持つ仲間と悩みを話しませんか？</h2>
@@ -48,7 +48,7 @@ function LeftComponent() {
 function RightComponent(props) {
   const { openModal, setShowModal, setRefreshCheckLogin } = props;
   return (
-    <Col className="auth__right" xs={6}>
+    <Col className="auth__bottom" xs={12}>
       <div>
         <Button
           variant="primary"

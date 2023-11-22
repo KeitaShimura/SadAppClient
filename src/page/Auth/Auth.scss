@@ -1,53 +1,47 @@
 @import "../../scss/index.scss";
 
 .auth {
-  &__left {
+  &__top {
     overflow: hidden;
-    min-height: 100vh;
+    min-height: 50vh; // Reduced for smaller screens
     background-color: $primary-light;
     display: flex;
+    justify-content: center;
     align-items: center;
-  }
-
-  div {
-    z-index: 1;
+    flex-direction: column;
+    padding: 20px; // Added padding for smaller screens
 
     h2 {
-      display: flex;
-      align-items: center;
-      font-size: 30px;
-      margin-bottom: 40px;
+      font-size: 1.5rem; // Smaller font size for mobile
+      margin-bottom: 20px;
       font-weight: bold;
+
+      @media (min-width: 768px) {
+        font-size: 2rem; // Larger font size for larger screens
+        margin-bottom: 40px;
+      }
     }
   }
 
-  &__right {
+  &__bottom {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    min-height: 30vh;
+    padding: 100px;
 
     > div {
-      width: 500px;
+      width: 100%; // Full width for smaller screens
+      max-width: 500px; // Limit width for larger screens
       margin: 0 auto;
-
-      // h2 {
-      //     font-weight: bold;
-      //     font-size: 40px;
-      //     margin-bottom: 70px;
-      // }
-
-      // h3 {
-      //     font-weight: bold;
-      //     font-size: 20px;
-      //     margin-bottom: 30px;
-      // }
 
       button {
         display: block;
         width: 100%;
         border-radius: 50px;
-        font-size: 20px;
-        font-weight: bold;
+        font-size: 1rem; // Smaller font size for mobile
         padding: 10px 0;
+        font-weight: bold;
 
         &:first-of-type {
           margin-bottom: 20px;
