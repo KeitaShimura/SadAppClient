@@ -2,33 +2,32 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import BasicLayout from "../../layout/BasicLayout";
 import "./Event.scss";
-import { getPostsApi } from "../../api/post";
-import ListPosts from "../../components/ListPosts";
+import { getEventsApi } from "../../api/event";
+import ListEvents from "../../components/ListEvents";
 import { Button, Spinner } from "react-bootstrap";
 
 export default function Event(props) {
-  const [posts, setPosts] = useState(null);
-
+  const [events, setEvents] = useState(null);
   const [page, setPage] = useState(1);
   const { setRefreshCheckLogin } = props;
 
-  const [loadingPosts, setLoadingPosts] = useState(false);
+  const [loadingEvents, setLoadingEvents] = useState(false);
 
   const moreData = () => {
     const pageTemp = page + 1;
     const pageSize = 50;
-    setLoadingPosts(true);
+    setLoadingEvents(true);
 
-    getPostsApi(pageTemp, pageSize).then((response) => {
+    getEventsApi(pageTemp, pageSize).then((response) => {
       if (!response) {
-        setLoadingPosts(0);
+        setLoadingEvents(0);
       } else {
-        setPosts((prevPosts) => [
+        setEvents((prevPosts) => [
           ...(Array.isArray(prevPosts) ? prevPosts : []),
           ...response.data,
         ]);
         setPage(pageTemp);
-        setLoadingPosts(false);
+        setLoadingEvents(false);
       }
     });
   };
@@ -38,29 +37,29 @@ export default function Event(props) {
     const pageSize = 50;
     console.log("Page:", page, "PageSize:", pageSize);
 
-    setLoadingPosts(true);
-    getPostsApi().then((response) => {
-      setPosts(response.data); // この行を確認
+    setLoadingEvents(true);
+    getEventsApi().then((response) => {
+      setEvents(response.data); // この行を確認
       if (!response) {
-        setLoadingPosts(0);
+        setLoadingEvents(0);
       } else {
         setPage(pageTemp);
-        setLoadingPosts(false);
+        setLoadingEvents(false);
       }
     });
   }, []);
 
-  console.log(posts);
+  console.log(events);
 
   return (
     <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>
       <div className="event__title">
         <h2>投稿一覧</h2>
       </div>
-      {posts && <ListPosts posts={posts} />}
+      {events && <ListEvents events={events} />}
       <Button className="load-button" onClick={moreData}>
-        {!loadingPosts ? (
-          loadingPosts !== 0 && "もっと見る"
+        {!loadingEvents ? (
+          loadingEvents !== 0 && "もっと見る"
         ) : (
           <Spinner
             as="span"
