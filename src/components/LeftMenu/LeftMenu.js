@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { logoutApi } from "../../api/auth";
-import PostModal from "../PostModal";
+import PostModal from "../Modal/PostModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Modal, Form } from "react-bootstrap";
-import { Close } from "../../utils/icons";
+import { Close } from "../../../utils/icons";
 import classNames from "classnames";
-import { createPostApi } from "../../api/post";
+import { createPostApi } from "../../../api/post";
 import "./PostModal.scss";
 import { toast } from "react-toastify";
 // import { toast } from "react-toastify";
