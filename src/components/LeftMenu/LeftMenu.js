@@ -14,6 +14,7 @@ import {
 import { Button } from "react-bootstrap";
 
 import "./LeftMenu.scss";
+import EventModal from "../Modal/EventModal";
 
 export default function LeftMenu() {
   const [showModal, setShowModal] = useState(false);
@@ -51,7 +52,8 @@ export default function LeftMenu() {
       <Button onClick={() => setShowModal(true)}>投稿する</Button>
       <PostModal show={showModal} setShow={setShowModal} />
 
-      <Button>イベントを投稿する</Button>
+      <Button onClick={() => setShowModal(true)}>イベントを投稿する</Button>
+      <EventModal show={showModal} setShow={setShowModal} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Modal, Form } from "react-bootstrap";
-import { Close } from "../../utils/icons";
+import { Close } from "../../../utils/icons";
 import classNames from "classnames";
 import { createEventApi } from "../../../api/event";
 import "./EventModal.scss";
