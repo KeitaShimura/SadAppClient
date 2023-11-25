@@ -15,7 +15,12 @@ import {
 } from "../../api/eventLike";
 import { deleteEventApi } from "../../api/event";
 import { useNavigate } from "react-router-dom";
-import { JoinEventApi, checkIfEventParticipantsApi, getParticipantsForEventApi, leaveEventApi } from "../../api/eventParticipant";
+import {
+  ParticipationEventApi,
+  checkIfEventParticipantsApi,
+  getParticipantsForEventApi,
+  leaveEventApi,
+} from "../../api/eventParticipant";
 
 export default function ListEvents(props) {
   const { events: initialEvents, setEvents: setInitialEvents } = props; // プロパティ名を変更
@@ -109,13 +114,16 @@ function Event({ event, authUser, onEventDeleted }) {
   };
 
   const handleShowParticipants = (eventId) => {
-    navigate(`/event_participates/${eventId}`);
+    navigate(`/event_participants/${eventId}`);
   };
 
   useEffect(() => {
     const fetchParticipateData = async () => {
       try {
-        const participantStatus = await checkIfEventParticipantsApi(event.id, authUser.id);
+        const participantStatus = await checkIfEventParticipantsApi(
+          event.id,
+          authUser.id,
+        );
         setIsParticipated(participantStatus);
         updateParticipantsCount();
       } catch (error) {
@@ -135,8 +143,8 @@ function Event({ event, authUser, onEventDeleted }) {
     }
   };
 
-  const handleJoin = () => {
-    JoinEventApi(event.id)
+  const handleParticipation = () => {
+    ParticipationEventApi(event.id)
       .then(() => {
         setIsParticipated(true);
         updateParticipantsCount();
@@ -198,10 +206,12 @@ function Event({ event, authUser, onEventDeleted }) {
         {isParticipated ? (
           <button onClick={handleLeave}>参加を辞める</button>
         ) : (
-          <button onClick={handleJoin}>参加する</button>
+          <button onClick={handleParticipation}>参加する</button>
         )}
         <span>{participantCount} いいね</span>
-        <button onClick={() => handleShowParticipants(event.id)}>参加者一覧</button>
+        <button onClick={() => handleShowParticipants(event.id)}>
+          参加者一覧
+        </button>
         {authUser.sub === String(event.user.id) && (
           <button onClick={handleDelete}>削除</button>
         )}

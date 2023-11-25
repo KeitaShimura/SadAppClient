@@ -2,8 +2,8 @@ import axios from "axios";
 import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
-export function JoinEventApi(eventId) {
-  const url = `${API_HOST}/api/user/events/${eventId}/join`;
+export function ParticipationEventApi(eventId) {
+  const url = `${API_HOST}/api/user/events/${eventId}/participation`;
 
   return axios
     .post(
@@ -18,7 +18,7 @@ export function JoinEventApi(eventId) {
       },
     )
     .then((response) => response.data)
-    .catch((error) => console.error("Join Error:", error));
+    .catch((error) => console.error("Participation Error:", error));
 }
 
 export function leaveEventApi(eventId) {
@@ -48,7 +48,7 @@ export function checkIfEventParticipantsApi(eventId) {
       withCredentials: true,
     })
     .then((response) => response.data)
-    .catch((error) => console.error("Check Join Error:", error));
+    .catch((error) => console.error("Check Participation Error:", error));
 }
 
 export function getParticipantsForEventApi(eventId) {
