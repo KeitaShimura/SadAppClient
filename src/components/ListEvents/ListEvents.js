@@ -13,37 +13,47 @@ import {
   likeEventApi,
   unlikeEventApi,
 } from "../../api/eventLike";
+import { deleteEventApi } from "../../api/event";
 
 export default function ListEvents(props) {
-  const { events } = props;
+  const { events: initialEvents, setEvents: setInitialEvents } = props; // プロパティ名を変更
+  const authUser = useAuth(); // Assuming useAuth returns the authenticated user
+  const [events, setEvents] = useState(initialEvents); // ローカル状態を初期化
+
+  const handleEventDeleted = (eventId) => {
+    // イベントが削除された場合、events ステートを更新
+    const updatedEvents = events.filter((event) => event.id !== eventId);
+    setEvents(updatedEvents);
+    setInitialEvents(updatedEvents); // 親コンポーネントの状態も更新
+  };
+
   return (
-    <div className="list-posts">
+    <div className="list-events">
       {map(events, (event, index) => (
-        <Event key={index} event={event} />
+        <Event
+          key={index}
+          event={event}
+          authUser={authUser}
+          onEventDeleted={handleEventDeleted} // onEventDeleted プロパティを渡す
+        />
       ))}
     </div>
   );
 }
 
 ListEvents.propTypes = {
-  events: PropTypes.arrayOf(
-    PropTypes.shape({
-      content: PropTypes.string,
-    }),
-  ).isRequired,
+  events: PropTypes.array.isRequired,
+  setEvents: PropTypes.func.isRequired, // setEvents プロパティを追加
 };
 
-function Event(props) {
-  const { event } = props;
+function Event({ event, authUser, onEventDeleted }) {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
-  const authUser = useAuth(); // Assuming useAuth returns the authenticated user
 
   useEffect(() => {
     const fetchLikeData = async () => {
       try {
         const likeStatus = await checkIfEventLikedApi(event.id, authUser.id);
-        console.log("Like status for event:", likeStatus); // Debugging output
         setIsLiked(likeStatus);
         updateLikeCount();
       } catch (error) {
@@ -81,20 +91,26 @@ function Event(props) {
       .catch((error) => console.error("Unlike Error:", error));
   };
 
+  const handleDelete = () => {
+    deleteEventApi(event.id)
+      .then(() => {
+        onEventDeleted(event.id); // 親コンポーネントの状態を更新
+      })
+      .catch((error) => console.error("Delete Error:", error));
+  };
+
   const iconUrl = event.user?.icon ? event.user.icon : IconNotFound;
 
   return (
-    <div className="post">
+    <div className="event">
       <Image className="icon" src={iconUrl} roundedCircle />
       <div>
-        <div className="name">
-          {event.user && (
-            <div className="name">
-              {event.user.name}
-              <span>{moment(event.created_at).calendar()}</span>
-            </div>
-          )}
-        </div>
+        {event.user && (
+          <div className="name">
+            {event.user.name}
+            <span>{moment(event.created_at).calendar()}</span>
+          </div>
+        )}
         <div className="title">
           <strong>タイトル: </strong>
           {event.title}
@@ -124,22 +140,16 @@ function Event(props) {
           <button onClick={handleLike}>いいねする</button>
         )}
         <span>{likeCount} Likes</span>
+        {authUser.sub === String(event.user.id) && (
+          <button onClick={handleDelete}>削除</button>
+        )}
       </div>
     </div>
   );
 }
 
 Event.propTypes = {
-  event: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      icon: PropTypes.string,
-      name: PropTypes.string,
-    }),
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    event_url: PropTypes.string.isRequired,
-    event_date: PropTypes.string.isRequired,
-    created_at: PropTypes.string.isRequired,
-  }).isRequired,
+  event: PropTypes.object.isRequired,
+  authUser: PropTypes.object.isRequired,
+  onEventDeleted: PropTypes.func.isRequired,
 };

@@ -20,8 +20,8 @@ export default function ListPosts(props) {
   const authUser = useAuth();
   const [posts, setPosts] = useState(initialPosts); // ローカル状態を初期化
 
-  const handlePostDeleted = postId => {
-    const updatedPosts = posts.filter(post => post.id !== postId);
+  const handlePostDeleted = (postId) => {
+    const updatedPosts = posts.filter((post) => post.id !== postId);
     setPosts(updatedPosts); // ローカルの状態を更新
     setInitialPosts(updatedPosts); // 親コンポーネントの状態も更新
   };
@@ -77,7 +77,7 @@ function Post({ post, authUser, onPostDeleted }) {
         setIsLiked(true);
         updateLikeCount();
       })
-      .catch(error => console.error("Like Error:", error));
+      .catch((error) => console.error("Like Error:", error));
   };
 
   const handleUnlike = () => {
@@ -86,7 +86,7 @@ function Post({ post, authUser, onPostDeleted }) {
         setIsLiked(false);
         updateLikeCount();
       })
-      .catch(error => console.error("Unlike Error:", error));
+      .catch((error) => console.error("Unlike Error:", error));
   };
 
   const handleDelete = () => {
@@ -94,9 +94,8 @@ function Post({ post, authUser, onPostDeleted }) {
       .then(() => {
         onPostDeleted(post.id); // 親コンポーネントの状態を更新
       })
-      .catch(error => console.error("Delete Error:", error));
+      .catch((error) => console.error("Delete Error:", error));
   };
-
 
   const iconUrl = post.user?.icon ? post.user.icon : IconNotFound;
 
@@ -134,5 +133,5 @@ function Post({ post, authUser, onPostDeleted }) {
 Post.propTypes = {
   post: PropTypes.object.isRequired,
   authUser: PropTypes.object.isRequired,
-  onPostDeleted: PropTypes.func.isRequired
+  onPostDeleted: PropTypes.func.isRequired,
 };
