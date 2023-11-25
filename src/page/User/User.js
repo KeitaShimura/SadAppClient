@@ -104,11 +104,10 @@ function User(props) {
       </ButtonGroup>
 
       <div className="user__content">
-        {activeTab === "posts"
-          ? posts && <ListPosts posts={posts} />
-          : events && (
-              <ListEvents events={events} />
-            ) // Assuming you have a ListEvents component
+        {
+          activeTab === "posts"
+            ? posts && <ListPosts posts={posts} />
+            : events && <ListEvents events={events} /> // Assuming you have a ListEvents component
         }
 
         <Button onClick={moreData}>
