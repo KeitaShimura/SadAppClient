@@ -37,7 +37,7 @@ export function unlikePostApi(postId) {
 }
 
 export function checkIfPostLikedApi(postId) {
-  const url = `${API_HOST}/api/user/posts/${postId}/checklike`;
+  const url = `${API_HOST}/api/user/posts/${postId}/check_like`;
 
   return axios
     .get(url, {

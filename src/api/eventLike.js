@@ -37,7 +37,7 @@ export function unlikeEventApi(eventId) {
 }
 
 export function checkIfEventLikedApi(eventId) {
-  const url = `${API_HOST}/api/user/events/${eventId}/checklike`;
+  const url = `${API_HOST}/api/user/events/${eventId}/check_like`;
 
   return axios
     .get(url, {
