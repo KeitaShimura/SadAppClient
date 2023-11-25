@@ -34,7 +34,6 @@ export default function EventModal(props) {
     }
   };
 
-
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -115,7 +114,6 @@ EventModal.propTypes = {
   show: PropTypes.bool.isRequired,
   setShow: PropTypes.func.isRequired,
 };
-
 
 function initialFromValue() {
   return {

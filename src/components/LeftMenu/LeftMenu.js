@@ -53,7 +53,9 @@ export default function LeftMenu() {
       <Button onClick={() => setShowPostModal(true)}>投稿する</Button>
       <PostModal show={showPostModal} setShow={setShowPostModal} />
 
-      <Button onClick={() => setShowEventModal(true)}>イベントを投稿する</Button>
+      <Button onClick={() => setShowEventModal(true)}>
+        イベントを投稿する
+      </Button>
       <EventModal show={showEventModal} setShow={setShowEventModal} />
     </div>
   );
