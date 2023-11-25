@@ -17,9 +17,9 @@ export default function EventParticipants(props) {
   const params = useParams();
 
   useEffect(() => {
-    const fetchLikedUsers = async () => {
+    const fetchParticipants = async () => {
       try {
-        // いいねしたユーザー一覧を取得
+        // 参加したユーザー一覧を取得
         const participationData = await getParticipantsForEventApi(params.id);
         const participantIds = participationData.map(
           (participant) => participant.user_id,
@@ -28,7 +28,7 @@ export default function EventParticipants(props) {
         // 全ユーザーを取得
         const allUsers = await getAllUsersApi();
 
-        // いいねしたユーザーの情報をフィルタリング
+        // 参加者の情報をフィルタリング
         const participantsData = allUsers.filter((user) =>
           participantIds.includes(user.id),
         );
@@ -39,12 +39,12 @@ export default function EventParticipants(props) {
       }
     };
 
-    fetchLikedUsers();
+    fetchParticipants();
   }, [params.id]);
 
   useEffect(() => {
     // ユーザーの絞り込みなどのロジックを追加する場合には、ここで実装します
-    // この例では絞り込みを行わず、すべてのいいねしたユーザーを表示します
+    // この例では絞り込みを行わず、すべての参加したユーザーを表示します
     if (searchTerm === "") {
       setFilteredEventParticipants(participants);
     } else {
@@ -58,11 +58,11 @@ export default function EventParticipants(props) {
   return (
     <BasicLayout
       className="participants"
-      title="いいねしたユーザー"
+      title="参加者"
       setRefreshCheckLogin={setRefreshCheckLogin}
     >
       <div className="participants__title">
-        <h2>いいねしたユーザー一覧</h2>
+        <h2>参加者一覧</h2>
         <input
           type="text"
           placeholder="ユーザーを検索..."
