@@ -3,7 +3,7 @@ import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
 export function likeEventApi(eventId) {
-  const url = `${API_HOST}/api/user/event/${eventId}/like`;
+  const url = `${API_HOST}/api/user/events/${eventId}/like`;
 
   return axios
     .post(
@@ -22,7 +22,7 @@ export function likeEventApi(eventId) {
 }
 
 export function unlikeEventApi(eventId) {
-  const url = `${API_HOST}/api/user/event/${eventId}/unlike`;
+  const url = `${API_HOST}/api/user/events/${eventId}/unlike`;
 
   return axios
     .delete(url, {
@@ -37,7 +37,7 @@ export function unlikeEventApi(eventId) {
 }
 
 export function checkIfEventLikedApi(eventId) {
-  const url = `${API_HOST}/api/user/event/${eventId}/checklike`;
+  const url = `${API_HOST}/api/user/events/${eventId}/checklike`;
 
   return axios
     .get(url, {
@@ -52,7 +52,7 @@ export function checkIfEventLikedApi(eventId) {
 }
 
 export function getLikesForEventApi(eventId) {
-  const url = `${API_HOST}/api/user/event/${eventId}/likes`;
+  const url = `${API_HOST}/api/user/events/${eventId}/likes`;
 
   return axios
     .get(url, {

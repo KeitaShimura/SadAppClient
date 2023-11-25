@@ -91,3 +91,21 @@ export function deletePostApi(id) {
     withCredentials: true,
   });
 }
+
+export function getUserLikedPostsApi(userId) {
+  const url = `${API_HOST}/api/user/posts/${userId}/liked_posts`;
+
+  return axios
+    .get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+      withCredentials: true,
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("投稿を取得中にエラーが発生しました:", error);
+      throw error;
+    });
+}

@@ -3,7 +3,7 @@ import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
 export function likePostApi(postId) {
-  const url = `${API_HOST}/api/user/post/${postId}/like`;
+  const url = `${API_HOST}/api/user/posts/${postId}/like`;
 
   return axios
     .post(
@@ -22,7 +22,7 @@ export function likePostApi(postId) {
 }
 
 export function unlikePostApi(postId) {
-  const url = `${API_HOST}/api/user/post/${postId}/unlike`;
+  const url = `${API_HOST}/api/user/posts/${postId}/unlike`;
 
   return axios
     .delete(url, {
@@ -37,7 +37,7 @@ export function unlikePostApi(postId) {
 }
 
 export function checkIfPostLikedApi(postId) {
-  const url = `${API_HOST}/api/user/post/${postId}/checklike`;
+  const url = `${API_HOST}/api/user/posts/${postId}/checklike`;
 
   return axios
     .get(url, {
@@ -52,7 +52,7 @@ export function checkIfPostLikedApi(postId) {
 }
 
 export function getLikesForPostApi(postId) {
-  const url = `${API_HOST}/api/user/post/${postId}/likes`;
+  const url = `${API_HOST}/api/user/posts/${postId}/likes`;
 
   return axios
     .get(url, {

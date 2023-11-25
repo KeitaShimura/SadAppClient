@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { getUserPostsApi } from "../../api/post";
-import { getUserApi } from "../../api/user";
+import { getUserEventsApi } from "../../api/event";
+import { getUserPostsApi, getUserLikedPostsApi } from "../../api/post";
 import BasicLayout from "../../layout/BasicLayout";
 import BannerIcon from "../../components/User/BannerIcon";
 import UserInfo from "../../components/User/UserInfo";
@@ -12,7 +12,7 @@ import ListPosts from "../../components/ListPosts";
 import ListEvents from "../../components/ListEvents/ListEvents";
 import "./User.scss";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
-import { getUserEventsApi } from "../../api/event";
+import { getUserApi } from "../../api/user";
 
 function User(props) {
   const params = useParams();
@@ -20,31 +20,58 @@ function User(props) {
   const { setRefreshCheckLogin } = props;
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState(null);
-  const [events, setEvents] = useState(null); // State for user events
+  const [events, setEvents] = useState(null);
+  const [likedPosts, setLikedPosts] = useState(null); // State for liked posts
   const [page, setPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [activeTab, setActiveTab] = useState("posts");
+  const pageSize = 50; // ページごとのアイテム数
 
   const moreData = () => {
     const pageTemp = page + 1;
-    const pageSize = 50;
     setLoadingPosts(true);
 
-    const apiCall = activeTab === "posts" ? getUserPostsApi : getUserEventsApi;
+    let apiCall;
 
-    apiCall(params.id, pageTemp, pageSize).then((response) => {
-      if (!response) {
-        setLoadingPosts(0);
-      } else {
-        if (activeTab === "posts") {
-          setPosts([...posts, ...response]);
+    switch (activeTab) {
+      case "posts":
+        apiCall = getUserPostsApi;
+        break;
+      case "events":
+        apiCall = getUserEventsApi;
+        break;
+      case "liked-posts":
+        apiCall = getUserLikedPostsApi;
+        break;
+      default:
+        apiCall = getUserPostsApi; // デフォルトは投稿
+    }
+
+    apiCall(params.id, pageTemp, pageSize)
+      .then((response) => {
+        if (!response) {
+          setLoadingPosts(0);
         } else {
-          setEvents([...events, ...response]);
+          switch (activeTab) {
+            case "posts":
+              setPosts([...(posts || []), ...response]);
+              break;
+            case "events":
+              setEvents([...(events || []), ...response]);
+              break;
+            case "liked-posts":
+              setLikedPosts([...(likedPosts || []), ...response]);
+              break;
+            default:
+              setPosts([...(posts || []), ...response]); // デフォルトは投稿
+          }
+          setPage(pageTemp);
+          setLoadingPosts(false);
         }
-        setPage(pageTemp);
-        setLoadingPosts(false);
-      }
-    });
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
   };
 
   useEffect(() => {
@@ -61,7 +88,7 @@ function User(props) {
   useEffect(() => {
     getUserPostsApi(params.id)
       .then((response) => {
-        setPosts(response); // この行を変更
+        setPosts(response);
       })
       .catch((error) => {
         toast.error(error);
@@ -70,9 +97,21 @@ function User(props) {
 
   useEffect(() => {
     if (activeTab === "events") {
-      getUserEventsApi(params.id) // Replace with your actual API call
+      getUserEventsApi(params.id)
         .then((response) => {
           setEvents(response);
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+    }
+  }, [params, activeTab]);
+
+  useEffect(() => {
+    if (activeTab === "liked-posts") {
+      getUserLikedPostsApi(params.id)
+        .then((response) => {
+          setLikedPosts(response);
         })
         .catch((error) => {
           toast.error(error);
@@ -100,14 +139,20 @@ function User(props) {
         >
           イベント
         </Button>
+        <Button
+          onClick={() => setActiveTab("liked-posts")}
+          active={activeTab === "liked-posts"}
+        >
+          いいねした投稿
+        </Button>
       </ButtonGroup>
 
       <div className="user__content">
-        {
-          activeTab === "posts"
-            ? posts && <ListPosts posts={posts} />
-            : events && <ListEvents events={events} /> // Assuming you have a ListEvents component
-        }
+        {activeTab === "posts" && posts && <ListPosts posts={posts} />}
+        {activeTab === "events" && events && <ListEvents events={events} />}
+        {activeTab === "liked-posts" && likedPosts && (
+          <ListPosts posts={likedPosts} />
+        )}
 
         <Button onClick={moreData}>
           {!loadingPosts ? (
