@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   getUserEventsApi,
   getUserLikedEventsApi,
@@ -17,6 +17,7 @@ import ListEvents from "../../components/ListEvents";
 import "./User.scss";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import { getUserApi } from "../../api/user";
+import { getFollowersApi, getFollowingApi } from "../../api/follow";
 
 function User(props) {
   const params = useParams();
@@ -31,7 +32,9 @@ function User(props) {
   const [page, setPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [activeTab, setActiveTab] = useState("posts");
-  const pageSize = 50; // ページごとのアイテム数
+  const pageSize = 50;
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
 
   const moreData = () => {
     const pageTemp = page + 1;
@@ -164,12 +167,37 @@ function User(props) {
     }
   }, [params, activeTab]);
 
+  useEffect(() => {
+    getFollowersApi(params.id)
+      .then((response) => {
+        setFollowersCount(response.length); // Assuming response is an array of followers
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+  }, [params.id]);
+
+  // Fetch following count
+  useEffect(() => {
+    getFollowingApi(params.id)
+      .then((response) => {
+        setFollowingCount(response.length); // Assuming response is an array of followings
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+  }, [params.id]);
+
   return (
     <BasicLayout className="user" setRefreshCheckLogin={setRefreshCheckLogin}>
       <div className="user__title">
         <h2>{user ? user.name : "このユーザーは存在しません。"}</h2>
       </div>
       <BannerIcon user={user} authUser={authUser} />
+      <div>
+        <Link to={`users/${params.id}`}>フォロー中:</Link> {followingCount}
+        <Link to={`users/${params.id}`}>フォロワー:</Link> {followersCount}
+      </div>
       <UserInfo user={user} />
       <ButtonGroup className="user__options">
         <Button
