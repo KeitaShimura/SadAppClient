@@ -57,10 +57,14 @@ export function getLikesForPostApi(postId) {
   return axios
     .get(url, {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
       withCredentials: true,
     })
     .then((response) => response.data)
-    .catch((error) => console.error("Error fetching post likes:", error));
+    .catch((error) => {
+      console.error("投稿のいいねを取得中にエラーが発生しました:", error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
+    });
 }

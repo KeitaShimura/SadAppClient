@@ -14,6 +14,7 @@ import {
 } from "../../api/postLike";
 import useAuth from "../../hooks/useAuth";
 import { deletePostApi } from "../../api/post";
+import { useNavigate } from "react-router-dom";
 
 export default function ListPosts(props) {
   const { posts: initialPosts, setPosts: setInitialPosts } = props; // プロパティ名を変更
@@ -47,6 +48,11 @@ ListPosts.propTypes = {
 function Post({ post, authUser, onPostDeleted }) {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  const navigate = useNavigate();
+
+  const handleShowLikes = (postId) => {
+    navigate(`/post_likes/${postId}`);
+  };
 
   useEffect(() => {
     const fetchLikeData = async () => {
@@ -124,6 +130,7 @@ function Post({ post, authUser, onPostDeleted }) {
           {authUser.sub === String(post.user.id) && (
             <button onClick={handleDelete}>削除</button>
           )}
+          <button onClick={() => handleShowLikes(post.id)}>いいね一覧</button>
         </div>
       </div>
     </div>

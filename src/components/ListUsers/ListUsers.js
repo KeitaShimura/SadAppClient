@@ -14,14 +14,12 @@ export default function ListUsers(props) {
   return (
     <ul className="list-users">
       {map(users, (user) => (
-        <User key={user.id} user={user} />
+        <User user={user} />
       ))}
     </ul>
   );
 }
 
 ListUsers.propTypes = {
-  users: PropTypes.shape({
-    name: PropTypes.string,
-  }),
+  users: PropTypes.array.isRequired,
 };
