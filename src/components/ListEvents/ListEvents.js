@@ -29,7 +29,7 @@ ListEvents.propTypes = {
 function Event(props) {
   const { event } = props;
 
-  const iconUrl = event.user?.icon ? event.user.icon : IconNotFound; // Using the updated user state
+  const iconUrl = event.user?.icon ? event.user.icon : IconNotFound;
 
   return (
     <div className="post">
@@ -43,15 +43,28 @@ function Event(props) {
             </div>
           )}
         </div>
+        <div className="title">
+          <strong>タイトル: </strong>{event.title}
+        </div>
         <div
           dangerouslySetInnerHTML={{
             __html: replaceURLWithHTMLLinks(event.content),
           }}
         ></div>
+        <div className="event-details">
+          <div>
+            <strong>イベントURL: </strong>
+            <a href={event.event_url} target="_blank" rel="noopener noreferrer">{event.event_url}</a>
+          </div>
+          <div>
+            <strong>開催日: </strong>{event.event_date}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
 
 Event.propTypes = {
   event: PropTypes.shape({
@@ -59,7 +72,10 @@ Event.propTypes = {
       icon: PropTypes.string,
       name: PropTypes.string,
     }),
-    created_at: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
+    event_url: PropTypes.string.isRequired,
+    event_date: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
   }).isRequired,
 };
