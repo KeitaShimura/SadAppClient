@@ -27,7 +27,7 @@ export default function LikedUsers(props) {
 
         // いいねしたユーザーの情報をフィルタリング
         const likedUsersData = allUsers.filter((user) =>
-          likedUserIds.includes(user.id)
+          likedUserIds.includes(user.id),
         );
 
         setLikedUsers(likedUsersData);
@@ -45,8 +45,8 @@ export default function LikedUsers(props) {
     if (searchTerm === "") {
       setFilteredLikedUsers(likedUsers);
     } else {
-      const filtered = likedUsers?.filter(
-        (user) => user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      const filtered = likedUsers?.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredLikedUsers(filtered);
     }
