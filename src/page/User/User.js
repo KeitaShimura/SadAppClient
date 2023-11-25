@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { getUserEventsApi, getUserLikedEventsApi } from "../../api/event";
+import {
+  getUserEventsApi,
+  getUserLikedEventsApi,
+  getUserParticipatedEvents,
+} from "../../api/event";
 import { getUserPostsApi, getUserLikedPostsApi } from "../../api/post";
 import BasicLayout from "../../layout/BasicLayout";
 import BannerIcon from "../../components/User/BannerIcon";
@@ -23,6 +27,7 @@ function User(props) {
   const [events, setEvents] = useState(null);
   const [likedPosts, setLikedPosts] = useState(null);
   const [likedEvents, setLikedEvents] = useState(null);
+  const [participatedEvents, setParticipatedEvents] = useState(null);
   const [page, setPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [activeTab, setActiveTab] = useState("posts");
@@ -40,6 +45,9 @@ function User(props) {
         break;
       case "events":
         apiCall = getUserEventsApi;
+        break;
+      case "participated-events":
+        apiCall = getUserParticipatedEvents;
         break;
       case "liked-posts":
         apiCall = getUserLikedPostsApi;
@@ -62,6 +70,12 @@ function User(props) {
               break;
             case "events":
               setEvents([...(events || []), ...response]);
+              break;
+            case "participated-events":
+              setParticipatedEvents([
+                ...(participatedEvents || []),
+                ...response,
+              ]);
               break;
             case "liked-posts":
               setLikedPosts([...(likedPosts || []), ...response]);
@@ -115,6 +129,18 @@ function User(props) {
   }, [params, activeTab]);
 
   useEffect(() => {
+    if (activeTab === "participated-events") {
+      getUserParticipatedEvents(params.id)
+        .then((response) => {
+          setParticipatedEvents(response);
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+    }
+  }, [params, activeTab]);
+
+  useEffect(() => {
     if (activeTab === "liked-posts") {
       getUserLikedPostsApi(params.id)
         .then((response) => {
@@ -159,6 +185,12 @@ function User(props) {
           イベント
         </Button>
         <Button
+          onClick={() => setActiveTab("participated-events")}
+          active={activeTab === "participated-events"}
+        >
+          参加したイベント
+        </Button>
+        <Button
           onClick={() => setActiveTab("liked-posts")}
           active={activeTab === "liked-posts"}
         >
@@ -175,6 +207,9 @@ function User(props) {
       <div className="user__content">
         {activeTab === "posts" && posts && <ListPosts posts={posts} />}
         {activeTab === "events" && events && <ListEvents events={events} />}
+        {activeTab === "participated-events" && likedPosts && (
+          <ListEvents events={participatedEvents} />
+        )}
         {activeTab === "liked-posts" && likedPosts && (
           <ListPosts posts={likedPosts} />
         )}

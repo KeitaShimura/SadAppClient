@@ -208,7 +208,7 @@ function Event({ event, authUser, onEventDeleted }) {
         ) : (
           <button onClick={handleParticipation}>参加する</button>
         )}
-        <span>{participantCount} いいね</span>
+        <span>{participantCount} 人</span>
         <button onClick={() => handleShowParticipants(event.id)}>
           参加者一覧
         </button>
