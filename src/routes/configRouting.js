@@ -1,7 +1,9 @@
 import Error404 from "../page/Error404";
 import Event from "../page/Event";
 import Home from "../page/Home";
-import PostLikes from "../page/PostLikedUsers";
+import PostLikedUsers from "../page/PostLikedUsers";
+import EventLikedUsers from "../page/EventLikedUsers";
+
 import User from "../page/User";
 import Users from "../page/Users";
 
@@ -24,7 +26,11 @@ export default [
   },
   {
     path: "/post_likes/:id",
-    element: <PostLikes />,
+    element: <PostLikedUsers />,
+  },
+  {
+    path: "/event_likes/:id",
+    element: <EventLikedUsers />,
   },
   {
     path: "*",

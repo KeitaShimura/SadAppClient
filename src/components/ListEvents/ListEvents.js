@@ -14,6 +14,7 @@ import {
   unlikeEventApi,
 } from "../../api/eventLike";
 import { deleteEventApi } from "../../api/event";
+import { useNavigate } from "react-router-dom";
 
 export default function ListEvents(props) {
   const { events: initialEvents, setEvents: setInitialEvents } = props; // プロパティ名を変更
@@ -49,6 +50,11 @@ ListEvents.propTypes = {
 function Event({ event, authUser, onEventDeleted }) {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  const navigate = useNavigate();
+
+  const handleShowLikes = (eventId) => {
+    navigate(`/event_likes/${eventId}`);
+  };
 
   useEffect(() => {
     const fetchLikeData = async () => {
@@ -143,6 +149,7 @@ function Event({ event, authUser, onEventDeleted }) {
         {authUser.sub === String(event.user.id) && (
           <button onClick={handleDelete}>削除</button>
         )}
+        <button onClick={() => handleShowLikes(event.id)}>いいね一覧</button>
       </div>
     </div>
   );

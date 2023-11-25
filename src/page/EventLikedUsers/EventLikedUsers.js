@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import { getAllUsersApi } from "../../api/user";
-import { getLikesForPostApi } from "../../api/postLike";
+import { getLikesForEventApi } from "../../api/eventLike";
 import BasicLayout from "../../layout/BasicLayout";
 import ListUsers from "../../components/ListUsers";
 import { Spinner } from "react-bootstrap";
-import "./PostLikedUsers.scss";
+import "./EventLikedUsers.scss";
 
-export default function PostLikedUsers(props) {
+export default function EventLikedUsers(props) {
   const { setRefreshCheckLogin } = props;
   const [likedUsers, setLikedUsers] = useState(null);
   const [filteredLikedUsers, setFilteredLikedUsers] = useState(null);
@@ -19,7 +19,7 @@ export default function PostLikedUsers(props) {
     const fetchLikedUsers = async () => {
       try {
         // いいねしたユーザー一覧を取得
-        const likesData = await getLikesForPostApi(params.id);
+        const likesData = await getLikesForEventApi(params.id);
         const likedUserIds = likesData.map((like) => like.user_id);
 
         // 全ユーザーを取得
@@ -81,6 +81,6 @@ export default function PostLikedUsers(props) {
 }
 
 // propTypes の宣言
-PostLikedUsers.propTypes = {
+EventLikedUsers.propTypes = {
   setRefreshCheckLogin: PropTypes.func.isRequired,
 };
