@@ -1,7 +1,7 @@
 import Error404 from "../page/Error404";
 import Event from "../page/Event";
 import Home from "../page/Home";
-import PostLikes from "../page/PostLikes";
+import PostLikes from "../page/PostLikedUsers";
 import User from "../page/User";
 import Users from "../page/Users";
 

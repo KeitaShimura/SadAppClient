@@ -6,11 +6,13 @@ import { getLikesForPostApi } from "../../api/postLike";
 import BasicLayout from "../../layout/BasicLayout";
 import ListUsers from "../../components/ListUsers";
 import { Spinner } from "react-bootstrap";
+import "./PostLikedUsers.scss";
 
 export default function LikedUsers(props) {
   const { setRefreshCheckLogin } = props;
   const [likedUsers, setLikedUsers] = useState(null);
   const [filteredLikedUsers, setFilteredLikedUsers] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const params = useParams();
 
   useEffect(() => {
@@ -40,8 +42,15 @@ export default function LikedUsers(props) {
   useEffect(() => {
     // ユーザーの絞り込みなどのロジックを追加する場合には、ここで実装します
     // この例では絞り込みを行わず、すべてのいいねしたユーザーを表示します
-    setFilteredLikedUsers(likedUsers);
-  }, [likedUsers]);
+    if (searchTerm === "") {
+      setFilteredLikedUsers(likedUsers);
+    } else {
+      const filtered = likedUsers?.filter(
+        (user) => user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredLikedUsers(filtered);
+    }
+  }, [searchTerm, likedUsers]);
 
   return (
     <BasicLayout
@@ -51,6 +60,12 @@ export default function LikedUsers(props) {
     >
       <div className="liked-users__title">
         <h2>いいねしたユーザー一覧</h2>
+        <input
+          type="text"
+          placeholder="ユーザーを検索..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
 
       {!filteredLikedUsers ? (
