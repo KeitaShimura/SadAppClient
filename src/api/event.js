@@ -102,3 +102,21 @@ export function getUserLikedEventsApi(userId) {
       throw error;
     });
 }
+
+export function getUserParticipatedEvents(userId) {
+  const url = `${API_HOST}/api/user/events/${userId}/participated_events`;
+
+  return axios
+    .get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+      withCredentials: true,
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("投稿を取得中にエラーが発生しました:", error);
+      throw error;
+    });
+}
