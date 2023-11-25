@@ -13,31 +13,40 @@ import {
   getLikesForPostApi,
 } from "../../api/postLike";
 import useAuth from "../../hooks/useAuth";
+import { deletePostApi } from "../../api/post";
 
 export default function ListPosts(props) {
-  const { posts } = props;
+  const { posts: initialPosts, setPosts: setInitialPosts } = props; // プロパティ名を変更
+  const authUser = useAuth();
+  const [posts, setPosts] = useState(initialPosts); // ローカル状態を初期化
+
+  const handlePostDeleted = postId => {
+    const updatedPosts = posts.filter(post => post.id !== postId);
+    setPosts(updatedPosts); // ローカルの状態を更新
+    setInitialPosts(updatedPosts); // 親コンポーネントの状態も更新
+  };
+
   return (
     <div className="list-posts">
       {map(posts, (post, index) => (
-        <Post key={index} post={post} />
+        <Post
+          key={index}
+          post={post}
+          authUser={authUser}
+          onPostDeleted={handlePostDeleted}
+        />
       ))}
     </div>
   );
 }
 
 ListPosts.propTypes = {
-  posts: PropTypes.arrayOf(
-    PropTypes.shape({
-      content: PropTypes.string,
-    }),
-  ).isRequired,
+  posts: PropTypes.array.isRequired,
+  setPosts: PropTypes.func.isRequired,
 };
-
-function Post(props) {
-  const { post } = props;
+function Post({ post, authUser, onPostDeleted }) {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
-  const authUser = useAuth();
 
   useEffect(() => {
     const fetchLikeData = async () => {
@@ -68,7 +77,7 @@ function Post(props) {
         setIsLiked(true);
         updateLikeCount();
       })
-      .catch((error) => console.error("Like Error:", error));
+      .catch(error => console.error("Like Error:", error));
   };
 
   const handleUnlike = () => {
@@ -77,8 +86,17 @@ function Post(props) {
         setIsLiked(false);
         updateLikeCount();
       })
-      .catch((error) => console.error("Unlike Error:", error));
+      .catch(error => console.error("Unlike Error:", error));
   };
+
+  const handleDelete = () => {
+    deletePostApi(post.id)
+      .then(() => {
+        onPostDeleted(post.id); // 親コンポーネントの状態を更新
+      })
+      .catch(error => console.error("Delete Error:", error));
+  };
+
 
   const iconUrl = post.user?.icon ? post.user.icon : IconNotFound;
 
@@ -104,6 +122,9 @@ function Post(props) {
             <button onClick={handleLike}>いいねする</button>
           )}
           <span>{likeCount} Likes</span>
+          {authUser.sub === String(post.user.id) && (
+            <button onClick={handleDelete}>削除</button>
+          )}
         </div>
       </div>
     </div>
@@ -111,13 +132,7 @@ function Post(props) {
 }
 
 Post.propTypes = {
-  post: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      icon: PropTypes.string,
-      name: PropTypes.string,
-    }),
-    created_at: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-  }).isRequired,
+  post: PropTypes.object.isRequired,
+  authUser: PropTypes.object.isRequired,
+  onPostDeleted: PropTypes.func.isRequired
 };
