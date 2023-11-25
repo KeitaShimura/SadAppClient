@@ -10,28 +10,33 @@ import { toast } from "react-toastify";
 
 export default function EventModal(props) {
   const { show, setShow } = props;
-  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState(initialFromValue());
   const maxLength = 200;
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Call createPostApi with the message
-      const response = await createEventApi({ description: message });
-      console.log("Post created:", response.data);
+      // Call createEventApi with formData
+      const response = await createEventApi(formData);
+      console.log("Event created:", response.data);
 
-      // Clear the message and close the modal
+      // Clear the form and close the modal
       toast.success(response.message);
       setShow(false);
       window.location.reload();
     } catch (error) {
       // Handle any errors here
-      console.error("Error creating post:", error);
+      console.error("Error creating event:", error);
       toast.warning(
-        "ツイートの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
+        "イベントの投稿中にエラーが発生しました。もう一度お試しください。",
       );
       window.location.reload();
     }
+  };
+
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -49,27 +54,56 @@ export default function EventModal(props) {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={onSubmit}>
+          <Form.Group className="form-group">
+            <Form.Control
+              type="text"
+              name="title"
+              placeholder="タイトル"
+              value={formData.title} // valueプロパティを追加
+              onChange={onChange} // onChangeイベントハンドラを追加
+            />
+          </Form.Group>
           <Form.Control
             as="textarea"
             rows={6}
             type="text"
-            name="description"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="今の気持ちを共有してみましょう！"
+            name="content"
+            value={formData.content} // valueプロパティを追加
+            onChange={onChange} // onChangeイベントハンドラを追加
+            placeholder="内容"
           />
           <span
             className={classNames("count", {
-              error: message.length > maxLength,
+              error: formData.content.length > maxLength,
             })}
           >
-            {message.length}
+            <Form.Group className="form-group">
+              <Form.Control
+                type="text"
+                name="event_url"
+                placeholder="イベントURL"
+                value={formData.event_url} // valueプロパティを追加
+                onChange={onChange} // onChangeイベントハンドラを追加
+              />
+            </Form.Group>
+            <Form.Group className="form-group">
+              <Form.Control
+                type="date"
+                name="event_date"
+                placeholder="開催日"
+                value={formData.event_date} // valueプロパティを追加
+                onChange={onChange} // onChangeイベントハンドラを追加
+              />
+            </Form.Group>
+            {formData.content.length}
           </span>
           <Button
             type="submit"
-            disabled={message.length > maxLength || message.length < 1}
+            disabled={
+              formData.content.length > maxLength || formData.content.length < 1
+            }
           >
-            投稿する
+            イベントを投稿する
           </Button>
         </Form>
       </Modal.Body>
@@ -81,3 +115,13 @@ EventModal.propTypes = {
   show: PropTypes.bool.isRequired,
   setShow: PropTypes.func.isRequired,
 };
+
+
+function initialFromValue() {
+  return {
+    title: "",
+    content: "",
+    event_url: "",
+    event_date: "",
+  };
+}

@@ -17,7 +17,7 @@ export default function PostModal(props) {
     e.preventDefault();
     try {
       // Call createPostApi with the message
-      const response = await createPostApi({ description: message });
+      const response = await createPostApi({ content: message });
       console.log("Post created:", response.data);
 
       // Clear the message and close the modal
@@ -53,7 +53,7 @@ export default function PostModal(props) {
             as="textarea"
             rows={6}
             type="text"
-            name="description"
+            name="content"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="今の気持ちを共有してみましょう！"

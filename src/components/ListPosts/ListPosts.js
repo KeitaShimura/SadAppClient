@@ -21,7 +21,7 @@ export default function ListPosts(props) {
 ListPosts.propTypes = {
   posts: PropTypes.arrayOf(
     PropTypes.shape({
-      description: PropTypes.string,
+      content: PropTypes.string,
     }),
   ).isRequired,
 };
@@ -45,7 +45,7 @@ function Post(props) {
         </div>
         <div
           dangerouslySetInnerHTML={{
-            __html: replaceURLWithHTMLLinks(post.description),
+            __html: replaceURLWithHTMLLinks(post.content),
           }}
         ></div>
       </div>
@@ -60,6 +60,6 @@ Post.propTypes = {
       name: PropTypes.string,
     }),
     created_at: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
   }).isRequired,
 };

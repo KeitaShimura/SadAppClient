@@ -17,7 +17,8 @@ import "./LeftMenu.scss";
 import EventModal from "../Modal/EventModal";
 
 export default function LeftMenu() {
-  const [showModal, setShowModal] = useState(false);
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [showEventModal, setShowEventModal] = useState(false);
 
   const user = useAuth();
   console.log(user);
@@ -49,11 +50,11 @@ export default function LeftMenu() {
         ログアウト
       </Link>
 
-      <Button onClick={() => setShowModal(true)}>投稿する</Button>
-      <PostModal show={showModal} setShow={setShowModal} />
+      <Button onClick={() => setShowPostModal(true)}>投稿する</Button>
+      <PostModal show={showPostModal} setShow={setShowPostModal} />
 
-      <Button onClick={() => setShowModal(true)}>イベントを投稿する</Button>
-      <EventModal show={showModal} setShow={setShowModal} />
+      <Button onClick={() => setShowEventModal(true)}>イベントを投稿する</Button>
+      <EventModal show={showEventModal} setShow={setShowEventModal} />
     </div>
   );
 }

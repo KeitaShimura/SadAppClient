@@ -51,7 +51,6 @@ export function getUserEventsApi(id, page, pageSize) {
 export function createEventApi(eventData) {
   return axios.post(`${API_HOST}/api/user/events`, eventData, {
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${getTokenApi()}`,
     },
     withCredentials: true,

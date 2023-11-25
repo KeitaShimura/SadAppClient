@@ -21,7 +21,7 @@ export default function ListEvents(props) {
 ListEvents.propTypes = {
   events: PropTypes.arrayOf(
     PropTypes.shape({
-      description: PropTypes.string,
+      content: PropTypes.string,
     }),
   ).isRequired,
 };
@@ -45,7 +45,7 @@ function Event(props) {
         </div>
         <div
           dangerouslySetInnerHTML={{
-            __html: replaceURLWithHTMLLinks(event.description),
+            __html: replaceURLWithHTMLLinks(event.content),
           }}
         ></div>
       </div>
@@ -60,6 +60,6 @@ Event.propTypes = {
       name: PropTypes.string,
     }),
     created_at: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
   }).isRequired,
 };
