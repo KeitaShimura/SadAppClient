@@ -25,7 +25,6 @@ function User(props) {
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [activeTab, setActiveTab] = useState("posts");
 
-  console.log(posts);
   const moreData = () => {
     const pageTemp = page + 1;
     const pageSize = 50;
@@ -104,10 +103,11 @@ function User(props) {
       </ButtonGroup>
 
       <div className="user__content">
-        {
-          activeTab === "posts"
-            ? posts && <ListPosts posts={posts} />
-            : events && <ListEvents events={events} /> // Assuming you have a ListEvents component
+        {activeTab === "posts"
+          ? posts && <ListPosts posts={posts} />
+          : events && (
+              <ListEvents events={events} />
+            ) // Assuming you have a ListEvents component
         }
 
         <Button onClick={moreData}>
