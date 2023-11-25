@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { getUserEventsApi } from "../../api/event";
+import { getUserEventsApi, getUserLikedEventsApi } from "../../api/event";
 import { getUserPostsApi, getUserLikedPostsApi } from "../../api/post";
 import BasicLayout from "../../layout/BasicLayout";
 import BannerIcon from "../../components/User/BannerIcon";
 import UserInfo from "../../components/User/UserInfo";
 import ListPosts from "../../components/ListPosts";
-import ListEvents from "../../components/ListEvents/ListEvents";
+import ListEvents from "../../components/ListEvents";
 import "./User.scss";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import { getUserApi } from "../../api/user";
@@ -21,7 +21,8 @@ function User(props) {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState(null);
   const [events, setEvents] = useState(null);
-  const [likedPosts, setLikedPosts] = useState(null); // State for liked posts
+  const [likedPosts, setLikedPosts] = useState(null);
+  const [likedEvents, setLikedEvents] = useState(null);
   const [page, setPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [activeTab, setActiveTab] = useState("posts");
@@ -43,6 +44,9 @@ function User(props) {
       case "liked-posts":
         apiCall = getUserLikedPostsApi;
         break;
+      case "liked-events":
+        apiCall = getUserLikedEventsApi;
+        break;
       default:
         apiCall = getUserPostsApi; // デフォルトは投稿
     }
@@ -61,6 +65,9 @@ function User(props) {
               break;
             case "liked-posts":
               setLikedPosts([...(likedPosts || []), ...response]);
+              break;
+            case "liked-events":
+              setLikedEvents([...(likedEvents || []), ...response]);
               break;
             default:
               setPosts([...(posts || []), ...response]); // デフォルトは投稿
@@ -119,6 +126,18 @@ function User(props) {
     }
   }, [params, activeTab]);
 
+  useEffect(() => {
+    if (activeTab === "liked-events") {
+      getUserLikedEventsApi(params.id)
+        .then((response) => {
+          setLikedEvents(response);
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+    }
+  }, [params, activeTab]);
+
   return (
     <BasicLayout className="user" setRefreshCheckLogin={setRefreshCheckLogin}>
       <div className="user__title">
@@ -145,6 +164,12 @@ function User(props) {
         >
           いいねした投稿
         </Button>
+        <Button
+          onClick={() => setActiveTab("liked-events")}
+          active={activeTab === "liked-posts"}
+        >
+          いいねしたイベント
+        </Button>
       </ButtonGroup>
 
       <div className="user__content">
@@ -152,6 +177,9 @@ function User(props) {
         {activeTab === "events" && events && <ListEvents events={events} />}
         {activeTab === "liked-posts" && likedPosts && (
           <ListPosts posts={likedPosts} />
+        )}
+        {activeTab === "liked-events" && likedEvents && (
+          <ListEvents events={likedEvents} />
         )}
 
         <Button onClick={moreData}>
