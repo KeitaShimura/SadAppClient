@@ -15,6 +15,7 @@ import {
 } from "../../api/eventLike";
 import { deleteEventApi } from "../../api/event";
 import { useNavigate } from "react-router-dom";
+import { JoinEventApi, checkIfEventParticipantsApi, getParticipantsForEventApi, leaveEventApi } from "../../api/eventParticipant";
 
 export default function ListEvents(props) {
   const { events: initialEvents, setEvents: setInitialEvents } = props; // プロパティ名を変更
@@ -50,6 +51,8 @@ ListEvents.propTypes = {
 function Event({ event, authUser, onEventDeleted }) {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  const [isParticipated, setIsParticipated] = useState(false);
+  const [participantCount, setParticipantCount] = useState(0);
   const navigate = useNavigate();
 
   const handleShowLikes = (eventId) => {
@@ -105,6 +108,51 @@ function Event({ event, authUser, onEventDeleted }) {
       .catch((error) => console.error("Delete Error:", error));
   };
 
+  const handleShowParticipants = (eventId) => {
+    navigate(`/event_participates/${eventId}`);
+  };
+
+  useEffect(() => {
+    const fetchParticipateData = async () => {
+      try {
+        const participantStatus = await checkIfEventParticipantsApi(event.id, authUser.id);
+        setIsParticipated(participantStatus);
+        updateParticipantsCount();
+      } catch (error) {
+        console.error("Error fetching like data:", error);
+      }
+    };
+
+    fetchParticipateData();
+  }, [event.id, authUser.id]);
+
+  const updateParticipantsCount = async () => {
+    try {
+      const likesData = await getParticipantsForEventApi(event.id);
+      setParticipantCount(likesData.length);
+    } catch (error) {
+      console.error("Error fetching like count:", error);
+    }
+  };
+
+  const handleJoin = () => {
+    JoinEventApi(event.id)
+      .then(() => {
+        setIsParticipated(true);
+        updateParticipantsCount();
+      })
+      .catch((error) => console.error("Like Error:", error));
+  };
+
+  const handleLeave = () => {
+    leaveEventApi(event.id)
+      .then(() => {
+        setIsParticipated(false);
+        updateParticipantsCount();
+      })
+      .catch((error) => console.error("Unlike Error:", error));
+  };
+
   const iconUrl = event.user?.icon ? event.user.icon : IconNotFound;
 
   return (
@@ -145,11 +193,18 @@ function Event({ event, authUser, onEventDeleted }) {
         ) : (
           <button onClick={handleLike}>いいねする</button>
         )}
-        <span>{likeCount} Likes</span>
+        <span>{likeCount} いいね</span>
+        <button onClick={() => handleShowLikes(event.id)}>いいね一覧</button>
+        {isParticipated ? (
+          <button onClick={handleLeave}>参加を辞める</button>
+        ) : (
+          <button onClick={handleJoin}>参加する</button>
+        )}
+        <span>{participantCount} いいね</span>
+        <button onClick={() => handleShowParticipants(event.id)}>参加者一覧</button>
         {authUser.sub === String(event.user.id) && (
           <button onClick={handleDelete}>削除</button>
         )}
-        <button onClick={() => handleShowLikes(event.id)}>いいね一覧</button>
       </div>
     </div>
   );
