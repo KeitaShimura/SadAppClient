@@ -24,13 +24,13 @@ export default function Users(props) {
         if (userType === "following") {
           const followingData = await getFollowingApi(params.id);
           const followingUsers = allUsers.filter((user) =>
-            followingData.some((f) => f.following_id === user.id),
+            followingData.some((f) => f.follower_id === user.id),
           );
           setUsers(followingUsers);
         } else if (userType === "followers") {
           const followersData = await getFollowersApi(params.id);
           const followerUsers = allUsers.filter((user) =>
-            followersData.some((f) => f.follower_id === user.id),
+            followersData.some((f) => f.following_id === user.id),
           );
           setUsers(followerUsers);
         } else {
