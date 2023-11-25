@@ -44,7 +44,8 @@ function Event(props) {
           )}
         </div>
         <div className="title">
-          <strong>タイトル: </strong>{event.title}
+          <strong>タイトル: </strong>
+          {event.title}
         </div>
         <div
           dangerouslySetInnerHTML={{
@@ -54,17 +55,19 @@ function Event(props) {
         <div className="event-details">
           <div>
             <strong>イベントURL: </strong>
-            <a href={event.event_url} target="_blank" rel="noopener noreferrer">{event.event_url}</a>
+            <a href={event.event_url} target="_blank" rel="noopener noreferrer">
+              {event.event_url}
+            </a>
           </div>
           <div>
-            <strong>開催日: </strong>{event.event_date}
+            <strong>開催日: </strong>
+            {event.event_date}
           </div>
         </div>
       </div>
     </div>
   );
 }
-
 
 Event.propTypes = {
   event: PropTypes.shape({
