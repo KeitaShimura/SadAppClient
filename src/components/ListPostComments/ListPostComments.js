@@ -32,7 +32,6 @@ export default function ListPostComments(props) {
         postComments.map(
           (
             comment,
-            index, // postCommentsがnullまたはundefinedでないことを確認
           ) => (
             <PostComment
               key={comment.id} // インデックスではなく、ユニークなIDを使用
@@ -61,6 +60,8 @@ function PostComment({ comment, authUser, onPostDeleted }) {
   };
 
   const iconUrl = comment.user?.icon ? comment.user.icon : IconNotFound;
+
+  console.log(authUser.sub, comment.user.id)
 
   return (
     <div className="post">
