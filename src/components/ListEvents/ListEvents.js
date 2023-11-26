@@ -21,6 +21,7 @@ import {
   getParticipantsForEventApi,
   leaveEventApi,
 } from "../../api/eventParticipant";
+import { getEventCommentsApi } from "../../api/eventComment";
 
 export default function ListEvents(props) {
   const { events: initialEvents, setEvents: setInitialEvents } = props; // プロパティ名を変更
@@ -58,6 +59,8 @@ function Event({ event, authUser, onEventDeleted }) {
   const [likeCount, setLikeCount] = useState(0);
   const [isParticipated, setIsParticipated] = useState(false);
   const [participantCount, setParticipantCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
+
   const navigate = useNavigate();
 
   const handleShowLikes = (eventId) => {
@@ -77,6 +80,20 @@ function Event({ event, authUser, onEventDeleted }) {
 
     fetchLikeData();
   }, [event.id, authUser.id]);
+
+  useEffect(() => {
+    // コメント数の取得
+    const fetchCommentCount = async () => {
+      try {
+        const comments = await getEventCommentsApi(event.id);
+        setCommentCount(comments.data.length);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+
+    fetchCommentCount();
+  }, [event.id]);
 
   const updateLikeCount = async () => {
     try {
@@ -212,6 +229,7 @@ function Event({ event, authUser, onEventDeleted }) {
         <button onClick={() => handleShowParticipants(event.id)}>
           参加者一覧
         </button>
+        <span>{commentCount} コメント</span>
         {authUser.sub === String(event.user.id) && (
           <button onClick={handleDelete}>削除</button>
         )}
