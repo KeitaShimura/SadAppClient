@@ -29,18 +29,14 @@ export default function ListPostComments(props) {
   return (
     <div className="list-posts">
       {postComments &&
-        postComments.map(
-          (
-            comment,
-          ) => (
-            <PostComment
-              key={comment.id} // インデックスではなく、ユニークなIDを使用
-              comment={comment}
-              authUser={authUser}
-              onPostDeleted={handlePostDeleted}
-            />
-          ),
-        )}
+        postComments.map((comment) => (
+          <PostComment
+            key={comment.id} // インデックスではなく、ユニークなIDを使用
+            comment={comment}
+            authUser={authUser}
+            onPostDeleted={handlePostDeleted}
+          />
+        ))}
     </div>
   );
 }
@@ -61,7 +57,7 @@ function PostComment({ comment, authUser, onPostDeleted }) {
 
   const iconUrl = comment.user?.icon ? comment.user.icon : IconNotFound;
 
-  console.log(authUser.sub, comment.user.id)
+  console.log(authUser.sub, comment.user.id);
 
   return (
     <div className="post">
