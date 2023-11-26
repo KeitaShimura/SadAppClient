@@ -2,33 +2,34 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import ListPostComments from "../../components/ListPostComments";
+import ListEventComments from "../ListEventComments";
 import BasicLayout from "../../layout/BasicLayout";
-import { getPostApi } from "../../api/post";
+import { getEventApi } from "../../api/event";
 import {
-  createPostCommentApi,
-  getPostCommentsApi,
-} from "../../api/postComment";
-import { Button, Spinner } from "react-bootstrap";
+  createEventCommentApi,
+  getEventCommentsApi,
+} from "../../api/eventComment";
+import { Button, Image, Spinner } from "react-bootstrap";
 import moment from "moment";
 import { replaceURLWithHTMLLinks } from "../../utils/functions";
 import classNames from "classnames";
 import "./EventComments.scss";
+import IconNotFound from "../../assets/png/icon-no-found.png";
 
 function EventComments(props) {
   const { setRefreshCheckLogin } = props;
   const params = useParams();
-  const [post, setPost] = useState(null);
-  const [postComments, setPostComments] = useState(null);
+  const [event, setEvent] = useState(null);
+  const [eventComments, setEventComments] = useState(null);
   const [page, setPage] = useState(1);
-  const [loadingPostComments, setLoadingPostComments] = useState(false);
+  const [loadingEventComments, setLoadingEventComments] = useState(false);
   const [message, setMessage] = useState("");
   const maxLength = 200;
 
   useEffect(() => {
-    getPostCommentsApi(params.id)
+    getEventCommentsApi(params.id)
       .then((response) => {
-        setPostComments(response.data);
+        setEventComments(response.data);
       })
       .catch((error) => {
         toast.error(error);
@@ -36,12 +37,12 @@ function EventComments(props) {
   }, [params.id]);
 
   useEffect(() => {
-    getPostApi(params.id)
+    getEventApi(params.id)
       .then((response) => {
-        setPost(response.data);
+        setEvent(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching post:", error);
+        console.error("Error fetching event:", error);
         toast.error("投稿の取得に失敗しました。");
       });
   }, [params.id]);
@@ -49,8 +50,8 @@ function EventComments(props) {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Call createPostApi with the message
-      const response = await createPostCommentApi(params.id, {
+      // Call createEventCommentApi with the message
+      const response = await createEventCommentApi(params.id, {
         content: message,
       });
       console.log("Comment created:", response.data);
@@ -59,7 +60,7 @@ function EventComments(props) {
       toast.success(response.message);
     } catch (error) {
       // Handle any errors here
-      console.error("Error creating post:", error);
+      console.error("Error creating event:", error);
       toast.warning(
         "ツイートの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
       );
@@ -71,50 +72,68 @@ function EventComments(props) {
     const pageSize = 50;
     console.log("Page:", page, "PageSize:", pageSize);
 
-    setLoadingPostComments(true);
-    getPostCommentsApi(params.id)
+    setLoadingEventComments(true);
+    getEventCommentsApi(params.id)
       .then((response) => {
         if (!response) {
-          setLoadingPostComments(false); // Handle the error condition
+          setLoadingEventComments(false); // Handle the error condition
         } else {
-          setPostComments(response.data);
+          setEventComments(response.data);
           setPage(pageTemp);
-          setLoadingPostComments(false);
+          setLoadingEventComments(false);
         }
       })
       .catch((error) => {
-        console.error("Error fetching post comments:", error);
-        setLoadingPostComments(false); // Handle the error condition
+        console.error("Error fetching event comments:", error);
+        setLoadingEventComments(false); // Handle the error condition
       });
   };
 
   const displayCommentCount = () => {
-    if (postComments === null) {
+    if (eventComments === null) {
       return "コメントの読み込み中...";
     }
-    return `コメント数: ${postComments.length}`;
+    return `コメント数: ${eventComments.length}`;
   };
 
-  console.log(post);
-  console.log(postComments);
+  const iconUrl = event.user?.icon ? event.user.icon : IconNotFound;
 
+
+  console.log(iconUrl)
   return (
-    <BasicLayout className="post" setRefreshCheckLogin={setRefreshCheckLogin}>
-      <div className="post">
+    <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>
+      <div className="event">
+        <Image className="icon" src={iconUrl} roundedCircle />
         <div>
-          {post && post.user && (
+          {event.user && (
             <div className="name">
-              {post.user.name}
-              <span>{moment(post.created_at).calendar()}</span>
+              {event.user.name}
+              <span>{moment(event.created_at).calendar()}</span>
             </div>
           )}
+          <div className="title">
+            <strong>タイトル: </strong>
+            {event.title}
+          </div>
           <div
             dangerouslySetInnerHTML={{
-              __html: replaceURLWithHTMLLinks(post?.content || ""), // Use optional chaining and provide a default value
+              __html: replaceURLWithHTMLLinks(event.content),
             }}
-          />
-          {displayCommentCount()}
+          ></div>
+          <div className="event-details">
+            <div>
+              <strong>イベントURL: </strong>
+              <a href={event.event_url} target="_blank" rel="noopener noreferrer">
+                {event.event_url}
+              </a>
+            </div>
+            <div>
+              <strong>開催日: </strong>
+              {event.event_date}
+            </div>
+          </div>
         </div>
+        {displayCommentCount()}
       </div>
       <form onSubmit={onSubmit}>
         <textarea
@@ -139,12 +158,12 @@ function EventComments(props) {
           投稿する
         </Button>
       </form>
-      <div className="post__comment">
-        <ListPostComments postComments={postComments} />
+      <div className="event__comment">
+        <ListEventComments eventComments={eventComments} />
       </div>
       <Button onClick={moreData}>
-        {!loadingPostComments ? (
-          loadingPostComments !== 0 && "もっと見る"
+        {!loadingEventComments ? (
+          loadingEventComments !== 0 && "もっと見る"
         ) : (
           <Spinner
             animation="grow"
