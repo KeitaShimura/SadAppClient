@@ -212,13 +212,6 @@ function EventComments(props) {
       });
   };
 
-  const displayCommentCount = () => {
-    if (eventComments === null) {
-      return "コメントの読み込み中...";
-    }
-    return `コメント数: ${eventComments.length}`;
-  };
-
   const iconUrl = (event && event.user && event.user.icon) ? event.user.icon : IconNotFound;
 
 
@@ -284,9 +277,7 @@ function EventComments(props) {
               </div>
             </div>
           )}
-
         </div>
-        {displayCommentCount()}
       </div>
 
       <form onSubmit={onSubmit}>
