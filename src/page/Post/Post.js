@@ -20,6 +20,16 @@ function Post(props) {
   const [loadingPostComments, setLoadingPostComments] = useState(false);
 
   useEffect(() => {
+    getPostCommentsApi(params.id)
+      .then((response) => {
+        setPostComments(response.data);
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+  }, [params.id]);
+
+  useEffect(() => {
     getPostApi(params.id)
       .then((response) => {
         setPost(response.data);
@@ -36,7 +46,7 @@ function Post(props) {
     console.log("Page:", page, "PageSize:", pageSize);
 
     setLoadingPostComments(true);
-    getPostCommentsApi()
+    getPostCommentsApi(params.id)
       .then((response) => {
         if (!response) {
           setLoadingPostComments(false); // Handle the error condition
@@ -53,6 +63,7 @@ function Post(props) {
   };
 
   console.log(post);
+  console.log(postComments);
 
   return (
     <BasicLayout className="post" setRefreshCheckLogin={setRefreshCheckLogin}>

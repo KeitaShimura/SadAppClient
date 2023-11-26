@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { Image } from "react-bootstrap";
-import { map } from "lodash";
 import { replaceURLWithHTMLLinks } from "../../utils/functions";
 import "./ListPostComments.scss";
 import IconNotFound from "../../assets/png/icon-no-found.png";
@@ -13,26 +12,36 @@ export default function ListPostComments(props) {
   const {
     postComments: initialPostComments,
     setPostComments: setInitialPostComments,
-  } = props; // プロパティ名を変更
+  } = props;
   const authUser = useAuth();
-  const [postComments, setPostComments] = useState(initialPostComments); // ローカル状態を初期化
+  const [postComments, setPostComments] = useState(initialPostComments || []); // 初期値がnullの場合、空の配列を使用
+
+  useEffect(() => {
+    setPostComments(initialPostComments || []); // 初期値がnullの場合、空の配列を使用
+  }, [initialPostComments]);
 
   const handlePostDeleted = (postId) => {
     const updatedComments = postComments.filter((post) => post.id !== postId);
-    setPostComments(updatedComments); // ローカルの状態を更新
-    setInitialPostComments(updatedComments); // 親コンポーネントの状態も更新
+    setPostComments(updatedComments);
+    setInitialPostComments(updatedComments);
   };
 
   return (
     <div className="list-posts">
-      {map(postComments, (comment, index) => (
-        <PostComment
-          key={index}
-          comment={comment}
-          authUser={authUser}
-          onPostDeleted={handlePostDeleted}
-        />
-      ))}
+      {postComments &&
+        postComments.map(
+          (
+            comment,
+            index, // postCommentsがnullまたはundefinedでないことを確認
+          ) => (
+            <PostComment
+              key={comment.id} // インデックスではなく、ユニークなIDを使用
+              comment={comment}
+              authUser={authUser}
+              onPostDeleted={handlePostDeleted}
+            />
+          ),
+        )}
     </div>
   );
 }
@@ -41,11 +50,12 @@ ListPostComments.propTypes = {
   postComments: PropTypes.array.isRequired,
   setPostComments: PropTypes.func.isRequired,
 };
+
 function PostComment({ comment, authUser, onPostDeleted }) {
   const handleDelete = () => {
     deletePostCommentApi(comment.id)
       .then(() => {
-        onPostDeleted(comment.id); // 親コンポーネントの状態を更新
+        onPostDeleted(comment.id);
       })
       .catch((error) => console.error("Delete Error:", error));
   };
@@ -67,11 +77,11 @@ function PostComment({ comment, authUser, onPostDeleted }) {
             __html: replaceURLWithHTMLLinks(comment.content),
           }}
         />
-        <div>
-          {authUser.sub === String(comment.user.id) && (
+        {authUser &&
+          comment.user &&
+          authUser.sub === String(comment.user.id) && (
             <button onClick={handleDelete}>削除</button>
           )}
-        </div>
       </div>
     </div>
   );

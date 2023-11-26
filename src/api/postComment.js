@@ -15,9 +15,8 @@ export function getPostCommentsApi(postId) {
 // Create a new comment
 export function createPostCommentApi(postId, commentData) {
   return axios.post(
-    `${API_HOST}/api/user/posts/comments`,
+    `${API_HOST}/api/user/posts/comments/${postId}`,
     {
-      postId,
       ...commentData,
     },
     {
