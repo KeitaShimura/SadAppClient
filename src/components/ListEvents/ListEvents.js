@@ -67,6 +67,10 @@ function Event({ event, authUser, onEventDeleted }) {
     navigate(`/event_likes/${eventId}`);
   };
 
+  const handleShowEvent = (eventId) => {
+    navigate(`/events/${eventId}`);
+  };
+
   useEffect(() => {
     const fetchLikeData = async () => {
       try {
@@ -181,7 +185,7 @@ function Event({ event, authUser, onEventDeleted }) {
   const iconUrl = event.user?.icon ? event.user.icon : IconNotFound;
 
   return (
-    <div className="event">
+    <div className="event" onClick={() => handleShowEvent(event.id)}>
       <Image className="icon" src={iconUrl} roundedCircle />
       <div>
         {event.user && (

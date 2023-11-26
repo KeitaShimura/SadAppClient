@@ -1,50 +1,30 @@
 @import "../../scss/index.scss";
 
-.post {
-  .post {
-    display: flex;
-    padding: 10px 20px;
+.home {
+  &__title {
     border-bottom: 1px solid $border-gray;
+    padding: 15px;
 
-    .icon {
-      width: 50px;
-      height: 50px;
-      margin-right: 20px;
-    }
-
-    .name {
+    h2 {
+      font-size: 22px;
+      margin-bottom: 0;
       font-weight: bold;
-
-      span {
-        margin-left: 10px;
-        font-size: 12px;
-        font-weight: normal;
-        color: $font-grey;
-      }
     }
   }
 
-  &__content {
-    h3 {
-      padding: 15px;
-      font-size: 18px;
-      border-bottom: 1px solid $border-gray;
-    }
+  .load-button.btn.btn-primary {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: transparent;
+    border: 0;
+    color: $font-grey;
 
-    > .btn.btn-primary {
-      display: flex;
-      margin: 0 auto;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      background-color: transparent;
-      border: 0;
-      color: $font-grey;
-
-      &:hover,
-      &focus {
-        background-color: transparent !important;
-        color: $primary;
-      }
+    &:hover,
+    &focus {
+      background-color: transparent !important;
+      color: $primary;
     }
   }
 }

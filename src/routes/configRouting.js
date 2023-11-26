@@ -1,38 +1,34 @@
 import Error404 from "../page/Error404";
-import Event from "../page/Event";
-import Home from "../page/Home";
+import Post from "../page/Post";
+import PostComments from "../page/PostComments";
 import PostLikedUsers from "../page/PostLikedUsers";
+import Event from "../page/Event";
+import EventComments from "../page/EventComments";
 import EventLikedUsers from "../page/EventLikedUsers";
-
+import EventParticipants from "../page/EventParticipants";
 import User from "../page/User";
 import Users from "../page/Users";
-import EventParticipants from "../page/EventParticipants";
-import Post from "../page/Post";
 
 export default [
   {
     path: "/",
-    element: <Home />,
+    element: <Post />,
+  },
+  {
+    path: "/posts/:id",
+    element: <PostComments />,
+  },
+  {
+    path: "/post_likes/:id",
+    element: <PostLikedUsers />,
   },
   {
     path: "/events",
     element: <Event />,
   },
   {
-    path: "/user/:id",
-    element: <User />,
-  },
-  {
-    path: "/users/:id",
-    element: <Users />,
-  },
-  {
-    path: "/posts/:id",
-    element: <Post />,
-  },
-  {
-    path: "/post_likes/:id",
-    element: <PostLikedUsers />,
+    path: "/events/:id",
+    element: <EventComments />,
   },
   {
     path: "/event_likes/:id",
@@ -41,6 +37,14 @@ export default [
   {
     path: "/event_participants/:id",
     element: <EventParticipants />,
+  },
+  {
+    path: "/user/:id",
+    element: <User />,
+  },
+  {
+    path: "/users/:id",
+    element: <Users />,
   },
   {
     path: "*",
