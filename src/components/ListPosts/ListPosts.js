@@ -15,6 +15,7 @@ import {
 import useAuth from "../../hooks/useAuth";
 import { deletePostApi } from "../../api/post";
 import { useNavigate } from "react-router-dom";
+import { getPostCommentsApi } from "../../api/postComment";
 
 export default function ListPosts(props) {
   const { posts: initialPosts, setPosts: setInitialPosts } = props; // プロパティ名を変更
@@ -48,6 +49,8 @@ ListPosts.propTypes = {
 function Post({ post, authUser, onPostDeleted }) {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
+
   const navigate = useNavigate();
 
   const handleShowLikes = (postId) => {
@@ -72,10 +75,24 @@ function Post({ post, authUser, onPostDeleted }) {
     fetchLikeData();
   }, [post.id, authUser.id]);
 
+  useEffect(() => {
+    // コメント数の取得
+    const fetchCommentCount = async () => {
+      try {
+        const comments = await getPostCommentsApi(post.id);
+        setCommentCount(comments.data.length);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+
+    fetchCommentCount();
+  }, [post.id]);
+
   const updateLikeCount = async () => {
     try {
       const likesData = await getLikesForPostApi(post.id);
-      setLikeCount(likesData.length);
+      setLikeCount(likesData.data.length);
     } catch (error) {
       console.error("Error fetching like count:", error);
     }
@@ -131,6 +148,7 @@ function Post({ post, authUser, onPostDeleted }) {
             <button onClick={handleLike}>いいねする</button>
           )}
           <span>{likeCount} Likes</span>
+          <span>{commentCount} コメント</span> {/* コメント数を表示 */}
           {authUser.sub === String(post.user.id) && (
             <button onClick={handleDelete}>削除</button>
           )}

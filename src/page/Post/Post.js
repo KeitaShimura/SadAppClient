@@ -62,6 +62,13 @@ function Post(props) {
       });
   };
 
+  const displayCommentCount = () => {
+    if (postComments === null) {
+      return "コメントの読み込み中...";
+    }
+    return `コメント数: ${postComments.length}`;
+  };
+
   console.log(post);
   console.log(postComments);
 
@@ -80,6 +87,7 @@ function Post(props) {
               __html: replaceURLWithHTMLLinks(post?.content || ""), // Use optional chaining and provide a default value
             }}
           />
+          {displayCommentCount()}
         </div>
       </div>
       <div className="post__comment">
