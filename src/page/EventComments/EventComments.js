@@ -40,6 +40,7 @@ function EventComments(props) {
     getEventApi(params.id)
       .then((response) => {
         setEvent(response.data);
+        console.log(event);
       })
       .catch((error) => {
         console.error("Error fetching event:", error);
@@ -96,7 +97,7 @@ function EventComments(props) {
     return `コメント数: ${eventComments.length}`;
   };
 
-  const iconUrl = event.user?.icon ? event.user.icon : IconNotFound;
+  const iconUrl = (event && event.user && event.user.icon) ? event.user.icon : IconNotFound;
 
 
   console.log(iconUrl)
@@ -105,36 +106,42 @@ function EventComments(props) {
       <div className="event">
         <Image className="icon" src={iconUrl} roundedCircle />
         <div>
-          {event.user && (
+          {event && event.user && (
             <div className="name">
               {event.user.name}
               <span>{moment(event.created_at).calendar()}</span>
             </div>
           )}
-          <div className="title">
-            <strong>タイトル: </strong>
-            {event.title}
-          </div>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: replaceURLWithHTMLLinks(event.content),
-            }}
-          ></div>
-          <div className="event-details">
-            <div>
-              <strong>イベントURL: </strong>
-              <a href={event.event_url} target="_blank" rel="noopener noreferrer">
-                {event.event_url}
-              </a>
-            </div>
-            <div>
-              <strong>開催日: </strong>
-              {event.event_date}
-            </div>
-          </div>
+
+          {event && (
+            <>
+              <div className="title">
+                <strong>タイトル: </strong>
+                {event.title}
+              </div>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: replaceURLWithHTMLLinks(event.content),
+                }}
+              ></div>
+              <div className="event-details">
+                <div>
+                  <strong>イベントURL: </strong>
+                  <a href={event.event_url} target="_blank" rel="noopener noreferrer">
+                    {event.event_url}
+                  </a>
+                </div>
+                <div>
+                  <strong>開催日: </strong>
+                  {event.event_date}
+                </div>
+              </div>
+            </>
+          )}
         </div>
         {displayCommentCount()}
       </div>
+
       <form onSubmit={onSubmit}>
         <textarea
           rows={6}
