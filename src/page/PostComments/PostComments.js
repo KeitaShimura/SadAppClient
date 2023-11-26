@@ -13,7 +13,12 @@ import { Button, Image, Spinner } from "react-bootstrap";
 import moment from "moment";
 import { replaceURLWithHTMLLinks } from "../../utils/functions";
 import classNames from "classnames";
-import { checkIfPostLikedApi, getLikesForPostApi, likePostApi, unlikePostApi } from "../../api/postLike";
+import {
+  checkIfPostLikedApi,
+  getLikesForPostApi,
+  likePostApi,
+  unlikePostApi,
+} from "../../api/postLike";
 import useAuth from "../../hooks/useAuth";
 import "./PostComments.scss";
 
@@ -99,10 +104,11 @@ function PostComments(props) {
   };
 
   const handleDelete = () => {
-    deletePostApi(post.id)
+    deletePostApi(post.id);
   };
 
-  const iconUrl = (post && post.user && post.user.icon) ? post.user.icon : IconNotFound;
+  const iconUrl =
+    post && post.user && post.user.icon ? post.user.icon : IconNotFound;
 
   useEffect(() => {
     getPostCommentsApi(params.id)
@@ -180,23 +186,25 @@ function PostComments(props) {
           )}
           {post && (
             <div>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: replaceURLWithHTMLLinks(post.content),
-            }}
-          />
-          <div>
-            {isLiked ? (
-              <button onClick={handleUnlike}>いいね済み</button>
-            ) : (
-              <button onClick={handleLike}>いいねする</button>
-            )}
-            <span>{likeCount} Likes</span>
-            <span>{commentCount} コメント</span> {/* コメント数を表示 */}
-            {authUser.sub === String(post.user.id) && (
-              <button onClick={handleDelete}>削除</button>
-            )}
-            <button onClick={() => handleShowLikes(post.id)}>いいね一覧</button>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: replaceURLWithHTMLLinks(post.content),
+                }}
+              />
+              <div>
+                {isLiked ? (
+                  <button onClick={handleUnlike}>いいね済み</button>
+                ) : (
+                  <button onClick={handleLike}>いいねする</button>
+                )}
+                <span>{likeCount} Likes</span>
+                <span>{commentCount} コメント</span> {/* コメント数を表示 */}
+                {authUser.sub === String(post.user.id) && (
+                  <button onClick={handleDelete}>削除</button>
+                )}
+                <button onClick={() => handleShowLikes(post.id)}>
+                  いいね一覧
+                </button>
               </div>
             </div>
           )}

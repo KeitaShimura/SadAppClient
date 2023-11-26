@@ -14,14 +14,18 @@ export default function ListEventComments(props) {
     setEventComments: setInitialEventComments,
   } = props;
   const authUser = useAuth();
-  const [eventComments, setEventComments] = useState(initialEventComments || []); // 初期値がnullの場合、空の配列を使用
+  const [eventComments, setEventComments] = useState(
+    initialEventComments || [],
+  ); // 初期値がnullの場合、空の配列を使用
 
   useEffect(() => {
     setEventComments(initialEventComments || []); // 初期値がnullの場合、空の配列を使用
   }, [initialEventComments]);
 
   const handleEventDeleted = (eventId) => {
-    const updatedComments = eventComments.filter((event) => event.id !== eventId);
+    const updatedComments = eventComments.filter(
+      (event) => event.id !== eventId,
+    );
     setEventComments(updatedComments);
     setInitialEventComments(updatedComments);
   };

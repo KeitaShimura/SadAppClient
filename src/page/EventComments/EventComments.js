@@ -15,8 +15,18 @@ import { replaceURLWithHTMLLinks } from "../../utils/functions";
 import classNames from "classnames";
 import "./EventComments.scss";
 import IconNotFound from "../../assets/png/icon-no-found.png";
-import { checkIfEventLikedApi, getLikesForEventApi, likeEventApi, unlikeEventApi } from "../../api/eventLike";
-import { ParticipationEventApi, checkIfEventParticipantsApi, getParticipantsForEventApi, leaveEventApi } from "../../api/eventParticipant";
+import {
+  checkIfEventLikedApi,
+  getLikesForEventApi,
+  likeEventApi,
+  unlikeEventApi,
+} from "../../api/eventLike";
+import {
+  ParticipationEventApi,
+  checkIfEventParticipantsApi,
+  getParticipantsForEventApi,
+  leaveEventApi,
+} from "../../api/eventParticipant";
 import useAuth from "../../hooks/useAuth";
 
 function EventComments(props) {
@@ -212,10 +222,10 @@ function EventComments(props) {
       });
   };
 
-  const iconUrl = (event && event.user && event.user.icon) ? event.user.icon : IconNotFound;
+  const iconUrl =
+    event && event.user && event.user.icon ? event.user.icon : IconNotFound;
 
-
-  console.log(iconUrl)
+  console.log(iconUrl);
   return (
     <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>
       <div className="event">
@@ -243,7 +253,11 @@ function EventComments(props) {
                 <div className="event-details">
                   <div>
                     <strong>イベントURL: </strong>
-                    <a href={event.event_url} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={event.event_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {event.event_url}
                     </a>
                   </div>
@@ -260,7 +274,9 @@ function EventComments(props) {
                   <button onClick={handleLike}>いいねする</button>
                 )}
                 <span>{likeCount} いいね</span>
-                <button onClick={() => handleShowLikes(event.id)}>いいね一覧</button>
+                <button onClick={() => handleShowLikes(event.id)}>
+                  いいね一覧
+                </button>
                 {isParticipated ? (
                   <button onClick={handleLeave}>参加を辞める</button>
                 ) : (
