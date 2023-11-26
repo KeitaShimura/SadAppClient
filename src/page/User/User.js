@@ -216,7 +216,7 @@ function User(props) {
           onClick={() => setActiveTab("participated-events")}
           active={activeTab === "participated-events"}
         >
-          参加したイベント
+          参加イベント
         </Button>
         <Button
           onClick={() => setActiveTab("liked-posts")}

@@ -63,12 +63,24 @@ export function createPostApi(postData) {
 
 // Fetch a single post by ID
 export function getPostApi(id) {
-  return axios.get(`${API_HOST}/api/user/posts/${id}`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getTokenApi()}`,
-    },
-  });
+  return axios
+    .get(`${API_HOST}/api/user/posts/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+    })
+    .then((response) => {
+      // レスポンスが正常に返された場合の処理
+      console.log("Response:", response);
+      return response;
+    })
+    .catch((error) => {
+      // エラーが発生した場合の処理
+      console.error("Error during API call:", error);
+      // エラーメッセージまたは全体のエラーオブジェクトを返す
+      return error.message || error;
+    });
 }
 
 // Update a post by ID

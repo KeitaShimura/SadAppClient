@@ -54,6 +54,10 @@ function Post({ post, authUser, onPostDeleted }) {
     navigate(`/post_likes/${postId}`);
   };
 
+  const handleShowPost = (postId) => {
+    navigate(`/posts/${postId}`);
+  };
+
   useEffect(() => {
     const fetchLikeData = async () => {
       try {
@@ -106,7 +110,7 @@ function Post({ post, authUser, onPostDeleted }) {
   const iconUrl = post.user?.icon ? post.user.icon : IconNotFound;
 
   return (
-    <div className="post">
+    <div className="list-posts" onClick={() => handleShowPost(post.id)}>
       <Image className="icon" src={iconUrl} roundedCircle />
       <div>
         {post.user && (

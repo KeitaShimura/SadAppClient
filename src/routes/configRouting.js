@@ -7,6 +7,7 @@ import EventLikedUsers from "../page/EventLikedUsers";
 import User from "../page/User";
 import Users from "../page/Users";
 import EventParticipants from "../page/EventParticipants";
+import Post from "../page/Post";
 
 export default [
   {
@@ -24,6 +25,10 @@ export default [
   {
     path: "/users/:id",
     element: <Users />,
+  },
+  {
+    path: "/posts/:id",
+    element: <Post />,
   },
   {
     path: "/post_likes/:id",
