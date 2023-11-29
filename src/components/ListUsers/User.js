@@ -5,7 +5,11 @@ import { toast } from "react-toastify";
 import { Button, Image } from "react-bootstrap";
 import IconNotFound from "../../assets/png/icon-no-found.png";
 import { useNavigate } from "react-router";
-import { checkIfFollowingApi, followUserApi, unfollowUserApi } from "../../api/follow";
+import {
+  checkIfFollowingApi,
+  followUserApi,
+  unfollowUserApi,
+} from "../../api/follow";
 import useAuth from "../../hooks/useAuth";
 
 export default function User(props) {
@@ -73,7 +77,6 @@ export default function User(props) {
     }
   }, [user, authUser]); // user と authUser に依存
 
-
   return (
     <div className="user" onClick={() => handleShowUser(user.id)}>
       <Image className="icon" src={iconUrl} roundedCircle />
@@ -97,7 +100,6 @@ export default function User(props) {
             <span>フォロー解除</span>
           </Button>
         ) : (
-
           <Button
             className="unfollow"
             onClick={(e) => {
@@ -107,7 +109,6 @@ export default function User(props) {
           >
             フォローする
           </Button>
-
         ))}
     </div>
   );

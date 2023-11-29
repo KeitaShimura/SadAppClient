@@ -23,7 +23,7 @@ export default function Event(props) {
           ...(Array.isArray(prevPosts) ? prevPosts : []),
           ...response.data,
         ]);
-        setPage(prevPage => prevPage + 1);
+        setPage((prevPage) => prevPage + 1);
       }
       setLoadingEvents(false);
     });
@@ -46,15 +46,14 @@ export default function Event(props) {
       setFilteredEvents(events);
     } else {
       const filtered = events?.filter(
-        (event) => event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (event) =>
+          event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           event.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          event.event_url.toLowerCase().includes(searchTerm.toLowerCase())
+          event.event_url.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredEvents(filtered);
     }
   }, [searchTerm, events]);
-
-
 
   return (
     <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>

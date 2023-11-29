@@ -9,7 +9,7 @@ import { Button, Spinner } from "react-bootstrap";
 export default function Post(props) {
   const [posts, setPosts] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const pageSize = 50;
@@ -23,7 +23,7 @@ export default function Post(props) {
           ...(Array.isArray(prevPosts) ? prevPosts : []),
           ...response.data,
         ]);
-        setPage(prevPage => prevPage + 1);
+        setPage((prevPage) => prevPage + 1);
       }
       setLoadingPosts(false);
     });
@@ -43,14 +43,12 @@ export default function Post(props) {
     if (searchTerm === "") {
       setFilteredPosts(posts);
     } else {
-      const filtered = posts?.filter(
-        (post) => post.content.toLowerCase().includes(searchTerm.toLowerCase())
+      const filtered = posts?.filter((post) =>
+        post.content.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredPosts(filtered);
     }
   }, [posts, searchTerm]);
-
-
 
   return (
     <BasicLayout className="home" setRefreshCheckLogin={setRefreshCheckLogin}>
