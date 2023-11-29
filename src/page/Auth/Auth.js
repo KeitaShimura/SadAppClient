@@ -46,14 +46,14 @@ function LeftComponent() {
 }
 
 function RightComponent(props) {
-  const { openModal, setShowModal, setRefreshCheckLogin } = props;
+  const { openModal, setRefreshCheckLogin } = props;
   return (
     <Col className="auth__bottom" xs={12}>
       <div>
         <Button
           variant="primary"
           onClick={() =>
-            openModal(<RegisterForm setShowModal={setShowModal} />)
+            openModal(<RegisterForm setRefreshCheckLogin={setRefreshCheckLogin} />)
           }
         >
           新規登録

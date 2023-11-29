@@ -9,6 +9,9 @@ export function registerApi(user) {
     .post(url, user, { withCredentials: true })
     .then((response) => {
       // 登録成功時の処理
+      if (response.data.token) {
+        setTokenApi(response.data.token);
+      }
       return response.data;
     })
     .catch((err) => {

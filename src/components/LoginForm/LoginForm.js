@@ -5,7 +5,6 @@ import { Button, Form, Spinner } from "react-bootstrap";
 import {
   size,
   values,
-  // size
 } from "lodash";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../../utils/validation";

@@ -13,7 +13,7 @@ import { registerApi, setTokenApi } from "../../api/auth";
 import "./RegisterForm.scss";
 
 export default function RegisterForm(props) {
-  const { setShowModal } = props;
+  const { setRefreshCheckLogin } = props;
   const [formData, setFormData] = useState(initialFromValue());
   const [registerLoading, setRegisterLoading] = useState(false);
 
@@ -44,8 +44,7 @@ export default function RegisterForm(props) {
             } else {
               toast.success("アカウントを登録しました。");
               setTokenApi(response.token);
-              setShowModal(false);
-              setFormData(initialFromValue());
+              setRefreshCheckLogin(true);
             }
           })
           .catch(() => {
@@ -114,7 +113,7 @@ export default function RegisterForm(props) {
 
 // propTypesでプロパティの型情報を指定
 RegisterForm.propTypes = {
-  setShowModal: PropTypes.func.isRequired,
+  setRefreshCheckLogin: PropTypes.func.isRequired,
 };
 
 function initialFromValue() {
