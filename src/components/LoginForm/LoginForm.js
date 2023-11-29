@@ -2,10 +2,7 @@ import React, { useState } from "react";
 
 import "./LoginForm.scss";
 import { Button, Form, Spinner } from "react-bootstrap";
-import {
-  size,
-  values,
-} from "lodash";
+import { size, values } from "lodash";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../../utils/validation";
 import { loginApi, setTokenApi } from "../../api/auth";

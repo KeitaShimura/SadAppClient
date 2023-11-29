@@ -53,7 +53,9 @@ function RightComponent(props) {
         <Button
           variant="primary"
           onClick={() =>
-            openModal(<RegisterForm setRefreshCheckLogin={setRefreshCheckLogin} />)
+            openModal(
+              <RegisterForm setRefreshCheckLogin={setRefreshCheckLogin} />,
+            )
           }
         >
           新規登録
