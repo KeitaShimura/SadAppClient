@@ -4,13 +4,18 @@ import { getUserApi } from "../../api/user";
 import { toast } from "react-toastify";
 import { Image } from "react-bootstrap";
 import IconNotFound from "../../assets/png/icon-no-found.png";
+import { useNavigate } from "react-router";
 
 export default function User(props) {
   const { user } = props;
   const [userInfo, setUserInfo] = useState(null);
   const iconUrl = user?.icon ? user.icon : IconNotFound;
 
-  console.log(userInfo);
+  const navigate = useNavigate();
+
+  const handleShowUser = (userId) => {
+    navigate(`/user/${userId}`);
+  };
   useEffect(() => {
     getUserApi(user.id)
       .then((response) => {
@@ -24,7 +29,7 @@ export default function User(props) {
   }, [user]);
 
   return (
-    <div className="user">
+    <div className="user" onClick={() => handleShowUser(user.id)}>
       <Image className="icon" src={iconUrl} roundedCircle />
       {userInfo && (
         <div>

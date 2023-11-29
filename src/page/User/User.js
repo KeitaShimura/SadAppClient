@@ -195,8 +195,8 @@ function User(props) {
       </div>
       <BannerIcon user={user} authUser={authUser} />
       <div>
-        <Link to={`users/${params.id}`}>フォロー中:</Link> {followingCount}
-        <Link to={`users/${params.id}`}>フォロワー:</Link> {followersCount}
+        <Link to={`/users/${params.id}`}>フォロー中:</Link> {followingCount}
+        <Link to={`/users/${params.id}`}>フォロワー:</Link> {followersCount}
       </div>
       <UserInfo user={user} />
       <ButtonGroup className="user__options">
