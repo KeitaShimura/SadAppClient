@@ -177,6 +177,7 @@ export default function EditUserForm(props) {
 EditUserForm.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string,
+    email: PropTypes.string,
     bio: PropTypes.string,
     website: PropTypes.string,
     location: PropTypes.string,
@@ -190,6 +191,7 @@ EditUserForm.propTypes = {
 function initialFromValue(user) {
   return {
     name: user.name || "",
+    email: user.email || "",
     bio: user.bio || "",
     website: user.website || "",
     location: user.location || "",
