@@ -105,6 +105,15 @@ export default function EditUserForm(props) {
         </Form.Group>
         <Form.Group className="form-group">
           <Form.Control
+            type="email"
+            name="email"
+            defaultValue={formData.email}
+            placeholder="メールアドレス"
+            onChange={onChange}
+          />
+        </Form.Group>
+        <Form.Group className="form-group">
+          <Form.Control
             as="textarea"
             rows={3}
             type="text"
