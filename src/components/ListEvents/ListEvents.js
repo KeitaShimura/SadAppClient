@@ -218,24 +218,45 @@ function Event({ event, authUser, onEventDeleted }) {
       </div>
       <div>
         {isLiked ? (
-          <button onClick={handleUnlike}>いいね済み</button>
+          <button onClick={(e) => {
+            e.stopPropagation();
+            handleUnlike();
+          }}>いいね済み</button>
         ) : (
-          <button onClick={handleLike}>いいねする</button>
+          <button onClick={(e) => {
+            e.stopPropagation();
+            handleLike();
+          }}>いいねする</button>
+
         )}
         <span>{likeCount} いいね</span>
-        <button onClick={() => handleShowLikes(event.id)}>いいね一覧</button>
+        <button onClick={(e) => {
+          e.stopPropagation();
+          handleShowLikes(event.id);
+        }}>いいね一覧</button>
         {isParticipated ? (
-          <button onClick={handleLeave}>参加を辞める</button>
+          <button onClick={(e) => {
+            e.stopPropagation();
+            handleLeave();
+          }}>参加を辞める</button>
         ) : (
-          <button onClick={handleParticipation}>参加する</button>
+          <button onClick={(e) => {
+            e.stopPropagation();
+            handleParticipation();
+          }}>参加する</button>
+
         )}
         <span>{participantCount} 人</span>
-        <button onClick={() => handleShowParticipants(event.id)}>
-          参加者一覧
-        </button>
+        <button onClick={(e) => {
+          e.stopPropagation();
+          handleShowParticipants(event.id);
+        }}>参加者一覧</button>
         <span>{commentCount} コメント</span>
         {authUser.sub === String(event.user.id) && (
-          <button onClick={handleDelete}>削除</button>
+          <button onClick={(e) => {
+            e.stopPropagation();
+            handleDelete();
+          }}>削除</button>
         )}
       </div>
     </div>

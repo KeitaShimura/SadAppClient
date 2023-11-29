@@ -143,16 +143,29 @@ function Post({ post, authUser, onPostDeleted }) {
         />
         <div>
           {isLiked ? (
-            <button onClick={handleUnlike}>いいね済み</button>
+            <button onClick={(e) => {
+              e.stopPropagation();
+              handleUnlike();
+            }}>いいね済み</button>
           ) : (
-            <button onClick={handleLike}>いいねする</button>
+            <button onClick={(e) => {
+              e.stopPropagation();
+              handleLike();
+            }}>いいねする</button>
+
           )}
           <span>{likeCount} Likes</span>
           <span>{commentCount} コメント</span> {/* コメント数を表示 */}
           {authUser.sub === String(post.user.id) && (
-            <button onClick={handleDelete}>削除</button>
+            <button onClick={(e) => {
+              e.stopPropagation();
+              handleDelete();
+            }}>削除</button>
           )}
-          <button onClick={() => handleShowLikes(post.id)}>いいね一覧</button>
+          <button onClick={(e) => {
+            e.stopPropagation();
+            handleShowLikes(post.id);
+          }}>いいね一覧</button>
         </div>
       </div>
     </div>
