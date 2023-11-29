@@ -8,56 +8,66 @@ import { Button, Spinner } from "react-bootstrap";
 
 export default function Post(props) {
   const [posts, setPosts] = useState(null);
-
+  const [filteredPosts, setFilteredPosts] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
+  const [loadingPosts, setLoadingPosts] = useState(false);
+  const pageSize = 50;
   const { setRefreshCheckLogin } = props;
 
-  const [loadingPosts, setLoadingPosts] = useState(false);
-
   const moreData = () => {
-    const pageTemp = page + 1;
-    const pageSize = 50;
     setLoadingPosts(true);
-
-    getPostsApi(pageTemp, pageSize).then((response) => {
-      if (!response) {
-        setLoadingPosts(0);
-      } else {
+    getPostsApi(page, pageSize).then((response) => {
+      if (response) {
         setPosts((prevPosts) => [
           ...(Array.isArray(prevPosts) ? prevPosts : []),
           ...response.data,
         ]);
-        setPage(pageTemp);
-        setLoadingPosts(false);
+        setPage(prevPage => prevPage + 1);
       }
+      setLoadingPosts(false);
     });
   };
 
   useEffect(() => {
-    const pageTemp = page + 1;
-    const pageSize = 50;
-    console.log("Page:", page, "PageSize:", pageSize);
-
     setLoadingPosts(true);
-    getPostsApi().then((response) => {
-      setPosts(response.data); // この行を確認
-      if (!response) {
-        setLoadingPosts(0);
-      } else {
-        setPage(pageTemp);
-        setLoadingPosts(false);
+    getPostsApi(page, pageSize).then((response) => {
+      if (response) {
+        setPosts(response.data);
       }
+      setLoadingPosts(false);
     });
-  }, []);
+  }, [page, pageSize]);
 
-  console.log(posts);
+  useEffect(() => {
+    if (searchTerm === "") {
+      setFilteredPosts(posts);
+    } else {
+      const filtered = posts?.filter(
+        (post) => post.content.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredPosts(filtered);
+    }
+  }, [posts, searchTerm]);
+
+
 
   return (
     <BasicLayout className="home" setRefreshCheckLogin={setRefreshCheckLogin}>
       <div className="home__title">
         <h2>投稿一覧</h2>
+        <input
+          type="text"
+          placeholder="検索"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
-      {posts && <ListPosts posts={posts} />}
+      {filteredPosts && filteredPosts.length > 0 ? (
+        <ListPosts posts={filteredPosts} />
+      ) : (
+        "検索結果がありません"
+      )}
       <Button className="load-button" onClick={moreData}>
         {!loadingPosts ? (
           loadingPosts !== 0 && "もっと見る"

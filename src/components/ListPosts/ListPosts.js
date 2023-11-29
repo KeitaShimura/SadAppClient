@@ -18,14 +18,15 @@ import { useNavigate } from "react-router-dom";
 import { getPostCommentsApi } from "../../api/postComment";
 
 export default function ListPosts(props) {
-  const { posts: initialPosts, setPosts: setInitialPosts } = props; // プロパティ名を変更
-  const authUser = useAuth();
-  const [posts, setPosts] = useState(initialPosts); // ローカル状態を初期化
+  console.log("ListPosts Props:", props);
+  const { posts: initialPosts, setPosts: setInitialPosts } = props;
+  const authUser = useAuth(); // useAuthを適切な場所からインポート
+  const [posts, setPosts] = useState(initialPosts);
 
   const handlePostDeleted = (postId) => {
     const updatedPosts = posts.filter((post) => post.id !== postId);
-    setPosts(updatedPosts); // ローカルの状態を更新
-    setInitialPosts(updatedPosts); // 親コンポーネントの状態も更新
+    setPosts(updatedPosts);
+    setInitialPosts(updatedPosts);
   };
 
   return (
