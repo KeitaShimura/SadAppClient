@@ -8,55 +8,70 @@ import { Button, Spinner } from "react-bootstrap";
 
 export default function Event(props) {
   const [events, setEvents] = useState(null);
+  const [filteredEvents, setFilteredEvents] = useState(null); // フィルタリングされたイベント用のステート
+  const [searchTerm, setSearchTerm] = useState(""); // 検索用のステート
   const [page, setPage] = useState(1);
-  const { setRefreshCheckLogin } = props;
-
   const [loadingEvents, setLoadingEvents] = useState(false);
+  const { setRefreshCheckLogin } = props;
+  const pageSize = 50;
 
   const moreData = () => {
-    const pageTemp = page + 1;
-    const pageSize = 50;
     setLoadingEvents(true);
-
-    getEventsApi(pageTemp, pageSize).then((response) => {
-      if (!response) {
-        setLoadingEvents(0);
-      } else {
+    getEventsApi(page, pageSize).then((response) => {
+      if (response) {
         setEvents((prevPosts) => [
           ...(Array.isArray(prevPosts) ? prevPosts : []),
           ...response.data,
         ]);
-        setPage(pageTemp);
-        setLoadingEvents(false);
+        setPage(prevPage => prevPage + 1);
       }
+      setLoadingEvents(false);
     });
   };
 
+  // イベントデータの取得
   useEffect(() => {
-    const pageTemp = page + 1;
-    const pageSize = 50;
-    console.log("Page:", page, "PageSize:", pageSize);
-
     setLoadingEvents(true);
-    getEventsApi().then((response) => {
-      setEvents(response.data); // この行を確認
-      if (!response) {
-        setLoadingEvents(0);
-      } else {
-        setPage(pageTemp);
-        setLoadingEvents(false);
+    getEventsApi(page, pageSize).then((response) => {
+      if (response) {
+        setEvents(response.data);
       }
+      setLoadingEvents(false);
     });
-  }, []);
+  }, [page, pageSize]);
 
-  console.log(events);
+  // 検索処理
+  useEffect(() => {
+    if (searchTerm === "") {
+      setFilteredEvents(events);
+    } else {
+      const filtered = events?.filter(
+        (event) => event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.event_url.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredEvents(filtered);
+    }
+  }, [searchTerm, events]);
+
+
 
   return (
     <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>
       <div className="event__title">
         <h2>イベント一覧</h2>
+        <input
+          type="text"
+          placeholder="イベント検索"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
-      {events && <ListEvents events={events} />}
+      {filteredEvents && filteredEvents.length > 0 ? (
+        <ListEvents events={filteredEvents} />
+      ) : (
+        "検索結果がありません"
+      )}
       <Button className="load-button" onClick={moreData}>
         {!loadingEvents ? (
           loadingEvents !== 0 && "もっと見る"

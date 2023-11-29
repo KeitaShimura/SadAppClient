@@ -18,9 +18,8 @@ import { useNavigate } from "react-router-dom";
 import { getPostCommentsApi } from "../../api/postComment";
 
 export default function ListPosts(props) {
-  console.log("ListPosts Props:", props);
   const { posts: initialPosts, setPosts: setInitialPosts } = props;
-  const authUser = useAuth(); // useAuthを適切な場所からインポート
+  const authUser = useAuth();
   const [posts, setPosts] = useState(initialPosts);
 
   const handlePostDeleted = (postId) => {
