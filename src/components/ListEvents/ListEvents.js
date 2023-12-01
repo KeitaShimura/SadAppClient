@@ -150,15 +150,20 @@ function Event({ event, authUser, onEventDeleted }) {
   };
 
   const handleDelete = () => {
-    deleteEventApi(event.id)
-      .then(() => {
-        onEventDeleted(event.id);
-        toast.success("イベントが削除されました。"); // 削除成功時のメッセージ
-      })
-      .catch((error) => {
-        console.error("Delete Error:", error);
-        toast.error("イベントの削除中にエラーが発生しました。"); // 削除エラー時のメッセージ
-      });
+    const confirmation = window.confirm("投稿を削除しますか？");
+    if (confirmation) {
+      // User confirmed the delete action
+      deleteEventApi(event.id)
+        .then(() => {
+          onEventDeleted(event.id);
+          toast.success("投稿が削除されました。");
+        })
+        .catch((error) => {
+          // 削除が失敗した場合のエラーハンドリング
+          console.error("Delete Error:", error);
+          toast.warning("投稿の削除中にエラーが発生しました。");
+        });
+    }
   };
 
   const handleShowParticipants = (eventId) => {

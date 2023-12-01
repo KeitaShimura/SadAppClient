@@ -141,12 +141,22 @@ function Post({ post, authUser, onPostDeleted }) {
         toast.error("いいね解除に失敗しました。");
       });
   };
+  
   const handleDelete = () => {
-    deletePostApi(post.id)
-      .then(() => {
-        onPostDeleted(post.id); // 親コンポーネントの状態を更新
-      })
-      .catch((error) => console.error("Delete Error:", error));
+    const confirmation = window.confirm("投稿を削除しますか？");
+    if (confirmation) {
+      // User confirmed the delete action
+      deletePostApi(post.id)
+        .then(() => {
+          onPostDeleted(post.id);
+          toast.success("投稿が削除されました。");
+        })
+        .catch((error) => {
+          // 削除が失敗した場合のエラーハンドリング
+          console.error("Delete Error:", error);
+          toast.warning("投稿の削除中にエラーが発生しました。");
+        });
+    }
   };
 
   const iconUrl = post.user?.icon ? post.user.icon : IconNotFound;

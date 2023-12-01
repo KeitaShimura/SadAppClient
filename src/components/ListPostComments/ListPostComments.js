@@ -41,6 +41,7 @@ function PostComment({ comment, authUser, onCommentDeleted }) {
       deletePostCommentApi(comment.id)
         .then(() => {
           onCommentDeleted(comment.id);
+          toast.success("コメントが削除されました。");
         })
         .catch((error) => {
           // 削除が失敗した場合のエラーハンドリング

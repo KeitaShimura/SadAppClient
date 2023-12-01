@@ -156,7 +156,20 @@ function EventComments(props) {
   };
 
   const handleDelete = () => {
-    deleteEventApi(event.id);
+    const confirmation = window.confirm("イベントを削除しますか？");
+    if (confirmation) {
+      // User confirmed the delete action
+      deleteEventApi(event.id)
+        .then(() => {
+          navigate('/events');
+          toast.success("イベントが削除されました。");
+        })
+        .catch((error) => {
+          // 削除が失敗した場合のエラーハンドリング
+          console.error("Delete Error:", error);
+          toast.error("イベントの削除中にエラーが発生しました。");
+        });
+    }
   };
 
   const handleShowParticipants = (eventId) => {

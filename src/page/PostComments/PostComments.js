@@ -127,9 +127,22 @@ function PostComments(props) {
         toast.error("いいね解除に失敗しました。");
       });
   };
-
+  
   const handleDelete = () => {
-    deletePostApi(post.id);
+    const confirmation = window.confirm("コメントを削除しますか？");
+    if (confirmation) {
+      // User confirmed the delete action
+      deletePostApi(post.id)
+        .then(() => {
+          navigate('/');
+          toast.success("コメントが削除されました。");
+        })
+        .catch((error) => {
+          // 削除が失敗した場合のエラーハンドリング
+          console.error("Delete Error:", error);
+          toast.error("コメントの削除中にエラーが発生しました。");
+        });
+    }
   };
 
   const iconUrl =
