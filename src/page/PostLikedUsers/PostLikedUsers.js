@@ -7,6 +7,7 @@ import BasicLayout from "../../layout/BasicLayout";
 import ListUsers from "../../components/ListUsers";
 import { Spinner } from "react-bootstrap";
 import "./PostLikedUsers.scss";
+import { toast } from "react-toastify";
 
 export default function PostLikedUsers(props) {
   const { setRefreshCheckLogin } = props;
@@ -33,6 +34,8 @@ export default function PostLikedUsers(props) {
         setLikedUsers(likedUsersData);
       } catch (error) {
         setLikedUsers([]);
+        // データを取得できなかった場合のエラーメッセージ
+        toast.error("いいねしたユーザーを取得できませんでした。");
       }
     };
 

@@ -100,8 +100,12 @@ function Post({ post, authUser, onPostDeleted }) {
     try {
       const likesData = await getLikesForPostApi(post.id);
       setLikeCount(likesData.data.length);
+      // データを正常に取得した場合のメッセージ
+      toast.success("いいねの数を更新しました。");
     } catch (error) {
       console.error("Error fetching like count:", error);
+      // データを取得できなかった場合のエラーメッセージ
+      toast.error("いいねの数を更新できませんでした。");
     }
   };
 
