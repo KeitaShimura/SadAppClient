@@ -22,6 +22,7 @@ import {
   leaveEventApi,
 } from "../../api/eventParticipant";
 import { getEventCommentsApi } from "../../api/eventComment";
+import { toast } from "react-toastify";
 
 export default function ListEvents(props) {
   const { events: initialEvents, setEvents: setInitialEvents } = props; // プロパティ名を変更
@@ -129,9 +130,13 @@ function Event({ event, authUser, onEventDeleted }) {
   const handleDelete = () => {
     deleteEventApi(event.id)
       .then(() => {
-        onEventDeleted(event.id); // 親コンポーネントの状態を更新
+        onEventDeleted(event.id);
+        toast.success("イベントが削除されました。"); // 削除成功時のメッセージ
       })
-      .catch((error) => console.error("Delete Error:", error));
+      .catch((error) => {
+        console.error("Delete Error:", error);
+        toast.error("イベントの削除中にエラーが発生しました。"); // 削除エラー時のメッセージ
+      });
   };
 
   const handleShowParticipants = (eventId) => {
