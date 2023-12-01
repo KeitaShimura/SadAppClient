@@ -25,12 +25,14 @@ export default function User(props) {
     event.preventDefault(); // This should now work without error
     followUserApi(userId)
       .then(() => {
-        console.log("User ID:", userId);
         setIsFollowing(true);
-        // Additional logic if needed
+        // フォロー成功時のメッセージ
+        toast.success("ユーザーをフォローしました。");
       })
       .catch((error) => {
         console.error("Follow Error:", error);
+        // フォローエラー時のメッセージ
+        toast.error("ユーザーのフォロー中にエラーが発生しました。");
       });
   };
 
@@ -38,10 +40,13 @@ export default function User(props) {
     unfollowUserApi(user.id)
       .then(() => {
         setIsFollowing(false);
-        // Additional logic if needed
+        // アンフォロー成功時のメッセージ
+        toast.success("ユーザーのフォローを解除しました。");
       })
       .catch((error) => {
         console.error("Unfollow Error:", error);
+        // アンフォローエラー時のメッセージ
+        toast.error("ユーザーのフォロー解除中にエラーが発生しました。");
       });
   };
 

@@ -11,6 +11,7 @@ import EditUserForm from "../EditUserForm";
 import IconNotFound from "../../../assets/png/icon-no-found.png";
 
 import "./BannerIcon.scss";
+import { toast } from "react-toastify";
 
 export default function BannerIcon(props) {
   const { user, authUser } = props;
@@ -21,26 +22,32 @@ export default function BannerIcon(props) {
   const bannerUrl = user?.banner ? user.banner : null;
 
   const handleFollow = (userId, event) => {
-    event.preventDefault(); // This should now work without error
+    event.preventDefault();
     followUserApi(userId)
       .then(() => {
-        console.log("User ID:", userId);
         setIsFollowing(true);
-        // Additional logic if needed
+        // フォロー成功時のメッセージ
+        toast.success("ユーザーをフォローしました。");
       })
       .catch((error) => {
         console.error("Follow Error:", error);
+        // フォローエラー時のメッセージ
+        toast.error("ユーザーのフォロー中にエラーが発生しました。");
       });
+
   };
 
   const handleUnfollow = () => {
     unfollowUserApi(user.id)
       .then(() => {
         setIsFollowing(false);
-        // Additional logic if needed
+        // アンフォロー成功時のメッセージ
+        toast.success("ユーザーのフォローを解除しました。");
       })
       .catch((error) => {
         console.error("Unfollow Error:", error);
+        // アンフォローエラー時のメッセージ
+        toast.error("ユーザーのフォロー解除中にエラーが発生しました。");
       });
   };
 
