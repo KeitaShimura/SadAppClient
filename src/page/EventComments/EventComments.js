@@ -182,20 +182,30 @@ function EventComments(props) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    // バリデーション: コメントの長さをチェック
+    if (message.trim().length === 0 || message.trim().length > 500) {
+      toast.warning("コメントは1文字以上500文字以下である必要があります。");
+      return; // コメントが無効な場合、処理を中止
+    }
+
     try {
-      // Call createEventCommentApi with the message
+      // コメントを作成
       const response = await createEventCommentApi(params.id, {
         content: message,
       });
-      console.log("Comment created:", response.data);
 
-      // Clear the message and close the modal
-      toast.success(response.message);
+      // コメントが正常に作成された場合の処理
+      console.log("Comment created:", response.data);
+      toast.success("コメントが投稿されました。");
+
+      setMessage(""); // メッセージをクリア
+
     } catch (error) {
-      // Handle any errors here
+      // エラーハンドリング
       console.error("Error creating event:", error);
       toast.warning(
-        "ツイートの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
+        "コメントの投稿中にエラーが発生しました。しばらく待ってからもう一度お試しください。"
       );
     }
   };
