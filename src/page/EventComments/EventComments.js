@@ -99,7 +99,7 @@ function EventComments(props) {
     const fetchCommentCount = async () => {
       try {
         const comments = await getEventCommentsApi(event.id);
-        setCommentCount(comments.data.length);
+        setCommentCount(comments.length);
       } catch (error) {
         console.error("Error fetching comments:", error);
       }

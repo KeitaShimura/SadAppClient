@@ -50,35 +50,44 @@ function PostComments(props) {
 
   useEffect(() => {
     const fetchLikeData = async () => {
+      if (!post || !authUser) {
+        console.error("Post or AuthUser is null");
+        return;
+      }
+
       try {
         const likeStatus = await checkIfPostLikedApi(post.id, authUser.id);
         setIsLiked(likeStatus);
         updateLikeCount();
       } catch (error) {
         console.error("Error fetching like data:", error);
-        // データを取得できなかった場合のエラーメッセージ
         toast.error("いいねの状態を取得できませんでした。");
       }
     };
 
     fetchLikeData();
-  }, [post.id, authUser.id]);
+  }, [post, authUser]);
+
 
   useEffect(() => {
-    // コメント数の取得
     const fetchCommentCount = async () => {
+      if (!post) {
+        console.error("Post is null");
+        return;
+      }
+
       try {
         const comments = await getPostCommentsApi(post.id);
         setCommentCount(comments.data.length);
       } catch (error) {
         console.error("Error fetching comments:", error);
-        // コメント数の取得が失敗した際のエラーメッセージ
         toast.error("コメント数の取得中にエラーが発生しました。");
       }
     };
 
     fetchCommentCount();
   }, [post]);
+
 
   const updateLikeCount = async () => {
     try {
