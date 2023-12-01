@@ -2,7 +2,6 @@ import axios from "axios";
 import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
-
 // イベントのすべてのコメントを取得
 export function getEventCommentsApi(eventId) {
   return axios
@@ -22,7 +21,9 @@ export function getEventCommentsApi(eventId) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);
@@ -50,7 +51,9 @@ export function createEventCommentApi(eventId, commentData) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);
@@ -78,7 +81,9 @@ export function updateEventCommentApi(commentId, commentData) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);
@@ -105,7 +110,9 @@ export function deleteEventCommentApi(commentId) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);

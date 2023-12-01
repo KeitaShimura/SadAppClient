@@ -21,7 +21,9 @@ export function registerApi(user) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);
@@ -48,7 +50,9 @@ export function loginApi(user) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);

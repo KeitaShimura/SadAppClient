@@ -51,7 +51,6 @@ export default function RegisterForm(props) {
     }
   };
 
-
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

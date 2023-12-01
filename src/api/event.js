@@ -3,16 +3,14 @@ import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
 export function getEventsApi(page, pageSize) {
-  return axios.get(
-    `${API_HOST}/api/user/events?page=${page}&pageSize=${pageSize}`,
-    {
+  return axios
+    .get(`${API_HOST}/api/user/events?page=${page}&pageSize=${pageSize}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
       withCredentials: true,
-    }
-  )
+    })
     .then((response) => {
       return response.data;
     })
@@ -23,7 +21,9 @@ export function getEventsApi(page, pageSize) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);
@@ -63,12 +63,13 @@ export function getUserEventsApi(id, page, pageSize) {
 }
 
 export function createEventApi(eventData) {
-  return axios.post(`${API_HOST}/api/user/events`, eventData, {
-    headers: {
-      Authorization: `Bearer ${getTokenApi()}`,
-    },
-    withCredentials: true,
-  })
+  return axios
+    .post(`${API_HOST}/api/user/events`, eventData, {
+      headers: {
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+      withCredentials: true,
+    })
     .then((response) => {
       return response.data;
     })
@@ -79,7 +80,9 @@ export function createEventApi(eventData) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);
@@ -88,12 +91,13 @@ export function createEventApi(eventData) {
 }
 
 export function getEventApi(id) {
-  return axios.get(`${API_HOST}/api/user/events/${id}`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getTokenApi()}`,
-    },
-  })
+  return axios
+    .get(`${API_HOST}/api/user/events/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+    })
     .then((response) => {
       return response.data;
     })
@@ -104,7 +108,9 @@ export function getEventApi(id) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);
@@ -113,13 +119,14 @@ export function getEventApi(id) {
 }
 
 export function updateEventApi(id, eventData) {
-  return axios.put(`${API_HOST}/api/user/events/${id}`, eventData, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getTokenApi()}`,
-    },
-    withCredentials: true,
-  })
+  return axios
+    .put(`${API_HOST}/api/user/events/${id}`, eventData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+      withCredentials: true,
+    })
     .then((response) => {
       return response.data;
     })
@@ -130,7 +137,9 @@ export function updateEventApi(id, eventData) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);
@@ -139,12 +148,13 @@ export function updateEventApi(id, eventData) {
 }
 
 export function deleteEventApi(id) {
-  return axios.delete(`${API_HOST}/api/user/events/${id}`, {
-    headers: {
-      Authorization: `Bearer ${getTokenApi()}`,
-    },
-    withCredentials: true,
-  })
+  return axios
+    .delete(`${API_HOST}/api/user/events/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+      withCredentials: true,
+    })
     .then((response) => {
       return response.data;
     })
@@ -155,7 +165,9 @@ export function deleteEventApi(id) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);
