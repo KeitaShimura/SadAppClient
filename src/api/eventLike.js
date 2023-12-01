@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
+// イベントに「いいね」を付ける
 export function likeEventApi(eventId) {
   const url = `${API_HOST}/api/user/events/${eventId}/like`;
 
@@ -18,9 +19,13 @@ export function likeEventApi(eventId) {
       },
     )
     .then((response) => response.data)
-    .catch((error) => console.error("Like Error:", error));
+    .catch((error) => {
+      console.error("いいねエラー:", error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
+    });
 }
 
+// イベントの「いいね」を解除する
 export function unlikeEventApi(eventId) {
   const url = `${API_HOST}/api/user/events/${eventId}/unlike`;
 
@@ -33,9 +38,13 @@ export function unlikeEventApi(eventId) {
       withCredentials: true,
     })
     .then((response) => response.data)
-    .catch((error) => console.error("Unlike Error:", error));
+    .catch((error) => {
+      console.error("「いいね」解除エラー:", error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
+    });
 }
 
+// イベントが「いいね」されているかをチェック
 export function checkIfEventLikedApi(eventId) {
   const url = `${API_HOST}/api/user/events/${eventId}/check_like`;
 
@@ -48,9 +57,13 @@ export function checkIfEventLikedApi(eventId) {
       withCredentials: true,
     })
     .then((response) => response.data)
-    .catch((error) => console.error("Check Like Error:", error));
+    .catch((error) => {
+      console.error("「いいね」チェックエラー:", error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
+    });
 }
 
+// イベントの「いいね」を取得
 export function getLikesForEventApi(eventId) {
   const url = `${API_HOST}/api/user/events/${eventId}/likes`;
 
@@ -64,7 +77,7 @@ export function getLikesForEventApi(eventId) {
     })
     .then((response) => response.data)
     .catch((error) => {
-      console.error("投稿のいいねを取得中にエラーが発生しました:", error);
+      console.error("イベントのいいねを取得中にエラーが発生しました:", error);
       throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }
