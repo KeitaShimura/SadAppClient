@@ -7,6 +7,7 @@ import "./ListPostComments.scss";
 import IconNotFound from "../../assets/png/icon-no-found.png";
 import useAuth from "../../hooks/useAuth";
 import { deletePostCommentApi } from "../../api/postComment";
+import { toast } from "react-toastify";
 
 export default function ListPostComments(props) {
   const { postComments, onCommentDeleted } = props;
@@ -34,11 +35,19 @@ ListPostComments.propTypes = {
 
 function PostComment({ comment, authUser, onCommentDeleted }) {
   const handleDelete = () => {
-    deletePostCommentApi(comment.id)
-      .then(() => {
-        onCommentDeleted(comment.id);
-      })
-      .catch((error) => console.error("Delete Error:", error));
+    const confirmation = window.confirm("コメントを削除しますか？");
+    if (confirmation) {
+      // User confirmed the delete action
+      deletePostCommentApi(comment.id)
+        .then(() => {
+          onCommentDeleted(comment.id);
+        })
+        .catch((error) => {
+          // 削除が失敗した場合のエラーハンドリング
+          console.error("Delete Error:", error);
+          toast.warning("コメントの削除中にエラーが発生しました。");
+        });
+    }
   };
 
   const iconUrl = comment.user?.icon ? comment.user.icon : IconNotFound;

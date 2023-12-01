@@ -35,17 +35,19 @@ ListEventComments.propTypes = {
 
 function EventComment({ comment, authUser, onCommentDeleted }) {
   const handleDelete = () => {
-    deleteEventCommentApi(comment.id)
-      .then(() => {
-        // 削除が成功した場合の処理
-        toast.success("コメントが削除されました。");
-        onCommentDeleted(comment.id);
-      })
-      .catch((error) => {
-        // 削除が失敗した場合のエラーハンドリング
-        console.error("Delete Error:", error);
-        toast.warning("コメントの削除中にエラーが発生しました。");
-      });
+    const confirmation = window.confirm("コメントを削除しますか？");
+    if (confirmation) {
+      // User confirmed the delete action
+      deleteEventCommentApi(comment.id)
+        .then(() => {
+          onCommentDeleted(comment.id);
+        })
+        .catch((error) => {
+          // 削除が失敗した場合のエラーハンドリング
+          console.error("Delete Error:", error);
+          toast.warning("コメントの削除中にエラーが発生しました。");
+        });
+    }
   };
 
   const iconUrl = comment.user?.icon ? comment.user.icon : IconNotFound;
