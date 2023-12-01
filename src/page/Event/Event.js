@@ -5,6 +5,7 @@ import "./Event.scss";
 import { getEventsApi } from "../../api/event";
 import ListEvents from "../../components/ListEvents";
 import { Button, Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 export default function Event(props) {
   const [events, setEvents] = useState(null);
@@ -17,27 +18,43 @@ export default function Event(props) {
 
   const moreData = () => {
     setLoadingEvents(true);
-    getEventsApi(page, pageSize).then((response) => {
-      if (response) {
-        setEvents((prevPosts) => [
-          ...(Array.isArray(prevPosts) ? prevPosts : []),
-          ...response.data,
-        ]);
-        setPage((prevPage) => prevPage + 1);
-      }
-      setLoadingEvents(false);
-    });
+    getEventsApi(page, pageSize)
+      .then((response) => {
+        if (response) {
+          setEvents((prevEvents) => [
+            ...(Array.isArray(prevEvents) ? prevEvents : []),
+            ...response.data,
+          ]);
+          setPage((prevPage) => prevPage + 1);
+          // 成功時にもメッセージを表示
+          toast.success("イベントデータを取得しました。");
+        }
+        setLoadingEvents(false);
+      })
+      .catch((error) => {
+        toast.error("イベントデータの取得中にエラーが発生しました。");
+        console.error("Get More Events Error:", error);
+        setLoadingEvents(false);
+      });
   };
 
   // イベントデータの取得
   useEffect(() => {
     setLoadingEvents(true);
-    getEventsApi(page, pageSize).then((response) => {
-      if (response) {
-        setEvents(response.data);
-      }
-      setLoadingEvents(false);
-    });
+    getEventsApi(page, pageSize)
+      .then((response) => {
+        if (response) {
+          setEvents(response.data);
+          // 成功時にもメッセージを表示
+          toast.success("イベントデータを取得しました。");
+        }
+        setLoadingEvents(false);
+      })
+      .catch((error) => {
+        toast.error("イベントデータの取得中にエラーが発生しました。");
+        console.error("Get Events Error:", error);
+        setLoadingEvents(false);
+      });
   }, [page, pageSize]);
 
   // 検索処理
