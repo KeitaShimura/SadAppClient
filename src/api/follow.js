@@ -2,8 +2,9 @@ import axios from "axios";
 import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
+// ユーザーをフォローする
 export function followUserApi(userId) {
-  const url = `${API_HOST}/api/user/follow/${userId}`; // Adjust the endpoint as needed
+  const url = `${API_HOST}/api/user/follow/${userId}`;
 
   return axios
     .post(
@@ -21,12 +22,14 @@ export function followUserApi(userId) {
       return response.data;
     })
     .catch((error) => {
-      console.error("Error:", error.response ? error.response.data : error);
+      console.error("フォローエラー:", error.response ? error.response.data : error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }
 
+// ユーザーのフォローを解除する
 export function unfollowUserApi(userId) {
-  const url = `${API_HOST}/api/user/unfollow/${userId}`; // Replace with your API endpoint for unfollow
+  const url = `${API_HOST}/api/user/unfollow/${userId}`;
 
   return axios
     .delete(url, {
@@ -37,13 +40,15 @@ export function unfollowUserApi(userId) {
       withCredentials: true,
     })
     .then((response) => {
-      return response.data; // Handle the response data
+      return response.data;
     })
     .catch((error) => {
-      console.error("Error:", error.response ? error.response.data : error);
+      console.error("フォロー解除エラー:", error.response ? error.response.data : error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }
 
+// ユーザーをフォローしているかチェック
 export function checkIfFollowingApi(authUserId, targetUserId) {
   const url = `${API_HOST}/api/user/check_if_following/${targetUserId}`;
 
@@ -56,15 +61,17 @@ export function checkIfFollowingApi(authUserId, targetUserId) {
       withCredentials: true,
     })
     .then((response) => {
-      return response.data; // true または false を返します
+      return response.data;
     })
     .catch((error) => {
-      console.error("Error:", error);
+      console.error("フォローチェックエラー:", error.response ? error.response.data : error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }
 
+// フォローしているユーザー一覧を取得
 export function getFollowingApi(userId) {
-  const url = `${API_HOST}/api/user/followings/${userId}`; // Replace with your API endpoint for fetching following list
+  const url = `${API_HOST}/api/user/followings/${userId}`;
 
   return axios
     .get(url, {
@@ -74,15 +81,17 @@ export function getFollowingApi(userId) {
       },
     })
     .then((response) => {
-      return response.data; // Handle the response data
+      return response.data;
     })
     .catch((error) => {
-      console.error("Error:", error.response ? error.response.data : error);
+      console.error("フォロー一覧取得エラー:", error.response ? error.response.data : error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }
 
+// フォロワー一覧を取得
 export function getFollowersApi(userId) {
-  const url = `${API_HOST}/api/user/followers/${userId}`; // Replace with your API endpoint for fetching followers list
+  const url = `${API_HOST}/api/user/followers/${userId}`;
 
   return axios
     .get(url, {
@@ -91,9 +100,10 @@ export function getFollowersApi(userId) {
       },
     })
     .then((response) => {
-      return response.data; // Handle the response data
+      return response.data;
     })
     .catch((error) => {
-      console.error("Error:", error.response ? error.response.data : error);
+      console.error("フォロワー一覧取得エラー:", error.response ? error.response.data : error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }
