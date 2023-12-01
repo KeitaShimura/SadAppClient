@@ -3,17 +3,17 @@
 .auth {
   &__top {
     overflow: hidden;
-    min-height: 50vh; // Reduced for smaller screens
+    min-height: 50vh;
     background-color: $primary-light;
     background-image: url("../../assets/png/talk.png");
-    background-size: auto 100%; // Adjusts the image's height to match the div's height
-    background-position: center; // This will center the image in the div
-    background-repeat: no-repeat; // Prevents the image from repeating
+    background-size: auto 100%;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px; // Added padding for smaller screens
+    padding: 20px;
   }
 
   &__bottom {
@@ -22,14 +22,15 @@
     align-items: center;
     min-height: 30vh;
     padding: 100px;
+    text-align: center;
 
-    > div {
-      width: 100%; // Full width for smaller screens
-      max-width: 500px; // Limit width for larger screens
-      margin: 0 auto;
+    >div {
+      width: 100%;
+      min-width: 300px;
+      max-width: 1000px;
 
       h1 {
-        font-size: 2rem; // Smaller font size for mobile
+        font-size: 2rem;
         margin-bottom: 20px;
         font-weight: bold;
         color: $primary;
@@ -37,13 +38,13 @@
         text-align: center;
 
         @media (min-width: 768px) {
-          font-size: 3rem; // Larger font size for larger screens
+          font-size: 3rem;
           margin-bottom: 40px;
         }
       }
 
       h2 {
-        font-size: 1rem; // Smaller font size for mobile
+        font-size: 1rem;
         margin-bottom: 20px;
         font-weight: bold;
         color: $primary;
@@ -51,18 +52,18 @@
         text-align: center;
 
         @media (min-width: 768px) {
-          font-size: 2rem; // Larger font size for larger screens
+          font-size: 2rem;
           margin-bottom: 40px;
         }
       }
 
       button {
-        display: block;
-        width: 100%;
+        width: 80%;
         border-radius: 50px;
-        font-size: 1rem; // Smaller font size for mobile
+        font-size: 1rem;
         padding: 10px 0;
         font-weight: bold;
+        margin: 0 auto;
 
         &:first-of-type {
           margin-bottom: 20px;
