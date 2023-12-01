@@ -52,14 +52,22 @@ function EventComments(props) {
   };
 
   useEffect(() => {
+    setLoadingEventComments(true);
     getEventCommentsApi(params.id)
       .then((response) => {
         setEventComments(response.data);
+        setLoadingEventComments(false);
+        // 成功時にもメッセージを表示
+        toast.success("コメントデータを取得しました。");
       })
       .catch((error) => {
-        toast.error(error);
+        console.error("Error fetching event comments:", error);
+        setLoadingEventComments(false);
+        // エラーメッセージを表示
+        toast.error("コメントデータの取得中にエラーが発生しました。");
       });
   }, [params.id]);
+
 
   useEffect(() => {
     getEventApi(params.id)
@@ -211,26 +219,29 @@ function EventComments(props) {
 
   const moreData = () => {
     const pageTemp = page + 1;
-    const pageSize = 50;
-    console.log("Page:", page, "PageSize:", pageSize);
 
     setLoadingEventComments(true);
     getEventCommentsApi(params.id)
       .then((response) => {
         if (!response) {
           setLoadingEventComments(false); // Handle the error condition
+          // エラーメッセージを表示
+          toast.error("コメントデータの取得中にエラーが発生しました。");
         } else {
           setEventComments(response.data);
           setPage(pageTemp);
           setLoadingEventComments(false);
+          // 成功時にもメッセージを表示
+          toast.success("コメントデータを取得しました。");
         }
       })
       .catch((error) => {
         console.error("Error fetching event comments:", error);
         setLoadingEventComments(false); // Handle the error condition
+        // エラーメッセージを表示
+        toast.error("コメントデータの取得中にエラーが発生しました。");
       });
   };
-
   const iconUrl =
     event && event.user && event.user.icon ? event.user.icon : IconNotFound;
 

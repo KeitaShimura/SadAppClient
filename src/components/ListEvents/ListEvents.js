@@ -94,6 +94,8 @@ function Event({ event, authUser, onEventDeleted }) {
         setCommentCount(comments.data.length);
       } catch (error) {
         console.error("Error fetching comments:", error);
+        // エラーメッセージを表示
+        toast.error("コメント数の取得中にエラーが発生しました。");
       }
     };
 
