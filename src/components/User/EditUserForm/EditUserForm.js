@@ -102,7 +102,6 @@ export default function EditUserForm(props) {
     setLoading(false);
   };
 
-
   return (
     <div className="edit-user-form">
       <div

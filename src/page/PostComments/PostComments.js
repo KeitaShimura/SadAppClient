@@ -176,7 +176,9 @@ function PostComments(props) {
     } catch (error) {
       // エラーをハンドル
       console.error("Error creating comment:", error);
-      toast.warning("コメントの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。");
+      toast.warning(
+        "コメントの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
+      );
     }
   };
 
