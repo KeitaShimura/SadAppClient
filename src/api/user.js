@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
+// すべてのユーザーのデータを取得
 export function getAllUsersApi() {
   // APIのURLを構築する
   const url = `${API_HOST}/api/user/users`;
@@ -34,6 +35,7 @@ export function getAllUsersApi() {
     });
 }
 
+// 特定のユーザーのデータを取得
 export function getUserApi(id) {
   // APIのURLを構築する
   const url = `${API_HOST}/api/user/user/${id}`;
@@ -51,7 +53,6 @@ export function getUserApi(id) {
     .then((response) => {
       // レスポンスのステータスコードが400以上の場合はエラーとして扱う
       if (response.status >= 400) {
-        // エラーメッセージを含むErrorオブジェクトを投げる
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
       return response.json(); // レスポンスのJSONを解析
@@ -61,12 +62,12 @@ export function getUserApi(id) {
       return result;
     })
     .catch((err) => {
-      // エラー発生時の処理を行う
-      // エラーフラグとメッセージを含むオブジェクトを返す
+      // エラー発生時の処理
       return { error: true, message: err.message };
     });
 }
 
+// ユーザーデータを更新
 export function updateUserData(bannerFile, iconFile, profileData) {
   const formData = new FormData();
 
@@ -97,5 +98,6 @@ export function updateUserData(bannerFile, iconFile, profileData) {
     .catch((error) => {
       // エラーハンドリング
       console.error("Error:", error.response ? error.response.data : error);
+      throw error;
     });
 }
