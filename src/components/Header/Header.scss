@@ -4,11 +4,27 @@
     position: fixed;
     top: 0;
     left: 0;
+    min-height: 60px;
     width: 100%;
     text-align: center;
     padding: 10px 0;
     background-color: $primary-light;
     font-weight: bold;
+
+    .hamburger-menu {
+        display: none;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+        z-index: 1000; // メニューが他の要素の上に表示されるようにする
+    }
+
+    svg {
+        margin-right: 20px;
+        margin-top: 5px;
+        width: 30px !important;
+    }
 
     .logo {
         position: absolute;
@@ -25,5 +41,49 @@
     // ボタン間のマージンを設定
     Button {
         margin: 0 5px;
+    }
+
+    // モバイルメニュー
+    .mobile-menu {
+        display: none; // デフォルトでは非表示
+        position: fixed; // これは既に設定されているはずです
+        top: 0;
+        left: -100%; // 最初は画面外に配置
+        width: 80%; // 画面の80%の幅
+        height: 100%;
+        background-color: $primary-light;
+        z-index: 1000; // 他の要素よりも高い値に設定
+
+        // メニュー項目のスタイリング
+        a,
+        Button {
+            display: block;
+            margin: 10px 0;
+            color: white;
+            text-decoration: none;
+        }
+    }
+
+    // スマートフォンの画面サイズでのスタイル
+    @media (max-width: 768px) {
+
+        a,
+        Button {
+            display: none;
+        }
+
+        .hamburger-menu {
+            font-size: 24px;
+            display: block;
+
+        }
+
+        // モバイルメニュー表示時
+        &.show-mobile-menu {
+            .mobile-menu {
+                display: block;
+                left: 0;
+            }
+        }
     }
 }
