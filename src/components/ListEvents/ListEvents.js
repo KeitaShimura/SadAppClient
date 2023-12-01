@@ -197,8 +197,14 @@ function Event({ event, authUser, onEventDeleted }) {
       .then(() => {
         setIsParticipated(true);
         updateParticipantsCount();
+        // 参加成功時のメッセージ
+        toast.success("イベントへの参加が成功しました。");
       })
-      .catch((error) => console.error("Like Error:", error));
+      .catch((error) => {
+        console.error("Participation Error:", error);
+        // 参加エラー時のメッセージ
+        toast.error("イベントへの参加中にエラーが発生しました。");
+      });
   };
 
   const handleLeave = () => {
