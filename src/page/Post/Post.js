@@ -58,7 +58,7 @@ export default function Post(props) {
       setFilteredPosts(posts);
     } else {
       const filtered = posts?.filter((post) =>
-        post.content.toLowerCase().includes(searchTerm.toLowerCase())
+        post.content.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredPosts(filtered);
     }

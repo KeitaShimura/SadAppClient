@@ -82,7 +82,6 @@ function Post({ post, authUser, onPostDeleted }) {
     fetchLikeData();
   }, [post, authUser]);
 
-
   useEffect(() => {
     const fetchCommentCount = async () => {
       if (!post) {
@@ -101,7 +100,6 @@ function Post({ post, authUser, onPostDeleted }) {
 
     fetchCommentCount();
   }, [post]);
-
 
   const updateLikeCount = async () => {
     try {

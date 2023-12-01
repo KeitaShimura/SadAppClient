@@ -68,7 +68,6 @@ function PostComments(props) {
     fetchLikeData();
   }, [post, authUser]);
 
-
   useEffect(() => {
     const fetchCommentCount = async () => {
       if (!post) {
@@ -87,7 +86,6 @@ function PostComments(props) {
 
     fetchCommentCount();
   }, [post]);
-
 
   const updateLikeCount = async () => {
     try {
