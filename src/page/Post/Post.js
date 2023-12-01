@@ -20,7 +20,6 @@ export default function Post(props) {
     setLoadingPosts(true);
     getPostsApi(page, pageSize)
       .then((response) => {
-        console.log("Complete API Response:", response);
         if (response) {
           setPosts((prevPosts) => [
             ...(Array.isArray(prevPosts) ? prevPosts : []),

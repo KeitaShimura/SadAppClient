@@ -80,19 +80,23 @@ function EventComments(props) {
 
   useEffect(() => {
     const fetchLikeData = async () => {
+      if (!event || !authUser) {
+        console.error("Post or AuthUser is null");
+        return;
+      }
+
       try {
         const likeStatus = await checkIfEventLikedApi(event.id, authUser.id);
         setIsLiked(likeStatus);
         updateLikeCount();
       } catch (error) {
         console.error("Error fetching like data:", error);
-        // エラーメッセージを表示
-        toast.error("いいねの情報の取得中にエラーが発生しました。");
+        toast.error("いいねの状態を取得できませんでした。");
       }
     };
 
     fetchLikeData();
-  }, [event.id, authUser.id]);
+  }, [event, authUser]);
 
   useEffect(() => {
     // コメント数の取得
@@ -232,9 +236,9 @@ function EventComments(props) {
       });
   };
 
-  const handleComentDeleted = (deletedCommentId) => {
+  const handleCommentDeleted = (deletedCommentId) => {
     setEventComments((prevComments) =>
-      prevComments.filter((comment) => comment.id !== deletedCommentId),
+      prevComments.filter((comment) => comment.id !== deletedCommentId)
     );
   };
 
@@ -397,7 +401,7 @@ function EventComments(props) {
       <div className="event__comment">
         <ListEventComments
           eventComments={eventComments}
-          onCommentDeleted={handleComentDeleted}
+          onCommentDeleted={handleCommentDeleted}
         />
       </div>
       <Button onClick={moreData}>

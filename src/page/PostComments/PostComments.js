@@ -173,7 +173,7 @@ function PostComments(props) {
       });
   }, [params.id]);
 
-  const handleComentDeleted = (deletedCommentId) => {
+  const handleCommentDeleted = (deletedCommentId) => {
     setPostComments((prevComments) =>
       prevComments.filter((comment) => comment.id !== deletedCommentId),
     );
@@ -201,9 +201,11 @@ function PostComments(props) {
         console.error("Invalid comment data:", response.data);
       }
 
-      // メッセージをクリア
-      setMessage("");
-      toast.success("コメントが作成されました。");
+      // コメントが正常に作成された場合の処理
+      console.log("Comment created:", response.data);
+      toast.success("コメントが投稿されました。");
+
+      setMessage(""); // メッセージをクリア
     } catch (error) {
       console.error("Error creating comment:", error);
       toast.warning(
@@ -301,7 +303,7 @@ function PostComments(props) {
       <div className="post__comment">
         <ListPostComments
           postComments={postComments}
-          onCommentDeleted={handleComentDeleted}
+          onCommentDeleted={handleCommentDeleted}
         />
       </div>
       <Button onClick={moreData}>

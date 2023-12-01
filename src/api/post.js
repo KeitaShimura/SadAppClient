@@ -97,6 +97,7 @@ export function deletePostApi(id) {
   return axios
     .delete(`${API_HOST}/api/user/posts/${id}`, {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
       withCredentials: true,

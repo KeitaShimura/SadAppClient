@@ -29,9 +29,8 @@ export default function Event(props) {
         }
         setLoadingEvents(false);
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("イベントデータの取得中にエラーが発生しました。");
-        console.error("Get More Events Error:", error);
         setLoadingEvents(false);
       });
   };
@@ -52,6 +51,7 @@ export default function Event(props) {
         setLoadingEvents(false);
       });
   }, [page, pageSize]);
+
 
   // 検索処理
   useEffect(() => {

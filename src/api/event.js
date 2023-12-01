@@ -12,7 +12,7 @@ export function getEventsApi(page, pageSize) {
       withCredentials: true,
     })
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((error) => {
       // エラーハンドリング
@@ -99,7 +99,7 @@ export function getEventApi(id) {
       },
     })
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((error) => {
       // エラーハンドリング
@@ -128,7 +128,7 @@ export function updateEventApi(id, eventData) {
       withCredentials: true,
     })
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((error) => {
       // エラーハンドリング
@@ -151,6 +151,7 @@ export function deleteEventApi(id) {
   return axios
     .delete(`${API_HOST}/api/user/events/${id}`, {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
       withCredentials: true,
