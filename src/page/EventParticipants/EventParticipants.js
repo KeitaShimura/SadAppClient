@@ -7,6 +7,7 @@ import BasicLayout from "../../layout/BasicLayout";
 import ListUsers from "../../components/ListUsers";
 import { Spinner } from "react-bootstrap";
 import "./EventParticipants.scss";
+import { toast } from "react-toastify";
 
 export default function EventParticipants(props) {
   const { setRefreshCheckLogin } = props;
@@ -34,8 +35,12 @@ export default function EventParticipants(props) {
         );
 
         setParticipants(participantsData);
+        // データを正常に取得した場合のメッセージ
+        toast.success("参加者一覧を取得しました。");
       } catch (error) {
         setParticipants([]);
+        // データを取得できなかった場合のエラーメッセージ
+        toast.error("参加者一覧を取得できませんでした。");
       }
     };
 

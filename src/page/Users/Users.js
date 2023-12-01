@@ -28,20 +28,14 @@ export default function Users(props) {
             followingData.some((f) => f.follower_id === user.id),
           );
           setUsers(followingUsers);
-          // フォローしているユーザーを取得した際のメッセージ
-          toast.success("フォローしているユーザーを取得しました。");
         } else if (userType === "followers") {
           const followersData = await getFollowersApi(params.id);
           const followerUsers = allUsers.filter((user) =>
             followersData.some((f) => f.following_id === user.id),
           );
           setUsers(followerUsers);
-          // フォロワーを取得した際のメッセージ
-          toast.success("フォロワーを取得しました。");
         } else {
           setUsers(allUsers);
-          // すべてのユーザーを取得した際のメッセージ
-          toast.success("すべてのユーザーを取得しました。");
         }
       } catch (error) {
         setUsers([]);
