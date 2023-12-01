@@ -102,7 +102,7 @@ export function deletePostApi(id) {
       },
       withCredentials: true,
     })
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((error) => {
       console.error("投稿の削除中にエラーが発生しました:", error);
       throw error;

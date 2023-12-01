@@ -157,7 +157,7 @@ export function deleteEventApi(id) {
       withCredentials: true,
     })
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((error) => {
       // エラーハンドリング
