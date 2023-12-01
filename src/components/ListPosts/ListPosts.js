@@ -68,8 +68,12 @@ function Post({ post, authUser, onPostDeleted }) {
         const likeStatus = await checkIfPostLikedApi(post.id, authUser.id);
         setIsLiked(likeStatus);
         updateLikeCount();
+        // データを正常に取得した場合のメッセージ
+        toast.success("いいねの状態を取得しました。");
       } catch (error) {
         console.error("Error fetching like data:", error);
+        // データを取得できなかった場合のエラーメッセージ
+        toast.error("いいねの状態を取得できませんでした。");
       }
     };
 
