@@ -5,6 +5,7 @@ import "./Post.scss";
 import { getPostsApi } from "../../api/post";
 import ListPosts from "../../components/ListPosts";
 import { Button, Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 export default function Post(props) {
   const [posts, setPosts] = useState(null);
@@ -17,26 +18,38 @@ export default function Post(props) {
 
   const moreData = () => {
     setLoadingPosts(true);
-    getPostsApi(page, pageSize).then((response) => {
-      if (response) {
-        setPosts((prevPosts) => [
-          ...(Array.isArray(prevPosts) ? prevPosts : []),
-          ...response.data,
-        ]);
-        setPage((prevPage) => prevPage + 1);
-      }
-      setLoadingPosts(false);
-    });
+    getPostsApi(page, pageSize)
+      .then((response) => {
+        if (response) {
+          setPosts((prevPosts) => [
+            ...(Array.isArray(prevPosts) ? prevPosts : []),
+            ...response.data,
+          ]);
+          setPage((prevPage) => prevPage + 1);
+        }
+        setLoadingPosts(false);
+      })
+      .catch(() => {
+        setLoadingPosts(false);
+        // データの読み込みが失敗した際のエラーメッセージ
+        toast.error("投稿の読み込み中にエラーが発生しました。");
+      });
   };
 
   useEffect(() => {
     setLoadingPosts(true);
-    getPostsApi(page, pageSize).then((response) => {
-      if (response) {
-        setPosts(response.data);
-      }
-      setLoadingPosts(false);
-    });
+    getPostsApi(page, pageSize)
+      .then((response) => {
+        if (response) {
+          setPosts(response.data);
+        }
+        setLoadingPosts(false);
+      })
+      .catch(() => {
+        setLoadingPosts(false);
+        // データの読み込みが失敗した際のエラーメッセージ
+        toast.error("投稿の読み込み中にエラーが発生しました。");
+      });
   }, [page, pageSize]);
 
   useEffect(() => {
