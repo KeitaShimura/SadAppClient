@@ -5,6 +5,7 @@ import RegisterForm from "../../components/RegisterForm";
 import LoginForm from "../../components/LoginForm";
 import "./Auth.scss";
 import PropTypes from "prop-types";
+import TestPng from "../../assets/png/test.png";
 
 export default function Auth(props) {
   const { setRefreshCheckLogin } = props;
@@ -37,10 +38,6 @@ export default function Auth(props) {
 function LeftComponent() {
   return (
     <Col className="auth__top" xs={12}>
-      <div>
-        <h2>人と話すのが怖い</h2>
-        <h2>同じ悩みを持つ仲間と悩みを話しませんか？</h2>
-      </div>
     </Col>
   );
 }
@@ -48,8 +45,12 @@ function LeftComponent() {
 function RightComponent(props) {
   const { openModal, setRefreshCheckLogin } = props;
   return (
-    <Col className="auth__bottom" xs={12}>
+    <Col className="auth__bottom d-flex flex-column align-items-center" xs={12}>
       <div>
+        <div>
+          <h1>人と話すのが怖い</h1>
+          <h2>同じ悩みを持つ仲間と悩みを話しませんか？</h2>
+        </div>
         <Button
           variant="primary"
           onClick={() =>
@@ -68,6 +69,32 @@ function RightComponent(props) {
         >
           ログイン
         </Button>
+      </div>
+      <div className="d-flex flex-column flex-md-row justify-content-center align-items-center mt-5">
+        <div className="text-center m-2">
+          <img
+            src={TestPng}
+            alt="Image 3"
+            width="400"
+          />
+          <p className="h2 mt-5 fw-bold">日常の気持ちを仲間とシェアしてみましょう！</p>
+        </div>
+        <div className="text-center m-2">
+          <img
+            src={TestPng}
+            alt="Image 3"
+            width="400"
+          />
+          <p className="h2 mt-5 fw-bold">オンラインで仲間と交流してみましょう！</p>
+        </div>
+        <div className="text-center m-2">
+          <img
+            src={TestPng}
+            alt="Image 3"
+            width="400"
+          />
+          <p className="h2 mt-5 fw-bold">コメントを投稿し、親睦を深めましょう！</p>
+        </div>
       </div>
     </Col>
   );

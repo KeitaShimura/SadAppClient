@@ -1,26 +1,19 @@
 @import "../../scss/index.scss";
 
 .auth {
-  &__top {
+&__top {
     overflow: hidden;
     min-height: 50vh; // Reduced for smaller screens
     background-color: $primary-light;
+    background-image: url('../../assets/png/talk.png');
+    background-size: auto 100%; // Adjusts the image's height to match the div's height
+    background-position: center; // This will center the image in the div
+    background-repeat: no-repeat; // Prevents the image from repeating
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     padding: 20px; // Added padding for smaller screens
-
-    h2 {
-      font-size: 1.5rem; // Smaller font size for mobile
-      margin-bottom: 20px;
-      font-weight: bold;
-
-      @media (min-width: 768px) {
-        font-size: 2rem; // Larger font size for larger screens
-        margin-bottom: 40px;
-      }
-    }
   }
 
   &__bottom {
@@ -30,10 +23,36 @@
     min-height: 30vh;
     padding: 100px;
 
-    > div {
+    >div {
       width: 100%; // Full width for smaller screens
       max-width: 500px; // Limit width for larger screens
       margin: 0 auto;
+
+          h1 {
+              font-size: 2rem; // Smaller font size for mobile
+              margin-bottom: 20px;
+              font-weight: bold;
+              background-color: white;
+              text-align: center;
+          
+              @media (min-width: 768px) {
+                font-size: 3rem; // Larger font size for larger screens
+                margin-bottom: 40px;
+              }
+            }
+          
+            h2 {
+              font-size: 1rem; // Smaller font size for mobile
+              margin-bottom: 20px;
+              font-weight: bold;
+              background-color: white;
+              text-align: center;
+          
+              @media (min-width: 768px) {
+                font-size: 2rem; // Larger font size for larger screens
+                margin-bottom: 40px;
+              }
+            }
 
       button {
         display: block;
