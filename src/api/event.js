@@ -11,8 +11,24 @@ export function getEventsApi(page, pageSize) {
         Authorization: `Bearer ${getTokenApi()}`,
       },
       withCredentials: true,
-    },
-  );
+    }
+  )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      // エラーハンドリング
+      if (error.response) {
+        // サーバーからのエラーレスポンス
+        throw new Error(error.response.data.message);
+      } else if (error.request) {
+        // リクエストがサーバーに到達しなかった場合
+        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+      } else {
+        // その他のエラー
+        throw new Error("エラーが発生しました：" + error.message);
+      }
+    });
 }
 
 export function getUserEventsApi(id, page, pageSize) {
@@ -37,8 +53,6 @@ export function getUserEventsApi(id, page, pageSize) {
     })
     .then((result) => {
       // 解析されたJSONデータを返す
-      console.log(result);
-
       return result;
     })
     .catch((err) => {
@@ -54,7 +68,23 @@ export function createEventApi(eventData) {
       Authorization: `Bearer ${getTokenApi()}`,
     },
     withCredentials: true,
-  });
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      // エラーハンドリング
+      if (error.response) {
+        // サーバーからのエラーレスポンス
+        throw new Error(error.response.data.message);
+      } else if (error.request) {
+        // リクエストがサーバーに到達しなかった場合
+        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+      } else {
+        // その他のエラー
+        throw new Error("エラーが発生しました：" + error.message);
+      }
+    });
 }
 
 export function getEventApi(id) {
@@ -63,7 +93,23 @@ export function getEventApi(id) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getTokenApi()}`,
     },
-  });
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      // エラーハンドリング
+      if (error.response) {
+        // サーバーからのエラーレスポンス
+        throw new Error(error.response.data.message);
+      } else if (error.request) {
+        // リクエストがサーバーに到達しなかった場合
+        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+      } else {
+        // その他のエラー
+        throw new Error("エラーが発生しました：" + error.message);
+      }
+    });
 }
 
 export function updateEventApi(id, eventData) {
@@ -73,7 +119,23 @@ export function updateEventApi(id, eventData) {
       Authorization: `Bearer ${getTokenApi()}`,
     },
     withCredentials: true,
-  });
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      // エラーハンドリング
+      if (error.response) {
+        // サーバーからのエラーレスポンス
+        throw new Error(error.response.data.message);
+      } else if (error.request) {
+        // リクエストがサーバーに到達しなかった場合
+        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+      } else {
+        // その他のエラー
+        throw new Error("エラーが発生しました：" + error.message);
+      }
+    });
 }
 
 export function deleteEventApi(id) {
@@ -82,9 +144,24 @@ export function deleteEventApi(id) {
       Authorization: `Bearer ${getTokenApi()}`,
     },
     withCredentials: true,
-  });
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      // エラーハンドリング
+      if (error.response) {
+        // サーバーからのエラーレスポンス
+        throw new Error(error.response.data.message);
+      } else if (error.request) {
+        // リクエストがサーバーに到達しなかった場合
+        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+      } else {
+        // その他のエラー
+        throw new Error("エラーが発生しました：" + error.message);
+      }
+    });
 }
-
 export function getUserLikedEventsApi(userId) {
   const url = `${API_HOST}/api/user/events/${userId}/liked_events`;
 
@@ -114,9 +191,17 @@ export function getUserParticipatedEvents(userId) {
       },
       withCredentials: true,
     })
-    .then((response) => response.data)
+    .then((response) => {
+      return response.data;
+    })
     .catch((error) => {
-      console.error("投稿を取得中にエラーが発生しました:", error);
-      throw error;
+      // エラーハンドリング
+      if (error.response) {
+        // サーバーからのエラーレスポンス
+        throw new Error(error.response.data.message);
+      } else {
+        // その他のエラー
+        throw new Error("エラーが発生しました：" + error.message);
+      }
     });
 }
