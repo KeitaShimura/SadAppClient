@@ -94,7 +94,10 @@ function User(props) {
         }
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error(
+          "データの読み込み中にエラーが発生しました。もう一度お試しください。",
+        );
+        console.error("API Error:", error);
       });
   };
 
@@ -115,7 +118,10 @@ function User(props) {
         setPosts(response);
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error(
+          "データの読み込み中にエラーが発生しました。もう一度お試しください。",
+        );
+        console.error("API Error:", error);
       });
   }, [params]);
 
@@ -126,7 +132,10 @@ function User(props) {
           setEvents(response);
         })
         .catch((error) => {
-          toast.error(error);
+          toast.error(
+            "イベントデータを取得中にエラーが発生しました。もう一度お試しください。",
+          );
+          console.error("API Error:", error);
         });
     }
   }, [params, activeTab]);
@@ -144,7 +153,6 @@ function User(props) {
     }
   }, [params, activeTab]);
 
-
   useEffect(() => {
     if (activeTab === "liked-posts") {
       getUserLikedPostsApi(params.id)
@@ -152,7 +160,8 @@ function User(props) {
           setLikedPosts(response);
         })
         .catch((error) => {
-          toast.error(error);
+          toast.error("いいねした投稿を取得中にエラーが発生しました。");
+          console.error("Liked Posts Error:", error);
         });
     }
   }, [params, activeTab]);
@@ -173,21 +182,22 @@ function User(props) {
   useEffect(() => {
     getFollowersApi(params.id)
       .then((response) => {
-        setFollowersCount(response.length); // Assuming response is an array of followers
+        setFollowersCount(response.length);
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error("フォロワー数を取得中にエラーが発生しました。");
+        console.error("Followers Count Error:", error);
       });
   }, [params.id]);
 
-  // Fetch following count
   useEffect(() => {
     getFollowingApi(params.id)
       .then((response) => {
-        setFollowingCount(response.length); // Assuming response is an array of followings
+        setFollowingCount(response.length);
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error("フォロー数を取得中にエラーが発生しました。");
+        console.error("Following Count Error:", error);
       });
   }, [params.id]);
 
