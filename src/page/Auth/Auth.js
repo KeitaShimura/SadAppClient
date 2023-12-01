@@ -36,10 +36,7 @@ export default function Auth(props) {
 }
 
 function LeftComponent() {
-  return (
-    <Col className="auth__top" xs={12}>
-    </Col>
-  );
+  return <Col className="auth__top" xs={12}></Col>;
 }
 
 function RightComponent(props) {
@@ -51,12 +48,15 @@ function RightComponent(props) {
   // スタイルオブジェクトを定義して、<p>要素に適用
   const paragraphStyle = {
     width: imageWidth,
-    whiteSpace: 'normal', // テキストを折り返す
+    whiteSpace: "normal", // テキストを折り返す
   };
 
   return (
     <div>
-      <Col className="auth__bottom d-flex flex-column align-items-center" xs={12}>
+      <Col
+        className="auth__bottom d-flex flex-column align-items-center"
+        xs={12}
+      >
         <div>
           <div>
             <h1>人と話すのが怖い</h1>
@@ -75,7 +75,9 @@ function RightComponent(props) {
           <Button
             variant="outline-primary"
             onClick={() =>
-              openModal(<LoginForm setRefreshCheckLogin={setRefreshCheckLogin} />)
+              openModal(
+                <LoginForm setRefreshCheckLogin={setRefreshCheckLogin} />,
+              )
             }
           >
             ログイン

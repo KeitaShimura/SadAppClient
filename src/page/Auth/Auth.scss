@@ -1,11 +1,11 @@
 @import "../../scss/index.scss";
 
 .auth {
-&__top {
+  &__top {
     overflow: hidden;
     min-height: 50vh; // Reduced for smaller screens
     background-color: $primary-light;
-    background-image: url('../../assets/png/talk.png');
+    background-image: url("../../assets/png/talk.png");
     background-size: auto 100%; // Adjusts the image's height to match the div's height
     background-position: center; // This will center the image in the div
     background-repeat: no-repeat; // Prevents the image from repeating
@@ -22,43 +22,41 @@
     align-items: center;
     min-height: 30vh;
     padding: 100px;
-    
 
-    >div {
+    > div {
       width: 100%; // Full width for smaller screens
       max-width: 500px; // Limit width for larger screens
       margin: 0 auto;
 
-          h1 {
-      font-size: 2rem; // Smaller font size for mobile
-      margin-bottom: 20px;
-      font-weight: bold;
-      color: $primary;
-      background-color: white;
-      text-align: center;
+      h1 {
+        font-size: 2rem; // Smaller font size for mobile
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: $primary;
+        background-color: white;
+        text-align: center;
 
-      @media (min-width: 768px) {
-        font-size: 3rem; // Larger font size for larger screens
-        margin-bottom: 40px;
+        @media (min-width: 768px) {
+          font-size: 3rem; // Larger font size for larger screens
+          margin-bottom: 40px;
+        }
       }
-    }
 
-    h2 {
-      font-size: 1rem; // Smaller font size for mobile
-      margin-bottom: 20px;
-      font-weight: bold;
-      color: $primary;
-      background-color: white;
-      text-align: center;
+      h2 {
+        font-size: 1rem; // Smaller font size for mobile
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: $primary;
+        background-color: white;
+        text-align: center;
 
-      @media (min-width: 768px) {
-        font-size: 2rem; // Larger font size for larger screens
-        margin-bottom: 40px;
+        @media (min-width: 768px) {
+          font-size: 2rem; // Larger font size for larger screens
+          margin-bottom: 40px;
+        }
       }
-    }
 
       button {
-        
         display: block;
         width: 100%;
         border-radius: 50px;
@@ -75,7 +73,6 @@
 }
 
 .scroll-container {
-
   overflow-x: auto;
   /* Enable horizontal scrolling */
   white-space: nowrap;
