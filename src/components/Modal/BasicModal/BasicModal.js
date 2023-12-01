@@ -1,7 +1,8 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
+import { Image, Modal } from "react-bootstrap";
 import PropTypes from "prop-types";
 import "./BasicModal.scss";
+import Logo from "../../../assets/png/logo.png"
 
 export default function BasicModel(props) {
   const { show, setShow, children } = props;
@@ -14,7 +15,9 @@ export default function BasicModel(props) {
       size="lg"
     >
       <Modal.Header>
-        <Modal.Title>COCOLOTalk</Modal.Title>
+        <Modal.Title>
+          <Image src={Logo} width={80} />
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>{children}</Modal.Body>
     </Modal>

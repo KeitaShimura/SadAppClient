@@ -11,10 +11,11 @@ import {
   faUsers,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 
 import "./LeftMenu.scss";
 import EventModal from "../Modal/EventModal";
+import Logo from "../../assets/png/logo.png"
 
 export default function LeftMenu() {
   const [showPostModal, setShowPostModal] = useState(false);
@@ -28,7 +29,7 @@ export default function LeftMenu() {
   };
   return (
     <div className="left-menu">
-      <h2>COCOLOTalk</h2>
+      <Image className="logo" src={Logo} width={30} />
       <Link to="/">
         <FontAwesomeIcon icon={faHome} />
         投稿一覧

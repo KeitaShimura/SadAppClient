@@ -7,6 +7,12 @@
   min-height: 100vh;
   border-right: 1px solid $border-gray;
 
+  .logo {
+    width: 100px;
+    padding: 20px 0 30px 0;
+    margin-left: 50px;
+  }
+
   a {
     font-size: 20px;
     color: $font-dark;

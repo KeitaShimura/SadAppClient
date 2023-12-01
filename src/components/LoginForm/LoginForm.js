@@ -66,7 +66,7 @@ export default function LoginForm(props) {
 
   return (
     <div className="login-form">
-      <h2>ログイン</h2>
+      <h2 className="text-center">ログイン</h2>
       <Form onSubmit={onSubmit} onChange={onChange}>
         <Form.Group className="form-group">
           <Form.Control

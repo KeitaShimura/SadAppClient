@@ -57,7 +57,7 @@ export default function RegisterForm(props) {
 
   return (
     <div className="register-form">
-      <h2>新規登録</h2>
+      <h2 className="text-center">新規登録</h2>
       <Form onSubmit={onSubmit} onChange={onChange}>
         <Form.Group className="form-group">
           <Form.Control
