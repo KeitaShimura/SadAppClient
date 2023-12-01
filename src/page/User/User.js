@@ -138,10 +138,12 @@ function User(props) {
           setParticipatedEvents(response);
         })
         .catch((error) => {
-          toast.error(error);
+          toast.error("参加したイベントを取得中にエラーが発生しました。");
+          console.error("Participated Events Error:", error);
         });
     }
   }, [params, activeTab]);
+
 
   useEffect(() => {
     if (activeTab === "liked-posts") {
@@ -162,7 +164,8 @@ function User(props) {
           setLikedEvents(response);
         })
         .catch((error) => {
-          toast.error(error);
+          toast.error("いいねしたイベントを取得中にエラーが発生しました。");
+          console.error("Liked Events Error:", error);
         });
     }
   }, [params, activeTab]);
