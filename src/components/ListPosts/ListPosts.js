@@ -106,8 +106,14 @@ function Post({ post, authUser, onPostDeleted }) {
       .then(() => {
         setIsLiked(true);
         updateLikeCount();
+        // いいねが成功した際のメッセージ
+        toast.success("いいねしました。");
       })
-      .catch((error) => console.error("Like Error:", error));
+      .catch((error) => {
+        console.error("Like Error:", error);
+        // いいねが失敗した際のエラーメッセージ
+        toast.error("いいねに失敗しました。");
+      });
   };
 
   const handleUnlike = () => {
@@ -115,10 +121,15 @@ function Post({ post, authUser, onPostDeleted }) {
       .then(() => {
         setIsLiked(false);
         updateLikeCount();
+        // いいね解除が成功した際のメッセージ
+        toast.success("いいねを解除しました。");
       })
-      .catch((error) => console.error("Unlike Error:", error));
+      .catch((error) => {
+        console.error("Unlike Error:", error);
+        // いいね解除が失敗した際のエラーメッセージ
+        toast.error("いいね解除に失敗しました。");
+      });
   };
-
   const handleDelete = () => {
     deletePostApi(post.id)
       .then(() => {
