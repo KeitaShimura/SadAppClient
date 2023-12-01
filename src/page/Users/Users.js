@@ -7,6 +7,7 @@ import { getAllUsersApi } from "../../api/user";
 import ListUsers from "../../components/ListUsers";
 import { getFollowersApi, getFollowingApi } from "../../api/follow";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Users(props) {
   const { setRefreshCheckLogin } = props;
@@ -27,17 +28,25 @@ export default function Users(props) {
             followingData.some((f) => f.follower_id === user.id),
           );
           setUsers(followingUsers);
+          // フォローしているユーザーを取得した際のメッセージ
+          toast.success("フォローしているユーザーを取得しました。");
         } else if (userType === "followers") {
           const followersData = await getFollowersApi(params.id);
           const followerUsers = allUsers.filter((user) =>
             followersData.some((f) => f.following_id === user.id),
           );
           setUsers(followerUsers);
+          // フォロワーを取得した際のメッセージ
+          toast.success("フォロワーを取得しました。");
         } else {
           setUsers(allUsers);
+          // すべてのユーザーを取得した際のメッセージ
+          toast.success("すべてのユーザーを取得しました。");
         }
       } catch (error) {
         setUsers([]);
+        // エラーメッセージ
+        toast.error("ユーザーの取得中にエラーが発生しました。");
       }
     };
 
@@ -45,13 +54,11 @@ export default function Users(props) {
   }, [userType, params.id]);
 
   useEffect(() => {
-    // This useEffect handles the filtering of users based on the search term
     if (searchTerm === "") {
       setFilteredUsers(users);
     } else {
       const filtered = users?.filter(
         (user) => user.name.toLowerCase().includes(searchTerm.toLowerCase()),
-        // You can add more conditions to filter by different user attributes
       );
       setFilteredUsers(filtered);
     }
