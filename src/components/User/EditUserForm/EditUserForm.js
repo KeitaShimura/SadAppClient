@@ -62,19 +62,46 @@ export default function EditUserForm(props) {
     e.preventDefault();
     setLoading(true);
 
-    await updateUserData(bannerFile, iconFile, formData)
-      .then(() => {
-        setShowModal(false);
-        console.log("success");
-      })
-      .catch(() => {
-        // エラー時のメッセージ
-        toast.error("データの更新中にエラーが発生しました。");
-      });
+    // バリデーションチェック
+    if (formData.name.length < 1 || formData.name.length > 255) {
+      toast.error("ユーザー名は1文字以上255文字以下である必要があります。");
+      return;
+    }
+
+    if (formData.email.length < 1 || formData.email.length > 255) {
+      toast.error("メールアドレスは1文字以上255文字以下である必要があります。");
+      return;
+    }
+
+    if (formData.bio.length > 1000) {
+      toast.error("自己紹介文は1000文字以下である必要があります。");
+      return;
+    }
+
+    if (formData.website.length > 255) {
+      toast.error("ウェブサイトのURLは255文字以下である必要があります。");
+      return;
+    }
+
+    if (formData.birth_date.length > 255) {
+      toast.error("生年月日は255文字以下である必要があります。");
+      return;
+    }
+
+    try {
+      // バリデーションに合格した場合、データの更新を試行
+      await updateUserData(bannerFile, iconFile, formData);
+      setShowModal(false);
+      console.log("success");
+    } catch (error) {
+      // エラー時のメッセージ
+      console.error("Error updating data:", error);
+      toast.error("データの更新中にエラーが発生しました。");
+    }
 
     setLoading(false);
-    window.location.reload();
   };
+
 
   return (
     <div className="edit-user-form">
