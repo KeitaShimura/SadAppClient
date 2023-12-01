@@ -44,59 +44,79 @@ function LeftComponent() {
 
 function RightComponent(props) {
   const { openModal, setRefreshCheckLogin } = props;
+
+  // 画像の幅を設定する
+  const imageWidth = 400;
+
+  // スタイルオブジェクトを定義して、<p>要素に適用
+  const paragraphStyle = {
+    width: imageWidth,
+    whiteSpace: 'normal', // テキストを折り返す
+  };
+
   return (
-    <Col className="auth__bottom d-flex flex-column align-items-center" xs={12}>
-      <div>
+    <div>
+      <Col className="auth__bottom d-flex flex-column align-items-center" xs={12}>
         <div>
-          <h1>人と話すのが怖い</h1>
-          <h2>同じ悩みを持つ仲間と悩みを話しませんか？</h2>
+          <div>
+            <h1>人と話すのが怖い</h1>
+            <h2>同じ悩みを持つ仲間と悩みを話しませんか？</h2>
+          </div>
+          <Button
+            variant="primary"
+            onClick={() =>
+              openModal(
+                <RegisterForm setRefreshCheckLogin={setRefreshCheckLogin} />,
+              )
+            }
+          >
+            新規登録
+          </Button>
+          <Button
+            variant="outline-primary"
+            onClick={() =>
+              openModal(<LoginForm setRefreshCheckLogin={setRefreshCheckLogin} />)
+            }
+          >
+            ログイン
+          </Button>
         </div>
-        <Button
-          variant="primary"
-          onClick={() =>
-            openModal(
-              <RegisterForm setRefreshCheckLogin={setRefreshCheckLogin} />,
-            )
-          }
-        >
-          新規登録
-        </Button>
-        <Button
-          variant="outline-primary"
-          onClick={() =>
-            openModal(<LoginForm setRefreshCheckLogin={setRefreshCheckLogin} />)
-          }
-        >
-          ログイン
-        </Button>
+      </Col>
+      <div className="scroll-container">
+        <div className="d-flex flex-column flex-md-row justify-content-center align-items-center mt-5">
+          <div className="text-center">
+            <img
+              src={TestPng}
+              alt="Image 3"
+              width={imageWidth} // 画像の幅を設定
+            />
+            <p className="h2 mt-5 fw-bold mx-3" style={paragraphStyle}>
+              日常の気持ちを仲間とシェアしてみましょう！
+            </p>
+          </div>
+          <div className="text-center">
+            <img
+              src={TestPng}
+              alt="Image 3"
+              width={imageWidth} // 画像の幅を設定
+            />
+            <p className="h2 mt-5 fw-bold mx-3" style={paragraphStyle}>
+              オンラインで仲間と交流してみましょう！
+            </p>
+          </div>
+          <div className="text-center">
+            <img
+              src={TestPng}
+              alt="Image 3"
+              width={imageWidth} // 画像の幅を設定
+            />
+            <p className="h2 mt-5 fw-bold mx-3" style={paragraphStyle}>
+              コメントを投稿し、親睦を深めましょう！
+            </p>
+          </div>
+        </div>
       </div>
-      <div className="d-flex flex-column flex-md-row justify-content-center align-items-center mt-5">
-        <div className="text-center m-2">
-          <img
-            src={TestPng}
-            alt="Image 3"
-            width="400"
-          />
-          <p className="h2 mt-5 fw-bold">日常の気持ちを仲間とシェアしてみましょう！</p>
-        </div>
-        <div className="text-center m-2">
-          <img
-            src={TestPng}
-            alt="Image 3"
-            width="400"
-          />
-          <p className="h2 mt-5 fw-bold">オンラインで仲間と交流してみましょう！</p>
-        </div>
-        <div className="text-center m-2">
-          <img
-            src={TestPng}
-            alt="Image 3"
-            width="400"
-          />
-          <p className="h2 mt-5 fw-bold">コメントを投稿し、親睦を深めましょう！</p>
-        </div>
-      </div>
-    </Col>
+    </div>
   );
 }
 

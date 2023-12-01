@@ -22,6 +22,7 @@
     align-items: center;
     min-height: 30vh;
     padding: 100px;
+    
 
     >div {
       width: 100%; // Full width for smaller screens
@@ -29,32 +30,35 @@
       margin: 0 auto;
 
           h1 {
-              font-size: 2rem; // Smaller font size for mobile
-              margin-bottom: 20px;
-              font-weight: bold;
-              background-color: white;
-              text-align: center;
-          
-              @media (min-width: 768px) {
-                font-size: 3rem; // Larger font size for larger screens
-                margin-bottom: 40px;
-              }
-            }
-          
-            h2 {
-              font-size: 1rem; // Smaller font size for mobile
-              margin-bottom: 20px;
-              font-weight: bold;
-              background-color: white;
-              text-align: center;
-          
-              @media (min-width: 768px) {
-                font-size: 2rem; // Larger font size for larger screens
-                margin-bottom: 40px;
-              }
-            }
+      font-size: 2rem; // Smaller font size for mobile
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: $primary;
+      background-color: white;
+      text-align: center;
+
+      @media (min-width: 768px) {
+        font-size: 3rem; // Larger font size for larger screens
+        margin-bottom: 40px;
+      }
+    }
+
+    h2 {
+      font-size: 1rem; // Smaller font size for mobile
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: $primary;
+      background-color: white;
+      text-align: center;
+
+      @media (min-width: 768px) {
+        font-size: 2rem; // Larger font size for larger screens
+        margin-bottom: 40px;
+      }
+    }
 
       button {
+        
         display: block;
         width: 100%;
         border-radius: 50px;
@@ -68,4 +72,12 @@
       }
     }
   }
+}
+
+.scroll-container {
+
+  overflow-x: auto;
+  /* Enable horizontal scrolling */
+  white-space: nowrap;
+  /* Prevent text from wrapping */
 }
