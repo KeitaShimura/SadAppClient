@@ -26,8 +26,6 @@ export default function Event(props) {
             ...response.data,
           ]);
           setPage((prevPage) => prevPage + 1);
-          // 成功時にもメッセージを表示
-          toast.success("イベントデータを取得しました。");
         }
         setLoadingEvents(false);
       })
@@ -45,8 +43,6 @@ export default function Event(props) {
       .then((response) => {
         if (response) {
           setEvents(response.data);
-          // 成功時にもメッセージを表示
-          toast.success("イベントデータを取得しました。");
         }
         setLoadingEvents(false);
       })
