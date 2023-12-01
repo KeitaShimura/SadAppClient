@@ -165,7 +165,7 @@ function EventComments(props) {
       // User confirmed the delete action
       deleteEventApi(event.id)
         .then(() => {
-          navigate('/events');
+          navigate("/events");
           toast.success("イベントが削除されました。");
         })
         .catch((error) => {
@@ -238,7 +238,7 @@ function EventComments(props) {
 
   const handleCommentDeleted = (deletedCommentId) => {
     setEventComments((prevComments) =>
-      prevComments.filter((comment) => comment.id !== deletedCommentId)
+      prevComments.filter((comment) => comment.id !== deletedCommentId),
     );
   };
 

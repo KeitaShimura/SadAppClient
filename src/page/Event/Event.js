@@ -52,7 +52,6 @@ export default function Event(props) {
       });
   }, [page, pageSize]);
 
-
   // 検索処理
   useEffect(() => {
     if (searchTerm === "") {

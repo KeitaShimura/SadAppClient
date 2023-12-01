@@ -127,14 +127,14 @@ function PostComments(props) {
         toast.error("いいね解除に失敗しました。");
       });
   };
-  
+
   const handleDelete = () => {
     const confirmation = window.confirm("コメントを削除しますか？");
     if (confirmation) {
       // User confirmed the delete action
       deletePostApi(post.id)
         .then(() => {
-          navigate('/');
+          navigate("/");
           toast.success("コメントが削除されました。");
         })
         .catch((error) => {

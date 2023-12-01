@@ -141,7 +141,7 @@ function Post({ post, authUser, onPostDeleted }) {
         toast.error("いいね解除に失敗しました。");
       });
   };
-  
+
   const handleDelete = () => {
     const confirmation = window.confirm("投稿を削除しますか？");
     if (confirmation) {
