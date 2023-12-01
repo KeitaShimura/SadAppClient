@@ -130,7 +130,9 @@ function Event({ event, authUser, onEventDeleted }) {
       .catch((error) => {
         console.error("Like Error:", error);
         // エラーメッセージ
-        toast.error("イベントをいいね中にエラーが発生しました。もう一度お試しください。");
+        toast.error(
+          "イベントをいいね中にエラーが発生しました。もう一度お試しください。",
+        );
       });
   };
 
@@ -145,10 +147,11 @@ function Event({ event, authUser, onEventDeleted }) {
       .catch((error) => {
         console.error("Unlike Error:", error);
         // エラーメッセージ
-        toast.error("イベントのいいね解除中にエラーが発生しました。もう一度お試しください。");
+        toast.error(
+          "イベントのいいね解除中にエラーが発生しました。もう一度お試しください。",
+        );
       });
   };
-
 
   const handleDelete = () => {
     deleteEventApi(event.id)
@@ -206,7 +209,7 @@ function Event({ event, authUser, onEventDeleted }) {
         toast.error("イベントへの参加中にエラーが発生しました。");
       });
   };
-  
+
   const handleLeave = () => {
     leaveEventApi(event.id)
       .then(() => {

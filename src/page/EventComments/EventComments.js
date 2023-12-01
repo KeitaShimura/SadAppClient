@@ -136,7 +136,9 @@ function EventComments(props) {
       .catch((error) => {
         console.error("Like Error:", error);
         // エラーメッセージ
-        toast.error("イベントをいいね中にエラーが発生しました。もう一度お試しください。");
+        toast.error(
+          "イベントをいいね中にエラーが発生しました。もう一度お試しください。",
+        );
       });
   };
 
@@ -151,10 +153,11 @@ function EventComments(props) {
       .catch((error) => {
         console.error("Unlike Error:", error);
         // エラーメッセージ
-        toast.error("イベントのいいね解除中にエラーが発生しました。もう一度お試しください。");
+        toast.error(
+          "イベントのいいね解除中にエラーが発生しました。もう一度お試しください。",
+        );
       });
   };
-
 
   const handleDelete = () => {
     deleteEventApi(event.id);

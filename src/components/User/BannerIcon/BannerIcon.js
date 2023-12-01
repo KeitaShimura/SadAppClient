@@ -34,7 +34,6 @@ export default function BannerIcon(props) {
         // フォローエラー時のメッセージ
         toast.error("ユーザーのフォロー中にエラーが発生しました。");
       });
-
   };
 
   const handleUnfollow = () => {

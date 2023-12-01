@@ -57,8 +57,8 @@ export default function Users(props) {
     if (searchTerm === "") {
       setFilteredUsers(users);
     } else {
-      const filtered = users?.filter(
-        (user) => user.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      const filtered = users?.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredUsers(filtered);
     }
