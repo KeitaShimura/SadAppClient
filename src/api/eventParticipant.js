@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
+// イベントに参加する
 export function ParticipationEventApi(eventId) {
   const url = `${API_HOST}/api/user/events/${eventId}/participation`;
 
@@ -18,9 +19,13 @@ export function ParticipationEventApi(eventId) {
       },
     )
     .then((response) => response.data)
-    .catch((error) => console.error("Participation Error:", error));
+    .catch((error) => {
+      console.error("参加エラー:", error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
+    });
 }
 
+// イベントから退出する
 export function leaveEventApi(eventId) {
   const url = `${API_HOST}/api/user/events/${eventId}/leave`;
 
@@ -33,9 +38,13 @@ export function leaveEventApi(eventId) {
       withCredentials: true,
     })
     .then((response) => response.data)
-    .catch((error) => console.error("Leave Error:", error));
+    .catch((error) => {
+      console.error("退出エラー:", error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
+    });
 }
 
+// イベントの参加者をチェック
 export function checkIfEventParticipantsApi(eventId) {
   const url = `${API_HOST}/api/user/events/${eventId}/check_participant`;
 
@@ -48,9 +57,13 @@ export function checkIfEventParticipantsApi(eventId) {
       withCredentials: true,
     })
     .then((response) => response.data)
-    .catch((error) => console.error("Check Participation Error:", error));
+    .catch((error) => {
+      console.error("参加者チェックエラー:", error);
+      throw error; // エラーを再スローして詳細を確認できるようにします
+    });
 }
 
+// イベントの参加者を取得
 export function getParticipantsForEventApi(eventId) {
   const url = `${API_HOST}/api/user/events/${eventId}/participants`;
 
@@ -64,7 +77,7 @@ export function getParticipantsForEventApi(eventId) {
     })
     .then((response) => response.data)
     .catch((error) => {
-      console.error("投稿のいいねを取得中にエラーが発生しました:", error);
+      console.error("イベントの参加者取得中にエラーが発生しました:", error);
       throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }
