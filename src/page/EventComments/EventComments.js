@@ -68,7 +68,6 @@ function EventComments(props) {
       });
   }, [params.id]);
 
-
   useEffect(() => {
     getEventApi(params.id)
       .then((response) => {
