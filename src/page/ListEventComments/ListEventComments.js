@@ -7,6 +7,7 @@ import "./ListEventComments.scss";
 import IconNotFound from "../../assets/png/icon-no-found.png";
 import useAuth from "../../hooks/useAuth";
 import { deleteEventCommentApi } from "../../api/eventComment";
+import { toast } from "react-toastify";
 
 export default function ListEventComments(props) {
   const {
@@ -54,9 +55,15 @@ function EventComment({ comment, authUser, onEventDeleted }) {
   const handleDelete = () => {
     deleteEventCommentApi(comment.id)
       .then(() => {
+        // 削除が成功した場合の処理
+        toast.success("コメントが削除されました。");
         onEventDeleted(comment.id);
       })
-      .catch((error) => console.error("Delete Error:", error));
+      .catch((error) => {
+        // 削除が失敗した場合のエラーハンドリング
+        console.error("Delete Error:", error);
+        toast.warning("コメントの削除中にエラーが発生しました。");
+      });
   };
 
   const iconUrl = comment.user?.icon ? comment.user.icon : IconNotFound;
