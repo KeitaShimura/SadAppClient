@@ -5,6 +5,7 @@ import { AuthContext } from "./utils/contexts";
 import { isUserLoggedAPI } from "./api/auth";
 import Routing from "./routes/Routing";
 import Footer from "./components/Footer";
+import Header from "./components/Header/Header";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -21,6 +22,7 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={user}>
+      <Header />
       {user ? (
         <Routing setRefreshCheckLogin={setRefreshCheckLogin} />
       ) : (
