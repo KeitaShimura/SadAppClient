@@ -85,14 +85,18 @@ function EventComments(props) {
       try {
         const likeStatus = await checkIfEventLikedApi(event.id, authUser.id);
         setIsLiked(likeStatus);
+        // 成功時にもメッセージを表示
+        toast.success("いいねの情報を取得しました。");
         updateLikeCount();
       } catch (error) {
         console.error("Error fetching like data:", error);
+        // エラーメッセージを表示
+        toast.error("いいねの情報の取得中にエラーが発生しました。");
       }
     };
 
     fetchLikeData();
-  }, [event, authUser.id]);
+  }, [event.id, authUser.id]);
 
   useEffect(() => {
     // コメント数の取得
