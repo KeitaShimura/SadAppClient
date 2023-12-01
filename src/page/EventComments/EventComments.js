@@ -126,8 +126,14 @@ function EventComments(props) {
       .then(() => {
         setIsLiked(true);
         updateLikeCount();
+        // 「いいね」が成功した場合のメッセージ
+        toast.success("イベントをいいねしました！");
       })
-      .catch((error) => console.error("Like Error:", error));
+      .catch((error) => {
+        console.error("Like Error:", error);
+        // エラーメッセージ
+        toast.error("イベントをいいね中にエラーが発生しました。もう一度お試しください。");
+      });
   };
 
   const handleUnlike = () => {
@@ -135,9 +141,16 @@ function EventComments(props) {
       .then(() => {
         setIsLiked(false);
         updateLikeCount();
+        // 「いいね解除」が成功した場合のメッセージ
+        toast.success("イベントのいいねを解除しました！");
       })
-      .catch((error) => console.error("Unlike Error:", error));
+      .catch((error) => {
+        console.error("Unlike Error:", error);
+        // エラーメッセージ
+        toast.error("イベントのいいね解除中にエラーが発生しました。もう一度お試しください。");
+      });
   };
+
 
   const handleDelete = () => {
     deleteEventApi(event.id);
