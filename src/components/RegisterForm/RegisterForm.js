@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
-import {
-  size,
-  values,
-  // size
-} from "lodash";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../../utils/validation";
 import { registerApi, setTokenApi } from "../../api/auth";
@@ -20,44 +15,42 @@ export default function RegisterForm(props) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    let validCount = 0;
-    values(formData).some((value) => {
-      value && validCount++;
-      return null;
-    });
-
-    if (validCount !== size(formData)) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.password_confirm
+    ) {
       toast.warning("全ての項目を入力してください。");
+    } else if (!isEmailValid(formData.email)) {
+      toast.warning("メールアドレスの形式が異なります。");
+    } else if (formData.password !== formData.password_confirm) {
+      toast.warning("パスワードが一致しません。");
+    } else if (formData.password.length < 6) {
+      toast.warning("パスワードは6文字以上に設定してください。");
     } else {
-      if (!isEmailValid(formData.email)) {
-        toast.warning("メールアドレスの形式が異なります。");
-      } else if (formData.password !== formData.password_confirm) {
-        toast.warning("パスワードが一致しません。");
-      } else if (size(formData.password) < 6) {
-        toast.warning("パスワードは6文字以上に設定してください。");
-      } else {
-        setRegisterLoading(true);
-        registerApi(formData)
-          .then((response) => {
-            if (response.code) {
-              toast.warning(response.message);
-            } else {
-              toast.success("アカウントを登録しました。");
-              setTokenApi(response.token);
-              setRefreshCheckLogin(true);
-            }
-          })
-          .catch(() => {
-            toast.error(
-              "サーバーエラーが起こりました。時間を置いてもう一度試してください。",
-            );
-          })
-          .finally(() => {
-            setRegisterLoading(false);
-          });
-      }
+      setRegisterLoading(true);
+      registerApi(formData)
+        .then((response) => {
+          if (response.code) {
+            toast.warning(response.message);
+          } else {
+            toast.success("アカウントを登録しました。");
+            setTokenApi(response.token);
+            setRefreshCheckLogin(true);
+          }
+        })
+        .catch(() => {
+          toast.error(
+            "サーバーエラーが起こりました。時間を置いてもう一度試してください。",
+          );
+        })
+        .finally(() => {
+          setRegisterLoading(false);
+        });
     }
   };
+
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
