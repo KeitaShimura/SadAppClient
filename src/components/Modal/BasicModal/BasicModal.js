@@ -2,7 +2,7 @@ import React from "react";
 import { Image, Modal } from "react-bootstrap";
 import PropTypes from "prop-types";
 import "./BasicModal.scss";
-import Logo from "../../../assets/png/logo.png"
+import Logo from "../../../assets/png/logo.png";
 
 export default function BasicModel(props) {
   const { show, setShow, children } = props;

@@ -15,7 +15,7 @@ import { Button, Image } from "react-bootstrap";
 
 import "./LeftMenu.scss";
 import EventModal from "../Modal/EventModal";
-import Logo from "../../assets/png/logo.png"
+import Logo from "../../assets/png/logo.png";
 
 export default function LeftMenu() {
   const [showPostModal, setShowPostModal] = useState(false);
