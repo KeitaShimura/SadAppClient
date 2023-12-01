@@ -32,11 +32,11 @@ ListPostComments.propTypes = {
   onCommentDeleted: PropTypes.func.isRequired,
 };
 
-function PostComment({ comment, authUser, onPostDeleted }) {
+function PostComment({ comment, authUser, onCommentDeleted }) {
   const handleDelete = () => {
     deletePostCommentApi(comment.id)
       .then(() => {
-        onPostDeleted(comment.id);
+        onCommentDeleted(comment.id);
       })
       .catch((error) => console.error("Delete Error:", error));
   };
@@ -73,5 +73,5 @@ function PostComment({ comment, authUser, onPostDeleted }) {
 PostComment.propTypes = {
   comment: PropTypes.object.isRequired,
   authUser: PropTypes.object.isRequired,
-  onPostDeleted: PropTypes.func.isRequired,
+  onCommentDeleted: PropTypes.func.isRequired,
 };

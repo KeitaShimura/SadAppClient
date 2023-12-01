@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import ListEventComments from "../ListEventComments";
+import ListEventComments from "../../components/ListEventComments";
 import BasicLayout from "../../layout/BasicLayout";
 import { deleteEventApi, getEventApi } from "../../api/event";
 import {

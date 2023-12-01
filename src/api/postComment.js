@@ -57,11 +57,12 @@ export function deletePostCommentApi(commentId) {
   return axios
     .delete(`${API_HOST}/api/user/posts/comments/${commentId}`, {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
       withCredentials: true,
     })
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((error) => {
       console.error("コメントの削除中にエラーが発生しました:", error);
       throw error;
