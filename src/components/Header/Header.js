@@ -21,7 +21,7 @@ const Header = () => {
     };
     return (
         <header className="header">
-            <Image className="logo" src={Logo} width={30} />
+            <Image className="logo" src={Logo} width={40} />
             <a href="/">
                 <FontAwesomeIcon icon={faHome} />
                 投稿一覧
@@ -43,7 +43,7 @@ const Header = () => {
                 ログアウト
             </a>
 
-            <Button onClick={() => setShowPostModal(true)}>投稿する</Button>
+            <Button className="mr-4" onClick={() => setShowPostModal(true)}>投稿する</Button>
             <PostModal show={showPostModal} setShow={setShowPostModal} />
 
             <Button onClick={() => setShowEventModal(true)}>

@@ -10,10 +10,20 @@
     background-color: $primary-light;
     font-weight: bold;
 
+    .logo {
+        position: absolute;
+        left: 10px;
+    }
+
     a {
         margin: 0 10px;
         color: white;
         text-decoration: none;
         font-weight: bold;
+    }
+
+    // ボタン間のマージンを設定
+    Button {
+        margin: 0 5px;
     }
 }
