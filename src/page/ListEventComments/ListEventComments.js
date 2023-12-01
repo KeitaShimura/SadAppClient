@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { Image } from "react-bootstrap";
@@ -10,36 +10,18 @@ import { deleteEventCommentApi } from "../../api/eventComment";
 import { toast } from "react-toastify";
 
 export default function ListEventComments(props) {
-  const {
-    eventComments: initialEventComments,
-    setEventComments: setInitialEventComments,
-  } = props;
+  const { eventComments, onCommentDeleted } = props;
   const authUser = useAuth();
-  const [eventComments, setEventComments] = useState(
-    initialEventComments || [],
-  ); // 初期値がnullの場合、空の配列を使用
-
-  useEffect(() => {
-    setEventComments(initialEventComments || []); // 初期値がnullの場合、空の配列を使用
-  }, [initialEventComments]);
-
-  const handleEventDeleted = (eventId) => {
-    const updatedComments = eventComments.filter(
-      (event) => event.id !== eventId,
-    );
-    setEventComments(updatedComments);
-    setInitialEventComments(updatedComments);
-  };
 
   return (
-    <div className="list-events">
+    <div className="list-posts">
       {eventComments &&
         eventComments.map((comment) => (
           <EventComment
             key={comment.id} // インデックスではなく、ユニークなIDを使用
             comment={comment}
             authUser={authUser}
-            onEventDeleted={handleEventDeleted}
+            onCommentDeleted={onCommentDeleted}
           />
         ))}
     </div>
@@ -48,8 +30,9 @@ export default function ListEventComments(props) {
 
 ListEventComments.propTypes = {
   eventComments: PropTypes.array.isRequired,
-  setEventComments: PropTypes.func.isRequired,
+  onCommentDeleted: PropTypes.func.isRequired,
 };
+
 
 function EventComment({ comment, authUser, onEventDeleted }) {
   const handleDelete = () => {

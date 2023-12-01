@@ -9,7 +9,7 @@ import useAuth from "../../hooks/useAuth";
 import { deletePostCommentApi } from "../../api/postComment";
 
 export default function ListPostComments(props) {
-  const { postComments, onPostDeleted } = props;
+  const { postComments, onCommentDeleted } = props;
   const authUser = useAuth();
 
   return (
@@ -20,7 +20,7 @@ export default function ListPostComments(props) {
             key={comment.id} // インデックスではなく、ユニークなIDを使用
             comment={comment}
             authUser={authUser}
-            onPostDeleted={onPostDeleted}
+            onCommentDeleted={onCommentDeleted}
           />
         ))}
     </div>
@@ -29,7 +29,7 @@ export default function ListPostComments(props) {
 
 ListPostComments.propTypes = {
   postComments: PropTypes.array.isRequired,
-  onPostDeleted: PropTypes.func.isRequired,
+  onCommentDeleted: PropTypes.func.isRequired,
 };
 
 function PostComment({ comment, authUser, onPostDeleted }) {

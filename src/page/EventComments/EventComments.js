@@ -33,7 +33,7 @@ function EventComments(props) {
   const { setRefreshCheckLogin } = props;
   const params = useParams();
   const [event, setEvent] = useState(null);
-  const [eventComments, setEventComments] = useState(null);
+  const [eventComments, setEventComments] = useState([]);
   const [page, setPage] = useState(1);
   const [loadingEventComments, setLoadingEventComments] = useState(false);
   const [message, setMessage] = useState("");
@@ -219,6 +219,12 @@ function EventComments(props) {
       });
   };
 
+  const handleComentDeleted = (deletedCommentId) => {
+    setEventComments(prevComments =>
+      prevComments.filter(comment => comment.id !== deletedCommentId)
+    );
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -234,12 +240,16 @@ function EventComments(props) {
         content: message,
       });
 
+      if (response.data && response.data.id) {
+        // 新しいコメントを配列の先頭に追加
+        setEventComments(prevComments => [response.data, ...prevComments]);
+      } else {
+        console.error("Invalid comment data:", response.data);
+      }
+
       // コメントが正常に作成された場合の処理
       console.log("Comment created:", response.data);
       toast.success("コメントが投稿されました。");
-
-      // 新しいコメントを既存のリストに追加
-      setEventComments(prevComments => [...prevComments, response.data]);
 
       setMessage(""); // メッセージをクリア
     } catch (error) {
@@ -373,7 +383,10 @@ function EventComments(props) {
         </Button>
       </form>
       <div className="event__comment">
-        <ListEventComments eventComments={eventComments} />
+        <ListEventComments
+          eventComments={eventComments}
+          onCommentDeleted={handleComentDeleted}
+        />
       </div>
       <Button onClick={moreData}>
         {!loadingEventComments ? (

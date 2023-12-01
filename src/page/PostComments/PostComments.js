@@ -161,12 +161,11 @@ function PostComments(props) {
       });
   }, [params.id]);
 
-  const handlePostDeleted = (deletedCommentId) => {
+  const handleComentDeleted = (deletedCommentId) => {
     setPostComments(prevComments =>
       prevComments.filter(comment => comment.id !== deletedCommentId)
     );
   };
-
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -182,11 +181,10 @@ function PostComments(props) {
       const response = await createPostCommentApi(params.id, {
         content: message,
       });
-      console.log("Comment created:", response.data);
 
-      // 新しいコメントを既存のコメントリストに追加
       if (response.data && response.data.id) {
-        setPostComments(prevComments => [...prevComments, response.data]);
+        // 新しいコメントを配列の先頭に追加
+        setPostComments(prevComments => [response.data, ...prevComments]);
       } else {
         console.error("Invalid comment data:", response.data);
       }
@@ -196,14 +194,12 @@ function PostComments(props) {
       toast.success("コメントが作成されました。");
 
     } catch (error) {
-      // エラーをハンドル
       console.error("Error creating comment:", error);
       toast.warning(
         "コメントの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
       );
     }
   };
-
 
   const moreData = () => {
     const pageTemp = page + 1;
@@ -294,7 +290,7 @@ function PostComments(props) {
       <div className="post__comment">
         <ListPostComments
           postComments={postComments}
-          onPostDeleted={handlePostDeleted}
+          onCommentDeleted={handleComentDeleted}
         />
 
       </div>
