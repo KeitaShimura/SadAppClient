@@ -68,11 +68,12 @@ export default function EditUserForm(props) {
         console.log("success");
       })
       .catch(() => {
-        toast.error("Error al actualizar los datos");
+        // エラー時のメッセージ
+        toast.error("データの更新中にエラーが発生しました。");
       });
 
     setLoading(false);
-    window.location.reload(); // この行は必要に応じて調整
+    window.location.reload();
   };
 
   return (

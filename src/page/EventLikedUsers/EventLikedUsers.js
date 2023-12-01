@@ -32,8 +32,6 @@ export default function EventLikedUsers(props) {
         );
 
         setLikedUsers(likedUsersData);
-        // いいねしたユーザー情報を取得した際のメッセージ
-        toast.success("いいねしたユーザー情報を取得しました。");
       } catch (error) {
         setLikedUsers([]);
         // エラーメッセージ

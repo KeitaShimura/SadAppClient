@@ -35,8 +35,6 @@ export default function EventParticipants(props) {
         );
 
         setParticipants(participantsData);
-        // データを正常に取得した場合のメッセージ
-        toast.success("参加者一覧を取得しました。");
       } catch (error) {
         setParticipants([]);
         // データを取得できなかった場合のエラーメッセージ
