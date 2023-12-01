@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { createEventApi } from "../../../api/event";
 import "./EventModal.scss";
 import { toast } from "react-toastify";
-// import { toast } from "react-toastify";
+import { isValidDateFormat } from "../../../utils/functions";
 
 export default function EventModal(props) {
   const { show, setShow } = props;
@@ -15,6 +15,26 @@ export default function EventModal(props) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    // バリデーションチェック
+    if (formData.title.length === 0 || formData.title.length > 100) {
+      toast.warning(
+        "イベントタイトルは1文字以上100文字以下である必要があります。",
+      );
+      return;
+    }
+
+    if (formData.content.length > 500) {
+      toast.warning("イベント内容は500文字以下である必要があります。");
+      return;
+    }
+
+    if (!isValidDateFormat(formData.eventDate)) {
+      toast.warning(
+        "不正な日付形式です。日付はYYYY-MM-DD HH:mmの形式で指定してください。",
+      );
+      return;
+    }
+
     try {
       // Call createEventApi with formData
       const response = await createEventApi(formData);

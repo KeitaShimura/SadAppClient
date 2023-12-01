@@ -200,12 +200,11 @@ function EventComments(props) {
       toast.success("コメントが投稿されました。");
 
       setMessage(""); // メッセージをクリア
-
     } catch (error) {
       // エラーハンドリング
       console.error("Error creating event:", error);
       toast.warning(
-        "コメントの投稿中にエラーが発生しました。しばらく待ってからもう一度お試しください。"
+        "コメントの投稿中にエラーが発生しました。しばらく待ってからもう一度お試しください。",
       );
     }
   };
