@@ -15,24 +15,28 @@ export default function PostModal(props) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    // バリデーションチェック
+    if (message.trim().length === 0 || message.trim().length > 500) {
+      toast.error("コメントは1文字以上500文字以下である必要があります。");
+      return;
+    }
+
     try {
-      // Call createPostApi with the message
+      // createPostApiを呼び出してメッセージを作成
       const response = await createPostApi({ content: message });
       console.log("Post created:", response.data);
 
-      // Clear the message and close the modal
-      toast.success(response.message);
+      // メッセージをクリアしてモーダルを閉じる
+      toast.success("投稿が作成されました。");
       setShow(false);
-      window.location.reload();
     } catch (error) {
-      // Handle any errors here
+      // エラーをハンドル
       console.error("Error creating post:", error);
-      toast.warning(
-        "ツイートの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
-      );
-      window.location.reload();
+      toast.warning("ツイートの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。");
     }
   };
+
 
   return (
     <Modal

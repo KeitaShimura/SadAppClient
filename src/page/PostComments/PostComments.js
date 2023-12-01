@@ -157,21 +157,26 @@ function PostComments(props) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    // バリデーションチェック
+    if (message.trim().length === 0 || message.trim().length > 500) {
+      toast.error("コメントは1文字以上500文字以下である必要があります。");
+      return;
+    }
+
     try {
-      // Call createPostApi with the message
+      // createPostCommentApiを呼び出してコメントを作成
       const response = await createPostCommentApi(params.id, {
         content: message,
       });
       console.log("Comment created:", response.data);
 
-      // Clear the message and close the modal
-      toast.success(response.message);
+      // メッセージをクリア
+      toast.success("コメントが作成されました。");
     } catch (error) {
-      // Handle any errors here
-      console.error("Error creating post:", error);
-      toast.warning(
-        "ツイートの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
-      );
+      // エラーをハンドル
+      console.error("Error creating comment:", error);
+      toast.warning("コメントの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。");
     }
   };
 
