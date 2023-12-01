@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
-// Fetch all posts
+// すべての投稿を取得
 export function getPostsApi(page, pageSize) {
   return axios.get(
     `${API_HOST}/api/user/posts?page=${page}&pageSize=${pageSize}`,
@@ -13,44 +13,38 @@ export function getPostsApi(page, pageSize) {
       },
       withCredentials: true,
     },
-  );
+  )
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("投稿を取得中にエラーが発生しました:", error);
+      throw error;
+    });
 }
 
-// Fetch all posts
+// 特定のユーザーの投稿を取得
 export function getUserPostsApi(id, page, pageSize) {
   const url = `${API_HOST}/api/user/user_posts/${id}?page=${page}&pageSize=${pageSize}`;
 
-  const params = {
+  return fetch(url, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getTokenApi()}`,
     },
     withCredentials: true,
-  };
-
-  return fetch(url, params)
+  })
     .then((response) => {
-      // レスポンスのステータスコードが400以上の場合はエラーとして扱う
       if (response.status >= 400) {
-        // エラーメッセージを含むErrorオブジェクトを投げる
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
-      return response.json(); // レスポンスのJSONを解析
+      return response.json();
     })
-    .then((result) => {
-      // 解析されたJSONデータを返す
-      console.log(result);
-
-      return result;
-    })
-    .catch((err) => {
-      // エラー発生時の処理を行う
-      // エラーフラグとメッセージを含むオブジェクトを返す
-      return { error: true, message: err.message };
+    .catch((error) => {
+      console.error("ユーザーの投稿を取得中にエラーが発生しました:", error);
+      throw error;
     });
 }
 
-// Create a new post
+// 新しい投稿を作成
 export function createPostApi(postData) {
   return axios.post(`${API_HOST}/api/user/posts`, postData, {
     headers: {
@@ -58,10 +52,15 @@ export function createPostApi(postData) {
       Authorization: `Bearer ${getTokenApi()}`,
     },
     withCredentials: true,
-  });
+  })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("投稿の作成中にエラーが発生しました:", error);
+      throw error;
+    });
 }
 
-// Fetch a single post by ID
+// 特定の投稿を取得
 export function getPostApi(id) {
   return axios
     .get(`${API_HOST}/api/user/posts/${id}`, {
@@ -70,20 +69,14 @@ export function getPostApi(id) {
         Authorization: `Bearer ${getTokenApi()}`,
       },
     })
-    .then((response) => {
-      // レスポンスが正常に返された場合の処理
-      console.log("Response:", response);
-      return response;
-    })
+    .then((response) => response.data)
     .catch((error) => {
-      // エラーが発生した場合の処理
-      console.error("Error during API call:", error);
-      // エラーメッセージまたは全体のエラーオブジェクトを返す
-      return error.message || error;
+      console.error("投稿の取得中にエラーが発生しました:", error);
+      throw error;
     });
 }
 
-// Update a post by ID
+// 特定の投稿を更新
 export function updatePostApi(id, postData) {
   return axios.put(`${API_HOST}/api/user/posts/${id}`, postData, {
     headers: {
@@ -91,19 +84,30 @@ export function updatePostApi(id, postData) {
       Authorization: `Bearer ${getTokenApi()}`,
     },
     withCredentials: true,
-  });
+  })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("投稿の更新中にエラーが発生しました:", error);
+      throw error;
+    });
 }
 
-// Delete a post by ID
+// 特定の投稿を削除
 export function deletePostApi(id) {
   return axios.delete(`${API_HOST}/api/user/posts/${id}`, {
     headers: {
       Authorization: `Bearer ${getTokenApi()}`,
     },
     withCredentials: true,
-  });
+  })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("投稿の削除中にエラーが発生しました:", error);
+      throw error;
+    });
 }
 
+// ユーザーがいいねした投稿を取得
 export function getUserLikedPostsApi(userId) {
   const url = `${API_HOST}/api/user/posts/${userId}/liked_posts`;
 
@@ -117,7 +121,7 @@ export function getUserLikedPostsApi(userId) {
     })
     .then((response) => response.data)
     .catch((error) => {
-      console.error("投稿を取得中にエラーが発生しました:", error);
+      console.error("ユーザーがいいねした投稿を取得中にエラーが発生しました:", error);
       throw error;
     });
 }
