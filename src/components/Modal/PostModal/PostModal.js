@@ -34,7 +34,7 @@ export default function PostModal(props) {
       // エラーをハンドル
       console.error("Error creating post:", error);
       toast.warning(
-        "ツイートの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
+        "投稿の送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
       );
     }
   };

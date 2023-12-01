@@ -6,7 +6,6 @@ import classNames from "classnames";
 import { createEventApi } from "../../../api/event";
 import "./EventModal.scss";
 import { toast } from "react-toastify";
-import { isValidDateFormat } from "../../../utils/functions";
 
 export default function EventModal(props) {
   const { show, setShow } = props;
@@ -28,13 +27,6 @@ export default function EventModal(props) {
       return;
     }
 
-    if (!isValidDateFormat(formData.eventDate)) {
-      toast.warning(
-        "不正な日付形式です。日付はYYYY-MM-DD HH:mmの形式で指定してください。",
-      );
-      return;
-    }
-
     try {
       // Call createEventApi with formData
       const response = await createEventApi(formData);
@@ -43,14 +35,12 @@ export default function EventModal(props) {
       // Clear the form and close the modal
       toast.success(response.message);
       setShow(false);
-      window.location.reload();
     } catch (error) {
       // Handle any errors here
       console.error("Error creating event:", error);
       toast.warning(
         "イベントの投稿中にエラーが発生しました。もう一度お試しください。",
       );
-      window.location.reload();
     }
   };
 
@@ -107,7 +97,7 @@ export default function EventModal(props) {
             </Form.Group>
             <Form.Group className="form-group">
               <Form.Control
-                type="date"
+                type="datetime-local"
                 name="event_date"
                 placeholder="開催日"
                 value={formData.event_date} // valueプロパティを追加
