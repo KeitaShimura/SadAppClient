@@ -24,9 +24,9 @@ export default function PostModal(props) {
 
     try {
       // createPostApiを呼び出してメッセージを作成
-      const response = await createPostApi({ content: message });
-      console.log("Post created:", response.data);
+      await createPostApi({ content: message });
 
+      window.location.reload();
       // メッセージをクリアしてモーダルを閉じる
       toast.success("投稿が作成されました。");
       setShow(false);

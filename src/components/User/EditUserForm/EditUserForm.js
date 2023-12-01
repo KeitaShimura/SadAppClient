@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { updateUserData } from "../../../api/user";
 import { Button, Form, Spinner } from "react-bootstrap";
-import DatePicker from "react-datepicker";
-import ja from "date-fns/locale/ja";
-import moment from "moment";
 import { useDropzone } from "react-dropzone";
 import PropTypes from "prop-types";
 import { Camera } from "../../../utils/icons";
@@ -92,7 +89,8 @@ export default function EditUserForm(props) {
       // バリデーションに合格した場合、データの更新を試行
       await updateUserData(bannerFile, iconFile, formData);
       setShowModal(false);
-      console.log("success");
+      window.location.reload();
+      toast.success("プロフィールを更新しました。");
     } catch (error) {
       // エラー時のメッセージ
       console.error("Error updating data:", error);
@@ -169,27 +167,14 @@ export default function EditUserForm(props) {
           />
         </Form.Group>
 
-        <Form.Group>
-          {moment(formData.birth_date, "YYYY/MM/DD", true).isValid() ? (
-            <DatePicker
-              dateFormat="yyyy/MM/dd"
-              locale={ja}
-              selected={moment(formData.birth_date).toDate()}
-              placeholder="生年月日"
-              onChange={(date) =>
-                setFormData({ ...formData, birth_date: date })
-              }
-            />
-          ) : (
-            <DatePicker
-              dateFormat="yyyy/MM/dd"
-              locale={ja}
-              placeholder="生年月日"
-              onChange={(date) =>
-                setFormData({ ...formData, birth_date: date })
-              }
-            />
-          )}
+        <Form.Group className="form-group">
+          <Form.Control
+            type="date"
+            name="birth_date"
+            defaultValue={formData.birth_date}
+            placeholder="生年月日"
+            onChange={onChange}
+          />
         </Form.Group>
 
         <Button className="btn-submit" variant="primary" type="submit">

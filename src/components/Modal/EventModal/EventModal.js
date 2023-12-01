@@ -29,9 +29,9 @@ export default function EventModal(props) {
 
     try {
       // Call createEventApi with formData
-      const response = await createEventApi(formData);
-      console.log("Post created:", response.data);
+      await createEventApi(formData);
 
+      window.location.reload();
       // メッセージをクリアしてモーダルを閉じる
       toast.success("イベントが作成されました。");
       setShow(false);
