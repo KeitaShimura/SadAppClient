@@ -33,13 +33,13 @@ ListEventComments.propTypes = {
   onCommentDeleted: PropTypes.func.isRequired,
 };
 
-function EventComment({ comment, authUser, onEventDeleted }) {
+function EventComment({ comment, authUser, onCommentDeleted }) {
   const handleDelete = () => {
     deleteEventCommentApi(comment.id)
       .then(() => {
         // 削除が成功した場合の処理
         toast.success("コメントが削除されました。");
-        onEventDeleted(comment.id);
+        onCommentDeleted(comment.id);
       })
       .catch((error) => {
         // 削除が失敗した場合のエラーハンドリング
@@ -80,5 +80,5 @@ function EventComment({ comment, authUser, onEventDeleted }) {
 EventComment.propTypes = {
   comment: PropTypes.object.isRequired,
   authUser: PropTypes.object.isRequired,
-  onEventDeleted: PropTypes.func.isRequired,
+  onCommentDeleted: PropTypes.func.isRequired,
 };
