@@ -92,8 +92,6 @@ function Post({ post, authUser, onPostDeleted }) {
     fetchCommentCount();
   }, [post.id]);
 
-
-
   const updateLikeCount = async () => {
     try {
       const likesData = await getLikesForPostApi(post.id);
