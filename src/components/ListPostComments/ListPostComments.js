@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { Image } from "react-bootstrap";
@@ -9,22 +9,8 @@ import useAuth from "../../hooks/useAuth";
 import { deletePostCommentApi } from "../../api/postComment";
 
 export default function ListPostComments(props) {
-  const {
-    postComments: initialPostComments,
-    setPostComments: setInitialPostComments,
-  } = props;
+  const { postComments, onPostDeleted } = props;
   const authUser = useAuth();
-  const [postComments, setPostComments] = useState(initialPostComments || []); // 初期値がnullの場合、空の配列を使用
-
-  useEffect(() => {
-    setPostComments(initialPostComments || []); // 初期値がnullの場合、空の配列を使用
-  }, [initialPostComments]);
-
-  const handlePostDeleted = (postId) => {
-    const updatedComments = postComments.filter((post) => post.id !== postId);
-    setPostComments(updatedComments);
-    setInitialPostComments(updatedComments);
-  };
 
   return (
     <div className="list-posts">
@@ -34,7 +20,7 @@ export default function ListPostComments(props) {
             key={comment.id} // インデックスではなく、ユニークなIDを使用
             comment={comment}
             authUser={authUser}
-            onPostDeleted={handlePostDeleted}
+            onPostDeleted={onPostDeleted}
           />
         ))}
     </div>
@@ -43,7 +29,7 @@ export default function ListPostComments(props) {
 
 ListPostComments.propTypes = {
   postComments: PropTypes.array.isRequired,
-  setPostComments: PropTypes.func.isRequired,
+  onPostDeleted: PropTypes.func.isRequired,
 };
 
 function PostComment({ comment, authUser, onPostDeleted }) {

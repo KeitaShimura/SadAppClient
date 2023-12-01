@@ -28,7 +28,7 @@ export function createPostCommentApi(postId, commentData) {
       },
       withCredentials: true,
     })
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((error) => {
       console.error("コメントの作成中にエラーが発生しました:", error);
       throw error;

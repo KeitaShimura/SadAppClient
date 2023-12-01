@@ -222,10 +222,10 @@ function EventComments(props) {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    // バリデーション: コメントの長さをチェック
+    // バリデーションチェック
     if (message.trim().length === 0 || message.trim().length > 500) {
       toast.warning("コメントは1文字以上500文字以下である必要があります。");
-      return; // コメントが無効な場合、処理を中止
+      return;
     }
 
     try {
@@ -238,6 +238,9 @@ function EventComments(props) {
       console.log("Comment created:", response.data);
       toast.success("コメントが投稿されました。");
 
+      // 新しいコメントを既存のリストに追加
+      setEventComments(prevComments => [...prevComments, response.data]);
+
       setMessage(""); // メッセージをクリア
     } catch (error) {
       // エラーハンドリング
@@ -247,6 +250,7 @@ function EventComments(props) {
       );
     }
   };
+
 
   const moreData = () => {
     const pageTemp = page + 1;

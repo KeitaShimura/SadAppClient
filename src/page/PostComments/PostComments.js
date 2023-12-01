@@ -29,7 +29,7 @@ function PostComments(props) {
   const params = useParams();
   const authUser = useAuth();
   const [post, setPost] = useState(null);
-  const [postComments, setPostComments] = useState(null);
+  const [postComments, setPostComments] = useState([]);
   const [page, setPage] = useState(1);
   const [loadingPostComments, setLoadingPostComments] = useState(false);
   const [message, setMessage] = useState("");
@@ -136,16 +136,19 @@ function PostComments(props) {
     post && post.user && post.user.icon ? post.user.icon : IconNotFound;
 
   useEffect(() => {
+    setLoadingPostComments(true);
     getPostCommentsApi(params.id)
       .then((response) => {
-        setPostComments(response.data);
+        setPostComments(response.data); // ここでコメントデータを更新
+        setLoadingPostComments(false);
       })
       .catch((error) => {
         console.error("Error fetching post comments:", error);
-        // コメントデータの取得が失敗した際のエラーメッセージ
+        setLoadingPostComments(false);
         toast.error("コメントデータの取得中にエラーが発生しました。");
       });
   }, [params.id]);
+
 
   useEffect(() => {
     getPostApi(params.id)
@@ -157,6 +160,13 @@ function PostComments(props) {
         toast.error("投稿の取得に失敗しました。");
       });
   }, [params.id]);
+
+  const handlePostDeleted = (deletedCommentId) => {
+    setPostComments(prevComments =>
+      prevComments.filter(comment => comment.id !== deletedCommentId)
+    );
+  };
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -174,8 +184,17 @@ function PostComments(props) {
       });
       console.log("Comment created:", response.data);
 
+      // 新しいコメントを既存のコメントリストに追加
+      if (response.data && response.data.id) {
+        setPostComments(prevComments => [...prevComments, response.data]);
+      } else {
+        console.error("Invalid comment data:", response.data);
+      }
+
       // メッセージをクリア
+      setMessage("");
       toast.success("コメントが作成されました。");
+
     } catch (error) {
       // エラーをハンドル
       console.error("Error creating comment:", error);
@@ -184,6 +203,7 @@ function PostComments(props) {
       );
     }
   };
+
 
   const moreData = () => {
     const pageTemp = page + 1;
@@ -272,7 +292,11 @@ function PostComments(props) {
         </Button>
       </form>
       <div className="post__comment">
-        <ListPostComments postComments={postComments} />
+        <ListPostComments
+          postComments={postComments}
+          onPostDeleted={handlePostDeleted}
+        />
+
       </div>
       <Button onClick={moreData}>
         {!loadingPostComments ? (
