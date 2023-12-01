@@ -220,8 +220,8 @@ function EventComments(props) {
   };
 
   const handleComentDeleted = (deletedCommentId) => {
-    setEventComments(prevComments =>
-      prevComments.filter(comment => comment.id !== deletedCommentId)
+    setEventComments((prevComments) =>
+      prevComments.filter((comment) => comment.id !== deletedCommentId),
     );
   };
 
@@ -242,7 +242,7 @@ function EventComments(props) {
 
       if (response.data && response.data.id) {
         // 新しいコメントを配列の先頭に追加
-        setEventComments(prevComments => [response.data, ...prevComments]);
+        setEventComments((prevComments) => [response.data, ...prevComments]);
       } else {
         console.error("Invalid comment data:", response.data);
       }
@@ -260,7 +260,6 @@ function EventComments(props) {
       );
     }
   };
-
 
   const moreData = () => {
     const pageTemp = page + 1;

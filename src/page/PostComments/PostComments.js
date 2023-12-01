@@ -149,7 +149,6 @@ function PostComments(props) {
       });
   }, [params.id]);
 
-
   useEffect(() => {
     getPostApi(params.id)
       .then((response) => {
@@ -162,8 +161,8 @@ function PostComments(props) {
   }, [params.id]);
 
   const handleComentDeleted = (deletedCommentId) => {
-    setPostComments(prevComments =>
-      prevComments.filter(comment => comment.id !== deletedCommentId)
+    setPostComments((prevComments) =>
+      prevComments.filter((comment) => comment.id !== deletedCommentId),
     );
   };
 
@@ -184,7 +183,7 @@ function PostComments(props) {
 
       if (response.data && response.data.id) {
         // 新しいコメントを配列の先頭に追加
-        setPostComments(prevComments => [response.data, ...prevComments]);
+        setPostComments((prevComments) => [response.data, ...prevComments]);
       } else {
         console.error("Invalid comment data:", response.data);
       }
@@ -192,7 +191,6 @@ function PostComments(props) {
       // メッセージをクリア
       setMessage("");
       toast.success("コメントが作成されました。");
-
     } catch (error) {
       console.error("Error creating comment:", error);
       toast.warning(
@@ -292,7 +290,6 @@ function PostComments(props) {
           postComments={postComments}
           onCommentDeleted={handleComentDeleted}
         />
-
       </div>
       <Button onClick={moreData}>
         {!loadingPostComments ? (

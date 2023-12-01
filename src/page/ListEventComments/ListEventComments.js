@@ -33,7 +33,6 @@ ListEventComments.propTypes = {
   onCommentDeleted: PropTypes.func.isRequired,
 };
 
-
 function EventComment({ comment, authUser, onEventDeleted }) {
   const handleDelete = () => {
     deleteEventCommentApi(comment.id)
