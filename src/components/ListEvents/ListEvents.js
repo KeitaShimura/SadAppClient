@@ -206,14 +206,20 @@ function Event({ event, authUser, onEventDeleted }) {
         toast.error("イベントへの参加中にエラーが発生しました。");
       });
   };
-
+  
   const handleLeave = () => {
     leaveEventApi(event.id)
       .then(() => {
         setIsParticipated(false);
         updateParticipantsCount();
+        // 退出成功時のメッセージ
+        toast.success("イベントから退出しました。");
       })
-      .catch((error) => console.error("Unlike Error:", error));
+      .catch((error) => {
+        console.error("Leave Error:", error);
+        // 退出エラー時のメッセージ
+        toast.error("イベントからの退出中にエラーが発生しました。");
+      });
   };
 
   const iconUrl = event.user?.icon ? event.user.icon : IconNotFound;

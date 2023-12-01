@@ -210,8 +210,14 @@ function EventComments(props) {
       .then(() => {
         setIsParticipated(false);
         updateParticipantsCount();
+        // 退出成功時のメッセージ
+        toast.success("イベントから退出しました。");
       })
-      .catch((error) => console.error("Unlike Error:", error));
+      .catch((error) => {
+        console.error("Leave Error:", error);
+        // 退出エラー時のメッセージ
+        toast.error("イベントからの退出中にエラーが発生しました。");
+      });
   };
 
   const onSubmit = async (e) => {
