@@ -22,7 +22,10 @@ export function followUserApi(userId) {
       return response.data;
     })
     .catch((error) => {
-      console.error("フォローエラー:", error.response ? error.response.data : error);
+      console.error(
+        "フォローエラー:",
+        error.response ? error.response.data : error,
+      );
       throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }
@@ -43,7 +46,10 @@ export function unfollowUserApi(userId) {
       return response.data;
     })
     .catch((error) => {
-      console.error("フォロー解除エラー:", error.response ? error.response.data : error);
+      console.error(
+        "フォロー解除エラー:",
+        error.response ? error.response.data : error,
+      );
       throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }
@@ -64,7 +70,10 @@ export function checkIfFollowingApi(authUserId, targetUserId) {
       return response.data;
     })
     .catch((error) => {
-      console.error("フォローチェックエラー:", error.response ? error.response.data : error);
+      console.error(
+        "フォローチェックエラー:",
+        error.response ? error.response.data : error,
+      );
       throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }
@@ -84,7 +93,10 @@ export function getFollowingApi(userId) {
       return response.data;
     })
     .catch((error) => {
-      console.error("フォロー一覧取得エラー:", error.response ? error.response.data : error);
+      console.error(
+        "フォロー一覧取得エラー:",
+        error.response ? error.response.data : error,
+      );
       throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }
@@ -103,7 +115,10 @@ export function getFollowersApi(userId) {
       return response.data;
     })
     .catch((error) => {
-      console.error("フォロワー一覧取得エラー:", error.response ? error.response.data : error);
+      console.error(
+        "フォロワー一覧取得エラー:",
+        error.response ? error.response.data : error,
+      );
       throw error; // エラーを再スローして詳細を確認できるようにします
     });
 }

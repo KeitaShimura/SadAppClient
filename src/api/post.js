@@ -4,16 +4,14 @@ import { getTokenApi } from "./auth";
 
 // すべての投稿を取得
 export function getPostsApi(page, pageSize) {
-  return axios.get(
-    `${API_HOST}/api/user/posts?page=${page}&pageSize=${pageSize}`,
-    {
+  return axios
+    .get(`${API_HOST}/api/user/posts?page=${page}&pageSize=${pageSize}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
       withCredentials: true,
-    },
-  )
+    })
     .then((response) => response.data)
     .catch((error) => {
       console.error("投稿を取得中にエラーが発生しました:", error);
@@ -46,13 +44,14 @@ export function getUserPostsApi(id, page, pageSize) {
 
 // 新しい投稿を作成
 export function createPostApi(postData) {
-  return axios.post(`${API_HOST}/api/user/posts`, postData, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getTokenApi()}`,
-    },
-    withCredentials: true,
-  })
+  return axios
+    .post(`${API_HOST}/api/user/posts`, postData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) => {
       console.error("投稿の作成中にエラーが発生しました:", error);
@@ -78,13 +77,14 @@ export function getPostApi(id) {
 
 // 特定の投稿を更新
 export function updatePostApi(id, postData) {
-  return axios.put(`${API_HOST}/api/user/posts/${id}`, postData, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getTokenApi()}`,
-    },
-    withCredentials: true,
-  })
+  return axios
+    .put(`${API_HOST}/api/user/posts/${id}`, postData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) => {
       console.error("投稿の更新中にエラーが発生しました:", error);
@@ -94,12 +94,13 @@ export function updatePostApi(id, postData) {
 
 // 特定の投稿を削除
 export function deletePostApi(id) {
-  return axios.delete(`${API_HOST}/api/user/posts/${id}`, {
-    headers: {
-      Authorization: `Bearer ${getTokenApi()}`,
-    },
-    withCredentials: true,
-  })
+  return axios
+    .delete(`${API_HOST}/api/user/posts/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) => {
       console.error("投稿の削除中にエラーが発生しました:", error);
@@ -121,7 +122,10 @@ export function getUserLikedPostsApi(userId) {
     })
     .then((response) => response.data)
     .catch((error) => {
-      console.error("ユーザーがいいねした投稿を取得中にエラーが発生しました:", error);
+      console.error(
+        "ユーザーがいいねした投稿を取得中にエラーが発生しました:",
+        error,
+      );
       throw error;
     });
 }
