@@ -4,53 +4,55 @@ import BasicLayout from "../../layout/BasicLayout";
 import "./Post.scss";
 import { getPostsApi } from "../../api/post";
 import ListPosts from "../../components/ListPosts";
-// import { Button, Spinner } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 export default function Post(props) {
   const [posts, setPosts] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [page] = useState(1);
-  // const [loadingPosts, setLoadingPosts] = useState(false);
+  const [page, setPage] = useState(1);
+  const [loadingPosts, setLoadingPosts] = useState(false);
   const pageSize = 50;
   const { setRefreshCheckLogin } = props;
 
-  // const moreData = () => {
-  //   setLoadingPosts(true);
-  //   getPostsApi(page, pageSize)
-  //     .then((response) => {
-  //       if (response) {
-  //         setPosts((prevPosts) => [
-  //           ...(Array.isArray(prevPosts) ? prevPosts : []),
-  //           ...response.data,
-  //         ]);
-  //         setPage((prevPage) => prevPage + 1);
-  //       }
-  //       setLoadingPosts(false);
-  //     })
-  //     .catch(() => {
-  //       setLoadingPosts(false);
-  //       // データの読み込みが失敗した際のエラーメッセージ
-  //       toast.error("投稿の読み込み中にエラーが発生しました。");
-  //     });
-  // };
-
-  useEffect(() => {
-    // setLoadingPosts(true);
+  const moreData = () => {
+    setLoadingPosts(true);
     getPostsApi(page, pageSize)
       .then((response) => {
         if (response) {
-          setPosts(response.data);
+          setPosts((prevPosts) => [
+            ...(Array.isArray(prevPosts) ? prevPosts : []),
+            ...response.data,
+          ]);
+          setPage((prevPage) => prevPage + 1);
         }
-        // setLoadingPosts(false);
+        setLoadingPosts(false);
       })
       .catch(() => {
-        // setLoadingPosts(false);
+        setLoadingPosts(false);
         // データの読み込みが失敗した際のエラーメッセージ
         toast.error("投稿の読み込み中にエラーが発生しました。");
       });
-  }, [page, pageSize]);
+  };
+
+  useEffect(() => {
+    setLoadingPosts(true);
+    console.log("Posts after update:", posts);
+
+    getPostsApi(page, pageSize)
+      .then((response) => {
+        if (response) {
+          setPosts(response.data.posts);
+        }
+        setLoadingPosts(false);
+      })
+      .catch(() => {
+        setLoadingPosts(false);
+        // データの読み込みが失敗した際のエラーメッセージ
+        toast.error("投稿の読み込み中にエラーが発生しました。");
+      });
+  }, [posts, page, pageSize]);
 
   useEffect(() => {
     if (searchTerm === "") {
@@ -79,7 +81,7 @@ export default function Post(props) {
       ) : (
         "検索結果がありません"
       )}
-      {/* <Button className="load-button" onClick={moreData}>
+      <Button className="load-button" onClick={moreData}>
         {!loadingPosts ? (
           loadingPosts !== 0 && "もっと見る"
         ) : (
@@ -91,7 +93,7 @@ export default function Post(props) {
             aria-hidden="true"
           />
         )}
-      </Button> */}
+      </Button>
     </BasicLayout>
   );
 }
