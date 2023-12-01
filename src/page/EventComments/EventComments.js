@@ -116,8 +116,12 @@ function EventComments(props) {
     try {
       const likesData = await getLikesForEventApi(event.id);
       setLikeCount(likesData.length);
+      // いいね数を更新した際のメッセージ
+      toast.success(`イベントのいいね数が更新されました：${likesData.length}`);
     } catch (error) {
       console.error("Error fetching like count:", error);
+      // エラーメッセージ
+      toast.error("いいね数の取得中にエラーが発生しました。");
     }
   };
 

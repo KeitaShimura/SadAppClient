@@ -7,6 +7,7 @@ import BasicLayout from "../../layout/BasicLayout";
 import ListUsers from "../../components/ListUsers";
 import { Spinner } from "react-bootstrap";
 import "./EventLikedUsers.scss";
+import { toast } from "react-toastify";
 
 export default function EventLikedUsers(props) {
   const { setRefreshCheckLogin } = props;
@@ -31,8 +32,12 @@ export default function EventLikedUsers(props) {
         );
 
         setLikedUsers(likedUsersData);
+        // いいねしたユーザー情報を取得した際のメッセージ
+        toast.success("いいねしたユーザー情報を取得しました。");
       } catch (error) {
         setLikedUsers([]);
+        // エラーメッセージ
+        toast.error("いいねしたユーザー情報の取得中にエラーが発生しました。");
       }
     };
 
