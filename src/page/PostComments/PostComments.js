@@ -70,6 +70,8 @@ function PostComments(props) {
         setCommentCount(comments.data.length);
       } catch (error) {
         console.error("Error fetching comments:", error);
+        // コメント数の取得が失敗した際のエラーメッセージ
+        toast.error("コメント数の取得中にエラーが発生しました。");
       }
     };
 
@@ -116,7 +118,9 @@ function PostComments(props) {
         setPostComments(response.data);
       })
       .catch((error) => {
-        toast.error(error);
+        console.error("Error fetching post comments:", error);
+        // コメントデータの取得が失敗した際のエラーメッセージ
+        toast.error("コメントデータの取得中にエラーが発生しました。");
       });
   }, [params.id]);
 
@@ -161,6 +165,8 @@ function PostComments(props) {
       .then((response) => {
         if (!response) {
           setLoadingPostComments(false); // Handle the error condition
+          // データの読み込みが失敗した際のエラーメッセージ
+          toast.error("コメントデータの取得中にエラーが発生しました。");
         } else {
           setPostComments(response.data);
           setPage(pageTemp);
@@ -170,6 +176,8 @@ function PostComments(props) {
       .catch((error) => {
         console.error("Error fetching post comments:", error);
         setLoadingPostComments(false); // Handle the error condition
+        // データの読み込みが失敗した際のエラーメッセージ
+        toast.error("コメントデータの取得中にエラーが発生しました。");
       });
   };
 

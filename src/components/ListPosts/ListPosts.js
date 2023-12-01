@@ -16,6 +16,7 @@ import useAuth from "../../hooks/useAuth";
 import { deletePostApi } from "../../api/post";
 import { useNavigate } from "react-router-dom";
 import { getPostCommentsApi } from "../../api/postComment";
+import { toast } from "react-toastify";
 
 export default function ListPosts(props) {
   const { posts: initialPosts, setPosts: setInitialPosts } = props;
@@ -83,11 +84,15 @@ function Post({ post, authUser, onPostDeleted }) {
         setCommentCount(comments.data.length);
       } catch (error) {
         console.error("Error fetching comments:", error);
+        // コメント数の取得が失敗した際のエラーメッセージ
+        toast.error("コメント数の取得中にエラーが発生しました。");
       }
     };
 
     fetchCommentCount();
   }, [post.id]);
+
+
 
   const updateLikeCount = async () => {
     try {
