@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { AuthContext } from "./utils/contexts";
 import { isUserLoggedAPI } from "./api/auth";
 import Routing from "./routes/Routing";
+import Footer from "./components/Footer";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -36,6 +37,7 @@ export default function App() {
         draggable
         pauseOnHover
       />
+      <Footer />
     </AuthContext.Provider>
   );
 }
