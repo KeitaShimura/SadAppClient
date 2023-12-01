@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-
-import "./LoginForm.scss";
-import { Button, Form, Spinner } from "react-bootstrap";
-import { size, values } from "lodash";
-import { toast } from "react-toastify";
-import { isEmailValid } from "../../utils/validation";
-import { loginApi, setTokenApi } from "../../api/auth";
 import PropTypes from "prop-types";
+import { loginApi, setTokenApi } from "../../api/auth";
+import { isEmailValid } from "../../utils/validation";
+import { Button, Form, Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
+import "./LoginForm.scss";
 
 export default function LoginForm(props) {
   const { setRefreshCheckLogin } = props;
@@ -16,37 +14,49 @@ export default function LoginForm(props) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    let validCount = 0;
-    values(formData).some((value) => {
-      value && validCount++;
-      return null;
-    });
+    let valid = true;
 
-    if (validCount !== size(formData)) {
-      toast.warning("全ての項目を入力してください。");
-    } else {
-      if (!isEmailValid(formData.email)) {
-        toast.warning("メールアドレスの形式が異なります。");
-      } else {
-        setLoginLoading(true);
-        loginApi(formData)
-          .then((response) => {
-            if (response.message) {
-              toast.warning(response.message);
-            } else {
-              setTokenApi(response.token);
-              setRefreshCheckLogin(true);
-            }
-          })
-          .catch(() => {
-            toast.error(
-              "サーバーエラーが起こりました。時間を置いてもう一度試してください。",
-            );
-          })
-          .finally(() => {
-            setLoginLoading(false);
-          });
+    // フォームデータの各項目をチェック
+    for (const key in formData) {
+      if (Object.prototype.hasOwnProperty.call(formData, key)) {
+        const value = formData[key];
+
+        // フォームデータが空でないかチェック
+        if (!value) {
+          toast.warning("全ての項目を入力してください。");
+          valid = false;
+          break; // バリデーションエラーがある場合、ループを中断
+        }
+
+        // メールアドレスの形式が正しいかチェック
+        if (key === "email" && !isEmailValid(value)) {
+          toast.warning("メールアドレスの形式が異なります。");
+          valid = false;
+          break; // バリデーションエラーがある場合、ループを中断
+        }
       }
+    }
+
+    // バリデーションエラーがない場合、APIリクエストを送信
+    if (valid) {
+      setLoginLoading(true);
+      loginApi(formData)
+        .then((response) => {
+          if (response.message) {
+            toast.warning(response.message);
+          } else {
+            setTokenApi(response.token);
+            setRefreshCheckLogin(true);
+          }
+        })
+        .catch(() => {
+          toast.error(
+            "サーバーエラーが起こりました。時間を置いてもう一度試してください。",
+          );
+        })
+        .finally(() => {
+          setLoginLoading(false);
+        });
     }
   };
 
