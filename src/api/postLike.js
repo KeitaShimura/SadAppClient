@@ -56,7 +56,7 @@ export function checkIfPostLikedApi(postId) {
       },
       withCredentials: true,
     })
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((error) => {
       console.error("「いいね」確認エラー:", error);
       throw error;
@@ -75,7 +75,7 @@ export function getLikesForPostApi(postId) {
       },
       withCredentials: true,
     })
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((error) => {
       console.error("投稿の「いいね」を取得中にエラーが発生しました:", error);
       throw error;

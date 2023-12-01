@@ -20,6 +20,7 @@ export default function Post(props) {
     setLoadingPosts(true);
     getPostsApi(page, pageSize)
       .then((response) => {
+        console.log("Complete API Response:", response);
         if (response) {
           setPosts((prevPosts) => [
             ...(Array.isArray(prevPosts) ? prevPosts : []),
@@ -31,35 +32,33 @@ export default function Post(props) {
       })
       .catch(() => {
         setLoadingPosts(false);
-        // データの読み込みが失敗した際のエラーメッセージ
         toast.error("投稿の読み込み中にエラーが発生しました。");
       });
   };
 
   useEffect(() => {
     setLoadingPosts(true);
-    console.log("Posts after update:", posts);
-
     getPostsApi(page, pageSize)
       .then((response) => {
+        console.log("Complete API Response:", response);
         if (response) {
-          setPosts(response.data.posts);
+          setPosts(response.data);
         }
         setLoadingPosts(false);
       })
       .catch(() => {
         setLoadingPosts(false);
-        // データの読み込みが失敗した際のエラーメッセージ
         toast.error("投稿の読み込み中にエラーが発生しました。");
       });
-  }, [posts, page, pageSize]);
+  }, [page, pageSize]);
 
   useEffect(() => {
+    console.log("Updated Posts:", posts);
     if (searchTerm === "") {
       setFilteredPosts(posts);
     } else {
       const filtered = posts?.filter((post) =>
-        post.content.toLowerCase().includes(searchTerm.toLowerCase()),
+        post.content.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredPosts(filtered);
     }

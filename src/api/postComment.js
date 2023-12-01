@@ -11,7 +11,7 @@ export function getPostCommentsApi(postId) {
         Authorization: `Bearer ${getTokenApi()}`,
       },
     })
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((error) => {
       console.error("コメントを取得中にエラーが発生しました:", error);
       throw error;

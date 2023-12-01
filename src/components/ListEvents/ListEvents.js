@@ -108,8 +108,6 @@ function Event({ event, authUser, onEventDeleted }) {
     try {
       const likesData = await getLikesForEventApi(event.id);
       setLikeCount(likesData.length);
-      // いいね数を更新した際のメッセージ
-      toast.success(`イベントのいいね数が更新されました：${likesData.length}`);
     } catch (error) {
       console.error("Error fetching like count:", error);
       // エラーメッセージ
@@ -140,7 +138,7 @@ function Event({ event, authUser, onEventDeleted }) {
         setIsLiked(false);
         updateLikeCount();
         // 「いいね解除」が成功した場合のメッセージ
-        toast.success("イベントのいいねを解除しました！");
+        toast.success("イベントのいいねを解除しました。");
       })
       .catch((error) => {
         console.error("Unlike Error:", error);

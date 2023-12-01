@@ -12,7 +12,7 @@ export function getPostsApi(page, pageSize) {
       },
       withCredentials: true,
     })
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((error) => {
       console.error("投稿を取得中にエラーが発生しました:", error);
       throw error;
