@@ -205,8 +205,14 @@ function User(props) {
     <BasicLayout className="user" setRefreshCheckLogin={setRefreshCheckLogin}>
       <BannerIcon user={user} authUser={authUser} />
       <div>
-        <Link to={`/users/${params.id}`} className="user-following-link">フォロー中:</Link> {followingCount}
-        <Link to={`/users/${params.id}`} className="user-follower-link">フォロワー:</Link> {followersCount}
+        <Link to={`/users/${params.id}`} className="user-following-link">
+          フォロー中:
+        </Link>{" "}
+        {followingCount}
+        <Link to={`/users/${params.id}`} className="user-follower-link">
+          フォロワー:
+        </Link>{" "}
+        {followersCount}
       </div>
       <UserInfo user={user} />
       <ButtonGroup className="user__options">

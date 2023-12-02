@@ -6,7 +6,7 @@ import { Close } from "../../../utils/icons";
 import "./ConfigModal.scss";
 
 export default function ConfigModal(props) {
-  const { show, setShow, children} = props;
+  const { show, setShow, children } = props;
 
   return (
     <Modal

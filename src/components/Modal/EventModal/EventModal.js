@@ -31,7 +31,7 @@ export default function EventModal(props) {
       // Call createEventApi with formData
       await createEventApi(formData);
 
-      window.location.reload()
+      window.location.reload();
       // メッセージをクリアしてモーダルを閉じる
       toast.success("イベントが作成されました。");
       setShow(false);
@@ -112,8 +112,11 @@ export default function EventModal(props) {
           <Button
             type="submit"
             disabled={
-              formData.content.length > maxLength || formData.title.length < 1 ||
-              formData.content.length < 1 || formData.event_url.length < 1 || formData.event_date.length < 1
+              formData.content.length > maxLength ||
+              formData.title.length < 1 ||
+              formData.content.length < 1 ||
+              formData.event_url.length < 1 ||
+              formData.event_date.length < 1
             }
           >
             イベントを投稿する
