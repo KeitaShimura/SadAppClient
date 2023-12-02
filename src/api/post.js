@@ -52,7 +52,7 @@ export function createPostApi(postData) {
       },
       withCredentials: true,
     })
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((error) => {
       console.error("投稿の作成中にエラーが発生しました:", error);
       throw error;
