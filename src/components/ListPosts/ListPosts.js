@@ -173,7 +173,7 @@ function Post({ post, authUser, onPostDeleted }) {
       <div className="header-container">
         <Image className="icon" src={iconUrl} roundedCircle />
         {post.user && (
-          <div className="name card-text">
+          <div className="name">
             {post.user.name}
             <span>{moment(post.created_at).calendar()}</span>
           </div>

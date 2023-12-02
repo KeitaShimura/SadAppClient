@@ -8,6 +8,8 @@ import IconNotFound from "../../assets/png/icon-no-found.png";
 import useAuth from "../../hooks/useAuth";
 import { deletePostCommentApi } from "../../api/postComment";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function ListPostComments(props) {
   const { postComments, onCommentDeleted } = props;
@@ -56,27 +58,32 @@ function PostComment({ comment, authUser, onCommentDeleted }) {
   console.log(authUser.sub, comment.user.id);
 
   return (
-    <div className="post">
-      <Image className="icon" src={iconUrl} roundedCircle />
-      <div>
+    <div className="comment">
+      <div className="header-container">
+        <Image className="icon" src={iconUrl} roundedCircle />
         {comment.user && (
           <div className="name">
             {comment.user.name}
             <span>{moment(comment.created_at).calendar()}</span>
           </div>
         )}
-        <div
-          dangerouslySetInnerHTML={{
-            __html: replaceURLWithHTMLLinks(comment.content),
-          }}
-        />
+      </div>
+      <div
+        className="content"
+        dangerouslySetInnerHTML={{
+          __html: replaceURLWithHTMLLinks(comment.content),
+        }}
+      />
+      <div className="icons-container">
         {authUser &&
           comment.user &&
           authUser.sub === String(comment.user.id) && (
-            <button onClick={handleDelete}>削除</button>
+            <FontAwesomeIcon
+              icon={faTrash} onClick={handleDelete} />
           )}
       </div>
     </div>
+
   );
 }
 

@@ -269,24 +269,24 @@ function PostComments(props) {
         <Button onClick={() => setShowPostCommentModal(true)}>投稿する</Button>
       </div>
       <PostCommentModal show={showPostCommentModal} setShow={setShowPostCommentModal} />
-      <div className="post__comment">
+      <div className="post__content">
         <ListPostComments
           postComments={postComments}
           onCommentDeleted={handleCommentDeleted}
         />
+        <Button onClick={moreData}>
+          {!loadingPostComments ? (
+            loadingPostComments !== 0 && "もっと見る"
+          ) : (
+            <Spinner
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          )}
+        </Button>
       </div>
-      <Button onClick={moreData}>
-        {!loadingPostComments ? (
-          loadingPostComments !== 0 && "もっと見る"
-        ) : (
-          <Spinner
-            animation="grow"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-          />
-        )}
-      </Button>
     </BasicLayout>
   );
 }
