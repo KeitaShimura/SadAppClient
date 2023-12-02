@@ -94,7 +94,7 @@ export default function Event(props) {
         {filteredEvents && filteredEvents.length > 0 ? (
           <ListEvents events={filteredEvents} />
         ) : (
-          "検索結果がありません"
+            <p className="text-center mt-2 fw-bold">イベントは存在しません</p>
         )}
         <Button className="load-button" onClick={moreData}>
           {!loadingEvents ? (

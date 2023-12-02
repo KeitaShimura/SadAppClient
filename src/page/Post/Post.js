@@ -87,7 +87,7 @@ export default function Post(props) {
         {filteredPosts && filteredPosts.length > 0 ? (
           <ListPosts posts={filteredPosts} />
         ) : (
-          "検索結果がありません"
+          <p className="text-center mt-2 fw-bold">投稿は存在しません</p>
         )}
         <Button onClick={moreData}>
           {!loadingPosts ? (

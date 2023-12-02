@@ -9,7 +9,7 @@ export default function ListUsers(props) {
   const { users } = props;
 
   if (isEmpty(users)) {
-    return <h2>ユーザーは存在しません。</h2>;
+    return <p className="text-center mt-2 fw-bold">ユーザーは存在しません</p>;
   }
   return (
     <ul className="list-users">
