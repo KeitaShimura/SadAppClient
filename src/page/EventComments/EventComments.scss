@@ -33,11 +33,10 @@
       }
     }
 
-    .content {
+    .title,
+    .content,
+    .event-details {
       margin-left: 70px;
-      /* アイコンの幅とマージンを考慮して左揃え */
-      margin-bottom: 10px;
-      /* アイコンコンテナとの間に余白 */
     }
 
     .icons-container {

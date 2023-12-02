@@ -25,6 +25,8 @@ import {
 } from "../../api/eventParticipant";
 import useAuth from "../../hooks/useAuth";
 import EventCommentModal from "../../components/EventCommentModal";
+import { faComment, faListUl, faThumbsUp, faTrash, faUserPlus, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function EventComments(props) {
   const { setRefreshCheckLogin } = props;
@@ -279,53 +281,91 @@ function EventComments(props) {
         </div>
         {event && (
           <div>
-            <div className="title">
-              <strong>タイトル: </strong>
-              {event.title}
-            </div>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: replaceURLWithHTMLLinks(event.content),
-              }}
-            ></div>
-            <div className="event-details">
-              <div>
-                <strong>イベントURL: </strong>
-                <a
-                  href={event.event_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {event.event_url}
-                </a>
+            <div>
+              <div className="title">{event.title}</div>
+
+              <div className="event-details">
+                <div>
+                  <strong>イベントURL: </strong>
+                  <a href={event.event_url} target="_blank" rel="noopener noreferrer">
+                    {event.event_url}
+                  </a>
+                </div>
+                <div>
+                  <strong>開催日: </strong>
+                  {event.event_date}
+                </div>
               </div>
-              <div>
-                <strong>開催日: </strong>
-                {event.event_date}
-              </div>
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{
+                  __html: replaceURLWithHTMLLinks(event.content),
+                }}
+              ></div>
             </div>
             <div className="icons-container">
               {isLiked ? (
-                <button onClick={handleUnlike}>いいね済み</button>
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  className="liked"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleUnlike();
+                  }}
+                />
               ) : (
-                <button onClick={handleLike}>いいねする</button>
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleLike();
+                  }}
+                />
               )}
-              <span>{likeCount} いいね</span>
-              <button onClick={() => handleShowLikes(event.id)}>
-                いいね一覧
-              </button>
+              <span>{likeCount}</span>
+              <FontAwesomeIcon icon={faComment} /> <span>{commentCount}</span>
+              <FontAwesomeIcon
+                icon={faListUl}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleShowLikes(event.id);
+                }}
+              />
               {isParticipated ? (
-                <button onClick={handleLeave}>参加を辞める</button>
+                <FontAwesomeIcon
+                  icon={faUserPlus}
+                  className="participated"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleLeave();
+                  }}
+                />
               ) : (
-                <button onClick={handleParticipation}>参加する</button>
+                <FontAwesomeIcon
+                  icon={faUserPlus}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleParticipation();
+                  }}
+                />
               )}
-              <span>{participantCount} 人</span>
-              <button onClick={() => handleShowParticipants(event.id)}>
-                参加者一覧
-              </button>
-              <span>{commentCount} コメント</span>
+              <span>{participantCount}</span>
+              <FontAwesomeIcon
+                icon={faUsers}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleShowParticipants(event.id);
+                }}
+              />
+              <span>{commentCount}</span>
               {authUser.sub === String(event.user.id) && (
-                <button onClick={handleDelete}>削除</button>
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete();
+                  }}
+                />
               )}
             </div>
           </div>
