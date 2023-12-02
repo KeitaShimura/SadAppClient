@@ -65,7 +65,6 @@ export default function Users(props) {
       setRefreshCheckLogin={setRefreshCheckLogin}
     >
       <div className="users__header">
-        <h2>ユーザー一覧</h2>
         <input
           type="text"
           className="form-control"

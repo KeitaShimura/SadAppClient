@@ -2,30 +2,65 @@
 
 .list-users {
   padding: 0;
+
   .user {
     display: flex;
+    flex-wrap: wrap;
+    /* 折り返しを許可 */
+    align-items: flex-start;
+    /* 項目を上端で揃える */
+    justify-content: space-between;
+    /* 左右の端に要素を配置 */
     padding: 10px 20px;
     border-bottom: 1px solid $border-gray;
 
-    .icon {
-      width: 50px;
-      height: 50px;
-      margin-right: 20px;
-    }
+    .user-info-container {
+      display: flex;
+      flex-wrap: wrap;
+      /* ここでも折り返しを許可 */
+      align-items: center;
+      max-width: 70%;
+      /* 最大幅を設定 */
 
-    .name {
-      font-weight: bold;
+      .icon {
+        width: 50px;
+        height: 50px;
+        margin-right: 20px;
+        border-radius: 50%;
+      }
 
-      span {
-        font-size: 12px;
-        font-weight: normal;
-        color: $font-grey;
+      .name,
+      .bio {
+        font-weight: bold;
+
+        p {
+          font-size: 12px;
+          font-weight: normal;
+          color: $font-grey;
+        }
       }
     }
 
-    &:hover {
-      color: $font-grey;
-      text-decoration: none;
+    .button-container {
+      flex-basis: 100%;
+      /* 新しい行に配置 */
+      display: flex;
+      justify-content: flex-end;
+      /* 右に寄せる */
+
+      .unfollow {
+        font-weight: bold;
+        padding: 5px 10px;
+        background-color: $primary;
+        color: white;
+        border-radius: 5px;
+        border: 0;
+
+        &:hover {
+          background-color: $danger;
+          color: white;
+        }
+      }
     }
   }
 }

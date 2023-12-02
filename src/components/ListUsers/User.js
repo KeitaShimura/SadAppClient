@@ -84,37 +84,42 @@ export default function User(props) {
 
   return (
     <div className="user" onClick={() => handleShowUser(user.id)}>
-      <Image className="icon" src={iconUrl} roundedCircle />
-      {userInfo && (
-        <div>
-          <div className="name">{userInfo.name}</div>
-          <div className="name">
-            <p>{userInfo.bio}</p>
+      <div className="user-info-container">
+        <Image className="icon" src={iconUrl} roundedCircle />
+        {userInfo && (
+          <div>
+            <div className="name">{userInfo.name}</div>
+            <div className="bio">
+              <p>{userInfo.bio}</p>
+            </div>
           </div>
-        </div>
-      )}
-      {Number(authUser.sub) !== user.id &&
-        (isFollowing ? (
-          <Button
-            className="unfollow"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleUnfollow(user.id, e);
-            }}
-          >
-            <span>フォロー解除</span>
-          </Button>
-        ) : (
-          <Button
-            className="unfollow"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleFollow(user.id, e);
-            }}
-          >
-            フォローする
-          </Button>
-        ))}
+        )}
+      </div>
+      <div className="button-container">
+        {Number(authUser.sub) !== user.id &&
+          (isFollowing ? (
+            <Button
+              className="unfollow"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleUnfollow(user.id, e);
+              }}
+            >
+              <span>フォロー解除</span>
+            </Button>
+          ) : (
+            <Button
+              className="unfollow"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleFollow(user.id, e);
+              }}
+            >
+              フォローする
+            </Button>
+          ))
+        }
+      </div>
     </div>
   );
 }
