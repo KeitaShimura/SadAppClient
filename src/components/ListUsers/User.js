@@ -117,8 +117,7 @@ export default function User(props) {
             >
               フォローする
             </Button>
-          ))
-        }
+          ))}
       </div>
     </div>
   );
