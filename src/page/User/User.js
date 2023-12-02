@@ -203,9 +203,6 @@ function User(props) {
 
   return (
     <BasicLayout className="user" setRefreshCheckLogin={setRefreshCheckLogin}>
-      <div className="user__title">
-        <h2>{user ? user.name : "このユーザーは存在しません。"}</h2>
-      </div>
       <BannerIcon user={user} authUser={authUser} />
       <div>
         <Link to={`/users/${params.id}`}>フォロー中:</Link> {followingCount}
