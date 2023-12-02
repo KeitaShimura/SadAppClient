@@ -1,0 +1,62 @@
+@import "../../scss/index.scss";
+
+.post-modal {
+  .modal-content {
+    background-color: $background-light;
+    border-radius: 25px;
+    overflow: hidden;
+
+    .modal-header {
+      border-bottom: 1px solid $primary-grey;
+      padding: 15px;
+
+      .modal-title {
+        svg {
+          width: 15px;
+          height: 15px;
+          fill: $primary;
+          margin-left: 10px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .modal-body {
+      padding: 0;
+
+      form {
+        textarea {
+          background-color: $background-light;
+          border: 0;
+          font-size: 20px;
+          color: $font-dark;
+          padding: 10px 20px;
+          resize: none;
+
+          &:focus {
+            box-shadow: none;
+          }
+        }
+
+        .count {
+          margin: 15px;
+
+          &.error {
+            color: $danger;
+          }
+        }
+
+        button {
+          width: 100%;
+          height: 60px;
+          font-size: bold;
+          font-size: 18px;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}

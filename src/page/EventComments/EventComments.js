@@ -5,14 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import ListEventComments from "../../components/ListEventComments";
 import BasicLayout from "../../layout/BasicLayout";
 import { deleteEventApi, getEventApi } from "../../api/event";
-import {
-  createEventCommentApi,
-  getEventCommentsApi,
-} from "../../api/eventComment";
+import { getEventCommentsApi } from "../../api/eventComment";
 import { Button, Image, Spinner } from "react-bootstrap";
 import moment from "moment";
 import { replaceURLWithHTMLLinks } from "../../utils/functions";
-import classNames from "classnames";
 import "./EventComments.scss";
 import IconNotFound from "../../assets/png/icon-no-found.png";
 import {
@@ -28,6 +24,7 @@ import {
   leaveEventApi,
 } from "../../api/eventParticipant";
 import useAuth from "../../hooks/useAuth";
+import EventCommentModal from "../../components/EventCommentModal";
 
 function EventComments(props) {
   const { setRefreshCheckLogin } = props;
@@ -36,14 +33,13 @@ function EventComments(props) {
   const [eventComments, setEventComments] = useState([]);
   const [page, setPage] = useState(1);
   const [loadingEventComments, setLoadingEventComments] = useState(false);
-  const [message, setMessage] = useState("");
-  const maxLength = 200;
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isParticipated, setIsParticipated] = useState(false);
   const [participantCount, setParticipantCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
   const authUser = useAuth();
+  const [showEventCommentModal, setShowEventCommentModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -240,41 +236,7 @@ function EventComments(props) {
     );
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
 
-    // バリデーションチェック
-    if (message.trim().length === 0 || message.trim().length > 500) {
-      toast.warning("コメントは1文字以上500文字以下である必要があります。");
-      return;
-    }
-
-    try {
-      // コメントを作成
-      const response = await createEventCommentApi(params.id, {
-        content: message,
-      });
-
-      if (response.data && response.data.id) {
-        // 新しいコメントを配列の先頭に追加
-        setEventComments((prevComments) => [response.data, ...prevComments]);
-      } else {
-        console.error("Invalid comment data:", response.data);
-      }
-
-      // コメントが正常に作成された場合の処理
-      console.log("Comment created:", response.data);
-      toast.success("コメントが投稿されました。");
-
-      setMessage(""); // メッセージをクリア
-    } catch (error) {
-      // エラーハンドリング
-      console.error("Error creating event:", error);
-      toast.warning(
-        "コメントの投稿中にエラーが発生しました。しばらく待ってからもう一度お試しください。",
-      );
-    }
-  };
 
   const moreData = () => {
     const pageTemp = page + 1;
@@ -306,115 +268,94 @@ function EventComments(props) {
   return (
     <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>
       <div className="event">
-        <Image className="icon" src={iconUrl} roundedCircle />
-        <div>
+        <div className="header-container">
+          <Image className="icon" src={iconUrl} roundedCircle />
           {event && event.user && (
             <div className="name">
               {event.user.name}
               <span>{moment(event.created_at).calendar()}</span>
             </div>
           )}
-
-          {event && (
-            <div>
+        </div>
+        {event && (
+          <div>
+            <div className="title">
+              <strong>タイトル: </strong>
+              {event.title}
+            </div>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: replaceURLWithHTMLLinks(event.content),
+              }}
+            ></div>
+            <div className="event-details">
               <div>
-                <div className="title">
-                  <strong>タイトル: </strong>
-                  {event.title}
-                </div>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: replaceURLWithHTMLLinks(event.content),
-                  }}
-                ></div>
-                <div className="event-details">
-                  <div>
-                    <strong>イベントURL: </strong>
-                    <a
-                      href={event.event_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {event.event_url}
-                    </a>
-                  </div>
-                  <div>
-                    <strong>開催日: </strong>
-                    {event.event_date}
-                  </div>
-                </div>
+                <strong>イベントURL: </strong>
+                <a
+                  href={event.event_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {event.event_url}
+                </a>
               </div>
               <div>
-                {isLiked ? (
-                  <button onClick={handleUnlike}>いいね済み</button>
-                ) : (
-                  <button onClick={handleLike}>いいねする</button>
-                )}
-                <span>{likeCount} いいね</span>
-                <button onClick={() => handleShowLikes(event.id)}>
-                  いいね一覧
-                </button>
-                {isParticipated ? (
-                  <button onClick={handleLeave}>参加を辞める</button>
-                ) : (
-                  <button onClick={handleParticipation}>参加する</button>
-                )}
-                <span>{participantCount} 人</span>
-                <button onClick={() => handleShowParticipants(event.id)}>
-                  参加者一覧
-                </button>
-                <span>{commentCount} コメント</span>
-                {authUser.sub === String(event.user.id) && (
-                  <button onClick={handleDelete}>削除</button>
-                )}
+                <strong>開催日: </strong>
+                {event.event_date}
               </div>
             </div>
-          )}
-        </div>
+            <div className="icons-container">
+              {isLiked ? (
+                <button onClick={handleUnlike}>いいね済み</button>
+              ) : (
+                <button onClick={handleLike}>いいねする</button>
+              )}
+              <span>{likeCount} いいね</span>
+              <button onClick={() => handleShowLikes(event.id)}>
+                いいね一覧
+              </button>
+              {isParticipated ? (
+                <button onClick={handleLeave}>参加を辞める</button>
+              ) : (
+                <button onClick={handleParticipation}>参加する</button>
+              )}
+              <span>{participantCount} 人</span>
+              <button onClick={() => handleShowParticipants(event.id)}>
+                参加者一覧
+              </button>
+              <span>{commentCount} コメント</span>
+              {authUser.sub === String(event.user.id) && (
+                <button onClick={handleDelete}>削除</button>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
-      <form onSubmit={onSubmit}>
-        <textarea
-          rows={6}
-          type="text"
-          name="content"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="今の気持ちを共有してみましょう！"
-        />
-        <span
-          className={classNames("count", {
-            error: message.length > maxLength,
-          })}
-        >
-          {message.length}
-        </span>
-        <Button
-          type="submit"
-          disabled={message.length > maxLength || message.length < 1}
-        >
-          投稿する
-        </Button>
-      </form>
-      <div className="event__comment">
+      <div className="button-container">
+        <Button onClick={() => setShowEventCommentModal(true)}>投稿する</Button>
+      </div>
+      <EventCommentModal show={showEventCommentModal} setShow={setShowEventCommentModal} />
+      <div className="event__content">
         <ListEventComments
           eventComments={eventComments}
           onCommentDeleted={handleCommentDeleted}
         />
+
+        <Button onClick={moreData}>
+          {!loadingEventComments ? (
+            loadingEventComments !== 0 && "もっと見る"
+          ) : (
+            <Spinner
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          )}
+        </Button>
       </div>
-      <Button onClick={moreData}>
-        {!loadingEventComments ? (
-          loadingEventComments !== 0 && "もっと見る"
-        ) : (
-          <Spinner
-            animation="grow"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-          />
-        )}
-      </Button>
-    </BasicLayout>
+    </BasicLayout >
   );
 }
 

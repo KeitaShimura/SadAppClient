@@ -21,7 +21,7 @@ import "./PostComments.scss";
 import IconNotFound from "../../assets/png/icon-no-found.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faListUl, faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
-import PostCommentModal from "../../components/PostCommentModal/PostCommentModal";
+import PostCommentModal from "../../components/EventCommentModal/EventCommentModal";
 
 function PostComments(props) {
   const { setRefreshCheckLogin } = props;

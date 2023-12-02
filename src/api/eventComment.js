@@ -12,7 +12,7 @@ export function getEventCommentsApi(eventId) {
       },
     })
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((error) => {
       // エラーハンドリング
