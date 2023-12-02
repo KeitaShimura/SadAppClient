@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Modal, Form } from "react-bootstrap";
-import { Close } from "../../utils/icons";
+import { Close } from "../../../utils/icons";
 import classNames from "classnames";
 import "./PostCommentModal.scss";
 import { toast } from "react-toastify";
-import { createPostCommentApi } from "../../api/postComment";
+import { createPostCommentApi } from "../../../api/postComment";
 import { useParams } from "react-router-dom";
 
 export default function PostCommentModal(props) {

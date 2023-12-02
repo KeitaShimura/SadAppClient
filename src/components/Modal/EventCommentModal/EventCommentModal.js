@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Modal, Form } from "react-bootstrap";
-import { Close } from "../../utils/icons";
+import { Close } from "../../../utils/icons";
 import classNames from "classnames";
 import "./EventCommentModal.scss";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { createEventCommentApi } from "../../api/eventComment";
+import { createEventCommentApi } from "../../../api/eventComment";
 
 export default function EventCommentModal(props) {
   const { show, setShow } = props;

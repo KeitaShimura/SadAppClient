@@ -42,7 +42,7 @@ export function createEventCommentApi(eventId, commentData) {
       withCredentials: true,
     })
     .then((response) => {
-      return response;
+      return response.data;
     })
     .catch((error) => {
       // エラーハンドリング

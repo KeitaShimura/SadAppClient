@@ -26,7 +26,7 @@ import {
   faThumbsUp,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import PostCommentModal from "../../components/EventCommentModal/EventCommentModal";
+import PostCommentModal from "../../components/Modal/PostCommentModal";
 
 function PostComments(props) {
   const { setRefreshCheckLogin } = props;

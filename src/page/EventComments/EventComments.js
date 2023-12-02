@@ -24,7 +24,7 @@ import {
   leaveEventApi,
 } from "../../api/eventParticipant";
 import useAuth from "../../hooks/useAuth";
-import EventCommentModal from "../../components/EventCommentModal";
+import EventCommentModal from "../../components/Modal/EventCommentModal/EventCommentModal";
 import {
   faComment,
   faListUl,
