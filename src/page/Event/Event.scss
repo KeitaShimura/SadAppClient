@@ -2,29 +2,66 @@
 
 .event {
   &__title {
-    border-bottom: 1px solid $border-gray;
-    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    /* 常に縦方向に並べる */
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
 
     h2 {
       font-size: 22px;
-      margin-bottom: 0;
       font-weight: bold;
+    }
+
+    .right-aligned {
+      display: flex;
+      flex-direction: column;
+      /* フォーム要素も縦に並べる */
+      align-items: center;
+      /* 中央揃えにする */
+      width: 100%;
+      /* 全幅を使用する */
+
+      .form-control {
+        width: 100%;
+        /* 入力フィールドの幅を最大にする */
+        margin-bottom: 10px;
+        /* ボタンとの間に余白を追加 */
+      }
+
+      .button-container {
+        width: 100%;
+        text-align: center;
+
+        /* ボタンコンテナも全幅を使用する */
+        .btn {
+          width: 70%;
+          /* 最小幅を設定 */
+          white-space: nowrap;
+          font-size: 16px;
+          font-weight: bold;
+          padding: 10px 30px;
+        }
+      }
     }
   }
 
-  .load-button.btn.btn-primary {
-    display: flex;
-    margin: 0 auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background-color: transparent;
-    border: 0;
-    color: $font-grey;
+  &__content {
+    .btn.btn-primary {
+      display: flex;
+      margin: 0 auto;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: transparent;
+      border: 0;
+      color: $font-grey;
 
-    &:hover,
-    &focus {
-      background-color: transparent !important;
-      color: $primary;
+      &:hover,
+      &focus {
+        background-color: transparent !important;
+        color: $primary;
+      }
     }
   }
 }

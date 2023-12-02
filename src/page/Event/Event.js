@@ -73,35 +73,42 @@ export default function Event(props) {
     <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>
       <div className="event__title">
         <h2>イベント一覧</h2>
-        <input
-          type="text"
-          placeholder="イベント検索"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-      <Button onClick={() => setShowEventModal(true)}>
-        イベントを投稿する
-      </Button>
-      <EventModal show={showEventModal} setShow={setShowEventModal} />
-      {filteredEvents && filteredEvents.length > 0 ? (
-        <ListEvents events={filteredEvents} />
-      ) : (
-        "検索結果がありません"
-      )}
-      <Button className="load-button" onClick={moreData}>
-        {!loadingEvents ? (
-          loadingEvents !== 0 && "もっと見る"
-        ) : (
-          <Spinner
-            as="span"
-            animation="grow"
-            size="sm"
-            role="status"
-            aria-hidden="true"
+        <div className="right-aligned">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="イベント検索"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
+
+          <div className="button-container">
+            <Button onClick={() => setShowEventModal(true)}>イベントを投稿する</Button>
+          </div>
+          <EventModal show={showEventModal} setShow={setShowEventModal} />
+        </div>
+      </div>
+
+      <div className="event__content">
+        {filteredEvents && filteredEvents.length > 0 ? (
+          <ListEvents events={filteredEvents} />
+        ) : (
+          "検索結果がありません"
         )}
-      </Button>
+        <Button className="load-button" onClick={moreData}>
+          {!loadingEvents ? (
+            loadingEvents !== 0 && "もっと見る"
+          ) : (
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          )}
+        </Button>
+      </div>
     </BasicLayout>
   );
 }
