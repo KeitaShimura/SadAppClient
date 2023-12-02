@@ -67,8 +67,7 @@ export default function Post(props) {
 
   return (
     <BasicLayout className="post" setRefreshCheckLogin={setRefreshCheckLogin}>
-      <div className="post__title">
-        <h2>投稿一覧</h2>
+      <div className="post__header">
         <div className="right-aligned">
           <input
             type="text"

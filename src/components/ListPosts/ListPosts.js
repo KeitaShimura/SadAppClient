@@ -206,6 +206,13 @@ function Post({ post, authUser, onPostDeleted }) {
         )}
         <span>{likeCount}</span>
         <FontAwesomeIcon icon={faComment} /> <span>{commentCount}</span>
+        <FontAwesomeIcon
+          icon={faListUl}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleShowLikes(post.id);
+          }}
+        />
         {authUser.sub === String(post.user.id) && (
           <FontAwesomeIcon
             icon={faTrash}
@@ -215,13 +222,6 @@ function Post({ post, authUser, onPostDeleted }) {
             }}
           />
         )}
-        <FontAwesomeIcon
-          icon={faListUl}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleShowLikes(post.id);
-          }}
-        />
       </div>
     </div>
   );

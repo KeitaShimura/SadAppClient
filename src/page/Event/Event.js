@@ -71,8 +71,7 @@ export default function Event(props) {
 
   return (
     <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>
-      <div className="event__title">
-        <h2>イベント一覧</h2>
+      <div className="event__header">
         <div className="right-aligned">
           <input
             type="text"

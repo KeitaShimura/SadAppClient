@@ -23,6 +23,8 @@ import {
 } from "../../api/eventParticipant";
 import { getEventCommentsApi } from "../../api/eventComment";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment, faListUl, faThumbsUp, faTrash, faUserPlus, faUsers } from "@fortawesome/free-solid-svg-icons";
 
 export default function ListEvents(props) {
   const { events: initialEvents, setEvents: setInitialEvents } = props; // プロパティ名を変更
@@ -230,23 +232,20 @@ function Event({ event, authUser, onEventDeleted }) {
 
   return (
     <div className="event" onClick={() => handleShowEvent(event.id)}>
-      <Image className="icon" src={iconUrl} roundedCircle />
-      <div>
+      <div className="header-container">
+        <Image className="icon" src={iconUrl} roundedCircle />
         {event.user && (
-          <div className="name">
+          <div className="name card-text">
             {event.user.name}
             <span>{moment(event.created_at).calendar()}</span>
           </div>
         )}
+      </div>
+      <div>
         <div className="title">
-          <strong>タイトル: </strong>
           {event.title}
         </div>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: replaceURLWithHTMLLinks(event.content),
-          }}
-        ></div>
+
         <div className="event-details">
           <div>
             <strong>イベントURL: </strong>
@@ -259,74 +258,77 @@ function Event({ event, authUser, onEventDeleted }) {
             {event.event_date}
           </div>
         </div>
+        <div
+          className="content"
+          dangerouslySetInnerHTML={{
+            __html: replaceURLWithHTMLLinks(event.content),
+          }}
+        ></div>
       </div>
-      <div>
+      <div className="icons-container">
         {isLiked ? (
-          <button
+          <FontAwesomeIcon
+            icon={faThumbsUp}
+            className="liked"
             onClick={(e) => {
               e.stopPropagation();
               handleUnlike();
             }}
-          >
-            いいね済み
-          </button>
+          />
         ) : (
-          <button
+          <FontAwesomeIcon
+            icon={faThumbsUp}
             onClick={(e) => {
               e.stopPropagation();
               handleLike();
             }}
-          >
-            いいねする
-          </button>
+          />
         )}
-        <span>{likeCount} いいね</span>
-        <button
+        <span>{likeCount}</span>
+        <FontAwesomeIcon icon={faComment} /> <span>{commentCount}</span>
+        <FontAwesomeIcon
+          icon={faListUl}
           onClick={(e) => {
             e.stopPropagation();
             handleShowLikes(event.id);
           }}
-        >
-          いいね一覧
-        </button>
+        />
         {isParticipated ? (
-          <button
+          <FontAwesomeIcon
+            icon={faUserPlus}
+            className="participated"
+
             onClick={(e) => {
               e.stopPropagation();
               handleLeave();
             }}
-          >
-            参加を辞める
-          </button>
+          />
         ) : (
-          <button
+          <FontAwesomeIcon
+            icon={faUserPlus}
             onClick={(e) => {
               e.stopPropagation();
               handleParticipation();
             }}
-          >
-            参加する
-          </button>
+          />
         )}
-        <span>{participantCount} 人</span>
-        <button
+        <span>{participantCount}</span>
+        <FontAwesomeIcon
+          icon={faUsers}
           onClick={(e) => {
             e.stopPropagation();
             handleShowParticipants(event.id);
           }}
-        >
-          参加者一覧
-        </button>
-        <span>{commentCount} コメント</span>
+        />
+        <span>{commentCount}</span>
         {authUser.sub === String(event.user.id) && (
-          <button
+          <FontAwesomeIcon
+            icon={faTrash}
             onClick={(e) => {
               e.stopPropagation();
               handleDelete();
             }}
-          >
-            削除
-          </button>
+          />
         )}
       </div>
     </div>

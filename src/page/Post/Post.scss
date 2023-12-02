@@ -1,7 +1,7 @@
 @import "../../scss/index.scss";
 
 .post {
-  &__title {
+  &__header {
     display: flex;
     flex-direction: column;
     /* 常に縦方向に並べる */
