@@ -83,7 +83,6 @@ function PostComment({ comment, authUser, onCommentDeleted }) {
           )}
       </div>
     </div>
-
   );
 }
 

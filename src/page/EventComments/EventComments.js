@@ -333,15 +333,14 @@ function EventComments(props) {
       </div>
 
       <div className="button-container">
-        <Button onClick={() => setShowEventCommentModal(true)}>投稿する</Button>
+        <Button onClick={() => setShowEventCommentModal(true)}>コメントする</Button>
       </div>
       <EventCommentModal show={showEventCommentModal} setShow={setShowEventCommentModal} />
-      <div className="event__content">
+      <div className="post__content">
         <ListEventComments
           eventComments={eventComments}
           onCommentDeleted={handleCommentDeleted}
         />
-
         <Button onClick={moreData}>
           {!loadingEventComments ? (
             loadingEventComments !== 0 && "もっと見る"
@@ -355,7 +354,7 @@ function EventComments(props) {
           )}
         </Button>
       </div>
-    </BasicLayout >
+    </BasicLayout>
   );
 }
 

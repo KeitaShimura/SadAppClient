@@ -1,10 +1,18 @@
 @import "../../scss/index.scss";
 
-.list-events {
-  .event {
+.comment {
+  display: flex;
+  flex-direction: column;
+  /* 要素を縦方向に配置 */
+  padding: 10px 20px;
+  border-bottom: 1px solid gray;
+
+  .header-container {
+    /* アイコンと名前を含むコンテナ */
     display: flex;
-    padding: 10px 20px;
-    border-bottom: 1px solid $primary-grey;
+    align-items: center;
+    margin-bottom: 10px;
+    /* 下のコンテンツとの間に余白 */
 
     .icon {
       width: 50px;
@@ -23,4 +31,30 @@
       }
     }
   }
+
+  .content {
+    margin-left: 70px;
+    /* アイコンの幅とマージンを考慮して左揃え */
+    margin-bottom: 10px;
+    /* アイコンコンテナとの間に余白 */
+  }
+
+  .icons-container {
+    margin-left: 70px;
+    /* アイコンの幅とマージンを考慮して左揃え */
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    svg {
+      margin: 0 10px 10px;
+      font-size: 20px;
+    }
+
+    span {
+      margin-bottom: 5px;
+      font-size: 20px;
+    }
+  }
+
 }

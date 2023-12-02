@@ -266,7 +266,7 @@ function PostComments(props) {
       </div>
 
       <div className="button-container">
-        <Button onClick={() => setShowPostCommentModal(true)}>投稿する</Button>
+        <Button onClick={() => setShowPostCommentModal(true)}>コメントする</Button>
       </div>
       <PostCommentModal show={showPostCommentModal} setShow={setShowPostCommentModal} />
       <div className="post__content">
