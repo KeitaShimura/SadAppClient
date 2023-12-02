@@ -66,8 +66,8 @@ export default function Post(props) {
   }, [posts, searchTerm]);
 
   return (
-    <BasicLayout className="home" setRefreshCheckLogin={setRefreshCheckLogin}>
-      <div className="home__title">
+    <BasicLayout className="post" setRefreshCheckLogin={setRefreshCheckLogin}>
+      <div className="post__title">
         <h2>投稿一覧</h2>
         <div className="right-aligned">
           <input
@@ -83,25 +83,26 @@ export default function Post(props) {
           <PostModal show={showPostModal} setShow={setShowPostModal} />
         </div>
       </div>
-
+      
+      <div className="post__content">
       {filteredPosts && filteredPosts.length > 0 ? (
         <ListPosts posts={filteredPosts} />
       ) : (
         "検索結果がありません"
       )}
-      <Button className="load-button" onClick={moreData}>
+      <Button onClick={moreData}>
         {!loadingPosts ? (
           loadingPosts !== 0 && "もっと見る"
         ) : (
           <Spinner
-            as="span"
             animation="grow"
             size="sm"
             role="status"
             aria-hidden="true"
           />
         )}
-      </Button>
+        </Button>
+      </div>
     </BasicLayout>
   );
 }

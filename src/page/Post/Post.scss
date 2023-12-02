@@ -1,6 +1,6 @@
 @import "../../scss/index.scss";
 
-.home {
+.post {
   &__title {
     display: flex;
     flex-direction: column;
@@ -33,6 +33,7 @@
       .button-container {
         width: 100%;
         text-align: center;
+
         /* ボタンコンテナも全幅を使用する */
         .btn {
           width: 70%;
@@ -46,21 +47,21 @@
     }
   }
 
-  .load-button {
-    .btn.btn-primary {
-      display: flex;
-      margin: 0 auto;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      background-color: transparent;
-      border: 0;
-      color: $font-grey;
+        &__content {
+  .btn.btn-primary {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: transparent;
+    border: 0;
+    color: $font-grey;
 
-      &:hover,
-      &:focus {
-        background-color: transparent !important;
-        color: $primary;
-      }
+    &:hover,
+    &focus {
+      background-color: transparent !important;
+      color: $primary;
     }
+        }
   }
 }
