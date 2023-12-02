@@ -56,7 +56,7 @@ export function checkIfPostLikedApi(postId) {
       },
       withCredentials: true,
     })
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((error) => {
       console.error("「いいね」確認エラー:", error);
       throw error;

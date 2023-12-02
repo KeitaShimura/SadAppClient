@@ -1,6 +1,8 @@
 @import "../../scss/index.scss";
 
 .basic-layout {
+  position: relative;
+  margin-top: 70px;
   &__menu {
     padding-right: 0 !important;
   }
@@ -9,7 +11,6 @@
     height: 100vh;
     overflow-y: scroll;
     padding: 0 !important;
-    border: 1px solid $border-gray;
     &::-webkit-scrollbar {
       display: none;
     }
