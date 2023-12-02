@@ -5,14 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import ListPostComments from "../../components/ListPostComments";
 import BasicLayout from "../../layout/BasicLayout";
 import { deletePostApi, getPostApi } from "../../api/post";
-import {
-  createPostCommentApi,
-  getPostCommentsApi,
-} from "../../api/postComment";
+import { getPostCommentsApi } from "../../api/postComment";
 import { Button, Image, Spinner } from "react-bootstrap";
 import moment from "moment";
 import { replaceURLWithHTMLLinks } from "../../utils/functions";
-import classNames from "classnames";
 import {
   checkIfPostLikedApi,
   getLikesForPostApi,
@@ -23,6 +19,9 @@ import useAuth from "../../hooks/useAuth";
 import "./PostComments.scss";
 
 import IconNotFound from "../../assets/png/icon-no-found.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment, faListUl, faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import PostCommentModal from "../../components/PostCommentModal/PostCommentModal";
 
 function PostComments(props) {
   const { setRefreshCheckLogin } = props;
@@ -32,11 +31,10 @@ function PostComments(props) {
   const [postComments, setPostComments] = useState([]);
   const [page, setPage] = useState(1);
   const [loadingPostComments, setLoadingPostComments] = useState(false);
-  const [message, setMessage] = useState("");
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
-  const maxLength = 200;
+  const [showPostCommentModal, setShowPostCommentModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -179,41 +177,6 @@ function PostComments(props) {
     );
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    // バリデーションチェック
-    if (message.trim().length === 0 || message.trim().length > 500) {
-      toast.error("コメントは1文字以上500文字以下である必要があります。");
-      return;
-    }
-
-    try {
-      // createPostCommentApiを呼び出してコメントを作成
-      const response = await createPostCommentApi(params.id, {
-        content: message,
-      });
-
-      if (response.data && response.data.id) {
-        // 新しいコメントを配列の先頭に追加
-        setPostComments((prevComments) => [response.data, ...prevComments]);
-      } else {
-        console.error("Invalid comment data:", response.data);
-      }
-
-      // コメントが正常に作成された場合の処理
-      console.log("Comment created:", response.data);
-      toast.success("コメントが投稿されました。");
-
-      setMessage(""); // メッセージをクリア
-    } catch (error) {
-      console.error("Error creating comment:", error);
-      toast.warning(
-        "コメントの送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
-      );
-    }
-  };
-
   const moreData = () => {
     const pageTemp = page + 1;
     const pageSize = 50;
@@ -243,63 +206,69 @@ function PostComments(props) {
   return (
     <BasicLayout className="post" setRefreshCheckLogin={setRefreshCheckLogin}>
       <div className="post" onClick={() => handleShowPost(post.id)}>
-        <Image className="icon" src={iconUrl} roundedCircle />
-        <div>
+        <div className="header-container">
+          <Image className="icon" src={iconUrl} roundedCircle />
           {post && post.user && (
             <div className="name">
               {post.user.name}
               <span>{moment(post.created_at).calendar()}</span>
             </div>
           )}
-          {post && (
-            <div>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: replaceURLWithHTMLLinks(post.content),
+        </div>
+        {post && (
+          <div>
+            <div
+              className="content"
+              dangerouslySetInnerHTML={{
+                __html: replaceURLWithHTMLLinks(post.content),
+              }}
+            />
+            <div className="icons-container">
+              {isLiked ? (
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  className="liked"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleUnlike();
+                  }}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleLike();
+                  }}
+                />
+              )}
+              <span>{likeCount}</span>
+              <FontAwesomeIcon icon={faComment} /> <span>{commentCount}</span>
+              <FontAwesomeIcon
+                icon={faListUl}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleShowLikes(post.id);
                 }}
               />
-              <div>
-                {isLiked ? (
-                  <button onClick={handleUnlike}>いいね済み</button>
-                ) : (
-                  <button onClick={handleLike}>いいねする</button>
-                )}
-                <span>{likeCount} Likes</span>
-                <span>{commentCount} コメント</span> {/* コメント数を表示 */}
-                {authUser.sub === String(post.user.id) && (
-                  <button onClick={handleDelete}>削除</button>
-                )}
-                <button onClick={() => handleShowLikes(post.id)}>
-                  いいね一覧
-                </button>
-              </div>
+              {authUser.sub === String(post.user.id) && (
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete();
+                  }}
+                />
+              )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
-      <form onSubmit={onSubmit}>
-        <textarea
-          rows={6}
-          type="text"
-          name="content"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="今の気持ちを共有してみましょう！"
-        />
-        <span
-          className={classNames("count", {
-            error: message.length > maxLength,
-          })}
-        >
-          {message.length}
-        </span>
-        <Button
-          type="submit"
-          disabled={message.length > maxLength || message.length < 1}
-        >
-          投稿する
-        </Button>
-      </form>
+
+      <div className="button-container">
+        <Button onClick={() => setShowPostCommentModal(true)}>投稿する</Button>
+      </div>
+      <PostCommentModal show={showPostCommentModal} setShow={setShowPostCommentModal} />
       <div className="post__comment">
         <ListPostComments
           postComments={postComments}

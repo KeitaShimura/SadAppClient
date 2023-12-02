@@ -1,10 +1,19 @@
 @import "../../scss/index.scss";
 
 .post {
-  .post {
+.post {
+  display: flex;
+  flex-direction: column;
+  /* 要素を縦方向に配置 */
+  padding: 10px 20px;
+  border-bottom: 1px solid gray;
+
+  .header-container {
+    /* アイコンと名前を含むコンテナ */
     display: flex;
-    padding: 10px 20px;
-    border-bottom: 1px solid $primary-grey;
+    align-items: center;
+    margin-bottom: 10px;
+    /* 下のコンテンツとの間に余白 */
 
     .icon {
       width: 50px;
@@ -24,27 +33,48 @@
     }
   }
 
-  &__content {
-    h3 {
-      padding: 15px;
-      font-size: 18px;
-      border-bottom: 1px solid $primary-grey;
+  .content {
+    margin-left: 70px;
+    /* アイコンの幅とマージンを考慮して左揃え */
+    margin-bottom: 10px;
+    /* アイコンコンテナとの間に余白 */
+  }
+
+  .icons-container {
+    margin-left: 70px;
+    /* アイコンの幅とマージンを考慮して左揃え */
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    svg {
+      margin: 0 10px 10px;
+      font-size: 20px;
     }
 
-    >.btn.btn-primary {
-      display: flex;
-      margin: 0 auto;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      background-color: transparent;
-      border: 0;
-      color: $font-grey;
+    span {
+      margin-bottom: 5px;
+      font-size: 20px;
+    }
 
-      &:hover,
-      &focus {
-        background-color: transparent !important;
-        color: $primary;
-      }
+    .liked {
+      color: red;
     }
   }
+}
+
+.button-container {
+  width: 100%;
+  text-align: center;
+
+  /* ボタンコンテナも全幅を使用する */
+  .btn {
+    width: 70%;
+    /* 最小幅を設定 */
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 30px;
+  }
+}
 }
