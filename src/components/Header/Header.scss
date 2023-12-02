@@ -65,16 +65,24 @@
     font-size: 20px;
   }
 
+  .mobile-menu .logo {
+    z-index: 1001;
+    position: relative;
+  }
+
   .mobile-menu a,
   .mobile-menu Button {
+    z-index: 1000;
+    position: relative;
     display: block;
-    margin: 10px 0;
+    margin: 20px 0;
     color: white;
     text-decoration: none;
   }
 
   // スマートフォンの画面サイズでのスタイル
   @media (max-width: 768px) {
+
     a,
     Button {
       display: none;

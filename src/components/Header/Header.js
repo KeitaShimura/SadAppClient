@@ -32,6 +32,11 @@ const Header = () => {
         onClick={() => setShowMobileMenu(!showMobileMenu)}
       />
       <div className="mobile-menu">
+
+        <Link to="/" onClick={() => setShowMobileMenu(false)}>
+          <Image className="logo" src={Logo} width={100} />
+        </Link>
+
         <Link to="/" onClick={() => setShowMobileMenu(false)}>
           <FontAwesomeIcon icon={faHome} />
           投稿一覧
