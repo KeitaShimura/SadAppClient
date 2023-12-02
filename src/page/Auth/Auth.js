@@ -42,12 +42,8 @@ function LeftComponent() {
 function RightComponent(props) {
   const { openModal, setRefreshCheckLogin } = props;
 
-  // 画像の幅を設定する
-  const imageWidth = 400;
-
   // スタイルオブジェクトを定義して、<p>要素に適用
   const paragraphStyle = {
-    width: imageWidth,
     whiteSpace: "normal", // テキストを折り返す
   };
 
@@ -86,33 +82,36 @@ function RightComponent(props) {
       </Col>
       <div className="scroll-container">
         <div className="d-flex flex-column flex-md-row justify-content-center align-items-center mt-5">
-          <div className="text-center">
+          <div className="text-center mb-4" width="80%">
             <img
               src={TestPng}
               alt="Image 3"
-              width={imageWidth} // 画像の幅を設定
+              width="80%"
+              className="mb-2"
             />
-            <p className="h2 mt-5 fw-bold mx-3" style={paragraphStyle}>
+            <p className="h2 fw-bold mx-3" style={paragraphStyle}>
               日常の気持ちを仲間とシェアしてみましょう！
             </p>
           </div>
-          <div className="text-center">
+          <div className="text-center mb-4" width="80%">
             <img
               src={TestPng}
               alt="Image 3"
-              width={imageWidth} // 画像の幅を設定
+              width="80%"
+              className="mb-2"
             />
-            <p className="h2 mt-5 fw-bold mx-3" style={paragraphStyle}>
+            <p className="h2 fw-bold mx-3" style={paragraphStyle}>
               オンラインで仲間と交流してみましょう！
             </p>
           </div>
-          <div className="text-center">
+          <div className="text-center mb-4" width="80%">
             <img
               src={TestPng}
               alt="Image 3"
-              width={imageWidth} // 画像の幅を設定
+              width="80%"
+              className="mb-2"
             />
-            <p className="h2 mt-5 fw-bold mx-3" style={paragraphStyle}>
+            <p className="h2 fw-bold mx-3" style={paragraphStyle}>
               コメントを投稿し、親睦を深めましょう！
             </p>
           </div>

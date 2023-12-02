@@ -16,13 +16,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import useAuth from "../../hooks/useAuth";
 import { logoutApi } from "../../api/auth";
-// import PostModal from "../Modal/PostModal";
-// import EventModal from "../Modal/EventModal";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  // const [showPostModal, setShowPostModal] = useState(false);
-  // const [showEventModal, setShowEventModal] = useState(false);
 
   const user = useAuth();
   console.log(user);
@@ -72,22 +68,6 @@ const Header = () => {
           <FontAwesomeIcon icon={faPowerOff} />
           ログアウト
         </Link>
-        {/* <Button
-                    onClick={() => {
-                        setShowPostModal(true);
-                        setShowMobileMenu(false);
-                    }}
-                >
-                    投稿する
-                </Button>
-                <Button
-                    onClick={() => {
-                        setShowEventModal(true);
-                        setShowMobileMenu(false);
-                    }}
-                >
-                    イベントを投稿する
-                </Button> */}
       </div>
 
       <Image className="logo" src={Logo} width={40} />
@@ -111,16 +91,6 @@ const Header = () => {
         <FontAwesomeIcon icon={faPowerOff} />
         ログアウト
       </Link>
-
-      {/* <Button className="mr-4" onClick={() => setShowPostModal(true)}>
-                投稿する
-            </Button>
-            <PostModal show={showPostModal} setShow={setShowPostModal} />
-
-            <Button onClick={() => setShowEventModal(true)}>
-                イベントを投稿する
-            </Button>
-            <EventModal show={showEventModal} setShow={setShowEventModal} /> */}
     </header>
   );
 };
