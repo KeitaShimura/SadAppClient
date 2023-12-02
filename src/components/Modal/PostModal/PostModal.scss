@@ -7,7 +7,7 @@
     overflow: hidden;
 
     .modal-header {
-      border-bottom: 1px solid $border-gray;
+      border-bottom: 1px solid $primary-grey;
       padding: 15px;
 
       .modal-title {
@@ -16,6 +16,7 @@
           height: 15px;
           fill: $primary;
           margin-left: 10px;
+
           &:hover {
             cursor: pointer;
           }
@@ -34,16 +35,20 @@
           color: $font-dark;
           padding: 10px 20px;
           resize: none;
+
           &:focus {
             box-shadow: none;
           }
         }
+
         .count {
           margin: 15px;
+
           &.error {
             color: $danger;
           }
         }
+
         button {
           width: 100%;
           height: 60px;

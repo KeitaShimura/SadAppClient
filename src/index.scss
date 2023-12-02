@@ -32,6 +32,7 @@ code {
 .btn.btn-outline-primary {
   border-color: $border-primary;
   color: $primary;
+
   &:hover,
   &:active,
   &focus {
@@ -65,7 +66,7 @@ textarea.form-control {
       background-color: $background-light;
       border-radius: 0;
       border: 0;
-      border-bottom: 1px solid $border-gray;
+      border-bottom: 1px solid $primary-grey;
       color: $font-light !important;
       width: 100%;
       height: 100%;

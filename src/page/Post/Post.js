@@ -72,7 +72,7 @@ export default function Post(props) {
           <input
             type="text"
             className="form-control"
-            placeholder="検索"
+            placeholder="投稿検索"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

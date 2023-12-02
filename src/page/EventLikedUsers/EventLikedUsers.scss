@@ -34,7 +34,7 @@
       background-color: transparent !important;
       font-weight: bold;
       border: 0;
-      border-bottom: 1px solid $border-gray;
+      border-bottom: 1px solid $primary-grey;
       padding: 15px 0;
       border-radius: 0;
       color: black;
@@ -57,7 +57,7 @@
     flex-direction: column;
     margin-top: 50px;
 
-    > div {
+    >div {
       margin-bottom: 10px;
     }
   }

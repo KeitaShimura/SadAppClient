@@ -4,7 +4,7 @@
   .event {
     display: flex;
     padding: 10px 20px;
-    border-bottom: 1px solid $border-gray;
+    border-bottom: 1px solid $primary-grey;
 
     .icon {
       width: 50px;
@@ -28,10 +28,10 @@
     h3 {
       padding: 15px;
       font-size: 18px;
-      border-bottom: 1px solid $border-gray;
+      border-bottom: 1px solid $primary-grey;
     }
 
-    > .btn.btn-primary {
+    >.btn.btn-primary {
       display: flex;
       margin: 0 auto;
       margin-top: 10px;
