@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import "./Header.scss"; // Import SCSS module
-import {
-  // Button,
-  Image,
-} from "react-bootstrap";
+import "./Header.scss";
+import { Image } from "react-bootstrap";
 import Logo from "../../assets/png/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,7 +18,6 @@ import { Link } from "react-router-dom";
 const Header = () => {
 
   const user = useAuth();
-  console.log(user);
   const logout = () => {
     logoutApi();
     window.location.reload();
@@ -61,7 +57,9 @@ const Header = () => {
         <Link
           to=""
           onClick={() => {
-            logout();
+            if (window.confirm("ログアウトしますか？")) {
+              logout();
+            }
             setShowMobileMenu(false);
           }}
         >
@@ -87,7 +85,13 @@ const Header = () => {
         <FontAwesomeIcon icon={faUser} />
         プロフィール
       </Link>
-      <Link to="" onClick={logout}>
+      <Link to=""
+        onClick={() => {
+        if (window.confirm("ログアウトしますか？")) {
+          logout();
+        }
+        setShowMobileMenu(false);
+      }}>
         <FontAwesomeIcon icon={faPowerOff} />
         ログアウト
       </Link>
