@@ -165,32 +165,32 @@ function Post({ post, authUser, onPostDeleted }) {
 
   return (
     <div className="post" onClick={() => handleShowPost(post.id)}>
-      <Image className="icon" src={iconUrl} roundedCircle />
-      <div>
+      <div className="header-container">
+        <Image className="icon" src={iconUrl} roundedCircle />
         {post.user && (
           <div className="name card-text">
             {post.user.name}
             <span>{moment(post.created_at).calendar()}</span>
           </div>
         )}
-        <div
-          dangerouslySetInnerHTML={{
-            __html: replaceURLWithHTMLLinks(post.content),
-          }}
-        />
-        <div>
-          {isLiked ? (
-              <FontAwesomeIcon icon={faThumbsUp} onClick={(e) => { e.stopPropagation(); handleUnlike(); }} />
-          ) : (
-                <FontAwesomeIcon icon={faThumbsUp} onClick={(e) => { e.stopPropagation(); handleLike(); }} />
-          )}
-          <span>{likeCount}</span>
-          <FontAwesomeIcon icon={faComment} /> {commentCount}
-          {authUser.sub === String(post.user.id) && (
-              <FontAwesomeIcon icon={faTrash} onClick={(e) => { e.stopPropagation(); handleDelete(); }} />
-          )}
-            <FontAwesomeIcon icon={faListUl} onClick={(e) => { e.stopPropagation(); handleShowLikes(post.id); }}  /> いいね一覧
-        </div>
+      </div>
+      <div className="content"
+        dangerouslySetInnerHTML={{
+          __html: replaceURLWithHTMLLinks(post.content),
+        }}
+      />
+      <div className="icons-container">
+        {isLiked ? (
+          <FontAwesomeIcon icon={faThumbsUp} className="liked" onClick={(e) => { e.stopPropagation(); handleUnlike(); }} />
+        ) : (
+          <FontAwesomeIcon icon={faThumbsUp} onClick={(e) => { e.stopPropagation(); handleLike(); }} />
+        )}
+        <span>{likeCount}</span>
+        <FontAwesomeIcon icon={faComment} /> <span>{commentCount}</span>
+        {authUser.sub === String(post.user.id) && (
+          <FontAwesomeIcon icon={faTrash} onClick={(e) => { e.stopPropagation(); handleDelete(); }} />
+        )}
+        <FontAwesomeIcon icon={faListUl} onClick={(e) => { e.stopPropagation(); handleShowLikes(post.id); }} />
       </div>
     </div>
   );
