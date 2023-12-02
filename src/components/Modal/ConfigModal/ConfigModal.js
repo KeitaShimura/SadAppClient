@@ -6,7 +6,7 @@ import { Close } from "../../../utils/icons";
 import "./ConfigModal.scss";
 
 export default function ConfigModal(props) {
-  const { show, setShow, title, children } = props;
+  const { show, setShow, children} = props;
 
   return (
     <Modal
@@ -17,10 +17,7 @@ export default function ConfigModal(props) {
       size="lg"
     >
       <Modal.Header>
-        <Modal.Title>
-          <Close onClick={() => setShow(false)} />
-          <h2>{title}</h2>
-        </Modal.Title>
+        <Close onClick={() => setShow(false)} />
       </Modal.Header>
       <Modal.Body>{children}</Modal.Body>
     </Modal>

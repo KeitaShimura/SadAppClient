@@ -2,6 +2,7 @@
 
 .event-modal {
   .modal-content {
+    padding: 10px;
     background-color: $background-light;
     border-radius: 25px;
     overflow: hidden;
@@ -9,6 +10,8 @@
     .modal-header {
       border-bottom: 1px solid $primary-grey;
       padding: 15px;
+        display: flex;
+          justify-content: flex-end;
 
       .modal-title {
         svg {

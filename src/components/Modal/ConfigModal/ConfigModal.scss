@@ -8,21 +8,23 @@
     .modal-header {
       padding: 15px;
       border: 0;
+      display: flex;
+      justify-content: flex-end;
+
+      svg {
+        width: 15px;
+        height: 15px;
+        fill: $primary;
+        margin-left: 10px;
+        margin-right: 20px;
+
+        &:hover {
+          cursor: center;
+        }
+      }
 
       .modal-title {
         margin: 0 auto;
-
-        svg {
-          width: 15px;
-          height: 15px;
-          fill: $primary;
-          margin-left: 10px;
-          margin-right: 20px;
-
-          &:hover {
-            cursor: center;
-          }
-        }
       }
     }
 

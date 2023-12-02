@@ -31,7 +31,7 @@ export default function EventModal(props) {
       // Call createEventApi with formData
       await createEventApi(formData);
 
-      window.location.reload();
+      window.location.reload()
       // メッセージをクリアしてモーダルを閉じる
       toast.success("イベントが作成されました。");
       setShow(false);
@@ -72,44 +72,48 @@ export default function EventModal(props) {
               onChange={onChange} // onChangeイベントハンドラを追加
             />
           </Form.Group>
-          <Form.Control
-            as="textarea"
-            rows={6}
-            type="text"
-            name="content"
-            value={formData.content} // valueプロパティを追加
-            onChange={onChange} // onChangeイベントハンドラを追加
-            placeholder="内容"
-          />
+          <Form.Group className="form-group">
+            <Form.Control
+              as="textarea"
+              rows={6}
+              type="text"
+              name="content"
+              value={formData.content} // valueプロパティを追加
+              onChange={onChange} // onChangeイベントハンドラを追加
+              placeholder="内容"
+            />
+          </Form.Group>
           <span
             className={classNames("count", {
               error: formData.content.length > maxLength,
             })}
           >
-            <Form.Group className="form-group">
-              <Form.Control
-                type="text"
-                name="event_url"
-                placeholder="イベントURL"
-                value={formData.event_url} // valueプロパティを追加
-                onChange={onChange} // onChangeイベントハンドラを追加
-              />
-            </Form.Group>
-            <Form.Group className="form-group">
-              <Form.Control
-                type="datetime-local"
-                name="event_date"
-                placeholder="開催日"
-                value={formData.event_date} // valueプロパティを追加
-                onChange={onChange} // onChangeイベントハンドラを追加
-              />
-            </Form.Group>
             {formData.content.length}
           </span>
+          <Form.Group className="form-group">
+            <Form.Control
+              type="text"
+              name="event_url"
+              placeholder="イベントURL"
+              value={formData.event_url} // valueプロパティを追加
+              onChange={onChange} // onChangeイベントハンドラを追加
+            />
+          </Form.Group>
+          <Form.Group className="form-group">
+            <Form.Control
+              type="datetime-local"
+              name="event_date"
+              placeholder="開催日"
+              value={formData.event_date} // valueプロパティを追加
+              onChange={onChange} // onChangeイベントハンドラを追加
+            />
+          </Form.Group>
+
           <Button
             type="submit"
             disabled={
-              formData.content.length > maxLength || formData.content.length < 1
+              formData.content.length > maxLength || formData.title.length < 1 ||
+              formData.content.length < 1 || formData.event_url.length < 1 || formData.event_date.length < 1
             }
           >
             イベントを投稿する
