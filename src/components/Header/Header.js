@@ -16,7 +16,6 @@ import { logoutApi } from "../../api/auth";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-
   const user = useAuth();
   const logout = () => {
     logoutApi();
@@ -32,7 +31,6 @@ const Header = () => {
         onClick={() => setShowMobileMenu(!showMobileMenu)}
       />
       <div className="mobile-menu">
-
         <Link to="/" onClick={() => setShowMobileMenu(false)}>
           <Image className="logo" src={Logo} width={100} />
         </Link>
@@ -90,13 +88,15 @@ const Header = () => {
         <FontAwesomeIcon icon={faUser} />
         プロフィール
       </Link>
-      <Link to=""
+      <Link
+        to=""
         onClick={() => {
-        if (window.confirm("ログアウトしますか？")) {
-          logout();
-        }
-        setShowMobileMenu(false);
-      }}>
+          if (window.confirm("ログアウトしますか？")) {
+            logout();
+          }
+          setShowMobileMenu(false);
+        }}
+      >
         <FontAwesomeIcon icon={faPowerOff} />
         ログアウト
       </Link>
