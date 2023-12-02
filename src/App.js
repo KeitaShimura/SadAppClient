@@ -39,9 +39,7 @@ export default function App() {
         draggable
         pauseOnHover
       />
-      <div style={{ marginTop: "100px" }}>
-        <Footer />
-      </div>
+      <Footer />
     </AuthContext.Provider>
   );
 }
