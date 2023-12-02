@@ -20,7 +20,12 @@ import "./PostComments.scss";
 
 import IconNotFound from "../../assets/png/icon-no-found.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faListUl, faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faComment,
+  faListUl,
+  faThumbsUp,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import PostCommentModal from "../../components/EventCommentModal/EventCommentModal";
 
 function PostComments(props) {
@@ -266,9 +271,14 @@ function PostComments(props) {
       </div>
 
       <div className="button-container">
-        <Button onClick={() => setShowPostCommentModal(true)}>コメントする</Button>
+        <Button onClick={() => setShowPostCommentModal(true)}>
+          コメントする
+        </Button>
       </div>
-      <PostCommentModal show={showPostCommentModal} setShow={setShowPostCommentModal} />
+      <PostCommentModal
+        show={showPostCommentModal}
+        setShow={setShowPostCommentModal}
+      />
       <div className="post__content">
         <ListPostComments
           postComments={postComments}

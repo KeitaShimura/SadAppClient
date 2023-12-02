@@ -25,7 +25,14 @@ import {
 } from "../../api/eventParticipant";
 import useAuth from "../../hooks/useAuth";
 import EventCommentModal from "../../components/EventCommentModal";
-import { faComment, faListUl, faThumbsUp, faTrash, faUserPlus, faUsers } from "@fortawesome/free-solid-svg-icons";
+import {
+  faComment,
+  faListUl,
+  faThumbsUp,
+  faTrash,
+  faUserPlus,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function EventComments(props) {
@@ -238,8 +245,6 @@ function EventComments(props) {
     );
   };
 
-
-
   const moreData = () => {
     const pageTemp = page + 1;
 
@@ -287,7 +292,11 @@ function EventComments(props) {
               <div className="event-details">
                 <div>
                   <strong>イベントURL: </strong>
-                  <a href={event.event_url} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={event.event_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {event.event_url}
                   </a>
                 </div>
@@ -373,9 +382,14 @@ function EventComments(props) {
       </div>
 
       <div className="button-container">
-        <Button onClick={() => setShowEventCommentModal(true)}>コメントする</Button>
+        <Button onClick={() => setShowEventCommentModal(true)}>
+          コメントする
+        </Button>
       </div>
-      <EventCommentModal show={showEventCommentModal} setShow={setShowEventCommentModal} />
+      <EventCommentModal
+        show={showEventCommentModal}
+        setShow={setShowEventCommentModal}
+      />
       <div className="post__content">
         <ListEventComments
           eventComments={eventComments}

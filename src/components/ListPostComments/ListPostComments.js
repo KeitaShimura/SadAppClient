@@ -78,8 +78,7 @@ function PostComment({ comment, authUser, onCommentDeleted }) {
         {authUser &&
           comment.user &&
           authUser.sub === String(comment.user.id) && (
-            <FontAwesomeIcon
-              icon={faTrash} onClick={handleDelete} />
+            <FontAwesomeIcon icon={faTrash} onClick={handleDelete} />
           )}
       </div>
     </div>
