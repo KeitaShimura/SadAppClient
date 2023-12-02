@@ -82,7 +82,9 @@ export default function Event(props) {
           />
 
           <div className="button-container">
-            <Button onClick={() => setShowEventModal(true)}>イベントを投稿する</Button>
+            <Button onClick={() => setShowEventModal(true)}>
+              イベントを投稿する
+            </Button>
           </div>
           <EventModal show={showEventModal} setShow={setShowEventModal} />
         </div>

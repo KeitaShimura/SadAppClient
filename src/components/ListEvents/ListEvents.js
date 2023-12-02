@@ -24,7 +24,14 @@ import {
 import { getEventCommentsApi } from "../../api/eventComment";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faListUl, faThumbsUp, faTrash, faUserPlus, faUsers } from "@fortawesome/free-solid-svg-icons";
+import {
+  faComment,
+  faListUl,
+  faThumbsUp,
+  faTrash,
+  faUserPlus,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function ListEvents(props) {
   const { events: initialEvents, setEvents: setInitialEvents } = props; // プロパティ名を変更
@@ -242,9 +249,7 @@ function Event({ event, authUser, onEventDeleted }) {
         )}
       </div>
       <div>
-        <div className="title">
-          {event.title}
-        </div>
+        <div className="title">{event.title}</div>
 
         <div className="event-details">
           <div>
@@ -297,7 +302,6 @@ function Event({ event, authUser, onEventDeleted }) {
           <FontAwesomeIcon
             icon={faUserPlus}
             className="participated"
-
             onClick={(e) => {
               e.stopPropagation();
               handleLeave();

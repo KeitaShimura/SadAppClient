@@ -34,8 +34,7 @@
 
     .title,
     .content,
-    .event-details
-     {
+    .event-details {
       margin-left: 70px;
     }
 
@@ -57,7 +56,8 @@
         font-size: 20px;
       }
 
-      .liked, .participated {
+      .liked,
+      .participated {
         color: red;
       }
     }
