@@ -17,6 +17,8 @@ import { deletePostApi } from "../../api/post";
 import { useNavigate } from "react-router-dom";
 import { getPostCommentsApi } from "../../api/postComment";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment, faListUl, faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function ListPosts(props) {
   const { posts: initialPosts, setPosts: setInitialPosts } = props;
@@ -178,44 +180,16 @@ function Post({ post, authUser, onPostDeleted }) {
         />
         <div>
           {isLiked ? (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleUnlike();
-              }}
-            >
-              いいね済み
-            </button>
+              <FontAwesomeIcon icon={faThumbsUp} onClick={(e) => { e.stopPropagation(); handleUnlike(); }} />
           ) : (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleLike();
-              }}
-            >
-              いいねする
-            </button>
+                <FontAwesomeIcon icon={faThumbsUp} onClick={(e) => { e.stopPropagation(); handleLike(); }} />
           )}
-          <span>{likeCount} Likes</span>
-          <span>{commentCount} コメント</span> {/* コメント数を表示 */}
+          <span>{likeCount}</span>
+          <FontAwesomeIcon icon={faComment} /> {commentCount}
           {authUser.sub === String(post.user.id) && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDelete();
-              }}
-            >
-              削除
-            </button>
+              <FontAwesomeIcon icon={faTrash} onClick={(e) => { e.stopPropagation(); handleDelete(); }} />
           )}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleShowLikes(post.id);
-            }}
-          >
-            いいね一覧
-          </button>
+            <FontAwesomeIcon icon={faListUl} onClick={(e) => { e.stopPropagation(); handleShowLikes(post.id); }}  /> いいね一覧
         </div>
       </div>
     </div>
