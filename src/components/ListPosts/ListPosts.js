@@ -18,7 +18,12 @@ import { useNavigate } from "react-router-dom";
 import { getPostCommentsApi } from "../../api/postComment";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faListUl, faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faComment,
+  faListUl,
+  faThumbsUp,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function ListPosts(props) {
   const { posts: initialPosts, setPosts: setInitialPosts } = props;
@@ -174,23 +179,49 @@ function Post({ post, authUser, onPostDeleted }) {
           </div>
         )}
       </div>
-      <div className="content"
+      <div
+        className="content"
         dangerouslySetInnerHTML={{
           __html: replaceURLWithHTMLLinks(post.content),
         }}
       />
       <div className="icons-container">
         {isLiked ? (
-          <FontAwesomeIcon icon={faThumbsUp} className="liked" onClick={(e) => { e.stopPropagation(); handleUnlike(); }} />
+          <FontAwesomeIcon
+            icon={faThumbsUp}
+            className="liked"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleUnlike();
+            }}
+          />
         ) : (
-          <FontAwesomeIcon icon={faThumbsUp} onClick={(e) => { e.stopPropagation(); handleLike(); }} />
+          <FontAwesomeIcon
+            icon={faThumbsUp}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleLike();
+            }}
+          />
         )}
         <span>{likeCount}</span>
         <FontAwesomeIcon icon={faComment} /> <span>{commentCount}</span>
         {authUser.sub === String(post.user.id) && (
-          <FontAwesomeIcon icon={faTrash} onClick={(e) => { e.stopPropagation(); handleDelete(); }} />
+          <FontAwesomeIcon
+            icon={faTrash}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDelete();
+            }}
+          />
         )}
-        <FontAwesomeIcon icon={faListUl} onClick={(e) => { e.stopPropagation(); handleShowLikes(post.id); }} />
+        <FontAwesomeIcon
+          icon={faListUl}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleShowLikes(post.id);
+          }}
+        />
       </div>
     </div>
   );

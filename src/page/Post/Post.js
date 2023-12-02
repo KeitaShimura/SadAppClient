@@ -83,24 +83,24 @@ export default function Post(props) {
           <PostModal show={showPostModal} setShow={setShowPostModal} />
         </div>
       </div>
-      
+
       <div className="post__content">
-      {filteredPosts && filteredPosts.length > 0 ? (
-        <ListPosts posts={filteredPosts} />
-      ) : (
-        "検索結果がありません"
-      )}
-      <Button onClick={moreData}>
-        {!loadingPosts ? (
-          loadingPosts !== 0 && "もっと見る"
+        {filteredPosts && filteredPosts.length > 0 ? (
+          <ListPosts posts={filteredPosts} />
         ) : (
-          <Spinner
-            animation="grow"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-          />
+          "検索結果がありません"
         )}
+        <Button onClick={moreData}>
+          {!loadingPosts ? (
+            loadingPosts !== 0 && "もっと見る"
+          ) : (
+            <Spinner
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          )}
         </Button>
       </div>
     </BasicLayout>
