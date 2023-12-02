@@ -25,7 +25,6 @@ export default function App() {
         <div>
           <Routing setRefreshCheckLogin={setRefreshCheckLogin} />
         </div>
-
       ) : (
         <Auth setRefreshCheckLogin={setRefreshCheckLogin} />
       )}

@@ -53,14 +53,13 @@ export default function Post(props) {
       });
   }, [page, pageSize]);
 
-
   useEffect(() => {
     console.log("Updated Posts:", posts);
     if (searchTerm === "") {
       setFilteredPosts(posts);
     } else {
       const filtered = posts.filter((post) =>
-        post.content.toLowerCase().includes(searchTerm.toLowerCase())
+        post.content.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredPosts(filtered);
     }
@@ -79,16 +78,11 @@ export default function Post(props) {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <div className="button-container">
-            <Button
-              onClick={() => setShowPostModal(true)}
-            >
-              投稿する
-            </Button>
+            <Button onClick={() => setShowPostModal(true)}>投稿する</Button>
           </div>
           <PostModal show={showPostModal} setShow={setShowPostModal} />
         </div>
       </div>
-
 
       {filteredPosts && filteredPosts.length > 0 ? (
         <ListPosts posts={filteredPosts} />
