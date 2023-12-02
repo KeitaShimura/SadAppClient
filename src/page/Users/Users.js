@@ -64,10 +64,11 @@ export default function Users(props) {
       title="users"
       setRefreshCheckLogin={setRefreshCheckLogin}
     >
-      <div className="users__title">
+      <div className="users__header">
         <h2>ユーザー一覧</h2>
         <input
           type="text"
+          className="form-control"
           placeholder="同じ悩みを持つ仲間を探してみましょう！"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
