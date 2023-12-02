@@ -162,7 +162,7 @@ function Post({ post, authUser, onPostDeleted }) {
   const iconUrl = post.user?.icon ? post.user.icon : IconNotFound;
 
   return (
-    <div className="post card mb-3" onClick={() => handleShowPost(post.id)}>
+    <div className="post" onClick={() => handleShowPost(post.id)}>
       <Image className="icon" src={iconUrl} roundedCircle />
       <div>
         {post.user && (
