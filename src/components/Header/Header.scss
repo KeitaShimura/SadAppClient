@@ -21,7 +21,7 @@
   }
 
   svg {
-    margin-right: 20px;
+    margin-right: 5px;
     margin-top: 5px;
     width: 30px !important;
   }
@@ -32,7 +32,7 @@
   }
 
   a {
-    margin: 0 10px;
+    margin: 35px 10px 0px 10px;
     color: white;
     text-decoration: none;
     font-weight: bold;
@@ -44,25 +44,31 @@
   }
 
   // モバイルメニュー
-  .mobile-menu {
-    display: none; // デフォルトでは非表示
-    position: fixed; // これは既に設定されているはずです
-    top: 0;
-    left: -100%; // 最初は画面外に配置
-    width: 80%; // 画面の80%の幅
-    height: 100%;
-    background-color: $primary-light;
-    z-index: 1000; // 他の要素よりも高い値に設定
+.mobile-menu {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: -100%; 
+  width: 80%;
+  height: 100%;
+  background-color: $primary-light;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* これで要素が中央に配置されます */
+  align-items: center; /* 横方向の中央揃え */
+  padding: 20px; /* 内部の余白 */
+  font-size: 35px;
+}
 
-    // メニュー項目のスタイリング
-    a,
-    Button {
-      display: block;
-      margin: 10px 0;
-      color: white;
-      text-decoration: none;
-    }
-  }
+.mobile-menu a,
+.mobile-menu Button {
+  display: block;
+  margin: 10px 0;
+  color: white;
+  text-decoration: none;
+}
+
 
   // スマートフォンの画面サイズでのスタイル
   @media (max-width: 768px) {

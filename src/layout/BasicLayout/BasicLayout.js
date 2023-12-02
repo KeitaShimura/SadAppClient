@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 
 // import LeftMenu from "../../components/LeftMenu";
 import "./BasicLayout.scss";
+import Header from "../../components/Header/Header";
 
 export default function BasicLayout(props) {
   const { className, children } = props;
@@ -11,6 +12,7 @@ export default function BasicLayout(props) {
   return (
     <Container className={`basic-layout ${className}`}>
       <Row>
+        <Header />
         {/* <Col xs={3} className="basic-layout__menu">
           <LeftMenu />
         </Col> */}
