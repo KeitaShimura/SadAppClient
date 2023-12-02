@@ -56,7 +56,7 @@ export function checkIfEventLikedApi(eventId) {
       },
       withCredentials: true,
     })
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((error) => {
       console.error("「いいね」チェックエラー:", error);
       throw error; // エラーを再スローして詳細を確認できるようにします

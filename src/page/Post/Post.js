@@ -102,7 +102,6 @@ export default function Post(props) {
     }
   };
 
-
   return (
     <BasicLayout className="home" setRefreshCheckLogin={setRefreshCheckLogin}>
       <div className="home__title">

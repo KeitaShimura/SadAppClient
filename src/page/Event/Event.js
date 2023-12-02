@@ -6,11 +6,13 @@ import { getEventsApi } from "../../api/event";
 import ListEvents from "../../components/ListEvents";
 import { Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
+import EventModal from "../../components/Modal/EventModal";
 
 export default function Event(props) {
-  const [events, setEvents] = useState(null);
-  const [filteredEvents, setFilteredEvents] = useState(null); // フィルタリングされたイベント用のステート
-  const [searchTerm, setSearchTerm] = useState(""); // 検索用のステート
+  const [events, setEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [showEventModal, setShowEventModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const [loadingEvents, setLoadingEvents] = useState(false);
   const { setRefreshCheckLogin } = props;
@@ -78,6 +80,10 @@ export default function Event(props) {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
+      <Button onClick={() => setShowEventModal(true)}>
+        イベントを投稿する
+      </Button>
+      <EventModal show={showEventModal} setShow={setShowEventModal} />
       {filteredEvents && filteredEvents.length > 0 ? (
         <ListEvents events={filteredEvents} />
       ) : (
