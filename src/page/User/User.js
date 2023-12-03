@@ -19,7 +19,7 @@ import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import { getUserApi } from "../../api/user";
 import { getFollowersApi, getFollowingApi } from "../../api/follow";
 
-function User(props) {
+export default function User(props) {
   const params = useParams();
   const authUser = useAuth();
   const { setRefreshCheckLogin } = props;
@@ -32,9 +32,10 @@ function User(props) {
   const [page, setPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [activeTab, setActiveTab] = useState("posts");
-  const pageSize = 50;
+  const pageSize = 100;
   const [followersCount, setFollowersCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
+  const [hasMoreData, setHasMoreData] = useState(true); // 追加: ページネーションの制御
 
   const moreData = () => {
     const pageTemp = page + 1;
@@ -64,9 +65,11 @@ function User(props) {
 
     apiCall(params.id, pageTemp, pageSize)
       .then((response) => {
-        if (!response) {
-          setLoadingPosts(0);
+        if (!response || response.length === 0) { // データがない場合
+          setLoadingPosts(false);
+          setHasMoreData(false); // ページネーション終了
         } else {
+          // データがある場合
           switch (activeTab) {
             case "posts":
               setPosts([...(posts || []), ...response]);
@@ -94,6 +97,8 @@ function User(props) {
         }
       })
       .catch((error) => {
+        setLoadingPosts(false);
+        setHasMoreData(false); // エラー時もページネーション終了
         toast.error(
           "データの読み込み中にエラーが発生しました。もう一度お試しください。",
         );
@@ -263,7 +268,7 @@ function User(props) {
 
         <Button onClick={moreData}>
           {!loadingPosts ? (
-            loadingPosts !== 0 && "もっと見る"
+            hasMoreData && "もっと見る" // ページネーションが有効な場合のみ表示
           ) : (
             <Spinner
               animation="grow"
@@ -278,7 +283,6 @@ function User(props) {
   );
 }
 
-export default User;
 
 // propTypes の宣言
 User.propTypes = {
