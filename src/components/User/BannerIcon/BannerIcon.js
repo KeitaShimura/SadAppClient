@@ -12,11 +12,14 @@ import IconNotFound from "../../../assets/png/icon-no-found.png";
 
 import "./BannerIcon.scss";
 import { toast } from "react-toastify";
+import EditPasswordForm from "../EditPasswordForm";
 
 export default function BannerIcon(props) {
   const { user, authUser } = props;
   // Correct usage of useState
   const [showModal, setShowModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false); // State for password modal
+
   const [isFollowing, setIsFollowing] = useState(false);
   const iconUrl = user?.icon ? user.icon : IconNotFound;
   const bannerUrl = user?.banner ? user.banner : null;
@@ -77,21 +80,29 @@ export default function BannerIcon(props) {
       {user && (
         <div className="options">
           {Number(authUser.sub) === user.id && (
-            <Button onClick={() => setShowModal(true)}>プロフィール編集</Button>
+            <div>
+              <Button onClick={() => setShowModal(true)}>
+                プロフィール編集
+              </Button>
+              <Button onClick={setShowPasswordModal}>パスワード編集</Button>
+            </div>
           )}
-          {Number(authUser.sub) !== user.id &&
-            (isFollowing ? (
-              <Button
-                className="unfollow"
-                onClick={(event) => handleUnfollow(user.id, event)}
-              >
-                <span>フォロー解除</span>
-              </Button>
-            ) : (
-              <Button onClick={(event) => handleFollow(user.id, event)}>
-                フォローする
-              </Button>
-            ))}
+          {Number(authUser.sub) !== user.id && (
+            <>
+              {isFollowing ? (
+                <Button
+                  className="unfollow"
+                  onClick={(event) => handleUnfollow(user.id, event)}
+                >
+                  <span>フォロー解除</span>
+                </Button>
+              ) : (
+                <Button onClick={(event) => handleFollow(user.id, event)}>
+                  フォローする
+                </Button>
+              )}
+            </>
+          )}
         </div>
       )}
 
@@ -101,6 +112,15 @@ export default function BannerIcon(props) {
         title="プロフィール編集"
       >
         <EditUserForm user={user} setShowModal={setShowModal} />
+      </ConfigModal>
+
+      {/* Render EditPasswordForm modal */}
+      <ConfigModal
+        show={showPasswordModal}
+        setShow={setShowPasswordModal}
+        title="パスワード編集"
+      >
+        <EditPasswordForm user={user} setShowModal={setShowPasswordModal} />
       </ConfigModal>
     </div>
   );

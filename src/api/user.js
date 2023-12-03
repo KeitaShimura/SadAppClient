@@ -101,3 +101,31 @@ export function updateUserData(bannerFile, iconFile, profileData) {
       throw error;
     });
 }
+
+// ユーザーデータを更新
+export async function updatePassword(currentPassword, newPassword) {
+  const requestData = {
+    current_password: currentPassword,
+    password: newPassword,
+    password_confirm: newPassword,
+  };
+
+  return axios
+    .put(`${API_HOST}/api/user/password`, requestData, {
+      headers: {
+        Authorization: `Bearer ${getTokenApi()}`,
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    })
+    .then((response) => {
+      // 成功時の処理
+      console.log("Updated Data:", response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      // エラーハンドリング
+      console.error("Error:", error.response ? error.response.data : error);
+      throw error;
+    });
+}
