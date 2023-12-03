@@ -28,7 +28,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import PostCommentModal from "../../components/Modal/PostCommentModal";
 
-function PostComments(props) {
+export default function PostComments(props) {
   const { setRefreshCheckLogin } = props;
   const params = useParams();
   const authUser = useAuth();
@@ -40,8 +40,10 @@ function PostComments(props) {
   const [likeCount, setLikeCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
   const [showPostCommentModal, setShowPostCommentModal] = useState(false);
-
+  const [hasMoreData, setHasMoreData] = useState(true);
   const navigate = useNavigate();
+  const pageSize = 5; // ページサイズ
+
 
   const handleShowLikes = (postId) => {
     navigate(`/post_likes/${postId}`);
@@ -50,6 +52,38 @@ function PostComments(props) {
   const handleShowPost = (postId) => {
     navigate(`/posts/${postId}`);
   };
+
+  const loadComments = () => {
+    if (!loadingPostComments && hasMoreData) {
+      setLoadingPostComments(true);
+      getPostCommentsApi(params.id, page, pageSize)
+        .then((response) => {
+          if (response && response.data.length > 0) {
+            setPostComments(prevComments => [...prevComments, ...response.data]);
+            setPage(prevPage => prevPage + 1);
+            setHasMoreData(response.data.length === pageSize);
+          } else {
+            setHasMoreData(false);
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching post comments:", error);
+          toast.error("コメントの読み込み中にエラーが発生しました。");
+        })
+        .finally(() => {
+          setLoadingPostComments(false);
+        });
+    }
+  };
+
+  const moreData = () => {
+    loadComments();
+  };
+
+  // 初期表示時にコメントデータを読み込む
+  useEffect(() => {
+    loadComments();
+  }, []); // 依存配列を空に設定
 
   useEffect(() => {
     const fetchLikeData = async () => {
@@ -167,45 +201,19 @@ function PostComments(props) {
 
   useEffect(() => {
     getPostApi(params.id)
-      .then((response) => {
+      .then(response => {
         setPost(response.data);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error("Error fetching post:", error);
         toast.error("投稿の取得に失敗しました。");
       });
   }, [params.id]);
 
-  const handleCommentDeleted = (deletedCommentId) => {
-    setPostComments((prevComments) =>
-      prevComments.filter((comment) => comment.id !== deletedCommentId),
+  const handleCommentDeleted = deletedCommentId => {
+    setPostComments(prevComments =>
+      prevComments.filter(comment => comment.id !== deletedCommentId)
     );
-  };
-
-  const moreData = () => {
-    const pageTemp = page + 1;
-    const pageSize = 50;
-    console.log("Page:", page, "PageSize:", pageSize);
-
-    setLoadingPostComments(true);
-    getPostCommentsApi(params.id)
-      .then((response) => {
-        if (!response) {
-          setLoadingPostComments(false); // Handle the error condition
-          // データの読み込みが失敗した際のエラーメッセージ
-          toast.error("コメントデータの取得中にエラーが発生しました。");
-        } else {
-          setPostComments(response.data);
-          setPage(pageTemp);
-          setLoadingPostComments(false);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching post comments:", error);
-        setLoadingPostComments(false); // Handle the error condition
-        // データの読み込みが失敗した際のエラーメッセージ
-        toast.error("コメントデータの取得中にエラーが発生しました。");
-      });
   };
 
   return (
@@ -284,24 +292,19 @@ function PostComments(props) {
           postComments={postComments}
           onCommentDeleted={handleCommentDeleted}
         />
-        <Button onClick={moreData}>
-          {!loadingPostComments ? (
-            loadingPostComments !== 0 && "もっと見る"
-          ) : (
-            <Spinner
-              animation="grow"
-              size="sm"
-              role="status"
-              aria-hidden="true"
-            />
-          )}
-        </Button>
+        {hasMoreData && (
+          <Button onClick={moreData}>
+            {!loadingPostComments ? (
+              "もっと見る"
+            ) : (
+              <Spinner animation="grow" size="sm" role="status" aria-hidden="true" />
+            )}
+          </Button>
+        )}
       </div>
     </BasicLayout>
   );
 }
-
-export default PostComments;
 
 // propTypes の宣言
 PostComments.propTypes = {

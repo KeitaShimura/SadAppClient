@@ -3,9 +3,9 @@ import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
 // 特定の投稿のすべてのコメントを取得
-export function getPostCommentsApi(postId) {
+export function getPostCommentsApi(postId, page, pageSize) {
   return axios
-    .get(`${API_HOST}/api/user/posts/comments/${postId}`, {
+    .get(`${API_HOST}/api/user/posts/comments/${postId}?page=${page}&pageSize=${pageSize}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,

@@ -3,9 +3,9 @@ import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
 // イベントのすべてのコメントを取得
-export function getEventCommentsApi(eventId) {
+export function getEventCommentsApi(eventId, page, pageSize) {
   return axios
-    .get(`${API_HOST}/api/user/events/comments/${eventId}`, {
+    .get(`${API_HOST}/api/user/events/comments/${eventId}?page=${page}&pageSize=${pageSize}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
