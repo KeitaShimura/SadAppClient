@@ -65,10 +65,10 @@ export default function EditUserForm(props) {
       return;
     }
 
-    // if (formData.email.length < 1 || formData.email.length > 255) {
-    //   toast.error("メールアドレスは1文字以上255文字以下である必要があります。");
-    //   return;
-    // }
+    if (formData.email.length < 1 || formData.email.length > 255) {
+      toast.error("メールアドレスは1文字以上255文字以下である必要があります。");
+      return;
+    }
 
     if (formData.bio.length > 1000) {
       toast.error("自己紹介文は1000文字以下である必要があります。");
@@ -80,10 +80,10 @@ export default function EditUserForm(props) {
       return;
     }
 
-    // if (formData.birth_date.length > 255) {
-    //   toast.error("生年月日は255文字以下である必要があります。");
-    //   return;
-    // }
+    if (formData.birth_date.length > 255) {
+      toast.error("生年月日は255文字以下である必要があります。");
+      return;
+    }
 
     try {
       // バリデーションに合格した場合、データの更新を試行
@@ -128,7 +128,7 @@ export default function EditUserForm(props) {
             onChange={onChange}
           />
         </Form.Group>
-        {/* <Form.Group className="form-group">
+        <Form.Group className="form-group">
           <Form.Control
             type="email"
             name="email"
@@ -136,7 +136,7 @@ export default function EditUserForm(props) {
             placeholder="メールアドレス"
             onChange={onChange}
           />
-        </Form.Group> */}
+        </Form.Group>
         <Form.Group className="form-group">
           <Form.Control
             as="textarea"
@@ -167,7 +167,7 @@ export default function EditUserForm(props) {
           />
         </Form.Group>
 
-        {/* <Form.Group className="form-group">
+        <Form.Group className="form-group">
           <Form.Control
             type="date"
             name="birth_date"
@@ -175,7 +175,7 @@ export default function EditUserForm(props) {
             placeholder="生年月日"
             onChange={onChange}
           />
-        </Form.Group> */}
+        </Form.Group>
 
         <Button className="btn-submit" variant="primary" type="submit">
           {loading && <Spinner animation="border" size="sm" />} 更新
