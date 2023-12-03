@@ -11,39 +11,49 @@ import { toast } from "react-toastify";
 
 export default function Users(props) {
   const { setRefreshCheckLogin } = props;
-  const [users, setUsers] = useState(null);
-  const [filteredUsers, setFilteredUsers] = useState(null); // State for filtered users
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
+  const [loadingUsers, setLoadingUsers] = useState(false);
+  const [hasMoreData, setHasMoreData] = useState(true);
+  const pageSize = 1; // 必要に応じて調整してください
   const params = useParams();
   const [userType, setUserType] = useState("all");
 
-  console.log("Users data: ", users);
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const allUsers = await getAllUsersApi();
-        if (userType === "following") {
-          const followingData = await getFollowingApi(params.id);
-          const followingUsers = allUsers.filter((user) =>
-            followingData.some((f) => f.follower_id === user.id),
-          );
-          setUsers(followingUsers);
-        } else if (userType === "followers") {
-          const followersData = await getFollowersApi(params.id);
-          const followerUsers = allUsers.filter((user) =>
-            followersData.some((f) => f.following_id === user.id),
-          );
-          setUsers(followerUsers);
-        } else {
-          setUsers(allUsers);
-        }
-      } catch (error) {
-        setUsers([]);
-        // エラーメッセージ
-        toast.error("ユーザーの取得中にエラーが発生しました。");
+  const fetchUsers = async () => {
+    setLoadingUsers(true);
+    try {
+      let fetchedUsers;
+      switch (userType) {
+        case "following":
+          fetchedUsers = await getFollowingApi(params.id, page, pageSize);
+          break;
+        case "followers":
+          fetchedUsers = await getFollowersApi(params.id, page, pageSize);
+          break;
+        default:
+          fetchedUsers = await getAllUsersApi(page, pageSize);
       }
-    };
 
+      if (fetchedUsers && fetchedUsers.length > 0) {
+        setUsers(prevUsers => [...prevUsers, ...fetchedUsers]);
+        setPage(prevPage => prevPage + 1);
+        setHasMoreData(fetchedUsers.length === pageSize);
+      } else {
+        setHasMoreData(false);
+      }
+    } catch (error) {
+      toast.error("ユーザーの取得中にエラーが発生しました。");
+    } finally {
+      setLoadingUsers(false);
+    }
+  };
+
+  useEffect(() => {
+    setUsers([]); // userType が変わるときにユーザーのリストをリセット
+    setPage(1); // ページ番号をリセット
+    setHasMoreData(true); // hasMoreData をリセット
     fetchUsers();
   }, [userType, params.id]);
 
@@ -51,12 +61,17 @@ export default function Users(props) {
     if (searchTerm === "") {
       setFilteredUsers(users);
     } else {
-      const filtered = users?.filter((user) =>
-        user.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      const filtered = users.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredUsers(filtered);
     }
   }, [searchTerm, users]);
+
+  const loadMoreUsers = () => {
+    fetchUsers();
+  };
+
 
   return (
     <BasicLayout
@@ -95,14 +110,25 @@ export default function Users(props) {
         </Button>
       </ButtonGroup>
 
-      {!filteredUsers ? (
-        <div className="users__loading">
-          <Spinner animation="border" variant="info" />
-          もっと見る
-        </div>
-      ) : (
-        <ListUsers users={filteredUsers} />
-      )}
+      <div className="users__content">
+        {!filteredUsers ? (
+          <div className="users__loading">
+            <Spinner animation="border" variant="info" />
+            もっと見る
+          </div>
+        ) : (
+          <ListUsers users={filteredUsers} />
+        )}
+        {hasMoreData && (
+          <div className="users__button">
+            <Button className="load-button" onClick={loadMoreUsers}>
+              {!loadingUsers ? "もっと見る" : (
+                <Spinner animation="grow" size="sm" role="status" aria-hidden="true" />
+              )}
+            </Button>
+          </div>
+        )}
+      </div>
     </BasicLayout>
   );
 }
