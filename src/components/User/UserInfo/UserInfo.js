@@ -2,7 +2,8 @@ import React from "react";
 // import moment from "moment";
 // import localization from "moment/locale/ja";
 import {
-  Location, Link,
+  Location,
+  Link,
   // DataBirth
 } from "../../../utils/icons";
 import PropTypes from "prop-types";
