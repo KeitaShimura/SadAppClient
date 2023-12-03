@@ -45,7 +45,6 @@ export default function Post(props) {
     }
   };
 
-
   const moreData = () => {
     loadPosts();
   };
@@ -53,14 +52,18 @@ export default function Post(props) {
   // スクロールイベントリスナーを設定
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+      if (
+        window.innerHeight + document.documentElement.scrollTop !==
+        document.documentElement.offsetHeight
+      )
+        return;
       loadPosts();
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // クリーンアップ関数
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [loadingPosts]);
 
   // 検索用のフィルタリング
@@ -74,7 +77,6 @@ export default function Post(props) {
       setFilteredPosts(filtered);
     }
   }, [posts, searchTerm]);
-
 
   return (
     <BasicLayout className="post" setRefreshCheckLogin={setRefreshCheckLogin}>
@@ -106,7 +108,12 @@ export default function Post(props) {
               {!loadingPosts ? (
                 "もっと見る"
               ) : (
-                <Spinner animation="grow" size="sm" role="status" aria-hidden="true" />
+                <Spinner
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
               )}
             </Button>
           )}
