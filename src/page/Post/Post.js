@@ -17,27 +17,34 @@ export default function Post(props) {
   const pageSize = 5;
   const { setRefreshCheckLogin } = props;
   const [showPostModal, setShowPostModal] = useState(false);
+  const [hasMoreData, setHasMoreData] = useState(true);
 
   const loadPosts = () => {
     if (!loadingPosts) {
       setLoadingPosts(true);
       getPostsApi(page, pageSize)
         .then((response) => {
-          if (response) {
+          if (response && response.data.length > 0) {
             setPosts((prevPosts) => [
               ...(Array.isArray(prevPosts) ? prevPosts : []),
               ...response.data,
             ]);
             setPage((prevPage) => prevPage + 1);
+            // データが pageSize 未満の場合は、これ以上データがないと判断
+            setHasMoreData(response.data.length === pageSize);
+          } else {
+            setHasMoreData(false);
           }
           setLoadingPosts(false);
         })
         .catch(() => {
           setLoadingPosts(false);
+          setHasMoreData(false);
           toast.error("投稿の読み込み中にエラーが発生しました。");
         });
     }
   };
+
 
   const moreData = () => {
     loadPosts();
@@ -94,10 +101,14 @@ export default function Post(props) {
           <p className="text-center mt-2 fw-bold">投稿は存在しません</p>
         )}
         <Button onClick={moreData}>
-          {!loadingPosts ? (
-            "もっと見る"
-          ) : (
-            <Spinner animation="grow" size="sm" role="status" aria-hidden="true" />
+          {hasMoreData && (
+            <Button onClick={moreData}>
+              {!loadingPosts ? (
+                "もっと見る"
+              ) : (
+                <Spinner animation="grow" size="sm" role="status" aria-hidden="true" />
+              )}
+            </Button>
           )}
         </Button>
       </div>
