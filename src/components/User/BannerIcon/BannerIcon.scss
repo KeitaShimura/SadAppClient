@@ -54,5 +54,15 @@
         }
       }
     }
+
+    .edit-password-button {
+      background-color: lightgray;
+      border: none;
+
+      &:hover {
+        background-color: lightgray;
+        opacity: 0.6;
+      }
+    }
   }
 }

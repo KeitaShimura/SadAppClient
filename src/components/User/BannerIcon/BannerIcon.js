@@ -81,10 +81,22 @@ export default function BannerIcon(props) {
         <div className="options">
           {Number(authUser.sub) === user.id && (
             <div>
-              <Button onClick={() => setShowModal(true)}>
-                プロフィール編集
-              </Button>
-              <Button onClick={setShowPasswordModal}>パスワード編集</Button>
+              <div className="mb-2">
+                <Button
+                  className="edit-user-button"
+                  onClick={() => setShowModal(true)}
+                >
+                  プロフィール編集
+                </Button>
+              </div>
+              <div>
+                <Button
+                  className="edit-password-button"
+                  onClick={setShowPasswordModal}
+                >
+                  パスワード更新
+                </Button>
+              </div>
             </div>
           )}
           {Number(authUser.sub) !== user.id && (
