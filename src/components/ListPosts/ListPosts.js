@@ -28,19 +28,17 @@ import {
 export default function ListPosts(props) {
   const { posts: initialPosts, setPosts: setInitialPosts } = props;
   const authUser = useAuth();
-  const [posts, setPosts] = useState(initialPosts);
 
   const handlePostDeleted = (postId) => {
-    const updatedPosts = posts.filter((post) => post.id !== postId);
-    setPosts(updatedPosts);
+    const updatedPosts = initialPosts.filter((post) => post.id !== postId);
     setInitialPosts(updatedPosts);
   };
 
   return (
     <div className="list-posts">
-      {map(posts, (post, index) => (
+      {map(initialPosts, (post) => (
         <Post
-          key={index}
+          key={post.id}
           post={post}
           authUser={authUser}
           onPostDeleted={handlePostDeleted}

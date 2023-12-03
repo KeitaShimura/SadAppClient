@@ -14,47 +14,50 @@ export default function Post(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(false);
-  const pageSize = 50;
+  const pageSize = 5;
   const { setRefreshCheckLogin } = props;
   const [showPostModal, setShowPostModal] = useState(false);
 
-  const moreData = () => {
-    setLoadingPosts(true);
-    getPostsApi(page, pageSize)
-      .then((response) => {
-        if (response) {
-          setPosts((prevPosts) => [
-            ...(Array.isArray(prevPosts) ? prevPosts : []),
-            ...response.data,
-          ]);
-          setPage((prevPage) => prevPage + 1);
-        }
-        setLoadingPosts(false);
-      })
-      .catch(() => {
-        setLoadingPosts(false);
-        toast.error("投稿の読み込み中にエラーが発生しました。");
-      });
+  const loadPosts = () => {
+    if (!loadingPosts) {
+      setLoadingPosts(true);
+      getPostsApi(page, pageSize)
+        .then((response) => {
+          if (response) {
+            setPosts((prevPosts) => [
+              ...(Array.isArray(prevPosts) ? prevPosts : []),
+              ...response.data,
+            ]);
+            setPage((prevPage) => prevPage + 1);
+          }
+          setLoadingPosts(false);
+        })
+        .catch(() => {
+          setLoadingPosts(false);
+          toast.error("投稿の読み込み中にエラーが発生しました。");
+        });
+    }
   };
 
-  useEffect(() => {
-    setLoadingPosts(true);
-    getPostsApi(page, pageSize)
-      .then((response) => {
-        console.log("Complete API Response:", response);
-        if (response) {
-          setPosts((prevPosts) => [...prevPosts, ...response.data]);
-        }
-        setLoadingPosts(false);
-      })
-      .catch(() => {
-        setLoadingPosts(false);
-        toast.error("投稿の読み込み中にエラーが発生しました。");
-      });
-  }, [page, pageSize]);
+  const moreData = () => {
+    loadPosts();
+  };
 
+  // スクロールイベントリスナーを設定
   useEffect(() => {
-    console.log("Updated Posts:", posts);
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+      loadPosts();
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // クリーンアップ関数
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loadingPosts]);
+
+  // 検索用のフィルタリング
+  useEffect(() => {
     if (searchTerm === "") {
       setFilteredPosts(posts);
     } else {
@@ -64,6 +67,7 @@ export default function Post(props) {
       setFilteredPosts(filtered);
     }
   }, [posts, searchTerm]);
+
 
   return (
     <BasicLayout className="post" setRefreshCheckLogin={setRefreshCheckLogin}>
@@ -91,14 +95,9 @@ export default function Post(props) {
         )}
         <Button onClick={moreData}>
           {!loadingPosts ? (
-            loadingPosts !== 0 && "もっと見る"
+            "もっと見る"
           ) : (
-            <Spinner
-              animation="grow"
-              size="sm"
-              role="status"
-              aria-hidden="true"
-            />
+            <Spinner animation="grow" size="sm" role="status" aria-hidden="true" />
           )}
         </Button>
       </div>
