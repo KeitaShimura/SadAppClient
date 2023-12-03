@@ -79,8 +79,8 @@ export function checkIfFollowingApi(authUserId, targetUserId) {
 }
 
 // フォローしているユーザー一覧を取得
-export function getFollowingApi(userId) {
-  const url = `${API_HOST}/api/user/followings/${userId}`;
+export function getFollowingApi(userId, page, pageSize) {
+  const url = `${API_HOST}/api/user/followings/${userId}?page=${page}&pageSize=${pageSize}`;
 
   return axios
     .get(url, {
@@ -102,8 +102,8 @@ export function getFollowingApi(userId) {
 }
 
 // フォロワー一覧を取得
-export function getFollowersApi(userId) {
-  const url = `${API_HOST}/api/user/followers/${userId}`;
+export function getFollowersApi(userId, page, pageSize) {
+  const url = `${API_HOST}/api/user/followers/${userId}?page=${page}&pageSize=${pageSize}`;
 
   return axios
     .get(url, {

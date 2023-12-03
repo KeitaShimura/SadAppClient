@@ -64,8 +64,8 @@ export function checkIfEventParticipantsApi(eventId) {
 }
 
 // イベントの参加者を取得
-export function getParticipantsForEventApi(eventId) {
-  const url = `${API_HOST}/api/user/events/${eventId}/participants`;
+export function getParticipantsForEventApi(eventId, page, pageSize) {
+  const url = `${API_HOST}/api/user/events/${eventId}/participants?page=${page}&pageSize=${pageSize}`;
 
   return axios
     .get(url, {

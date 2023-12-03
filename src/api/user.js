@@ -3,9 +3,9 @@ import { API_HOST } from "../utils/constant";
 import { getTokenApi } from "./auth";
 
 // すべてのユーザーのデータを取得
-export function getAllUsersApi() {
+export function getAllUsersApi(page, pageSize) {
   // APIのURLを構築する
-  const url = `${API_HOST}/api/user/users`;
+  const url = `${API_HOST}/api/user/users?page=${page}&pageSize=${pageSize}`;
 
   // fetchリクエスト用のパラメータを設定する
   const params = {

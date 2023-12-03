@@ -175,8 +175,8 @@ export function deleteEventApi(id) {
       }
     });
 }
-export function getUserLikedEventsApi(userId) {
-  const url = `${API_HOST}/api/user/events/${userId}/liked_events`;
+export function getUserLikedEventsApi(userId, page, pageSize) {
+  const url = `${API_HOST}/api/user/events/${userId}/liked_events?page=${page}&pageSize=${pageSize}`;
 
   return axios
     .get(url, {
@@ -193,8 +193,8 @@ export function getUserLikedEventsApi(userId) {
     });
 }
 
-export function getUserParticipatedEvents(userId) {
-  const url = `${API_HOST}/api/user/events/${userId}/participated_events`;
+export function getUserParticipatedEvents(userId, page, pageSize) {
+  const url = `${API_HOST}/api/user/events/${userId}/participated_events?page=${page}&pageSize=${pageSize}`;
 
   return axios
     .get(url, {

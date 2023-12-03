@@ -98,7 +98,7 @@ export default function Users(props) {
       {!filteredUsers ? (
         <div className="users__loading">
           <Spinner animation="border" variant="info" />
-          テスト
+          もっと見る
         </div>
       ) : (
         <ListUsers users={filteredUsers} />
