@@ -65,7 +65,8 @@ export default function User(props) {
 
     apiCall(params.id, pageTemp, pageSize)
       .then((response) => {
-        if (!response || response.length === 0) { // データがない場合
+        if (!response || response.length === 0) {
+          // データがない場合
           setLoadingPosts(false);
           setHasMoreData(false); // ページネーション終了
         } else {
@@ -282,7 +283,6 @@ export default function User(props) {
     </BasicLayout>
   );
 }
-
 
 // propTypes の宣言
 User.propTypes = {

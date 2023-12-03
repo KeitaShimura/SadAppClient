@@ -50,7 +50,7 @@ function EventComments(props) {
   const authUser = useAuth();
   const [showEventCommentModal, setShowEventCommentModal] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
-  const pageSize = 5; 
+  const pageSize = 5;
 
   const navigate = useNavigate();
 
@@ -64,14 +64,17 @@ function EventComments(props) {
       getEventCommentsApi(params.id, page, pageSize)
         .then((response) => {
           if (response && response.data.length > 0) {
-            setEventComments(prevComments => [...prevComments, ...response.data]);
-            setPage(prevPage => prevPage + 1);
+            setEventComments((prevComments) => [
+              ...prevComments,
+              ...response.data,
+            ]);
+            setPage((prevPage) => prevPage + 1);
             setHasMoreData(response.data.length === pageSize);
           } else {
             setHasMoreData(false);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Error fetching event comments:", error);
           toast.error("コメントの読み込み中にエラーが発生しました。");
         })
@@ -415,7 +418,12 @@ function EventComments(props) {
             {!loadingEventComments ? (
               "もっと見る"
             ) : (
-              <Spinner animation="grow" size="sm" role="status" aria-hidden="true" />
+              <Spinner
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
             )}
           </Button>
         )}

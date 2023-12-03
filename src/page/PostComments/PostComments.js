@@ -44,7 +44,6 @@ export default function PostComments(props) {
   const navigate = useNavigate();
   const pageSize = 5; // ページサイズ
 
-
   const handleShowLikes = (postId) => {
     navigate(`/post_likes/${postId}`);
   };
@@ -59,14 +58,17 @@ export default function PostComments(props) {
       getPostCommentsApi(params.id, page, pageSize)
         .then((response) => {
           if (response && response.data.length > 0) {
-            setPostComments(prevComments => [...prevComments, ...response.data]);
-            setPage(prevPage => prevPage + 1);
+            setPostComments((prevComments) => [
+              ...prevComments,
+              ...response.data,
+            ]);
+            setPage((prevPage) => prevPage + 1);
             setHasMoreData(response.data.length === pageSize);
           } else {
             setHasMoreData(false);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Error fetching post comments:", error);
           toast.error("コメントの読み込み中にエラーが発生しました。");
         })
@@ -201,18 +203,18 @@ export default function PostComments(props) {
 
   useEffect(() => {
     getPostApi(params.id)
-      .then(response => {
+      .then((response) => {
         setPost(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching post:", error);
         toast.error("投稿の取得に失敗しました。");
       });
   }, [params.id]);
 
-  const handleCommentDeleted = deletedCommentId => {
-    setPostComments(prevComments =>
-      prevComments.filter(comment => comment.id !== deletedCommentId)
+  const handleCommentDeleted = (deletedCommentId) => {
+    setPostComments((prevComments) =>
+      prevComments.filter((comment) => comment.id !== deletedCommentId),
     );
   };
 
@@ -297,7 +299,12 @@ export default function PostComments(props) {
             {!loadingPostComments ? (
               "もっと見る"
             ) : (
-              <Spinner animation="grow" size="sm" role="status" aria-hidden="true" />
+              <Spinner
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
             )}
           </Button>
         )}

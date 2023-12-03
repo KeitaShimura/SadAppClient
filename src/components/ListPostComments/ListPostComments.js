@@ -19,13 +19,13 @@ export default function ListPostComments(props) {
   return (
     <div className="list-posts">
       {map(initialPostComments, (comment) => (
-          <PostComment
-            key={comment.id} // インデックスではなく、ユニークなIDを使用
-            comment={comment}
-            authUser={authUser}
-            onCommentDeleted={onCommentDeleted}
-          />
-        ))}
+        <PostComment
+          key={comment.id} // インデックスではなく、ユニークなIDを使用
+          comment={comment}
+          authUser={authUser}
+          onCommentDeleted={onCommentDeleted}
+        />
+      ))}
     </div>
   );
 }

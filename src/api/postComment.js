@@ -5,12 +5,15 @@ import { getTokenApi } from "./auth";
 // 特定の投稿のすべてのコメントを取得
 export function getPostCommentsApi(postId, page, pageSize) {
   return axios
-    .get(`${API_HOST}/api/user/posts/comments/${postId}?page=${page}&pageSize=${pageSize}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getTokenApi()}`,
+    .get(
+      `${API_HOST}/api/user/posts/comments/${postId}?page=${page}&pageSize=${pageSize}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getTokenApi()}`,
+        },
       },
-    })
+    )
     .then((response) => response)
     .catch((error) => {
       console.error("コメントを取得中にエラーが発生しました:", error);

@@ -37,8 +37,8 @@ export default function Users(props) {
       }
 
       if (fetchedUsers && fetchedUsers.length > 0) {
-        setUsers(prevUsers => [...prevUsers, ...fetchedUsers]);
-        setPage(prevPage => prevPage + 1);
+        setUsers((prevUsers) => [...prevUsers, ...fetchedUsers]);
+        setPage((prevPage) => prevPage + 1);
         setHasMoreData(fetchedUsers.length === pageSize);
       } else {
         setHasMoreData(false);
@@ -62,7 +62,7 @@ export default function Users(props) {
       setFilteredUsers(users);
     } else {
       const filtered = users.filter((user) =>
-        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+        user.name.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredUsers(filtered);
     }
@@ -71,7 +71,6 @@ export default function Users(props) {
   const loadMoreUsers = () => {
     fetchUsers();
   };
-
 
   return (
     <BasicLayout
@@ -122,8 +121,15 @@ export default function Users(props) {
         {hasMoreData && (
           <div className="users__button">
             <Button className="load-button" onClick={loadMoreUsers}>
-              {!loadingUsers ? "もっと見る" : (
-                <Spinner animation="grow" size="sm" role="status" aria-hidden="true" />
+              {!loadingUsers ? (
+                "もっと見る"
+              ) : (
+                <Spinner
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
               )}
             </Button>
           </div>
