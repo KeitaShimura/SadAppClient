@@ -1,8 +1,10 @@
 @import "../../scss/index.scss";
 
+// BasicLayoutのスタイル
 .basic-layout {
   position: relative;
-  margin-top: 70px;
+  margin-top: 70px; // ヘッダーの高さに合わせて調整
+
   &__menu {
     padding-right: 0 !important;
   }
@@ -11,8 +13,28 @@
     height: 100vh;
     overflow-y: scroll;
     padding: 0 !important;
+
     &::-webkit-scrollbar {
-      display: none;
+      display: none; // スクロールバーを非表示
+    }
+
+    // 戻るボタンのスタイル
+    .back-button {
+      background-color: white !important; // ボタンの背景色
+      color: $primary; // ボタンのテキスト色
+      padding: 10px 20px; // パディング
+      border: none; // ボーダーなし
+      border-radius: 5px; // 角の丸み
+      cursor: pointer; // カーソルをポインターに
+      font-size: 16px; // フォントサイズ
+      margin: 10px 0; // マージン
+      transition: background-color 0.3s ease; // 背景色の変更時のアニメーション
+      font-weight: bold;
+      &:hover {
+        background-color: white !important; // ホバー時に背景色を暗く
+        color: pink;
+        font-weight: bold;
+      }
     }
   }
 }
