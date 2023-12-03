@@ -36,20 +36,18 @@ import {
 export default function ListEvents(props) {
   const { events: initialEvents, setEvents: setInitialEvents } = props; // プロパティ名を変更
   const authUser = useAuth(); // Assuming useAuth returns the authenticated user
-  const [events, setEvents] = useState(initialEvents); // ローカル状態を初期化
 
   const handleEventDeleted = (eventId) => {
     // イベントが削除された場合、events ステートを更新
-    const updatedEvents = events.filter((event) => event.id !== eventId);
-    setEvents(updatedEvents);
+    const updatedEvents = initialEvents.filter((event) => event.id !== eventId);
     setInitialEvents(updatedEvents); // 親コンポーネントの状態も更新
   };
 
   return (
     <div className="list-events">
-      {map(events, (event, index) => (
+      {map(initialEvents, (event) => (
         <Event
-          key={index}
+          key={event.id}
           event={event}
           authUser={authUser}
           onEventDeleted={handleEventDeleted} // onEventDeleted プロパティを渡す
@@ -95,7 +93,7 @@ function Event({ event, authUser, onEventDeleted }) {
     };
 
     fetchLikeData();
-  }, [event.id, authUser.id]);
+  }, [event, authUser]);
 
   useEffect(() => {
     // コメント数の取得
@@ -111,7 +109,7 @@ function Event({ event, authUser, onEventDeleted }) {
     };
 
     fetchCommentCount();
-  }, [event.id]);
+  }, [event]);
 
   const updateLikeCount = async () => {
     try {
@@ -194,7 +192,7 @@ function Event({ event, authUser, onEventDeleted }) {
     };
 
     fetchParticipateData();
-  }, [event.id, authUser.id]);
+  }, [event, authUser]);
 
   const updateParticipantsCount = async () => {
     try {

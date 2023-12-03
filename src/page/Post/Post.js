@@ -11,12 +11,12 @@ import PostModal from "../../components/Modal/PostModal";
 export default function Post(props) {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [showPostModal, setShowPostModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const pageSize = 5;
   const { setRefreshCheckLogin } = props;
-  const [showPostModal, setShowPostModal] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
 
   const loadPosts = () => {
@@ -102,7 +102,6 @@ export default function Post(props) {
         ) : (
           <p className="text-center mt-2 fw-bold">投稿は存在しません</p>
         )}
-        <Button onClick={moreData}>
           {hasMoreData && (
             <Button onClick={moreData}>
               {!loadingPosts ? (
@@ -117,7 +116,6 @@ export default function Post(props) {
               )}
             </Button>
           )}
-        </Button>
       </div>
     </BasicLayout>
   );

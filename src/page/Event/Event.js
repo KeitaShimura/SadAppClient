@@ -16,50 +16,61 @@ export default function Event(props) {
   const [page, setPage] = useState(1);
   const [loadingEvents, setLoadingEvents] = useState(false);
   const { setRefreshCheckLogin } = props;
-  const pageSize = 50;
+  const pageSize = 5;
+  const [hasMoreData, setHasMoreData] = useState(true);
 
-  const moreData = () => {
-    setLoadingEvents(true);
-    getEventsApi(page, pageSize)
-      .then((response) => {
-        if (response) {
-          setEvents((prevEvents) => [
-            ...(Array.isArray(prevEvents) ? prevEvents : []),
-            ...response.data,
-          ]);
-          setPage((prevPage) => prevPage + 1);
-        }
-        setLoadingEvents(false);
-      })
-      .catch(() => {
-        toast.error("イベントデータの取得中にエラーが発生しました。");
-        setLoadingEvents(false);
-      });
+  const loadEvents = () => {
+    if (!loadingEvents) {
+      setLoadingEvents(true);
+      getEventsApi(page, pageSize)
+        .then((response) => {
+          if (response && response.data.length > 0) {
+            setEvents((prevEvents) => [
+              ...(Array.isArray(prevEvents) ? prevEvents : []),
+              ...response.data,
+            ]);
+            setPage((prevPage) => prevPage + 1);
+            setHasMoreData(response.data.length === pageSize);
+          } else {
+            setHasMoreData(false);
+          }
+          setLoadingEvents(false);
+        })
+        .catch(() => {
+          setLoadingEvents(false);
+          setHasMoreData(false);
+          toast.error("イベントデータの取得中にエラーが発生しました。");
+        });
+    }
   };
 
-  // イベントデータの取得
-  useEffect(() => {
-    setLoadingEvents(true);
-    getEventsApi(page, pageSize)
-      .then((response) => {
-        if (response) {
-          setEvents(response.data);
-        }
-        setLoadingEvents(false);
-      })
-      .catch((error) => {
-        toast.error("イベントデータの取得中にエラーが発生しました。");
-        console.error("Get Events Error:", error);
-        setLoadingEvents(false);
-      });
-  }, [page, pageSize]);
+  const moreData = () => {
+    loadEvents();
+  };
 
-  // 検索処理
+  // スクロールイベントリスナーを設定
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop !==
+        document.documentElement.offsetHeight
+      )
+        return;
+      loadEvents();
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // クリーンアップ関数
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loadingEvents]);
+
+  // 検索用のフィルタリング
   useEffect(() => {
     if (searchTerm === "") {
       setFilteredEvents(events);
     } else {
-      const filtered = events?.filter(
+      const filtered = events.filter(
         (event) =>
           event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           event.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -67,7 +78,8 @@ export default function Event(props) {
       );
       setFilteredEvents(filtered);
     }
-  }, [searchTerm, events]);
+  }, [events, searchTerm]);
+
 
   return (
     <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>
@@ -96,19 +108,20 @@ export default function Event(props) {
         ) : (
           <p className="text-center mt-2 fw-bold">イベントは存在しません</p>
         )}
-        <Button className="load-button" onClick={moreData}>
-          {!loadingEvents ? (
-            loadingEvents !== 0 && "もっと見る"
-          ) : (
-            <Spinner
-              as="span"
-              animation="grow"
-              size="sm"
-              role="status"
-              aria-hidden="true"
-            />
-          )}
-        </Button>
+        {hasMoreData && (
+          <Button onClick={moreData}>
+            {!loadingEvents ? (
+              "もっと見る"
+            ) : (
+              <Spinner
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            )}
+          </Button>
+        )}
       </div>
     </BasicLayout>
   );
