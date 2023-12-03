@@ -12,15 +12,22 @@ export default function EditUserForm(props) {
   const { user, setShowModal } = props;
   const [formData, setFormData] = useState(initialFromValue(user));
   const [bannerUrl, setBannerUrl] = useState(user?.banner || null);
-  const [bannerFile, setBannerFile] = useState(null);
   const [iconUrl, setIconUrl] = useState(user?.icon || null);
-  const [iconFile, setIconFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const onDropBanner = useCallback((acceptedFile) => {
-    const file = acceptedFile[0];
+  const fileToBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+
+  const onDropBanner = useCallback(async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    const base64 = await fileToBase64(file);
     setBannerUrl(URL.createObjectURL(file));
-    setBannerFile(file);
+    setFormData({ ...formData, banner: base64 });
   });
 
   const {
@@ -33,10 +40,11 @@ export default function EditUserForm(props) {
     onDrop: onDropBanner,
   });
 
-  const onDropIcon = useCallback((acceptedFile) => {
-    const file = acceptedFile[0];
+  const onDropIcon = useCallback(async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    const base64 = await fileToBase64(file);
     setIconUrl(URL.createObjectURL(file));
-    setIconFile(file);
+    setFormData({ ...formData, icon: base64 });
   });
 
   const { getRootProps: getRootIconProps, getInputProps: getInputIconProps } =
@@ -87,7 +95,7 @@ export default function EditUserForm(props) {
 
     try {
       // バリデーションに合格した場合、データの更新を試行
-      await updateUserData(bannerFile, iconFile, formData);
+      await updateUserData(formData);
       setShowModal(false);
       window.location.reload();
       toast.success("プロフィールを更新しました。");

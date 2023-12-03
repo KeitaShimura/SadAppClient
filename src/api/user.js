@@ -68,35 +68,20 @@ export function getUserApi(id) {
 }
 
 // ユーザーデータを更新
-export function updateUserData(bannerFile, iconFile, profileData) {
-  const formData = new FormData();
-
-  // バナーとアバターファイルを追加（存在する場合）
-  if (bannerFile) formData.append("banner", bannerFile);
-  if (iconFile) formData.append("icon", iconFile);
-
-  // プロフィールデータを追加（存在する場合）
-  if (profileData) {
-    for (const key in profileData) {
-      formData.append(key, profileData[key]);
-    }
-  }
-
+export function updateUserData(profileData) {
   return axios
-    .put(`${API_HOST}/api/user/user`, formData, {
+    .put(`${API_HOST}/api/user/user`, profileData, {
       headers: {
         Authorization: `Bearer ${getTokenApi()}`,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", // JSON ヘッダーを設定
       },
       withCredentials: true,
     })
     .then((response) => {
-      // 成功時の処理
       console.log("Updated Data:", response.data);
       return response.data;
     })
     .catch((error) => {
-      // エラーハンドリング
       console.error("Error:", error.response ? error.response.data : error);
       throw error;
     });
