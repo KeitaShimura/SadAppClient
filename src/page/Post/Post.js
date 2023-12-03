@@ -15,7 +15,7 @@ export default function Post(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(false);
-  const pageSize = 5;
+  const pageSize = 100;
   const { setRefreshCheckLogin } = props;
   const [hasMoreData, setHasMoreData] = useState(true);
 
@@ -48,6 +48,11 @@ export default function Post(props) {
   const moreData = () => {
     loadPosts();
   };
+
+  // 初期表示時に投稿データを読み込む
+  useEffect(() => {
+    loadPosts();
+  }, []); // 依存配列を空に設定
 
   // スクロールイベントリスナーを設定
   useEffect(() => {
@@ -102,24 +107,25 @@ export default function Post(props) {
         ) : (
           <p className="text-center mt-2 fw-bold">投稿は存在しません</p>
         )}
-          {hasMoreData && (
-            <Button onClick={moreData}>
-              {!loadingPosts ? (
-                "もっと見る"
-              ) : (
-                <Spinner
-                  animation="grow"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-              )}
-            </Button>
-          )}
+        {hasMoreData && (
+          <Button onClick={moreData}>
+            {!loadingPosts ? (
+              "もっと見る"
+            ) : (
+              <Spinner
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            )}
+          </Button>
+        )}
       </div>
     </BasicLayout>
   );
 }
+
 
 Post.propTypes = {
   setRefreshCheckLogin: PropTypes.func.isRequired,

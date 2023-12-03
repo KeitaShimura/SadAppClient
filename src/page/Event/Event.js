@@ -16,7 +16,7 @@ export default function Event(props) {
   const [page, setPage] = useState(1);
   const [loadingEvents, setLoadingEvents] = useState(false);
   const { setRefreshCheckLogin } = props;
-  const pageSize = 5;
+  const pageSize = 100;
   const [hasMoreData, setHasMoreData] = useState(true);
 
   const loadEvents = () => {
@@ -47,6 +47,11 @@ export default function Event(props) {
   const moreData = () => {
     loadEvents();
   };
+
+  // 初期表示時にイベントデータを読み込む
+  useEffect(() => {
+    loadEvents();
+  }, []); // 依存配列を空に設定
 
   // スクロールイベントリスナーを設定
   useEffect(() => {
@@ -79,7 +84,6 @@ export default function Event(props) {
       setFilteredEvents(filtered);
     }
   }, [events, searchTerm]);
-
 
   return (
     <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>
