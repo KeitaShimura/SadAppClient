@@ -126,7 +126,6 @@ export default function Post(props) {
   );
 }
 
-
 Post.propTypes = {
   setRefreshCheckLogin: PropTypes.func.isRequired,
 };
