@@ -1,7 +1,10 @@
 import React from "react";
-import moment from "moment";
-import localization from "moment/locale/ja";
-import { Location, Link, DataBirth } from "../../../utils/icons";
+// import moment from "moment";
+// import localization from "moment/locale/ja";
+import {
+  Location, Link,
+  // DataBirth
+} from "../../../utils/icons";
 import PropTypes from "prop-types";
 import "./UserInfo.scss";
 
@@ -30,12 +33,12 @@ export default function UserInfo(props) {
             </a>
           </p>
         )}
-        {user?.birth_date && (
+        {/* {user?.birth_date && (
           <p>
             <DataBirth />
             {moment(user.birth_date).locale("ja", localization).format("LL")}
           </p>
-        )}
+        )} */}
       </div>
     </div>
   );
