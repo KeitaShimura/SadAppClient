@@ -10,22 +10,22 @@ import { deleteEventCommentApi } from "../../api/eventComment";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { map } from "lodash";
 
 export default function ListEventComments(props) {
-  const { eventComments, onCommentDeleted } = props;
+  const { eventComments: initialEventComments, onCommentDeleted } = props;
   const authUser = useAuth();
 
   return (
     <div className="list-posts">
-      {eventComments &&
-        eventComments.map((comment) => (
-          <EventComment
-            key={comment.id} // インデックスではなく、ユニークなIDを使用
-            comment={comment}
-            authUser={authUser}
-            onCommentDeleted={onCommentDeleted}
-          />
-        ))}
+      {map(initialEventComments, (comment) => (
+        <EventComment
+          key={comment.id} // インデックスではなく、ユニークなIDを使用
+          comment={comment}
+          authUser={authUser}
+          onCommentDeleted={onCommentDeleted}
+        />
+      ))}
     </div>
   );
 }

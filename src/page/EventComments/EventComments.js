@@ -49,12 +49,45 @@ function EventComments(props) {
   const [commentCount, setCommentCount] = useState(0);
   const authUser = useAuth();
   const [showEventCommentModal, setShowEventCommentModal] = useState(false);
+  const [hasMoreData, setHasMoreData] = useState(true);
+  const pageSize = 5; 
 
   const navigate = useNavigate();
 
   const handleShowLikes = (eventId) => {
     navigate(`/event_likes/${eventId}`);
   };
+
+  const loadComments = () => {
+    if (!loadingEventComments && hasMoreData) {
+      setLoadingEventComments(true);
+      getEventCommentsApi(params.id, page, pageSize)
+        .then((response) => {
+          if (response && response.data.length > 0) {
+            setEventComments(prevComments => [...prevComments, ...response.data]);
+            setPage(prevPage => prevPage + 1);
+            setHasMoreData(response.data.length === pageSize);
+          } else {
+            setHasMoreData(false);
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching event comments:", error);
+          toast.error("コメントの読み込み中にエラーが発生しました。");
+        })
+        .finally(() => {
+          setLoadingEventComments(false);
+        });
+    }
+  };
+
+  const moreData = () => {
+    loadComments();
+  };
+
+  useEffect(() => {
+    loadComments();
+  }, []); // 初回のみコメントをロード
 
   useEffect(() => {
     setLoadingEventComments(true);
@@ -104,13 +137,18 @@ function EventComments(props) {
   }, [event, authUser]);
 
   useEffect(() => {
-    // コメント数の取得
     const fetchCommentCount = async () => {
+      if (!event) {
+        console.error("Post is null");
+        return;
+      }
+
       try {
         const comments = await getEventCommentsApi(event.id);
-        setCommentCount(comments.length);
+        setCommentCount(comments.data.length);
       } catch (error) {
         console.error("Error fetching comments:", error);
+        toast.error("コメント数の取得中にエラーが発生しました。");
       }
     };
 
@@ -245,29 +283,6 @@ function EventComments(props) {
     );
   };
 
-  const moreData = () => {
-    const pageTemp = page + 1;
-
-    setLoadingEventComments(true);
-    getEventCommentsApi(params.id)
-      .then((response) => {
-        if (!response) {
-          setLoadingEventComments(false); // Handle the error condition
-          // エラーメッセージを表示
-          toast.error("コメントデータの取得中にエラーが発生しました。");
-        } else {
-          setEventComments(response.data);
-          setPage(pageTemp);
-          setLoadingEventComments(false);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching event comments:", error);
-        setLoadingEventComments(false); // Handle the error condition
-        // エラーメッセージを表示
-        toast.error("コメントデータの取得中にエラーが発生しました。");
-      });
-  };
   const iconUrl =
     event && event.user && event.user.icon ? event.user.icon : IconNotFound;
 
@@ -390,23 +405,20 @@ function EventComments(props) {
         show={showEventCommentModal}
         setShow={setShowEventCommentModal}
       />
-      <div className="post__content">
+      <div className="event__content">
         <ListEventComments
           eventComments={eventComments}
           onCommentDeleted={handleCommentDeleted}
         />
-        <Button onClick={moreData}>
-          {!loadingEventComments ? (
-            loadingEventComments !== 0 && "もっと見る"
-          ) : (
-            <Spinner
-              animation="grow"
-              size="sm"
-              role="status"
-              aria-hidden="true"
-            />
-          )}
-        </Button>
+        {hasMoreData && (
+          <Button onClick={moreData}>
+            {!loadingEventComments ? (
+              "もっと見る"
+            ) : (
+              <Spinner animation="grow" size="sm" role="status" aria-hidden="true" />
+            )}
+          </Button>
+        )}
       </div>
     </BasicLayout>
   );

@@ -10,15 +10,15 @@ import { deletePostCommentApi } from "../../api/postComment";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { map } from "lodash";
 
 export default function ListPostComments(props) {
-  const { postComments, onCommentDeleted } = props;
+  const { postComments: initialPostComments, onCommentDeleted } = props;
   const authUser = useAuth();
 
   return (
     <div className="list-posts">
-      {postComments &&
-        postComments.map((comment) => (
+      {map(initialPostComments, (comment) => (
           <PostComment
             key={comment.id} // インデックスではなく、ユニークなIDを使用
             comment={comment}
