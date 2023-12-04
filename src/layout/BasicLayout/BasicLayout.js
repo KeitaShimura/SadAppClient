@@ -9,12 +9,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function BasicLayout(props) {
-  const { className, children } = props;
+  const { className, children, showBackButton = true } = props;
   const navigate = useNavigate();
 
   // 戻るボタンのクリックイベントハンドラ
   const handleBackButtonClick = () => {
-    navigate(-1); // 1ステップ前に戻る
+    navigate(-1);
   };
 
   return (
@@ -22,9 +22,11 @@ export default function BasicLayout(props) {
       <Row>
         <Header />
         <Col xs={12} className="basic-layout__content">
-          <Button className="back-button" onClick={handleBackButtonClick}>
-            <FontAwesomeIcon icon={faArrowLeft} /> 戻る
-          </Button>
+          {showBackButton && (
+            <Button className="back-button" onClick={handleBackButtonClick}>
+              <FontAwesomeIcon icon={faArrowLeft} /> 戻る
+            </Button>
+          )}
           {children}
         </Col>
       </Row>
@@ -32,8 +34,9 @@ export default function BasicLayout(props) {
   );
 }
 
-// propTypesでプロパティの型情報を指定
+// propTypesの更新
 BasicLayout.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  showBackButton: PropTypes.bool, // 新しいプロパティ
 };

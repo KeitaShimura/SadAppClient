@@ -208,7 +208,11 @@ export default function User(props) {
   }, [params.id]);
 
   return (
-    <BasicLayout className="user" setRefreshCheckLogin={setRefreshCheckLogin}>
+    <BasicLayout
+      className="user"
+      setRefreshCheckLogin={setRefreshCheckLogin}
+      showBackButton={false}
+    >
       <BannerIcon user={user} authUser={authUser} />
       <div>
         <Link to={`/users/${params.id}`} className="user-following-link">

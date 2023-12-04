@@ -84,7 +84,11 @@ export default function Post(props) {
   }, [posts, searchTerm]);
 
   return (
-    <BasicLayout className="post" setRefreshCheckLogin={setRefreshCheckLogin}>
+    <BasicLayout
+      className="post"
+      setRefreshCheckLogin={setRefreshCheckLogin}
+      showBackButton={false}
+    >
       <div className="post__header">
         <div className="right-aligned">
           <input

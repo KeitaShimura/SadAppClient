@@ -86,7 +86,11 @@ export default function Event(props) {
   }, [events, searchTerm]);
 
   return (
-    <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>
+    <BasicLayout
+      className="event"
+      setRefreshCheckLogin={setRefreshCheckLogin}
+      showBackButton={false}
+    >
       <div className="event__header">
         <div className="right-aligned">
           <input

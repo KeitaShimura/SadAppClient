@@ -77,6 +77,7 @@ export default function Users(props) {
       className="users"
       title="users"
       setRefreshCheckLogin={setRefreshCheckLogin}
+      showBackButton={false}
     >
       <div className="users__header">
         <input
