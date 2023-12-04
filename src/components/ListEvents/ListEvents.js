@@ -35,7 +35,7 @@ import {
 
 export default function ListEvents(props) {
   const { events: initialEvents, setEvents: setInitialEvents } = props; // プロパティ名を変更
-  const authUser = useAuth(); // Assuming useAuth returns the authenticated user
+  const authUser = useAuth();
 
   const handleEventDeleted = (eventId) => {
     // イベントが削除された場合、events ステートを更新
@@ -163,14 +163,12 @@ function Event({ event, authUser, onEventDeleted }) {
   const handleDelete = () => {
     const confirmation = window.confirm("投稿を削除しますか？");
     if (confirmation) {
-      // User confirmed the delete action
       deleteEventApi(event.id)
         .then(() => {
           onEventDeleted(event.id);
           toast.success("投稿が削除されました。");
         })
         .catch((error) => {
-          // 削除が失敗した場合のエラーハンドリング
           console.error("Delete Error:", error);
           toast.warning("投稿の削除中にエラーが発生しました。");
         });

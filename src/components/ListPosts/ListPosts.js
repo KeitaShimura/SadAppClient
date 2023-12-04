@@ -141,12 +141,10 @@ function Post({ post, authUser, onPostDeleted }) {
       .then(() => {
         setIsLiked(false);
         updateLikeCount();
-        // いいね解除が成功した際のメッセージ
         toast.success("いいねを解除しました。");
       })
       .catch((error) => {
         console.error("Unlike Error:", error);
-        // いいね解除が失敗した際のエラーメッセージ
         toast.error("いいね解除に失敗しました。");
       });
   };
@@ -154,14 +152,12 @@ function Post({ post, authUser, onPostDeleted }) {
   const handleDelete = () => {
     const confirmation = window.confirm("投稿を削除しますか？");
     if (confirmation) {
-      // User confirmed the delete action
       deletePostApi(post.id)
         .then(() => {
           onPostDeleted(post.id);
           toast.success("投稿が削除されました。");
         })
         .catch((error) => {
-          // 削除が失敗した場合のエラーハンドリング
           console.error("Delete Error:", error);
           toast.warning("投稿の削除中にエラーが発生しました。");
         });

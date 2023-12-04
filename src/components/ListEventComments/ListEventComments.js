@@ -21,7 +21,7 @@ export default function ListEventComments(props) {
     <div className="list-posts">
       {map(initialEventComments, (comment) => (
         <EventComment
-          key={comment.id} // インデックスではなく、ユニークなIDを使用
+          key={comment.id}
           comment={comment}
           authUser={authUser}
           onCommentDeleted={onCommentDeleted}
@@ -46,7 +46,6 @@ function EventComment({ comment, authUser, onCommentDeleted }) {
   const handleDelete = () => {
     const confirmation = window.confirm("コメントを削除しますか？");
     if (confirmation) {
-      // User confirmed the delete action
       deleteEventCommentApi(comment.id)
         .then(() => {
           onCommentDeleted(comment.id);

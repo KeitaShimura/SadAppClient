@@ -157,12 +157,10 @@ export default function PostComments(props) {
       .then(() => {
         setIsLiked(false);
         updateLikeCount();
-        // いいね解除が成功した際のメッセージ
         toast.success("いいねを解除しました。");
       })
       .catch((error) => {
         console.error("Unlike Error:", error);
-        // いいね解除が失敗した際のエラーメッセージ
         toast.error("いいね解除に失敗しました。");
       });
   };
@@ -170,14 +168,12 @@ export default function PostComments(props) {
   const handleDelete = () => {
     const confirmation = window.confirm("コメントを削除しますか？");
     if (confirmation) {
-      // User confirmed the delete action
       deletePostApi(post.id)
         .then(() => {
           navigate("/");
           toast.success("コメントが削除されました。");
         })
         .catch((error) => {
-          // 削除が失敗した場合のエラーハンドリング
           console.error("Delete Error:", error);
           toast.error("コメントの削除中にエラーが発生しました。");
         });
@@ -191,7 +187,7 @@ export default function PostComments(props) {
     setLoadingPostComments(true);
     getPostCommentsApi(params.id)
       .then((response) => {
-        setPostComments(response.data); // ここでコメントデータを更新
+        setPostComments(response.data);
         setLoadingPostComments(false);
       })
       .catch((error) => {

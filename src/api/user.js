@@ -55,7 +55,7 @@ export function getUserApi(id) {
       if (response.status >= 400) {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
-      return response.json(); // レスポンスのJSONを解析
+      return response.json();
     })
     .then((result) => {
       // 解析されたJSONデータを返す
@@ -73,7 +73,7 @@ export function updateUserData(profileData) {
     .put(`${API_HOST}/api/user/user`, profileData, {
       headers: {
         Authorization: `Bearer ${getTokenApi()}`,
-        "Content-Type": "application/json", // JSON ヘッダーを設定
+        "Content-Type": "application/json",
       },
       withCredentials: true,
     })

@@ -140,7 +140,6 @@ export default function Users(props) {
   );
 }
 
-// propTypes の宣言
 Users.propTypes = {
   setRefreshCheckLogin: PropTypes.func.isRequired,
 };

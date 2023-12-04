@@ -83,7 +83,6 @@ export default function PostLikedUsers(props) {
   );
 }
 
-// propTypes の宣言
 PostLikedUsers.propTypes = {
   setRefreshCheckLogin: PropTypes.func.isRequired,
 };

@@ -273,7 +273,7 @@ export default function User(props) {
 
         <Button onClick={moreData}>
           {!loadingPosts ? (
-            hasMoreData && "もっと見る" // ページネーションが有効な場合のみ表示
+            hasMoreData && "もっと見る"
           ) : (
             <Spinner
               animation="grow"
@@ -288,7 +288,6 @@ export default function User(props) {
   );
 }
 
-// propTypes の宣言
 User.propTypes = {
   setRefreshCheckLogin: PropTypes.func.isRequired,
 };
