@@ -42,7 +42,7 @@ export default function PostComments(props) {
   const [showPostCommentModal, setShowPostCommentModal] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
   const navigate = useNavigate();
-  const pageSize = 5; // ページサイズ
+  const pageSize = 100;
 
   const handleShowLikes = (postId) => {
     navigate(`/post_likes/${postId}`);

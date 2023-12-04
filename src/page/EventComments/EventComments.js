@@ -50,7 +50,7 @@ function EventComments(props) {
   const authUser = useAuth();
   const [showEventCommentModal, setShowEventCommentModal] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
-  const pageSize = 5;
+  const pageSize = 100;
 
   const navigate = useNavigate();
 

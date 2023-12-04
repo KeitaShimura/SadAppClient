@@ -17,7 +17,7 @@ export default function Users(props) {
   const [page, setPage] = useState(1);
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
-  const pageSize = 1; // 必要に応じて調整してください
+  const pageSize = 100;
   const params = useParams();
   const [userType, setUserType] = useState("all");
 
