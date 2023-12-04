@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { map } from "lodash";
+import { useNavigate } from "react-router-dom";
 
 export default function ListPostComments(props) {
   const { postComments: initialPostComments, onCommentDeleted } = props;
@@ -36,6 +37,11 @@ ListPostComments.propTypes = {
 };
 
 function PostComment({ comment, authUser, onCommentDeleted }) {
+  const navigate = useNavigate();
+
+  const handleUserProfileShow = (userId) => {
+    navigate(`/user/${userId}`);
+  };
   const handleDelete = () => {
     const confirmation = window.confirm("コメントを削除しますか？");
     if (confirmation) {
@@ -55,11 +61,15 @@ function PostComment({ comment, authUser, onCommentDeleted }) {
 
   const iconUrl = comment.user?.icon ? comment.user.icon : IconNotFound;
 
-  console.log(authUser.sub, comment.user.id);
-
   return (
     <div className="comment">
-      <div className="header-container">
+      <div
+        className="header-container"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleUserProfileShow(comment.user.id);
+        }}
+      >
         <Image className="icon" src={iconUrl} roundedCircle />
         {comment.user && (
           <div className="name">

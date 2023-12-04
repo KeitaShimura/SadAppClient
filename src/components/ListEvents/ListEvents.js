@@ -79,6 +79,10 @@ function Event({ event, authUser, onEventDeleted }) {
     navigate(`/events/${eventId}`);
   };
 
+  const handleUserProfileShow = (userId) => {
+    navigate(`/user/${userId}`);
+  };
+
   useEffect(() => {
     const fetchLikeData = async () => {
       try {
@@ -237,7 +241,13 @@ function Event({ event, authUser, onEventDeleted }) {
 
   return (
     <div className="event" onClick={() => handleShowEvent(event.id)}>
-      <div className="header-container">
+      <div
+        className="header-container"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleUserProfileShow(event.user.id);
+        }}
+      >
         <Image className="icon" src={iconUrl} roundedCircle />
         {event.user && (
           <div className="name card-text">

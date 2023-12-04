@@ -67,6 +67,10 @@ function Post({ post, authUser, onPostDeleted }) {
     navigate(`/posts/${postId}`);
   };
 
+  const handleUserProfileShow = (userId) => {
+    navigate(`/user/${userId}`);
+  };
+
   useEffect(() => {
     const fetchLikeData = async () => {
       if (!post || !authUser) {
@@ -168,7 +172,13 @@ function Post({ post, authUser, onPostDeleted }) {
 
   return (
     <div className="post" onClick={() => handleShowPost(post.id)}>
-      <div className="header-container">
+      <div
+        className="header-container"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleUserProfileShow(post.user.id);
+        }}
+      >
         <Image className="icon" src={iconUrl} roundedCircle />
         {post.user && (
           <div className="name">
