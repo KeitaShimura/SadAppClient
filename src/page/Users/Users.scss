@@ -28,7 +28,7 @@
 
   &__options {
     display: flex !important;
-
+    z-index: 1;
     .btn.btn-primary {
       background-color: transparent !important;
       font-weight: bold;

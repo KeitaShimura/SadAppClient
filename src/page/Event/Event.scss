@@ -4,7 +4,6 @@
   &__header {
     display: flex;
     flex-direction: column;
-    /* 常に縦方向に並べる */
     align-items: center;
     justify-content: space-between;
     padding: 5px;
@@ -17,33 +16,24 @@
     .right-aligned {
       display: flex;
       flex-direction: column;
-      /* フォーム要素も縦に並べる */
       align-items: center;
-      /* 中央揃えにする */
       width: 100%;
-      /* 全幅を使用する */
 
       .form-control {
         width: 100%;
-        /* 入力フィールドの幅を最大にする */
         margin-bottom: 10px;
-        /* ボタンとの間に余白を追加 */
       }
 
       .button-container {
         width: 200px;
-        text-align: center;
-        position: fixed;
-        right: 20px;
-        /* 画面の右端から20pxの位置に変更 */
-        bottom: 20px;
-        /* 画面の下端から20pxの位置 */
-        z-index: 1000;
-        /* 他の要素より上に表示 */
+          text-align: center;
+          position: fixed;
+          right: 20px;
+          bottom: 20px;
+          z-index: 1;
 
         .btn {
           width: 70%;
-          /* 最小幅を設定 */
           white-space: nowrap;
           font-size: 16px;
           font-weight: bold;
