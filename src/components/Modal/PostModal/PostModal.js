@@ -21,7 +21,6 @@ export default function PostModal(props) {
       reader.onerror = (error) => reject(error);
     });
 
-
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -76,7 +75,6 @@ export default function PostModal(props) {
                 }
               }}
             />
-
           </Form.Group>
 
           <Form.Control

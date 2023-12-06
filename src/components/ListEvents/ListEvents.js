@@ -262,6 +262,15 @@ function Event({ event, authUser, onEventDeleted }) {
 
         <div className="event-details">
           <div>
+            {event.image && (
+              <div className="image-container">
+                <Image
+                  src={event.image}
+                  alt="Post Image"
+                  className="event-image"
+                />
+              </div>
+            )}
             <strong>イベントURL: </strong>
             <a href={event.event_url} target="_blank" rel="noopener noreferrer">
               {event.event_url}

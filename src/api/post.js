@@ -58,9 +58,9 @@ export function getUserPostsApi(id, page, pageSize) {
 // 新しい投稿を作成
 export function createPostApi(postData, image) {
   const formData = new FormData();
-  formData.append('content', postData.content);
+  formData.append("content", postData.content);
   if (image) {
-    formData.append('image', image);
+    formData.append("image", image);
   }
 
   return axios
@@ -77,7 +77,6 @@ export function createPostApi(postData, image) {
       throw error;
     });
 }
-
 
 // 特定の投稿を取得
 export function getPostApi(id) {
