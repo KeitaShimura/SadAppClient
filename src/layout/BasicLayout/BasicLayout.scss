@@ -6,13 +6,17 @@
   margin-top: 70px; // ヘッダーの高さに合わせて調整
 
   &__menu {
-    padding-right: 0 !important;
+    height: 100vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none; // スクロールバーを非表示
+    }
   }
 
   &__content {
     height: 100vh;
     overflow-y: scroll;
-    padding: 0 !important;
 
     &::-webkit-scrollbar {
       display: none; // スクロールバーを非表示
@@ -30,6 +34,7 @@
       margin: 10px 0; // マージン
       transition: background-color 0.3s ease; // 背景色の変更時のアニメーション
       font-weight: bold;
+
       &:hover {
         background-color: white !important; // ホバー時に背景色を暗く
         color: pink;
@@ -46,6 +51,7 @@
       flex: 0 0 100%; // 1000px以下で全幅を使用
       max-width: 100%; // 1000px以下で全幅を使用
     }
+
     &__menu {
       display: none; // スマートフォンサイズでは非表示
     }

@@ -1,1 +1,1 @@
-export { default } from "./RightMenu";
+export { default } from "./RightBar";
