@@ -387,6 +387,7 @@ function EventComments(props) {
               {authUser.sub === String(event.user.id) && (
                 <FontAwesomeIcon
                   icon={faTrash}
+                  className="text-danger"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleDelete();

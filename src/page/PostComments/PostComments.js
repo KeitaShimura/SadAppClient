@@ -265,6 +265,7 @@ export default function PostComments(props) {
               {authUser.sub === String(post.user.id) && (
                 <FontAwesomeIcon
                   icon={faTrash}
+                  className="text-danger"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleDelete();

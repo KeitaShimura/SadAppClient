@@ -226,6 +226,7 @@ function Post({ post, authUser, onPostDeleted }) {
         {authUser.sub === String(post.user.id) && (
           <FontAwesomeIcon
             icon={faTrash}
+            className="text-danger"
             onClick={(e) => {
               e.stopPropagation();
               handleDelete();
