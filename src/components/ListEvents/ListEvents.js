@@ -100,14 +100,17 @@ function Event({ event, authUser, onEventDeleted }) {
   }, [event, authUser]);
 
   useEffect(() => {
-    // コメント数の取得
     const fetchCommentCount = async () => {
+      if (!event) {
+        console.error("Post is null");
+        return;
+      }
+
       try {
         const comments = await getEventCommentsApi(event.id);
-        setCommentCount(comments.length);
+        setCommentCount(comments.data.length);
       } catch (error) {
         console.error("Error fetching comments:", error);
-        // エラーメッセージを表示
         toast.error("コメント数の取得中にエラーが発生しました。");
       }
     };
@@ -330,7 +333,6 @@ function Event({ event, authUser, onEventDeleted }) {
           }}
         />
         <span>{participantCount}</span>
-        <span>{commentCount}</span>
         {authUser.sub === String(event.user.id) && (
           <FontAwesomeIcon
             icon={faTrash}

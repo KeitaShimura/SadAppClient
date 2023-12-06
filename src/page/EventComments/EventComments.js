@@ -376,7 +376,6 @@ function EventComments(props) {
                   }}
                 />
               )}
-              <span>{participantCount}</span>
               <FontAwesomeIcon
                 icon={faUsers}
                 onClick={(e) => {
@@ -384,7 +383,7 @@ function EventComments(props) {
                   handleShowParticipants(event.id);
                 }}
               />
-              <span>{commentCount}</span>
+              <span>{participantCount}</span>
               {authUser.sub === String(event.user.id) && (
                 <FontAwesomeIcon
                   icon={faTrash}
