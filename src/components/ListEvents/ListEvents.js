@@ -322,7 +322,6 @@ function Event({ event, authUser, onEventDeleted }) {
             }}
           />
         )}
-        <span>{participantCount}</span>
         <FontAwesomeIcon
           icon={faUsers}
           onClick={(e) => {
@@ -330,6 +329,8 @@ function Event({ event, authUser, onEventDeleted }) {
             handleShowParticipants(event.id);
           }}
         />
+        <span>{participantCount}</span>
+
         <span>{commentCount}</span>
         {authUser.sub === String(event.user.id) && (
           <FontAwesomeIcon
