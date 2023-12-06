@@ -6,7 +6,6 @@ import classNames from "classnames";
 import { createPostApi } from "../../../api/post";
 import "./PostModal.scss";
 import { toast } from "react-toastify";
-// import { toast } from "react-toastify";
 
 export default function PostModal(props) {
   const { show, setShow } = props;

@@ -7,7 +7,7 @@ import Header from "../../components/Header/Header";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import RightMenu from "../../components/RightMenu";
+import RightMenu from "../../components/RightBar";
 
 export default function BasicLayout(props) {
   const { className, children, showBackButton = true } = props;
@@ -30,7 +30,7 @@ export default function BasicLayout(props) {
           )}
           {children}
         </Col>
-        <Col xs={3} className="basic-layout__menu">
+        <Col xs={3} className="basic-layout__menu mt-4">
           <RightMenu />
         </Col>
       </Row>

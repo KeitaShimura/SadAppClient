@@ -38,3 +38,12 @@
     }
   }
 }
+
+// スマートフォンサイズでのスタイル
+@media (max-width: 1000px) {
+  .basic-layout {
+    &__menu {
+      display: none; // スマートフォンサイズでは非表示
+    }
+  }
+}
