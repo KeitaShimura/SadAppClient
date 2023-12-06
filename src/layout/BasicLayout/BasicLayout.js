@@ -22,7 +22,7 @@ export default function BasicLayout(props) {
     <Container className={`basic-layout ${className}`}>
       <Row>
         <Header />
-        <Col md={9} className="basic-layout__content">
+        <Col md={8} className="basic-layout__content">
           {showBackButton && (
             <Button className="back-button" onClick={handleBackButtonClick}>
               <FontAwesomeIcon icon={faArrowLeft} /> 戻る
@@ -30,7 +30,7 @@ export default function BasicLayout(props) {
           )}
           {children}
         </Col>
-        <Col xs={3} className="basic-layout__menu mt-4">
+        <Col xs={4} className="basic-layout__menu mt-4">
           <RightMenu />
         </Col>
       </Row>
