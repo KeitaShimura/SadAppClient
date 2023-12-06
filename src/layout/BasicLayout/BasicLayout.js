@@ -22,7 +22,7 @@ export default function BasicLayout(props) {
     <Container className={`basic-layout ${className}`}>
       <Row>
         <Header />
-        <Col xs={9} className="basic-layout__content">
+        <Col md={9} className="basic-layout__content">
           {showBackButton && (
             <Button className="back-button" onClick={handleBackButtonClick}>
               <FontAwesomeIcon icon={faArrowLeft} /> 戻る
