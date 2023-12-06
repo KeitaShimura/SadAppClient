@@ -5,7 +5,9 @@ import RegisterForm from "../../components/RegisterForm";
 import LoginForm from "../../components/LoginForm";
 import "./Auth.scss";
 import PropTypes from "prop-types";
-import TestPng from "../../assets/png/test.png";
+import PostPng from "../../assets/png/post.png";
+import EventPng from "../../assets/png/event.png";
+import UserPng from "../../assets/png/user.png";
 
 export default function Auth(props) {
   const { setRefreshCheckLogin } = props;
@@ -83,19 +85,19 @@ function RightComponent(props) {
       <div className="scroll-container">
         <div className="d-flex flex-column flex-md-row justify-content-center align-items-center mt-5">
           <div className="text-center mb-4" width="80%">
-            <img src={TestPng} alt="Image 3" width="80%" className="mb-2" />
+            <img src={PostPng} alt="Image 3" width="80%" className="mb-4" />
             <p className="h2 fw-bold mx-3" style={paragraphStyle}>
               日常の気持ちを仲間とシェアしてみましょう！
             </p>
           </div>
           <div className="text-center mb-4" width="80%">
-            <img src={TestPng} alt="Image 3" width="80%" className="mb-2" />
+            <img src={EventPng} alt="Image 3" width="80%" className="mb-4" />
             <p className="h2 fw-bold mx-3" style={paragraphStyle}>
               オンラインで仲間と交流してみましょう！
             </p>
           </div>
           <div className="text-center mb-4" width="80%">
-            <img src={TestPng} alt="Image 3" width="80%" className="mb-2" />
+            <img src={UserPng} alt="Image 3" width="80%" className="mb-4" />
             <p className="h2 fw-bold mx-3" style={paragraphStyle}>
               コメントを投稿し、親睦を深めましょう！
             </p>
