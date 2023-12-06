@@ -7,6 +7,7 @@ import Header from "../../components/Header/Header";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import RightMenu from "../../components/RightMenu";
 
 export default function BasicLayout(props) {
   const { className, children, showBackButton = true } = props;
@@ -21,13 +22,16 @@ export default function BasicLayout(props) {
     <Container className={`basic-layout ${className}`}>
       <Row>
         <Header />
-        <Col xs={12} className="basic-layout__content">
+        <Col xs={9} className="basic-layout__content">
           {showBackButton && (
             <Button className="back-button" onClick={handleBackButtonClick}>
               <FontAwesomeIcon icon={faArrowLeft} /> 戻る
             </Button>
           )}
           {children}
+        </Col>
+        <Col xs={3} className="basic-layout__menu">
+          <RightMenu />
         </Col>
       </Row>
     </Container>
