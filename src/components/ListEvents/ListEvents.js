@@ -330,7 +330,6 @@ function Event({ event, authUser, onEventDeleted }) {
           }}
         />
         <span>{participantCount}</span>
-
         <span>{commentCount}</span>
         {authUser.sub === String(event.user.id) && (
           <FontAwesomeIcon
