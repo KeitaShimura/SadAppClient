@@ -56,11 +56,17 @@ export function getUserPostsApi(id, page, pageSize) {
 }
 
 // 新しい投稿を作成
-export function createPostApi(postData) {
+export function createPostApi(postData, image) {
+  const formData = new FormData();
+  formData.append('content', postData.content);
+  if (image) {
+    formData.append('image', image);
+  }
+
   return axios
-    .post(`${API_HOST}/api/user/posts`, postData, {
+    .post(`${API_HOST}/api/user/posts`, formData, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${getTokenApi()}`,
       },
       withCredentials: true,
@@ -71,6 +77,7 @@ export function createPostApi(postData) {
       throw error;
     });
 }
+
 
 // 特定の投稿を取得
 export function getPostApi(id) {

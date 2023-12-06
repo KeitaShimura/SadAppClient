@@ -30,7 +30,7 @@ export default function BasicLayout(props) {
           )}
           {children}
         </Col>
-        <Col xs={4} className="basic-layout__menu mt-4">
+        <Col xs={4} className="basic-layout__menu">
           <RightMenu />
         </Col>
       </Row>

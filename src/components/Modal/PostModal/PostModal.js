@@ -10,7 +10,17 @@ import { toast } from "react-toastify";
 export default function PostModal(props) {
   const { show, setShow } = props;
   const [message, setMessage] = useState("");
+  const [image, setImage] = useState(null);
   const maxLength = 200;
+
+  const fileToBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +33,7 @@ export default function PostModal(props) {
 
     try {
       // createPostApiを呼び出してメッセージを作成
-      await createPostApi({ content: message });
+      await createPostApi({ content: message }, image);
 
       window.location.reload();
       // メッセージをクリアしてモーダルを閉じる
@@ -53,6 +63,22 @@ export default function PostModal(props) {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={onSubmit}>
+          <Form.Group>
+            <Form.Label>画像をアップロード</Form.Label>
+            <Form.Control
+              type="file"
+              accept="image/*"
+              onChange={async (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const base64 = await fileToBase64(file);
+                  setImage(base64);
+                }
+              }}
+            />
+
+          </Form.Group>
+
           <Form.Control
             as="textarea"
             rows={6}
