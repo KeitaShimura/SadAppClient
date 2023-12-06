@@ -258,7 +258,7 @@ function Event({ event, authUser, onEventDeleted }) {
         )}
       </div>
       <div>
-        <div className="title">{event.title}</div>
+        <div className="title fw-bold h2">{event.title}</div>
 
         <div className="event-details">
           <div>

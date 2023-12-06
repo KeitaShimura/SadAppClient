@@ -62,10 +62,22 @@ export function getUserEventsApi(id, page, pageSize) {
     });
 }
 
-export function createEventApi(eventData) {
+export function createEventApi(eventData, image) {
+  const formData = new FormData();
+  // 他の eventData フィールドを追加
+  formData.append("title", eventData.title);
+  formData.append("content", eventData.content);
+  formData.append("event_url", eventData.event_url);
+  formData.append("event_date", eventData.event_date);
+
+  if (image) {
+    formData.append('image', image);
+  }
+
   return axios
-    .post(`${API_HOST}/api/user/events`, eventData, {
+    .post(`${API_HOST}/api/user/events`, formData, {
       headers: {
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${getTokenApi()}`,
       },
       withCredentials: true,
@@ -89,6 +101,7 @@ export function createEventApi(eventData) {
       }
     });
 }
+
 
 export function getEventApi(id) {
   return axios

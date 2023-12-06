@@ -10,7 +10,17 @@ import { toast } from "react-toastify";
 export default function EventModal(props) {
   const { show, setShow } = props;
   const [formData, setFormData] = useState(initialFromValue());
+  const [image, setImage] = useState(null);
   const maxLength = 200;
+
+  const fileToBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +39,7 @@ export default function EventModal(props) {
 
     try {
       // Call createEventApi with formData
-      await createEventApi(formData);
+      await createEventApi(formData, image);
 
       window.location.reload();
       // メッセージをクリアしてモーダルを閉じる
@@ -63,6 +73,18 @@ export default function EventModal(props) {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={onSubmit}>
+          <Form.Label>画像をアップロード</Form.Label>
+          <Form.Control
+            type="file"
+            accept="image/*"
+            onChange={async (e) => {
+              const file = e.target.files[0];
+              if (file) {
+                const base64 = await fileToBase64(file);
+                setImage(base64);
+              }
+            }}
+          />
           <Form.Group className="form-group">
             <Form.Control
               type="text"

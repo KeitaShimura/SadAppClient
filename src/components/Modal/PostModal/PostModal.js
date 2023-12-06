@@ -62,7 +62,6 @@ export default function PostModal(props) {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={onSubmit}>
-          <Form.Group>
             <Form.Label>画像をアップロード</Form.Label>
             <Form.Control
               type="file"
@@ -75,8 +74,6 @@ export default function PostModal(props) {
                 }
               }}
             />
-          </Form.Group>
-
           <Form.Control
             as="textarea"
             rows={6}
