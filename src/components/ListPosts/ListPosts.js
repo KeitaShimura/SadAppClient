@@ -183,12 +183,18 @@ function Post({ post, authUser, onPostDeleted }) {
           </div>
         )}
       </div>
-      <div
-        className="content"
-        dangerouslySetInnerHTML={{
-          __html: replaceURLWithHTMLLinks(post.content),
-        }}
-      />
+      <div className="content">
+        {post.image && (
+          <div className="image-container">
+            <Image src={post.image} alt="Post Image" className="post-image" />
+          </div>
+        )}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: replaceURLWithHTMLLinks(post.content),
+          }}
+        />
+      </div>
       <div className="icons-container">
         {isLiked ? (
           <FontAwesomeIcon
