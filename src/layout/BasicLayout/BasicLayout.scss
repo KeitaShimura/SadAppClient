@@ -42,10 +42,10 @@
 // スマートフォンサイズでのスタイル
 @media (max-width: 1000px) {
   .basic-layout {
-        &__content {
-            flex: 0 0 100%; // 1000px以下で全幅を使用
-            max-width: 100%; // 1000px以下で全幅を使用
-          }
+    &__content {
+      flex: 0 0 100%; // 1000px以下で全幅を使用
+      max-width: 100%; // 1000px以下で全幅を使用
+    }
     &__menu {
       display: none; // スマートフォンサイズでは非表示
     }
