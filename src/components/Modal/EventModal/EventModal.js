@@ -21,7 +21,6 @@ export default function EventModal(props) {
       reader.onerror = (error) => reject(error);
     });
 
-
   const onSubmit = async (e) => {
     e.preventDefault();
     // バリデーションチェック

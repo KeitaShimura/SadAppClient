@@ -71,7 +71,7 @@ export function createEventApi(eventData, image) {
   formData.append("event_date", eventData.event_date);
 
   if (image) {
-    formData.append('image', image);
+    formData.append("image", image);
   }
 
   return axios
@@ -101,7 +101,6 @@ export function createEventApi(eventData, image) {
       }
     });
 }
-
 
 export function getEventApi(id) {
   return axios

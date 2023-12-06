@@ -1,6 +1,8 @@
 @import "../../scss/index.scss";
+
 .list-events {
   .event {
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     /* 要素を縦方向に配置 */
@@ -36,6 +38,12 @@
     .content,
     .event-details {
       margin-left: 70px;
+      max-width: 100%;
+      overflow: hidden;
+      .event-image {
+        max-width: 100%;
+        height: auto;
+      }
     }
 
     .icons-container {

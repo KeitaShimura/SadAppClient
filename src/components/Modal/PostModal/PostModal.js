@@ -62,18 +62,18 @@ export default function PostModal(props) {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={onSubmit}>
-            <Form.Label>画像をアップロード</Form.Label>
-            <Form.Control
-              type="file"
-              accept="image/*"
-              onChange={async (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                  const base64 = await fileToBase64(file);
-                  setImage(base64);
-                }
-              }}
-            />
+          <Form.Label>画像をアップロード</Form.Label>
+          <Form.Control
+            type="file"
+            accept="image/*"
+            onChange={async (e) => {
+              const file = e.target.files[0];
+              if (file) {
+                const base64 = await fileToBase64(file);
+                setImage(base64);
+              }
+            }}
+          />
           <Form.Control
             as="textarea"
             rows={6}
