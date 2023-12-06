@@ -28,7 +28,7 @@ import EventCommentModal from "../../components/Modal/EventCommentModal/EventCom
 import {
   faComment,
   faListUl,
-  faThumbsUp,
+  faHeart,
   faTrash,
   faUserPlus,
   faUsers,
@@ -333,7 +333,7 @@ function EventComments(props) {
             <div className="icons-container">
               {isLiked ? (
                 <FontAwesomeIcon
-                  icon={faThumbsUp}
+                  icon={faHeart}
                   className="liked"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -342,7 +342,7 @@ function EventComments(props) {
                 />
               ) : (
                 <FontAwesomeIcon
-                  icon={faThumbsUp}
+                  icon={faHeart}
                   onClick={(e) => {
                     e.stopPropagation();
                     handleLike();

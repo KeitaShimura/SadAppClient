@@ -21,7 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faComment,
   faListUl,
-  faThumbsUp,
+  faHeart,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -192,7 +192,7 @@ function Post({ post, authUser, onPostDeleted }) {
       <div className="icons-container">
         {isLiked ? (
           <FontAwesomeIcon
-            icon={faThumbsUp}
+            icon={faHeart}
             className="liked"
             onClick={(e) => {
               e.stopPropagation();
@@ -201,7 +201,7 @@ function Post({ post, authUser, onPostDeleted }) {
           />
         ) : (
           <FontAwesomeIcon
-            icon={faThumbsUp}
+            icon={faHeart}
             onClick={(e) => {
               e.stopPropagation();
               handleLike();

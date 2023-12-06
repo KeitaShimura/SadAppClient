@@ -26,8 +26,8 @@ import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faComment,
+  faHeart,
   faListUl,
-  faThumbsUp,
   faTrash,
   faUserPlus,
   faUsers,
@@ -279,7 +279,7 @@ function Event({ event, authUser, onEventDeleted }) {
       <div className="icons-container">
         {isLiked ? (
           <FontAwesomeIcon
-            icon={faThumbsUp}
+            icon={faHeart}
             className="liked"
             onClick={(e) => {
               e.stopPropagation();
@@ -288,7 +288,7 @@ function Event({ event, authUser, onEventDeleted }) {
           />
         ) : (
           <FontAwesomeIcon
-            icon={faThumbsUp}
+            icon={faHeart}
             onClick={(e) => {
               e.stopPropagation();
               handleLike();
