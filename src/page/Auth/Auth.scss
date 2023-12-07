@@ -90,4 +90,26 @@
       margin-bottom: 40px;
     }
   }
+
+  .card-custom {
+    background-color: $primary-light;
+    margin: 0 4px;
+    border: none;
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
+    width: 80%; // or any width you prefer
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-image {
+      max-width: 80%;
+      margin-bottom: 20px; // Adjust as needed
+    }
+  }
 }
