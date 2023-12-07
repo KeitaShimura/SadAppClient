@@ -48,13 +48,27 @@
       justify-content: flex-end;
       /* 右に寄せる */
 
-      .unfollow {
+      .follow {
         font-weight: bold;
         padding: 5px 10px;
         background-color: $primary;
         color: white;
         border-radius: 5px;
         border: 0;
+
+        &:hover {
+          background-color: $danger;
+          color: white;
+        }
+      }
+
+      .unfollow {
+        font-weight: bold;
+        padding: 5px 10px;
+        background-color: white;
+        color: $primary;
+        border-radius: 5px;
+        border: 1px solid $primary;
 
         &:hover {
           background-color: $danger;

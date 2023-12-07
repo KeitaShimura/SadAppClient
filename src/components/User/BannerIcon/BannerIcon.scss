@@ -40,6 +40,12 @@
       }
 
       &.unfollow {
+        border-radius: 50px;
+        background-color: white;
+        color: $primary;
+        border: 1px solid $primary;
+        font-weight: bold;
+        width: 150px;
         &:hover {
           border-color: $danger;
           background-color: $danger;

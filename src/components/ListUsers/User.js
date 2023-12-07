@@ -109,7 +109,7 @@ export default function User(props) {
             </Button>
           ) : (
             <Button
-              className="unfollow"
+              className="follow"
               onClick={(e) => {
                 e.stopPropagation();
                 handleFollow(user.id, e);

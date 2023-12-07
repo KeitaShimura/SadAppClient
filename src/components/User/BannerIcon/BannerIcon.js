@@ -109,7 +109,10 @@ export default function BannerIcon(props) {
                   <span>フォロー解除</span>
                 </Button>
               ) : (
-                <Button onClick={(event) => handleFollow(user.id, event)}>
+                <Button
+                  className="follow"
+                  onClick={(event) => handleFollow(user.id, event)}
+                >
                   フォローする
                 </Button>
               )}
