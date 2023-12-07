@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import BasicModal from "../../components/Modal/BasicModal";
 import RegisterForm from "../../components/RegisterForm";
 import LoginForm from "../../components/LoginForm";
@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import PostPng from "../../assets/png/post.png";
 import EventPng from "../../assets/png/event.png";
 import UserPng from "../../assets/png/user.png";
+import Logo from "../../assets/png/logo.png";
 
 export default function Auth(props) {
   const { setRefreshCheckLogin } = props;
@@ -55,11 +56,11 @@ function RightComponent(props) {
         className="auth__bottom d-flex flex-column align-items-center"
         xs={12}
       >
-        <div>
-          <div>
-            <h1>人と話すのが怖い</h1>
-            <h2>同じ悩みを持つ仲間と悩みを話しませんか？</h2>
-          </div>
+        <div className="mb-4">
+          <h1>対人恐怖症の方のためのSNS</h1>
+          <Image className="logo" src={Logo} width={200} />
+        </div>
+        <div className="mb-4">
           <Button
             variant="primary"
             onClick={() =>
@@ -83,6 +84,10 @@ function RightComponent(props) {
         </div>
       </Col>
       <div className="scroll-container">
+        <div>
+          <h2>人と話すのが怖い</h2>
+          <h3>同じ悩みを持つ仲間と悩みを話しませんか？</h3>
+        </div>
         <div className="d-flex flex-column flex-md-row justify-content-center align-items-center mt-5">
           <div className="text-center mb-4" width="80%">
             <img src={PostPng} alt="Image 3" width="80%" className="mb-4" />
