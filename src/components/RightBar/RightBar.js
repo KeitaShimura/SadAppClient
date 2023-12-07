@@ -40,7 +40,7 @@ export default function RightBar() {
         <Card className="post mb-2">
           <div className="post__header">
             <div className="right-aligned">
-              <h2>直近の投稿</h2>
+              <h2>最近の投稿</h2>
             </div>
           </div>
 
@@ -58,7 +58,7 @@ export default function RightBar() {
         <Card className="event">
           <div className="event__header">
             <div className="right-aligned">
-              <h2>直近のイベント</h2>
+              <h2>最近のイベント</h2>
             </div>
           </div>
 
