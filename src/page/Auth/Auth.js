@@ -99,17 +99,17 @@ function RightComponent(props) {
           </Card>
           <Card className="text-center mb-4 card-custom" width="80%">
             <div className="card-content">
-            <img src={EventPng} alt="Image 3" width="80%" className="mb-4" />
-            <p className="h2 fw-bold mx-3" style={paragraphStyle}>
-              オンラインで仲間と交流してみましょう！
+              <img src={EventPng} alt="Image 3" width="80%" className="mb-4" />
+              <p className="h2 fw-bold mx-3" style={paragraphStyle}>
+                オンラインで仲間と交流してみましょう！
               </p>
             </div>
           </Card>
           <Card className="text-center mb-4 card-custom" width="80%">
             <div className="card-content">
-            <img src={UserPng} alt="Image 3" width="80%" className="mb-4" />
-            <p className="h2 fw-bold mx-3" style={paragraphStyle}>
-              コメントを投稿し、親睦を深めましょう！
+              <img src={UserPng} alt="Image 3" width="80%" className="mb-4" />
+              <p className="h2 fw-bold mx-3" style={paragraphStyle}>
+                コメントを投稿し、親睦を深めましょう！
               </p>
             </div>
           </Card>
@@ -123,7 +123,6 @@ Auth.propTypes = {
   setRefreshCheckLogin: PropTypes.func.isRequired,
 };
 
-// propTypesでプロパティの型情報を指定
 RightComponent.propTypes = {
   setRefreshCheckLogin: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,

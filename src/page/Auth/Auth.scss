@@ -26,7 +26,7 @@
     padding: 70px;
     text-align: center;
 
-    >div {
+    > div {
       width: 100%;
       min-width: 300px;
       max-width: 1000px;
@@ -98,7 +98,7 @@
     padding: 20px;
     border-radius: 15px;
     color: white;
-    width: 80%; // or any width you prefer
+    width: 80%;
 
     .card-content {
       display: flex;
@@ -109,7 +109,7 @@
 
     .card-image {
       max-width: 80%;
-      margin-bottom: 20px; // Adjust as needed
+      margin-bottom: 20px;
     }
   }
 }
