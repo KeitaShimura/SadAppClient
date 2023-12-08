@@ -23,10 +23,7 @@ export default function Auth(props) {
       <Container className="auth" fluid>
         <Row>
           <LeftComponent />
-          <RightComponent
-            openModal={openModal}
-            setShowModal={setShowModal}
-          />
+          <RightComponent openModal={openModal} setShowModal={setShowModal} />
         </Row>
       </Container>
       <BasicModal show={showModal} setShow={setShowModal}>
@@ -59,23 +56,12 @@ function RightComponent(props) {
           <Image className="logo" src={Logo} width={200} />
         </div>
         <div className="mb-4">
-          <Button
-            variant="primary"
-            onClick={() =>
-              openModal(
-                <RegisterForm />,
-              )
-            }
-          >
+          <Button variant="primary" onClick={() => openModal(<RegisterForm />)}>
             新規登録
           </Button>
           <Button
             variant="outline-primary"
-            onClick={() =>
-              openModal(
-                <LoginForm />,
-              )
-            }
+            onClick={() => openModal(<LoginForm />)}
           >
             ログイン
           </Button>

@@ -57,10 +57,7 @@ export default function EventParticipants(props) {
   }, [searchTerm, participants]);
 
   return (
-    <BasicLayout
-      className="participants"
-      title="参加者"
-    >
+    <BasicLayout className="participants" title="参加者">
       <div className="participants__title">
         <h2>参加者一覧</h2>
         <input

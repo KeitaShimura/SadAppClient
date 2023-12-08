@@ -71,11 +71,7 @@ export default function Users(props) {
   };
 
   return (
-    <BasicLayout
-      className="users"
-      title="users"
-      showBackButton={false}
-    >
+    <BasicLayout className="users" title="users" showBackButton={false}>
       <div className="users__header">
         <input
           type="text"

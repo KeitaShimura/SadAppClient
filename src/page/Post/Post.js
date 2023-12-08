@@ -82,10 +82,7 @@ export default function Post(props) {
   }, [posts, searchTerm]);
 
   return (
-    <BasicLayout
-      className="post"
-      showBackButton={false}
-    >
+    <BasicLayout className="post" showBackButton={false}>
       <div className="post__header">
         <div className="right-aligned">
           <input

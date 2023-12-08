@@ -13,9 +13,7 @@ describe("RegisterFormコンポーネント", () => {
     });
 
     // コンポーネントをレンダリング
-    const { getByPlaceholderText, getByText } = render(
-      <RegisterForm />,
-    );
+    const { getByPlaceholderText, getByText } = render(<RegisterForm />);
 
     // フォームにデータを入力
     fireEvent.change(getByPlaceholderText("名前"), {

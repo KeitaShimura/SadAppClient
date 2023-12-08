@@ -54,10 +54,7 @@ export default function PostLikedUsers(props) {
   }, [searchTerm, likedUsers]);
 
   return (
-    <BasicLayout
-      className="liked-users"
-      title="いいねしたユーザー"
-    >
+    <BasicLayout className="liked-users" title="いいねしたユーザー">
       <div className="liked-users__title">
         <h2>いいねしたユーザー一覧</h2>
         <input
