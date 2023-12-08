@@ -85,7 +85,7 @@ export default function LoginForm(props) {
           ></Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit">
-          {!loginLoading ? "ログイン" : <Spinner animation="border" />}
+          {!loginLoading ? "ログインする" : <Spinner animation="border" />}
         </Button>
       </Form>
     </div>
