@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { loginApi, setTokenApi } from "../../api/auth";
 import { isEmailValid } from "../../utils/validation";
 import { Button, Form, Spinner } from "react-bootstrap";
@@ -7,7 +6,6 @@ import { toast } from "react-toastify";
 import "./LoginForm.scss";
 
 export default function LoginForm(props) {
-  const { setRefreshCheckLogin } = props;
   const [formData, setFormData] = useState(initialFromValue());
   const [loginLoading, setLoginLoading] = useState(false);
 
@@ -46,7 +44,6 @@ export default function LoginForm(props) {
             toast.warning(response.message);
           } else {
             setTokenApi(response.token);
-            setRefreshCheckLogin(true);
           }
         })
         .catch(() => {
@@ -98,7 +95,3 @@ function initialFromValue() {
     password: "",
   };
 }
-
-LoginForm.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
-};

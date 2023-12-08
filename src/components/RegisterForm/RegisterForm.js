@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../../utils/validation";
@@ -8,7 +7,6 @@ import { registerApi, setTokenApi } from "../../api/auth";
 import "./RegisterForm.scss";
 
 export default function RegisterForm(props) {
-  const { setRefreshCheckLogin } = props;
   const [formData, setFormData] = useState(initialFromValue());
   const [registerLoading, setRegisterLoading] = useState(false);
 
@@ -37,7 +35,6 @@ export default function RegisterForm(props) {
           } else {
             toast.success("アカウントを登録しました。");
             setTokenApi(response.token);
-            setRefreshCheckLogin(true);
           }
         })
         .catch(() => {
@@ -102,11 +99,6 @@ export default function RegisterForm(props) {
     </div>
   );
 }
-
-// propTypesでプロパティの型情報を指定
-RegisterForm.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
-};
 
 function initialFromValue() {
   return {

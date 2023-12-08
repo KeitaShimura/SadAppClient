@@ -14,7 +14,7 @@ describe("LoginFormコンポーネント", () => {
 
         // コンポーネントをレンダリング
         const { getByPlaceholderText, getByText } = render(
-            <LoginForm setRefreshCheckLogin={() => { }} />
+            <LoginForm />
         );
 
         // フォームにデータを入力
@@ -32,7 +32,7 @@ describe("LoginFormコンポーネント", () => {
     it("フォームが正しくバリデーションされること", async () => {
         // コンポーネントをレンダリング
         const { getByText, queryByText, getByPlaceholderText } = render(
-            <LoginForm setRefreshCheckLogin={() => { }} />
+            <LoginForm />
         );
 
         // フォームの送信ボタンをクリック

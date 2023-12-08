@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import { getAllUsersApi } from "../../api/user";
 import { getLikesForPostApi } from "../../api/postLike";
@@ -10,7 +9,6 @@ import "./PostLikedUsers.scss";
 import { toast } from "react-toastify";
 
 export default function PostLikedUsers(props) {
-  const { setRefreshCheckLogin } = props;
   const [likedUsers, setLikedUsers] = useState(null);
   const [filteredLikedUsers, setFilteredLikedUsers] = useState(null);
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
@@ -59,7 +57,6 @@ export default function PostLikedUsers(props) {
     <BasicLayout
       className="liked-users"
       title="いいねしたユーザー"
-      setRefreshCheckLogin={setRefreshCheckLogin}
     >
       <div className="liked-users__title">
         <h2>いいねしたユーザー一覧</h2>
@@ -82,7 +79,3 @@ export default function PostLikedUsers(props) {
     </BasicLayout>
   );
 }
-
-PostLikedUsers.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
-};

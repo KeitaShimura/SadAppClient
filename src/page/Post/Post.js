@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import BasicLayout from "../../layout/BasicLayout";
 import "./Post.scss";
 import { getPostsApi } from "../../api/post";
@@ -16,7 +15,6 @@ export default function Post(props) {
   const [page, setPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const pageSize = 100;
-  const { setRefreshCheckLogin } = props;
   const [hasMoreData, setHasMoreData] = useState(true);
 
   const loadPosts = () => {
@@ -86,7 +84,6 @@ export default function Post(props) {
   return (
     <BasicLayout
       className="post"
-      setRefreshCheckLogin={setRefreshCheckLogin}
       showBackButton={false}
     >
       <div className="post__header">
@@ -129,7 +126,3 @@ export default function Post(props) {
     </BasicLayout>
   );
 }
-
-Post.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
-};

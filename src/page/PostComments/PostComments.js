@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import ListPostComments from "../../components/ListPostComments";
@@ -29,7 +28,6 @@ import {
 import PostCommentModal from "../../components/Modal/PostCommentModal";
 
 export default function PostComments(props) {
-  const { setRefreshCheckLogin } = props;
   const params = useParams();
   const authUser = useAuth();
   const [post, setPost] = useState(null);
@@ -215,7 +213,7 @@ export default function PostComments(props) {
   };
 
   return (
-    <BasicLayout className="post" setRefreshCheckLogin={setRefreshCheckLogin}>
+    <BasicLayout className="post">
       <div className="post" onClick={() => handleShowPost(post.id)}>
         <div className="header-container">
           <Image className="icon" src={iconUrl} roundedCircle />
@@ -309,8 +307,3 @@ export default function PostComments(props) {
     </BasicLayout>
   );
 }
-
-// propTypes の宣言
-PostComments.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
-};

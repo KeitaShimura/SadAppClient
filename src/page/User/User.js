@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import { Link, useParams } from "react-router-dom";
@@ -22,7 +21,6 @@ import { getFollowersApi, getFollowingApi } from "../../api/follow";
 export default function User(props) {
   const params = useParams();
   const authUser = useAuth();
-  const { setRefreshCheckLogin } = props;
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState(null);
   const [events, setEvents] = useState(null);
@@ -210,7 +208,6 @@ export default function User(props) {
   return (
     <BasicLayout
       className="user"
-      setRefreshCheckLogin={setRefreshCheckLogin}
       showBackButton={false}
     >
       <BannerIcon user={user} authUser={authUser} />
@@ -287,7 +284,3 @@ export default function User(props) {
     </BasicLayout>
   );
 }
-
-User.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
-};

@@ -8,12 +8,11 @@ import Footer from "./components/Footer";
 
 export default function App() {
   const [user, setUser] = useState(null);
-  const [refreshCheckLogin, setRefreshCheckLogin] = useState(false);
+  const [refreshCheckLogin] = useState(false);
   const [loadUser, setLoadUser] = useState(false);
 
   useEffect(() => {
     setUser(isUserLoggedAPI());
-    setRefreshCheckLogin(false);
     setLoadUser(true);
   }, [refreshCheckLogin]);
 
@@ -23,10 +22,10 @@ export default function App() {
     <AuthContext.Provider value={user}>
       {user ? (
         <div>
-          <Routing setRefreshCheckLogin={setRefreshCheckLogin} />
+          <Routing />
         </div>
       ) : (
-        <Auth setRefreshCheckLogin={setRefreshCheckLogin} />
+        <Auth />
       )}
       <ToastContainer
         position="top-right"

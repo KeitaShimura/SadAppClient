@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import "./Users.scss";
 import BasicLayout from "../../layout/BasicLayout";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
@@ -10,7 +9,6 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function Users(props) {
-  const { setRefreshCheckLogin } = props;
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -76,7 +74,6 @@ export default function Users(props) {
     <BasicLayout
       className="users"
       title="users"
-      setRefreshCheckLogin={setRefreshCheckLogin}
       showBackButton={false}
     >
       <div className="users__header">
@@ -139,7 +136,3 @@ export default function Users(props) {
     </BasicLayout>
   );
 }
-
-Users.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
-};

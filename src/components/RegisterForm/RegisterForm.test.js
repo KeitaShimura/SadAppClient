@@ -14,7 +14,7 @@ describe("RegisterFormコンポーネント", () => {
 
     // コンポーネントをレンダリング
     const { getByPlaceholderText, getByText } = render(
-      <RegisterForm setRefreshCheckLogin={() => {}} />,
+      <RegisterForm />,
     );
 
     // フォームにデータを入力
@@ -38,7 +38,7 @@ describe("RegisterFormコンポーネント", () => {
   it("フォームが正しくバリデーションされること", async () => {
     // コンポーネントをレンダリング
     const { getByText, queryByText, getByPlaceholderText } = render(
-      <RegisterForm setRefreshCheckLogin={() => {}} />,
+      <RegisterForm />,
     );
 
     // フォームの送信ボタンをクリック

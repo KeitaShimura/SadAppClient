@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import BasicLayout from "../../layout/BasicLayout";
 import "./Event.scss";
 import { getEventsApi } from "../../api/event";
@@ -15,7 +14,6 @@ export default function Event(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const [loadingEvents, setLoadingEvents] = useState(false);
-  const { setRefreshCheckLogin } = props;
   const pageSize = 100;
   const [hasMoreData, setHasMoreData] = useState(true);
 
@@ -88,7 +86,6 @@ export default function Event(props) {
   return (
     <BasicLayout
       className="event"
-      setRefreshCheckLogin={setRefreshCheckLogin}
       showBackButton={false}
     >
       <div className="event__header">
@@ -132,7 +129,3 @@ export default function Event(props) {
     </BasicLayout>
   );
 }
-
-Event.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
-};

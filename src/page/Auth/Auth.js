@@ -11,7 +11,6 @@ import UserPng from "../../assets/png/user.png";
 import Logo from "../../assets/png/logo.png";
 
 export default function Auth(props) {
-  const { setRefreshCheckLogin } = props;
   const [showModal, setShowModal] = useState(false);
   const [contentModal, setContentModal] = useState(null);
 
@@ -27,7 +26,6 @@ export default function Auth(props) {
           <RightComponent
             openModal={openModal}
             setShowModal={setShowModal}
-            setRefreshCheckLogin={setRefreshCheckLogin}
           />
         </Row>
       </Container>
@@ -43,7 +41,7 @@ function LeftComponent() {
 }
 
 function RightComponent(props) {
-  const { openModal, setRefreshCheckLogin } = props;
+  const { openModal } = props;
 
   // スタイルオブジェクトを定義して、<p>要素に適用
   const paragraphStyle = {
@@ -65,7 +63,7 @@ function RightComponent(props) {
             variant="primary"
             onClick={() =>
               openModal(
-                <RegisterForm setRefreshCheckLogin={setRefreshCheckLogin} />,
+                <RegisterForm />,
               )
             }
           >
@@ -75,7 +73,7 @@ function RightComponent(props) {
             variant="outline-primary"
             onClick={() =>
               openModal(
-                <LoginForm setRefreshCheckLogin={setRefreshCheckLogin} />,
+                <LoginForm />,
               )
             }
           >
@@ -118,13 +116,7 @@ function RightComponent(props) {
     </div>
   );
 }
-
-Auth.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
-};
-
 RightComponent.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
   setShowModal: PropTypes.func.isRequired,
 };

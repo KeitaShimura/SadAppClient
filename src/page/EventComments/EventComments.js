@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import ListEventComments from "../../components/ListEventComments";
@@ -36,7 +35,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function EventComments(props) {
-  const { setRefreshCheckLogin } = props;
   const params = useParams();
   const [event, setEvent] = useState(null);
   const [eventComments, setEventComments] = useState([]);
@@ -291,7 +289,7 @@ function EventComments(props) {
 
   console.log(iconUrl);
   return (
-    <BasicLayout className="event" setRefreshCheckLogin={setRefreshCheckLogin}>
+    <BasicLayout className="event">
       <div className="event">
         <div className="header-container">
           <Image className="icon" src={iconUrl} roundedCircle />
@@ -433,8 +431,3 @@ function EventComments(props) {
 }
 
 export default EventComments;
-
-// propTypes の宣言
-EventComments.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
-};

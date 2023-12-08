@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import { getAllUsersApi } from "../../api/user";
 import { getParticipantsForEventApi } from "../../api/eventParticipant";
@@ -10,7 +9,6 @@ import "./EventParticipants.scss";
 import { toast } from "react-toastify";
 
 export default function EventParticipants(props) {
-  const { setRefreshCheckLogin } = props;
   const [participants, setParticipants] = useState(null);
   const [filteredEventParticipants, setFilteredEventParticipants] =
     useState(null);
@@ -62,7 +60,6 @@ export default function EventParticipants(props) {
     <BasicLayout
       className="participants"
       title="参加者"
-      setRefreshCheckLogin={setRefreshCheckLogin}
     >
       <div className="participants__title">
         <h2>参加者一覧</h2>
@@ -85,8 +82,3 @@ export default function EventParticipants(props) {
     </BasicLayout>
   );
 }
-
-// propTypes の宣言
-EventParticipants.propTypes = {
-  setRefreshCheckLogin: PropTypes.func.isRequired,
-};
