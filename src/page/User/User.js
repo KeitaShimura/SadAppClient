@@ -267,7 +267,7 @@ export default function User() {
         ) : null}
         {activeTab === "liked-posts" && likedPosts ? (
           <ListPosts posts={likedPosts} setPosts={setLikedPosts} />
-        ): null}
+        ) : null}
         {activeTab === "liked-events" && likedEvents ? (
           <ListEvents events={likedEvents} setEvents={setLikedEvents} />
         ) : null}
