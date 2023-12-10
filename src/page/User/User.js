@@ -18,7 +18,7 @@ import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import { getUserApi } from "../../api/user";
 import { getFollowersApi, getFollowingApi } from "../../api/follow";
 
-export default function User(props) {
+export default function User() {
   const params = useParams();
   const authUser = useAuth();
   const [user, setUser] = useState(null);
@@ -246,31 +246,31 @@ export default function User(props) {
         </Button>
         <Button
           onClick={() => setActiveTab("liked-events")}
-          active={activeTab === "liked-posts"}
+          active={activeTab === "liked-events"}
         >
           いいねしたイベント
         </Button>
       </ButtonGroup>
 
       <div className="user__content">
-        {activeTab === "posts" && posts && (
+        {activeTab === "posts" && posts ? (
           <ListPosts posts={posts} setPosts={setPosts} />
-        )}
-        {activeTab === "events" && events && (
+        ) : null}
+        {activeTab === "events" && events ? (
           <ListEvents events={events} setEvents={setEvents} />
-        )}
-        {activeTab === "participated-events" && likedPosts && (
+        ) : null}
+        {activeTab === "participated-events" && likedPosts ? (
           <ListEvents
             events={participatedEvents}
             setEvents={setParticipatedEvents}
           />
-        )}
-        {activeTab === "liked-posts" && likedPosts && (
+        ) : null}
+        {activeTab === "liked-posts" && likedPosts ? (
           <ListPosts posts={likedPosts} setPosts={setLikedPosts} />
-        )}
-        {activeTab === "liked-events" && likedEvents && (
+        ): null}
+        {activeTab === "liked-events" && likedEvents ? (
           <ListEvents events={likedEvents} setEvents={setLikedEvents} />
-        )}
+        ) : null}
 
         <Button onClick={moreData}>
           {!loadingPosts ? (

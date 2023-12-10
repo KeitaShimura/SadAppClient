@@ -92,7 +92,7 @@ export default function BannerIcon(props) {
               <div>
                 <Button
                   className="edit-password-button"
-                  onClick={setShowPasswordModal}
+                  onClick={() => setShowPasswordModal(true)}
                 >
                   パスワード更新
                 </Button>
