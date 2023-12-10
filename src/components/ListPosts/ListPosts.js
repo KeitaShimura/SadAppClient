@@ -73,11 +73,6 @@ function Post({ post, authUser, onPostDeleted }) {
 
   useEffect(() => {
     const fetchLikeData = async () => {
-      if (!post || !authUser) {
-        console.error("Post or AuthUser is null");
-        return;
-      }
-
       try {
         const likeStatus = await checkIfPostLikedApi(post.id, authUser.id);
         setIsLiked(likeStatus);
@@ -113,7 +108,7 @@ function Post({ post, authUser, onPostDeleted }) {
   const updateLikeCount = async () => {
     try {
       const likesData = await getLikesForPostApi(post.id);
-      setLikeCount(likesData.data.length);
+      setLikeCount(likesData.length);
     } catch (error) {
       console.error("Error fetching like count:", error);
       // データを取得できなかった場合のエラーメッセージ

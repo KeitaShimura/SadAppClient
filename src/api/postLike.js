@@ -75,7 +75,7 @@ export function getLikesForPostApi(postId) {
       },
       withCredentials: true,
     })
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((error) => {
       console.error("投稿の「いいね」を取得中にエラーが発生しました:", error);
       throw error;

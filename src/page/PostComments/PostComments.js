@@ -127,7 +127,7 @@ export default function PostComments(props) {
   const updateLikeCount = async () => {
     try {
       const likesData = await getLikesForPostApi(post.id);
-      setLikeCount(likesData.data.length);
+      setLikeCount(likesData.length);
     } catch (error) {
       console.error("Error fetching like count:", error);
       // データを取得できなかった場合のエラーメッセージ

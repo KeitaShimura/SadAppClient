@@ -8,7 +8,7 @@ import { Spinner } from "react-bootstrap";
 import "./EventLikedUsers.scss";
 import { toast } from "react-toastify";
 
-export default function EventLikedUsers(props) {
+export default function EventLikedUsers() {
   const [likedUsers, setLikedUsers] = useState(null);
   const [filteredLikedUsers, setFilteredLikedUsers] = useState(null);
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
