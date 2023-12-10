@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import BasicModal from "../../components/Modal/BasicModal";
-import RegisterForm from "../../components/RegisterForm";
-import LoginForm from "../../components/LoginForm";
+import RegisterForm from "../../components/Modal/RegisterForm";
+import LoginForm from "../../components/Modal/LoginForm";
 import "./Auth.scss";
 import PropTypes from "prop-types";
 import PostPng from "../../assets/png/post.png";

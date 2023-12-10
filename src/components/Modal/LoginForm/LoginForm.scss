@@ -1,6 +1,6 @@
-@import "../../scss/index.scss";
+@import "../../../scss/index.scss";
 
-.register-form {
+.login-form {
   h2 {
     font-weight: bold;
     padding-bottom: 30px;
@@ -20,9 +20,9 @@
     font-weight: bold;
     padding: 15px;
     border-radius: 50px;
-    margin-top: 20px;
+    margin-top: 30px;
 
-    .border-border {
+    .spinner-border {
       width: 25px;
       height: 25px;
     }

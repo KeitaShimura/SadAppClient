@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { isEmailValid } from "../../utils/validation";
-import { registerApi, setTokenApi } from "../../api/auth";
+import { isEmailValid } from "../../../utils/validation";
+import { registerApi, setTokenApi } from "../../../api/auth";
 
 import "./RegisterForm.scss";
 
@@ -35,6 +35,7 @@ export default function RegisterForm(props) {
           } else {
             toast.success("アカウントを登録しました。");
             setTokenApi(response.token);
+            window.location.reload();
           }
         })
         .catch(() => {
