@@ -6,7 +6,10 @@ jest.mock("axios"); // axiosモジュールをモック化
 
 test("registerApiがユーザーデータと共にPOSTリクエストを送信する", async () => {
   const user = {
-    /* テスト用のユーザーデータ */
+    "name": "志村",
+    "email": "1k1eitashim111ura202s1111@gmail.com",
+    "password": "111111111",
+    "password_confirm": "111111111"
   };
   const responseData = { token: "testToken" };
   axios.post.mockResolvedValue({ data: responseData }); // axios.postのモックを設定
@@ -26,7 +29,8 @@ test("registerApiがユーザーデータと共にPOSTリクエストを送信�
 
 test("loginApiがユーザーデータと共にPOSTリクエストを送信する", async () => {
   const user = {
-    /* テスト用のユーザーデータ */
+    "email": "keitashimura2023@gmail.com",
+    "password": "11111111"
   };
   const responseData = { token: "testToken" };
   axios.post.mockResolvedValue({ data: responseData }); // axios.postのモックを設定
