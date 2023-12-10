@@ -11,10 +11,11 @@ export default function ListUsers(props) {
   if (isEmpty(users)) {
     return <p className="text-center mt-2 fw-bold">ユーザーは存在しません</p>;
   }
+
   return (
     <ul className="list-users">
       {map(users, (user) => (
-        <User user={user} />
+        <User key={user.id} user={user} />
       ))}
     </ul>
   );

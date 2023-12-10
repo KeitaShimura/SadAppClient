@@ -46,7 +46,7 @@ export default function RightBar() {
 
           <div className="post__content">
             {posts && posts.length > 0 ? (
-              <ListPosts posts={posts} />
+              <ListPosts posts={posts} setPosts={setPosts} />
             ) : (
               <p className="text-center mt-2 fw-bold">投稿は存在しません</p>
             )}
@@ -64,7 +64,7 @@ export default function RightBar() {
 
           <div className="event__content">
             {events && events.length > 0 ? (
-              <ListEvents events={events} />
+              <ListEvents events={events} setEvents={setEvents} />
             ) : (
               <p className="text-center mt-2 fw-bold">イベントは存在しません</p>
             )}

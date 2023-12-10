@@ -101,7 +101,7 @@ export default function Post(props) {
 
       <div className="post__content">
         {filteredPosts && filteredPosts.length > 0 ? (
-          <ListPosts posts={filteredPosts} />
+          <ListPosts posts={filteredPosts} setPosts={setFilteredPosts} />
         ) : (
           <p className="text-center mt-2 fw-bold">投稿は存在しません</p>
         )}

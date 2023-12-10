@@ -104,7 +104,7 @@ export default function Event(props) {
 
       <div className="event__content">
         {filteredEvents && filteredEvents.length > 0 ? (
-          <ListEvents events={filteredEvents} />
+          <ListEvents events={filteredEvents} setEvents={setFilteredEvents} />
         ) : (
           <p className="text-center mt-2 fw-bold">イベントは存在しません</p>
         )}
