@@ -10,7 +10,7 @@ import EventPng from "../../assets/png/event.png";
 import UserPng from "../../assets/png/user.png";
 import Logo from "../../assets/png/logo.png";
 
-export default function Auth(props) {
+export default function Auth() {
   const [showModal, setShowModal] = useState(false);
   const [contentModal, setContentModal] = useState(null);
 
@@ -26,9 +26,12 @@ export default function Auth(props) {
           <RightComponent openModal={openModal} setShowModal={setShowModal} />
         </Row>
       </Container>
-      <BasicModal show={showModal} setShow={setShowModal}>
-        {contentModal}
-      </BasicModal>
+      {contentModal && (
+        <BasicModal show={showModal} setShow={setShowModal}>
+          {contentModal}
+        </BasicModal>
+      )}
+
     </>
   );
 }
