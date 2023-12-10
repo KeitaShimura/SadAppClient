@@ -87,13 +87,8 @@ export default function PostComments(props) {
 
   useEffect(() => {
     const fetchLikeData = async () => {
-      if (!post || !authUser) {
-        console.error("Post or AuthUser is null");
-        return;
-      }
-
       try {
-        const likeStatus = await checkIfPostLikedApi(post.id, authUser.id);
+        const likeStatus = await checkIfPostLikedApi(params.id, authUser.id);
         setIsLiked(likeStatus);
         updateLikeCount();
       } catch (error) {
@@ -103,17 +98,13 @@ export default function PostComments(props) {
     };
 
     fetchLikeData();
-  }, [post, authUser]);
+  }, [params, authUser]);
 
   useEffect(() => {
     const fetchCommentCount = async () => {
-      if (!post) {
-        console.error("Post is null");
-        return;
-      }
 
       try {
-        const comments = await getPostCommentsApi(post.id);
+        const comments = await getPostCommentsApi(params.id);
         setCommentCount(comments.data.length);
       } catch (error) {
         console.error("Error fetching comments:", error);
@@ -122,11 +113,11 @@ export default function PostComments(props) {
     };
 
     fetchCommentCount();
-  }, [post]);
+  }, [params]);
 
   const updateLikeCount = async () => {
     try {
-      const likesData = await getLikesForPostApi(post.id);
+      const likesData = await getLikesForPostApi(params.id);
       setLikeCount(likesData.length);
     } catch (error) {
       console.error("Error fetching like count:", error);

@@ -119,13 +119,8 @@ function EventComments(props) {
 
   useEffect(() => {
     const fetchLikeData = async () => {
-      if (!event || !authUser) {
-        console.error("Post or AuthUser is null");
-        return;
-      }
-
       try {
-        const likeStatus = await checkIfEventLikedApi(event.id, authUser.id);
+        const likeStatus = await checkIfEventLikedApi(params.id, authUser.id);
         setIsLiked(likeStatus);
         updateLikeCount();
       } catch (error) {
@@ -139,13 +134,8 @@ function EventComments(props) {
 
   useEffect(() => {
     const fetchCommentCount = async () => {
-      if (!event) {
-        console.error("Post is null");
-        return;
-      }
-
       try {
-        const comments = await getEventCommentsApi(event.id);
+        const comments = await getEventCommentsApi(params.id);
         setCommentCount(comments.data.length);
       } catch (error) {
         console.error("Error fetching comments:", error);
@@ -154,11 +144,11 @@ function EventComments(props) {
     };
 
     fetchCommentCount();
-  }, [event]);
+  }, [params]);
 
   const updateLikeCount = async () => {
     try {
-      const likesData = await getLikesForEventApi(event.id);
+      const likesData = await getLikesForEventApi(params.id);
       setLikeCount(likesData.length);
     } catch (error) {
       console.error("Error fetching like count:", error);
@@ -226,8 +216,7 @@ function EventComments(props) {
     const fetchParticipateData = async () => {
       try {
         const participantStatus = await checkIfEventParticipantsApi(
-          event.id,
-          authUser.id,
+          params.id,
         );
         setIsParticipated(participantStatus);
         updateParticipantsCount();
@@ -241,7 +230,7 @@ function EventComments(props) {
 
   const updateParticipantsCount = async () => {
     try {
-      const likesData = await getParticipantsForEventApi(event.id);
+      const likesData = await getParticipantsForEventApi(params.id);
       setParticipantCount(likesData.length);
     } catch (error) {
       console.error("Error fetching like count:", error);
