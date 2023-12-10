@@ -8,7 +8,7 @@ import { getFollowersApi, getFollowingApi } from "../../api/follow";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export default function Users(props) {
+export default function Users() {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,15 +24,21 @@ export default function Users(props) {
     try {
       let fetchedUsers;
       switch (userType) {
-        case "following":
-          fetchedUsers = await getFollowingApi(params.id, page, pageSize);
+        case "following": {
+          const followings = await getFollowingApi(params.id, page, pageSize);
+          fetchedUsers = followings.map(follow => follow.follower);
           break;
-        case "followers":
-          fetchedUsers = await getFollowersApi(params.id, page, pageSize);
+        }
+        case "followers": {
+          const followers = await getFollowersApi(params.id, page, pageSize);
+          fetchedUsers = followers.map(follow => follow.following);
           break;
+        }
         default:
           fetchedUsers = await getAllUsersApi(page, pageSize);
       }
+      console.log("Fetching users for userType:", userType);
+      console.log("Fetched users:", fetchedUsers);
 
       if (fetchedUsers && fetchedUsers.length > 0) {
         setUsers((prevUsers) => [...prevUsers, ...fetchedUsers]);
@@ -48,12 +54,17 @@ export default function Users(props) {
     }
   };
 
+
+
   useEffect(() => {
-    setUsers([]); // userType が変わるときにユーザーのリストをリセット
+    setUsers([]); // ユーザーリストをリセット
+    setFilteredUsers([]);
     setPage(1); // ページ番号をリセット
     setHasMoreData(true); // hasMoreData をリセット
-    fetchUsers();
+    fetchUsers(); // 新しい userType に基づいてデータを取得
   }, [userType, params.id]);
+
+
 
   useEffect(() => {
     if (searchTerm === "") {
@@ -64,7 +75,9 @@ export default function Users(props) {
       );
       setFilteredUsers(filtered);
     }
+    console.log("userType or params.id changed, refetching users");
   }, [searchTerm, users]);
+
 
   const loadMoreUsers = () => {
     fetchUsers();

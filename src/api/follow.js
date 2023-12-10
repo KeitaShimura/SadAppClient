@@ -95,7 +95,7 @@ export function getFollowingApi(userId, page, pageSize) {
     .catch((error) => {
       console.error(
         "フォロー一覧取得エラー:",
-        error.response ? error.response.data : error,
+        error.response ? error.response : error,
       );
       throw error; // エラーを再スローして詳細を確認できるようにします
     });
@@ -109,6 +109,7 @@ export function getFollowersApi(userId, page, pageSize) {
     .get(url, {
       headers: {
         Authorization: `Bearer ${getTokenApi()}`,
+        "Content-Type": "application/json",
       },
     })
     .then((response) => {
