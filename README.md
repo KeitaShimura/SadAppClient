@@ -48,11 +48,13 @@
 <h2>使用技術一覧</h2>
 
 - バックエンド: Go / Fiber
+
   - コード解析: golangci-lint
   - フォーマッター: gofmt
   - テストパッケージ: testing
- 
+
 - フロントエンド: JavaScript / React
+
   - コード解析: ESLint
   - フォーマッター: Prettier
   - テストフレームワーク: React Testing Library / Jest
@@ -61,7 +63,6 @@
 - CI / CD: GitHub Actions
 - 環境構築: Docker / Docker Compose
 - インフラ: GCP / Nginx / Vercel / Kubernetes
-
 
 <h2>機能一覧</h2>
     <ul>
