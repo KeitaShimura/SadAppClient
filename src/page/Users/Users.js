@@ -24,7 +24,7 @@ export default function Users() {
     try {
       let fetchedUsers = [];
       switch (userType) {
-        case "following": {
+        case "followings": {
           const followings = await getFollowingApi(params.id, page, pageSize);
           fetchedUsers = followings.map(f => f.follower);
           break;
@@ -63,6 +63,7 @@ export default function Users() {
     setUsers([]);
     setPage(1);
     setHasMoreData(true);
+    setFilteredUsers([]); // Clear the filteredUsers array
     fetchUsers();
   }, [userType, params.id]);
 
@@ -94,8 +95,8 @@ export default function Users() {
 
       <ButtonGroup className="users__options">
         <Button
-          className={userType === "following" ? "active" : ""}
-          onClick={() => setUserType("following")}
+          className={userType === "followings" ? "active" : ""}
+          onClick={() => setUserType("followings")}
         >
           フォロー中
         </Button>
