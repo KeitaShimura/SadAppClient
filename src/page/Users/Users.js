@@ -22,27 +22,31 @@ export default function Users() {
   const fetchUsers = async () => {
     setLoadingUsers(true);
     try {
-      let fetchedUsers;
+      let fetchedUsers = [];
       switch (userType) {
         case "following": {
           const followings = await getFollowingApi(params.id, page, pageSize);
-          fetchedUsers = followings.map(follow => follow.follower);
+          fetchedUsers = followings.map(f => f.follower);
           break;
         }
         case "followers": {
           const followers = await getFollowersApi(params.id, page, pageSize);
-          fetchedUsers = followers.map(follow => follow.following);
+          fetchedUsers = followers.map(f => f.following);
           break;
         }
-        default:
+        case "all": {
           fetchedUsers = await getAllUsersApi(page, pageSize);
+          break;
+        }
+        default: {
+          fetchedUsers = await getAllUsersApi(page, pageSize);
+          break;
+        }
       }
-      console.log("Fetching users for userType:", userType);
-      console.log("Fetched users:", fetchedUsers);
 
-      if (fetchedUsers && fetchedUsers.length > 0) {
-        setUsers((prevUsers) => [...prevUsers, ...fetchedUsers]);
-        setPage((prevPage) => prevPage + 1);
+      if (fetchedUsers.length > 0) {
+        setUsers(prevUsers => [...prevUsers, ...fetchedUsers]);
+        setPage(prevPage => prevPage + 1);
         setHasMoreData(fetchedUsers.length === pageSize);
       } else {
         setHasMoreData(false);
@@ -55,27 +59,20 @@ export default function Users() {
   };
 
 
-
   useEffect(() => {
-    setUsers([]); // ユーザーリストをリセット
-    setFilteredUsers([]);
-    setPage(1); // ページ番号をリセット
-    setHasMoreData(true); // hasMoreData をリセット
-    fetchUsers(); // 新しい userType に基づいてデータを取得
+    setUsers([]);
+    setPage(1);
+    setHasMoreData(true);
+    fetchUsers();
   }, [userType, params.id]);
 
-
-
   useEffect(() => {
-    if (searchTerm === "") {
-      setFilteredUsers(users);
-    } else {
-      const filtered = users.filter((user) =>
-        user.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    const filtered = searchTerm === ""
+      ? users
+      : users.filter(user =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setFilteredUsers(filtered);
-    }
-    console.log("userType or params.id changed, refetching users");
+    setFilteredUsers(filtered);
   }, [searchTerm, users]);
 
 
