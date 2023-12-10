@@ -34,31 +34,31 @@ export function getEventsApi(page, pageSize) {
 export function getUserEventsApi(id, page, pageSize) {
   const url = `${API_HOST}/api/user/user_events/${id}?page=${page}&pageSize=${pageSize}`;
 
-  const params = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getTokenApi()}`,
-    },
-    withCredentials: true,
-  };
-
-  return fetch(url, params)
+  return axios
+    .get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getTokenApi()}`,
+      },
+      withCredentials: true,
+    })
     .then((response) => {
-      // レスポンスのステータスコードが400以上の場合はエラーとして扱う
-      if (response.status >= 400) {
-        // エラーメッセージを含むErrorオブジェクトを投げる
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      return response.data;
+    })
+    .catch((error) => {
+      // エラーハンドリング
+      if (error.response) {
+        // サーバーからのエラーレスポンス
+        throw new Error(error.response.data.message);
+      } else if (error.request) {
+        // リクエストがサーバーに到達しなかった場合
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
+      } else {
+        // その他のエラー
+        throw new Error("エラーが発生しました：" + error.message);
       }
-      return response.json(); // レスポンスのJSONを解析
-    })
-    .then((result) => {
-      // 解析されたJSONデータを返す
-      return result;
-    })
-    .catch((err) => {
-      // エラー発生時の処理を行う
-      // エラーフラグとメッセージを含むオブジェクトを返す
-      return { error: true, message: err.message };
     });
 }
 
