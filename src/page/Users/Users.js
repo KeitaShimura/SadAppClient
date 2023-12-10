@@ -26,12 +26,12 @@ export default function Users() {
       switch (userType) {
         case "followings": {
           const followings = await getFollowingApi(params.id, page, pageSize);
-          fetchedUsers = followings.map(f => f.follower);
+          fetchedUsers = followings.map((f) => f.follower);
           break;
         }
         case "followers": {
           const followers = await getFollowersApi(params.id, page, pageSize);
-          fetchedUsers = followers.map(f => f.following);
+          fetchedUsers = followers.map((f) => f.following);
           break;
         }
         case "all": {
@@ -45,8 +45,8 @@ export default function Users() {
       }
 
       if (fetchedUsers.length > 0) {
-        setUsers(prevUsers => [...prevUsers, ...fetchedUsers]);
-        setPage(prevPage => prevPage + 1);
+        setUsers((prevUsers) => [...prevUsers, ...fetchedUsers]);
+        setPage((prevPage) => prevPage + 1);
         setHasMoreData(fetchedUsers.length === pageSize);
       } else {
         setHasMoreData(false);
@@ -58,7 +58,6 @@ export default function Users() {
     }
   };
 
-
   useEffect(() => {
     setUsers([]);
     setPage(1);
@@ -68,14 +67,14 @@ export default function Users() {
   }, [userType, params.id]);
 
   useEffect(() => {
-    const filtered = searchTerm === ""
-      ? users
-      : users.filter(user =>
-        user.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+    const filtered =
+      searchTerm === ""
+        ? users
+        : users.filter((user) =>
+            user.name.toLowerCase().includes(searchTerm.toLowerCase()),
+          );
     setFilteredUsers(filtered);
   }, [searchTerm, users]);
-
 
   const loadMoreUsers = () => {
     fetchUsers();
