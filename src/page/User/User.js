@@ -253,16 +253,23 @@ export default function User(props) {
       </ButtonGroup>
 
       <div className="user__content">
-        {activeTab === "posts" && posts && <ListPosts posts={posts} />}
-        {activeTab === "events" && events && <ListEvents events={events} />}
+        {activeTab === "posts" && posts && (
+          <ListPosts posts={posts} setPosts={setPosts} />
+        )}
+        {activeTab === "events" && events && (
+          <ListEvents events={events} setEvents={setEvents} />
+        )}
         {activeTab === "participated-events" && likedPosts && (
-          <ListEvents events={participatedEvents} />
+          <ListEvents
+            events={participatedEvents}
+            setEvents={setParticipatedEvents}
+          />
         )}
         {activeTab === "liked-posts" && likedPosts && (
-          <ListPosts posts={likedPosts} />
+          <ListPosts posts={likedPosts} setPosts={setLikedPosts} />
         )}
         {activeTab === "liked-events" && likedEvents && (
-          <ListEvents events={likedEvents} />
+          <ListEvents events={likedEvents} setEvents={setLikedEvents} />
         )}
 
         <Button onClick={moreData}>
