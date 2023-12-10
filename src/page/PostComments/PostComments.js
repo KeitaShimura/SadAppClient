@@ -102,7 +102,6 @@ export default function PostComments(props) {
 
   useEffect(() => {
     const fetchCommentCount = async () => {
-
       try {
         const comments = await getPostCommentsApi(params.id);
         setCommentCount(comments.data.length);

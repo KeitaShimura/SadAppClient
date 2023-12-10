@@ -215,9 +215,7 @@ function EventComments(props) {
   useEffect(() => {
     const fetchParticipateData = async () => {
       try {
-        const participantStatus = await checkIfEventParticipantsApi(
-          params.id,
-        );
+        const participantStatus = await checkIfEventParticipantsApi(params.id);
         setIsParticipated(participantStatus);
         updateParticipantsCount();
       } catch (error) {

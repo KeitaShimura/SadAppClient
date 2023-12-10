@@ -85,7 +85,6 @@ function Event({ event, authUser, onEventDeleted }) {
 
   useEffect(() => {
     const fetchLikeData = async () => {
-
       if (!event || !authUser) {
         console.error("Event or AuthUser is null");
         return;
