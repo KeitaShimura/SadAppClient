@@ -58,11 +58,11 @@
   - コード解析: ESLint
   - フォーマッター: Prettier
   - テストフレームワーク: React Testing Library / Jest
-  - 主要パッケージ: Axios / Font Awesome / React Paginate / React Bootstrap / React Toastify
+  - 主要パッケージ: Axios / Font Awesome / React Bootstrap / React Toastify
 
 - CI / CD: GitHub Actions
 - 環境構築: Docker / Docker Compose
-- インフラ: GCP / Nginx / Vercel / Kubernetes
+- インフラ: GCP / Nginx / Vercel
 
 <h2>機能一覧</h2>
     <ul>
