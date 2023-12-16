@@ -103,7 +103,7 @@ export default function Users() {
         <input
           type="text"
           className="form-control"
-          placeholder="同じ悩みを持つ仲間を探してみましょう！"
+          placeholder="ユーザーを探す"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
