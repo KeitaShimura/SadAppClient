@@ -7,7 +7,7 @@ import { getFollowersApi, getFollowingApi } from "../../api/follow";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export default function Users() {
+export default function Follows() {
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
   const [allUsers, setAllUsers] = useState([]);

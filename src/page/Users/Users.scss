@@ -1,0 +1,46 @@
+@import "../../scss/index.scss";
+
+.users {
+  &__header {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 0;
+      font-weight: bold;
+    }
+
+    input {
+      border-radius: 50px;
+      border: 1;
+      background-color: $background-light;
+      padding: 5px 20px;
+      color: $font-grey;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  
+  &__button {
+    .btn.btn-primary {
+      display: flex;
+      margin: 0 auto;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: transparent;
+      border: 0;
+      color: $font-grey;
+
+      &:hover,
+      &focus {
+        background-color: transparent !important;
+        color: $primary;
+      }
+    }
+  }
+}

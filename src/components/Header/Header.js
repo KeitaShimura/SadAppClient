@@ -43,10 +43,7 @@ const Header = () => {
           <FontAwesomeIcon icon={faVideo} />
           イベント一覧
         </Link>
-        <Link
-          to={`/users/${user?.sub}`}
-          onClick={() => setShowMobileMenu(false)}
-        >
+        <Link to="/users" onClick={() => setShowMobileMenu(false)}>
           <FontAwesomeIcon icon={faUsers} />
           ユーザー一覧
         </Link>
@@ -80,7 +77,7 @@ const Header = () => {
         <FontAwesomeIcon icon={faVideo} />
         イベント一覧
       </Link>
-      <Link to={`/users/${user?.sub}`}>
+      <Link to="/users">
         <FontAwesomeIcon icon={faUsers} />
         ユーザー一覧
       </Link>
