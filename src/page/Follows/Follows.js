@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Users.scss";
+import "./Follows.scss";
 import BasicLayout from "../../layout/BasicLayout";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import ListUsers from "../../components/ListUsers";
@@ -98,8 +98,8 @@ export default function Users() {
   };
 
   return (
-    <BasicLayout className="users" title="users" showBackButton={false}>
-      <div className="users__header">
+    <BasicLayout className="follows" title="users" showBackButton={false}>
+      <div className="follows__header">
         <input
           type="text"
           className="form-control"
@@ -109,7 +109,7 @@ export default function Users() {
         />
       </div>
 
-      <ButtonGroup className="users__options">
+      <ButtonGroup className="follows__options">
         <Button
           className={userType === "followings" ? "active" : ""}
           onClick={() => setUserType("followings")}
@@ -124,7 +124,7 @@ export default function Users() {
         </Button>
       </ButtonGroup>
 
-      <div className="users__content">
+      <div className="follows__content">
         {!filteredUsers ? (
           <div className="users__loading">
             <Spinner animation="border" variant="info" />
@@ -134,7 +134,7 @@ export default function Users() {
           <ListUsers users={filteredUsers} />
         )}
         {hasMoreData && (
-          <div className="users__button">
+          <div className="follows__button">
             <Button className="load-button" onClick={loadMoreUsers}>
               {!loadingUsers ? (
                 "もっと見る"

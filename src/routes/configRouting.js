@@ -7,7 +7,7 @@ import EventComments from "../page/EventComments";
 import EventLikedUsers from "../page/EventLikedUsers";
 import EventParticipants from "../page/EventParticipants";
 import User from "../page/User";
-import Users from "../page/Users";
+import Follows from "../page/Follows";
 
 export default [
   {
@@ -43,8 +43,8 @@ export default [
     element: <User />,
   },
   {
-    path: "/users/:id",
-    element: <Users />,
+    path: "/follows/:id",
+    element: <Follows />,
   },
   {
     path: "*",

@@ -209,11 +209,11 @@ export default function User() {
     <BasicLayout className="user" showBackButton={false}>
       <BannerIcon user={user} authUser={authUser} />
       <div>
-        <Link to={`/users/${params.id}`} className="user-following-link">
+        <Link to={`/follows/${params.id}`} className="user-following-link">
           フォロー中:
         </Link>{" "}
         {followingCount}
-        <Link to={`/users/${params.id}`} className="user-follower-link">
+        <Link to={`/follows/${params.id}`} className="user-follower-link">
           フォロワー:
         </Link>{" "}
         {followersCount}
