@@ -37,7 +37,6 @@ export default function Users() {
     }
   };
 
-
   const moreData = () => {
     loadPosts();
   };
@@ -69,9 +68,10 @@ export default function Users() {
     if (searchTerm === "") {
       setFilteredUsers(users);
     } else {
-      const filtered = users.filter((user) =>
-        user.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        user.email.toLowerCase().includes(searchTerm.toLowerCase())
+      const filtered = users.filter(
+        (user) =>
+          user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.email.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredUsers(filtered);
     }
@@ -80,15 +80,15 @@ export default function Users() {
   return (
     <BasicLayout className="users" showBackButton={false}>
       <div className="users__header">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="ユーザーを探す"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+        <input
+          type="text"
+          className="form-control"
+          placeholder="ユーザーを探す"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
-  
+
       <div className="users__content">
         {filteredUsers && filteredUsers.length > 0 ? (
           <ListUsers users={filteredUsers} setUsers={setFilteredUsers} />
@@ -112,5 +112,4 @@ export default function Users() {
       </div>
     </BasicLayout>
   );
-  
 }
