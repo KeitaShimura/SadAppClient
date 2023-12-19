@@ -11,41 +11,41 @@ export default function PostModal(props) {
   const { show, setShow } = props;
   const [message, setMessage] = useState("");
   const [image, setImage] = useState(null);
-  const maxLength = 200;
-
-  const fileToBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
+  const maxLength = 500;
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     // バリデーションチェック
-    if (message.trim().length === 0 || message.trim().length > 500) {
+    if (message.trim().length === 0 || message.trim().length > maxLength) {
       toast.error("コメントは1文字以上500文字以下である必要があります。");
       return;
     }
 
     try {
-      // createPostApiを呼び出してメッセージを作成
+      // createPostApiを呼び出してメッセージと画像を作成
       await createPostApi({ content: message }, image);
 
-      window.location.reload();
       // メッセージをクリアしてモーダルを閉じる
       toast.success("投稿が作成されました。");
+      setMessage('');
+      setImage(null);
       setShow(false);
+      window.location.reload();
     } catch (error) {
       // エラーをハンドル
       console.error("Error creating post:", error);
-      toast.warning(
-        "投稿の送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
-      );
+      toast.warning("投稿の送信中にエラーが発生しました。お時間を置いてもう一度お試しください。");
     }
   };
+
+  const onChangeFile = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+    }
+  };
+
 
   return (
     <Modal
@@ -64,16 +64,10 @@ export default function PostModal(props) {
         <Form onSubmit={onSubmit}>
           <Form.Label>画像をアップロード</Form.Label>
           <Form.Control
-            type="file"
-            accept="image/*"
-            onChange={async (e) => {
-              const file = e.target.files[0];
-              if (file) {
-                const base64 = await fileToBase64(file);
-                setImage(base64);
-              }
-            }}
-          />
+              type="file"
+              accept="image/*"
+              onChange={onChangeFile}
+            />
           <Form.Control
             as="textarea"
             rows={6}
