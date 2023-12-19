@@ -78,7 +78,6 @@ export function createPostApi(postData, image) {
     });
 }
 
-
 // 特定の投稿を取得
 export function getPostApi(id) {
   return axios

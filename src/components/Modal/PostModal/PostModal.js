@@ -28,14 +28,16 @@ export default function PostModal(props) {
 
       // メッセージをクリアしてモーダルを閉じる
       toast.success("投稿が作成されました。");
-      setMessage('');
+      setMessage("");
       setImage(null);
       setShow(false);
       window.location.reload();
     } catch (error) {
       // エラーをハンドル
       console.error("Error creating post:", error);
-      toast.warning("投稿の送信中にエラーが発生しました。お時間を置いてもう一度お試しください。");
+      toast.warning(
+        "投稿の送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
+      );
     }
   };
 
@@ -45,7 +47,6 @@ export default function PostModal(props) {
       setImage(file);
     }
   };
-
 
   return (
     <Modal
@@ -63,11 +64,7 @@ export default function PostModal(props) {
       <Modal.Body>
         <Form onSubmit={onSubmit}>
           <Form.Label>画像をアップロード</Form.Label>
-          <Form.Control
-              type="file"
-              accept="image/*"
-              onChange={onChangeFile}
-            />
+          <Form.Control type="file" accept="image/*" onChange={onChangeFile} />
           <Form.Control
             as="textarea"
             rows={6}
