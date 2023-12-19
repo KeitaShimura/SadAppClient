@@ -33,6 +33,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { API_HOST } from "../../utils/constant";
 
 function EventComments(props) {
   const params = useParams();
@@ -294,6 +295,15 @@ function EventComments(props) {
 
               <div className="event-details">
                 <div>
+                  {event.image && (
+                    <div className="image-container">
+                      <Image
+                        src={`${API_HOST}${event.image}`}
+                        alt="Post Image"
+                        className="event-image"
+                      />
+                    </div>
+                  )}
                   <strong>イベントURL: </strong>
                   <a
                     href={event.event_url}

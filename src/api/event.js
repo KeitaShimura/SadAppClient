@@ -64,7 +64,6 @@ export function getUserEventsApi(id, page, pageSize) {
 
 export function createEventApi(eventData, image) {
   const formData = new FormData();
-  // 他の eventData フィールドを追加
   formData.append("title", eventData.title);
   formData.append("content", eventData.content);
   formData.append("event_url", eventData.event_url);
@@ -92,9 +91,7 @@ export function createEventApi(eventData, image) {
         throw new Error(error.response.data.message);
       } else if (error.request) {
         // リクエストがサーバーに到達しなかった場合
-        throw new Error(
-          "ネットワークエラー：リクエストが送信されませんでした。",
-        );
+        throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
       } else {
         // その他のエラー
         throw new Error("エラーが発生しました：" + error.message);

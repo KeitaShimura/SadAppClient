@@ -13,14 +13,6 @@ export default function EventModal(props) {
   const [image, setImage] = useState(null);
   const maxLength = 200;
 
-  const fileToBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-
   const onSubmit = async (e) => {
     e.preventDefault();
     // バリデーションチェック
@@ -40,10 +32,11 @@ export default function EventModal(props) {
       // Call createEventApi with formData
       await createEventApi(formData, image);
 
-      window.location.reload();
       // メッセージをクリアしてモーダルを閉じる
       toast.success("イベントが作成されました。");
+      setImage(null);
       setShow(false);
+      window.location.reload();
     } catch (error) {
       // Handle any errors here
       console.error("Error creating event:", error);
@@ -55,6 +48,13 @@ export default function EventModal(props) {
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onChangeFile = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+    }
   };
 
   return (
@@ -73,17 +73,7 @@ export default function EventModal(props) {
       <Modal.Body>
         <Form onSubmit={onSubmit}>
           <Form.Label>画像をアップロード</Form.Label>
-          <Form.Control
-            type="file"
-            accept="image/*"
-            onChange={async (e) => {
-              const file = e.target.files[0];
-              if (file) {
-                const base64 = await fileToBase64(file);
-                setImage(base64);
-              }
-            }}
-          />
+          <Form.Control type="file" accept="image/*" onChange={onChangeFile} />
           <Form.Group className="form-group">
             <Form.Control
               type="text"

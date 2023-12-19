@@ -32,6 +32,7 @@ import {
   faUserPlus,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+import { API_HOST } from "../../utils/constant";
 
 export default function ListEvents(props) {
   const { events: initialEvents, setEvents: setInitialEvents } = props; // プロパティ名を変更
@@ -269,7 +270,7 @@ function Event({ event, authUser, onEventDeleted }) {
             {event.image && (
               <div className="image-container">
                 <Image
-                  src={event.image}
+                  src={`${API_HOST}${event.image}`}
                   alt="Post Image"
                   className="event-image"
                 />
