@@ -26,6 +26,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import PostCommentModal from "../../components/Modal/PostCommentModal";
+import { API_HOST } from "../../utils/constant";
 
 export default function PostComments(props) {
   const params = useParams();
@@ -215,9 +216,13 @@ export default function PostComments(props) {
           )}
         </div>
         {post && (
-          <div>
+          <div className="content">
+            {post.image && (
+              <div className="image-container">
+                <Image src={`${API_HOST}${post.image}`} alt="Post Image" className="post-image" />
+              </div>
+            )}
             <div
-              className="content"
               dangerouslySetInnerHTML={{
                 __html: replaceURLWithHTMLLinks(post.content),
               }}

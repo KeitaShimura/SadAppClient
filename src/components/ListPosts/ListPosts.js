@@ -24,6 +24,8 @@ import {
   faHeart,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import { API_HOST } from "../../utils/constant";
+
 
 export default function ListPosts(props) {
   const { posts: initialPosts, setPosts: setInitialPosts } = props;
@@ -181,7 +183,7 @@ function Post({ post, authUser, onPostDeleted }) {
       <div className="content">
         {post.image && (
           <div className="image-container">
-            <Image src={post.image} alt="Post Image" className="post-image" />
+            <Image src={`${API_HOST}${post.image}`} alt="Post Image" className="post-image" />
           </div>
         )}
         <div
