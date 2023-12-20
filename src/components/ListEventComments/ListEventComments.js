@@ -60,7 +60,9 @@ function EventComment({ comment, authUser, onCommentDeleted }) {
     }
   };
 
-  const iconUrl = comment.user?.icon ? `${API_HOST}${comment.user.icon}` : IconNotFound;
+  const iconUrl = comment.user?.icon
+    ? `${API_HOST}${comment.user.icon}`
+    : IconNotFound;
 
   console.log(authUser.sub, comment.user.id);
 

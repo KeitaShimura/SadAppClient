@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState  } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { updateUserData } from "../../../api/user";
 import { Button, Form, Spinner } from "react-bootstrap";
 // import { useDropzone } from "react-dropzone";
@@ -10,7 +10,6 @@ import { useDropzone } from "react-dropzone";
 import { Camera } from "../../../utils/icons";
 import { API_HOST } from "../../../utils/constant";
 
-
 export default function EditUserForm(props) {
   const { user, setShowModal } = props;
   const [formData, setFormData] = useState(initialFromValue(user));
@@ -18,50 +17,63 @@ export default function EditUserForm(props) {
   const [iconUrl, setIconUrl] = useState(user?.icon || null);
   const [loading, setLoading] = useState(false);
 
-    const onDropBanner = useCallback((acceptedFiles) => {
+  const onDropBanner = useCallback(
+    (acceptedFiles) => {
       const file = acceptedFiles[0];
       if (file) {
         setBannerUrl(URL.createObjectURL(file));
         setFormData({ ...formData, banner: file });
       }
-    }, [formData]);
-    
-    const onDropIcon = useCallback((acceptedFiles) => {
+    },
+    [formData],
+  );
+
+  const onDropIcon = useCallback(
+    (acceptedFiles) => {
       const file = acceptedFiles[0];
       if (file) {
         setIconUrl(URL.createObjectURL(file));
         setFormData({ ...formData, icon: file });
       }
-    }, [formData]);
-    
+    },
+    [formData],
+  );
 
-  const { getRootProps: getRootBannerProps, getInputProps: getInputBannerProps } = useDropzone({
+  const {
+    getRootProps: getRootBannerProps,
+    getInputProps: getInputBannerProps,
+  } = useDropzone({
     accept: "image/jpeg, image/png",
     noKeyboard: true,
     multiple: false,
     onDrop: onDropBanner,
   });
 
-  const { getRootProps: getRootIconProps, getInputProps: getInputIconProps } = useDropzone({
-    accept: "image/jpeg, image/png",
-    noKeyboard: true,
-    multiple: false,
-    onDrop: onDropIcon,
-  });
+  const { getRootProps: getRootIconProps, getInputProps: getInputIconProps } =
+    useDropzone({
+      accept: "image/jpeg, image/png",
+      noKeyboard: true,
+      multiple: false,
+      onDrop: onDropIcon,
+    });
 
-    // アイコン画像の背景スタイルを生成
-    const iconStyle = {
-      backgroundImage: iconUrl 
-        ? `url(${iconUrl.startsWith('blob:') ? iconUrl : `${API_HOST}${iconUrl}`})`
-        : 'none',
-    };
-  
-    // バナー画像の背景スタイルを生成
-    const bannerStyle = {
-      backgroundImage: bannerUrl 
-        ? `url(${bannerUrl.startsWith('blob:') ? bannerUrl : `${API_HOST}${bannerUrl}`})`
-        : 'none',
-    };
+  // アイコン画像の背景スタイルを生成
+  const iconStyle = {
+    backgroundImage: iconUrl
+      ? `url(${
+          iconUrl.startsWith("blob:") ? iconUrl : `${API_HOST}${iconUrl}`
+        })`
+      : "none",
+  };
+
+  // バナー画像の背景スタイルを生成
+  const bannerStyle = {
+    backgroundImage: bannerUrl
+      ? `url(${
+          bannerUrl.startsWith("blob:") ? bannerUrl : `${API_HOST}${bannerUrl}`
+        })`
+      : "none",
+  };
 
   useEffect(() => {
     setFormData(initialFromValue(user));
@@ -70,7 +82,6 @@ export default function EditUserForm(props) {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -210,11 +221,11 @@ EditUserForm.propTypes = {
 };
 
 const initialFromValue = (user) => ({
-  name: user.name || '',
-  email: user.email || '',
-  bio: user.bio || '',
-  website: user.website || '',
-  location: user.location || '',
-  birth_date: user.birth_date || '',
+  name: user.name || "",
+  email: user.email || "",
+  bio: user.bio || "",
+  website: user.website || "",
+  location: user.location || "",
+  birth_date: user.birth_date || "",
   // その他のフォームフィールドに対応する初期値
 });

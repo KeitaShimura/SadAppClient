@@ -86,7 +86,7 @@ export default function User(props) {
   return (
     <div className="user" onClick={() => handleShowUser(user.id)}>
       <div className="user-info-container">
-      <div className="icon-container">
+        <div className="icon-container">
           <Image className="icon" src={iconUrl} roundedCircle />
         </div>
         {userInfo && (

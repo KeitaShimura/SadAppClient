@@ -65,7 +65,6 @@ export function createPostApi(postData, image) {
 
   console.log(postData, image);
 
-
   return axios
     .post(`${API_HOST}/api/user/posts`, formData, {
       headers: {

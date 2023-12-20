@@ -58,7 +58,9 @@ function PostComment({ comment, authUser, onCommentDeleted }) {
     }
   };
 
-  const iconUrl = comment.user?.icon ? `${API_HOST}${comment.user.icon}` : IconNotFound;
+  const iconUrl = comment.user?.icon
+    ? `${API_HOST}${comment.user.icon}`
+    : IconNotFound;
 
   return (
     <div className="comment">
@@ -69,7 +71,7 @@ function PostComment({ comment, authUser, onCommentDeleted }) {
           handleUserProfileShow(comment.user.id);
         }}
       >
-                <div className="icon-container">
+        <div className="icon-container">
           <Image className="icon" src={iconUrl} roundedCircle />
         </div>
         {comment.user && (
