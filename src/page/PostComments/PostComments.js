@@ -219,7 +219,11 @@ export default function PostComments(props) {
           <div className="content">
             {post.image && (
               <div className="image-container">
-                <Image src={`${API_HOST}${post.image}`} alt="Post Image" className="post-image" />
+                <Image
+                  src={`${API_HOST}${post.image}`}
+                  alt="Post Image"
+                  className="post-image"
+                />
               </div>
             )}
             <div
