@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useState  } from "react";
 import { updateUserData } from "../../../api/user";
 import { Button, Form, Spinner } from "react-bootstrap";
-import { useDropzone } from "react-dropzone";
+// import { useDropzone } from "react-dropzone";
 import PropTypes from "prop-types";
-import { Camera } from "../../../utils/icons";
 import { toast } from "react-toastify";
 
 import "./EditUserForm.scss";
+import { useDropzone } from "react-dropzone";
+import { Camera } from "../../../utils/icons";
+
 
 export default function EditUserForm(props) {
   const { user, setShowModal } = props;
@@ -15,45 +17,36 @@ export default function EditUserForm(props) {
   const [iconUrl, setIconUrl] = useState(user?.icon || null);
   const [loading, setLoading] = useState(false);
 
-  const fileToBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
+    const onDropBanner = useCallback((acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (file) {
+        setBannerUrl(URL.createObjectURL(file));
+        setFormData({ ...formData, banner: file });
+      }
+    }, [formData]);
+    
+    const onDropIcon = useCallback((acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (file) {
+        setIconUrl(URL.createObjectURL(file));
+        setFormData({ ...formData, icon: file });
+      }
+    }, [formData]);
+    
 
-  const onDropBanner = useCallback(async (acceptedFiles) => {
-    const file = acceptedFiles[0];
-    const base64 = await fileToBase64(file);
-    setBannerUrl(URL.createObjectURL(file));
-    setFormData({ ...formData, banner: base64 });
-  });
-
-  const {
-    getRootProps: getRootBannerProps,
-    getInputProps: getInputBannerProps,
-  } = useDropzone({
+  const { getRootProps: getRootBannerProps, getInputProps: getInputBannerProps } = useDropzone({
     accept: "image/jpeg, image/png",
     noKeyboard: true,
     multiple: false,
     onDrop: onDropBanner,
   });
 
-  const onDropIcon = useCallback(async (acceptedFiles) => {
-    const file = acceptedFiles[0];
-    const base64 = await fileToBase64(file);
-    setIconUrl(URL.createObjectURL(file));
-    setFormData({ ...formData, icon: base64 });
+  const { getRootProps: getRootIconProps, getInputProps: getInputIconProps } = useDropzone({
+    accept: "image/jpeg, image/png",
+    noKeyboard: true,
+    multiple: false,
+    onDrop: onDropIcon,
   });
-
-  const { getRootProps: getRootIconProps, getInputProps: getInputIconProps } =
-    useDropzone({
-      accept: "image/jpeg, image/png",
-      noKeyboard: true,
-      multiple: false,
-      onDrop: onDropIcon,
-    });
 
   useEffect(() => {
     setFormData(initialFromValue(user));
@@ -62,6 +55,7 @@ export default function EditUserForm(props) {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -95,12 +89,11 @@ export default function EditUserForm(props) {
 
     try {
       // バリデーションに合格した場合、データの更新を試行
-      await updateUserData(formData);
+      await updateUserData(formData, formData.icon, formData.banner);
       setShowModal(false);
-      window.location.reload();
+      // window.location.reload();
       toast.success("プロフィールを更新しました。");
     } catch (error) {
-      // エラー時のメッセージ
       console.error("Error updating data:", error);
       toast.error("データの更新中にエラーが発生しました。");
     }
@@ -126,6 +119,8 @@ export default function EditUserForm(props) {
         <input {...getInputIconProps()} />
         <Camera />
       </div>
+
+
       <Form onSubmit={onSubmit}>
         <Form.Group className="form-group">
           <Form.Control
@@ -208,13 +203,12 @@ EditUserForm.propTypes = {
   setShowModal: PropTypes.func.isRequired,
 };
 
-function initialFromValue(user) {
-  return {
-    name: user.name || "",
-    email: user.email || "",
-    bio: user.bio || "",
-    website: user.website || "",
-    location: user.location || "",
-    birth_date: user.birth_date || "",
-  };
-}
+const initialFromValue = (user) => ({
+  name: user.name || '',
+  email: user.email || '',
+  bio: user.bio || '',
+  website: user.website || '',
+  location: user.location || '',
+  birth_date: user.birth_date || '',
+  // その他のフォームフィールドに対応する初期値
+});

@@ -31,7 +31,6 @@ export default function PostModal(props) {
       setMessage("");
       setImage(null);
       setShow(false);
-      window.location.reload();
     } catch (error) {
       // エラーをハンドル
       console.error("Error creating post:", error);

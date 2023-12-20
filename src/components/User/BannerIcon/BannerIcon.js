@@ -5,7 +5,7 @@ import {
   checkIfFollowingApi,
 } from "../../../api/follow";
 import PropTypes from "prop-types";
-import { Button } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import ConfigModal from "../../Modal/ConfigModal";
 import EditUserForm from "../EditUserForm";
 import IconNotFound from "../../../assets/png/icon-no-found.png";
@@ -13,6 +13,7 @@ import IconNotFound from "../../../assets/png/icon-no-found.png";
 import "./BannerIcon.scss";
 import { toast } from "react-toastify";
 import EditPasswordForm from "../EditPasswordForm";
+import { API_HOST } from "../../../utils/constant";
 
 export default function BannerIcon(props) {
   const { user, authUser } = props;
@@ -73,10 +74,12 @@ export default function BannerIcon(props) {
   return (
     <div
       className="banner-icon"
-      style={{ backgroundImage: `url(${bannerUrl})` }}
+      style={{ backgroundImage: `url(${API_HOST}${bannerUrl})` }}
     >
-      <div className="icon" style={{ backgroundImage: `url(${iconUrl})` }} />
-      <div className="icon" style={{ backgroundImage: `url(${iconUrl})` }} />
+      <div className="icon-container">
+        <Image src={`${API_HOST}${iconUrl}`} alt="Icon" />
+      </div>
+
       {user && (
         <div className="options">
           {Number(authUser.sub) === user.id && (

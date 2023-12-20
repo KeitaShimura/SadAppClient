@@ -68,23 +68,38 @@ export function getUserApi(id) {
 }
 
 // ユーザーデータを更新
-export function updateUserData(profileData) {
-  return axios
-    .put(`${API_HOST}/api/user/user`, profileData, {
-      headers: {
-        Authorization: `Bearer ${getTokenApi()}`,
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    })
-    .then((response) => {
-      console.log("Updated Data:", response.data);
-      return response.data;
-    })
-    .catch((error) => {
-      console.error("Error:", error.response ? error.response.data : error);
-      throw error;
-    });
+export function updateUserData(profileData, iconFile, bannerFile) {
+  const formData = new FormData();
+  
+  // プロファイルデータの各フィールドを追加（画像以外）
+  for (const key in profileData) {
+    if (profileData[key] !== null && key !== 'icon' && key !== 'banner') {
+      formData.append(key, profileData[key]);
+    }
+  }
+
+  // アイコンとバナーのファイルを追加（存在する場合）
+  if (iconFile) {
+    formData.append("icon", iconFile);
+  }
+  if (bannerFile) {
+    formData.append("banner", bannerFile);
+  }
+
+  console.log(profileData,iconFile, bannerFile);
+
+  return axios.put(`${API_HOST}/api/user/user`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${getTokenApi()}`,
+    },
+    withCredentials: true,
+  })
+  .then(response => response.data)
+  .catch(error => {
+    console.error("Error updating data:", error.response ? error.response.data : error);
+    throw error;
+  });
 }
 
 // ユーザーデータを更新
