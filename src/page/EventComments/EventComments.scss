@@ -36,9 +36,13 @@
     .title,
     .content,
     .event-details {
-      margin-left: 70px;
+      max-width: 100%;
+      overflow: hidden;
+      .event-image {
+        max-width: 80%;
+        height: auto;
+      }
     }
-
     .icons-container {
       margin-left: 70px;
       /* アイコンの幅とマージンを考慮して左揃え */

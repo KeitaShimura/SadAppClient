@@ -290,8 +290,8 @@ function EventComments(props) {
         </div>
         {event && (
           <div>
-            <div>
-              <div className="title">{event.title}</div>
+          <div className="content">
+              <div className="title fw-bold h2">{event.title}</div>
 
               <div className="event-details">
                 <div>
