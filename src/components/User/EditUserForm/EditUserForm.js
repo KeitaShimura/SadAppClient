@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "./EditUserForm.scss";
 import { useDropzone } from "react-dropzone";
 import { Camera } from "../../../utils/icons";
+import { API_HOST } from "../../../utils/constant";
 
 
 export default function EditUserForm(props) {
@@ -47,6 +48,20 @@ export default function EditUserForm(props) {
     multiple: false,
     onDrop: onDropIcon,
   });
+
+    // アイコン画像の背景スタイルを生成
+    const iconStyle = {
+      backgroundImage: iconUrl 
+        ? `url(${iconUrl.startsWith('blob:') ? iconUrl : `${API_HOST}${iconUrl}`})`
+        : 'none',
+    };
+  
+    // バナー画像の背景スタイルを生成
+    const bannerStyle = {
+      backgroundImage: bannerUrl 
+        ? `url(${bannerUrl.startsWith('blob:') ? bannerUrl : `${API_HOST}${bannerUrl}`})`
+        : 'none',
+    };
 
   useEffect(() => {
     setFormData(initialFromValue(user));
@@ -91,7 +106,7 @@ export default function EditUserForm(props) {
       // バリデーションに合格した場合、データの更新を試行
       await updateUserData(formData, formData.icon, formData.banner);
       setShowModal(false);
-      // window.location.reload();
+      window.location.reload();
       toast.success("プロフィールを更新しました。");
     } catch (error) {
       console.error("Error updating data:", error);
@@ -103,23 +118,14 @@ export default function EditUserForm(props) {
 
   return (
     <div className="edit-user-form">
-      <div
-        className="banner"
-        style={{ backgroundImage: `url(${bannerUrl})` }}
-        {...getRootBannerProps()}
-      >
+      <div className="banner" style={bannerStyle} {...getRootBannerProps()}>
         <input {...getInputBannerProps()} />
         <Camera />
       </div>
-      <div
-        className="icon"
-        style={{ backgroundImage: `url(${iconUrl})` }}
-        {...getRootIconProps()}
-      >
+      <div className="icon" style={iconStyle} {...getRootIconProps()}>
         <input {...getInputIconProps()} />
         <Camera />
       </div>
-
 
       <Form onSubmit={onSubmit}>
         <Form.Group className="form-group">
