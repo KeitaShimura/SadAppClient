@@ -160,7 +160,7 @@ function Post({ post, authUser, onPostDeleted }) {
     }
   };
 
-  const iconUrl = post.user?.icon ? post.user.icon : IconNotFound;
+  const iconUrl = post.user?.icon ? `${API_HOST}${post.user.icon}` : IconNotFound;
 
   return (
     <div className="post" onClick={() => handleShowPost(post.id)}>
@@ -171,7 +171,9 @@ function Post({ post, authUser, onPostDeleted }) {
           handleUserProfileShow(post.user.id);
         }}
       >
-        <Image className="icon" src={iconUrl} roundedCircle />
+               <div className="icon-container">
+          <Image className="icon" src={iconUrl} roundedCircle />
+        </div>
         {post.user && (
           <div className="name">
             {post.user.name}

@@ -243,7 +243,7 @@ function Event({ event, authUser, onEventDeleted }) {
       });
   };
 
-  const iconUrl = event.user?.icon ? event.user.icon : IconNotFound;
+  const iconUrl = event.user?.icon ? `${API_HOST}${event.user.icon}` : IconNotFound;
 
   return (
     <div className="event" onClick={() => handleShowEvent(event.id)}>
@@ -254,8 +254,10 @@ function Event({ event, authUser, onEventDeleted }) {
           handleUserProfileShow(event.user.id);
         }}
       >
-        <Image className="icon" src={iconUrl} roundedCircle />
-        {event.user && (
+        <div className="icon-container">
+          <Image className="icon" src={iconUrl} roundedCircle />
+        </div>
+          {event.user && (
           <div className="name card-text">
             {event.user.name}
             <span>{moment(event.created_at).calendar()}</span>

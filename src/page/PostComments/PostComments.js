@@ -170,7 +170,7 @@ export default function PostComments(props) {
   };
 
   const iconUrl =
-    post && post.user && post.user.icon ? post.user.icon : IconNotFound;
+    post && post.user && post.user.icon ? `${API_HOST}${post.user.icon}` : IconNotFound;
 
   useEffect(() => {
     setLoadingPostComments(true);
@@ -207,7 +207,9 @@ export default function PostComments(props) {
     <BasicLayout className="post">
       <div className="post" onClick={() => handleShowPost(post.id)}>
         <div className="header-container">
+        <div className="icon-container">
           <Image className="icon" src={iconUrl} roundedCircle />
+        </div>
           {post && post.user && (
             <div className="name">
               {post.user.name}

@@ -11,11 +11,12 @@ import {
   unfollowUserApi,
 } from "../../api/follow";
 import useAuth from "../../hooks/useAuth";
+import { API_HOST } from "../../utils/constant";
 
 export default function User(props) {
   const { user } = props;
   const [userInfo, setUserInfo] = useState(null);
-  const iconUrl = user?.icon ? user.icon : IconNotFound;
+  const iconUrl = user?.icon ? `${API_HOST}${user.icon}` : IconNotFound;
   const [isFollowing, setIsFollowing] = useState(false);
 
   const navigate = useNavigate();
@@ -85,7 +86,9 @@ export default function User(props) {
   return (
     <div className="user" onClick={() => handleShowUser(user.id)}>
       <div className="user-info-container">
-        <Image className="icon" src={iconUrl} roundedCircle />
+      <div className="icon-container">
+          <Image className="icon" src={iconUrl} roundedCircle />
+        </div>
         {userInfo && (
           <div>
             <div className="name">{userInfo.name}</div>

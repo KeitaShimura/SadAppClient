@@ -15,10 +15,15 @@
       margin-bottom: 10px;
       /* 下のコンテンツとの間に余白 */
 
-      .icon {
+      .icon-container {
         width: 50px;
         height: 50px;
         margin-right: 20px;
+      }
+      .icon-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
       .name {

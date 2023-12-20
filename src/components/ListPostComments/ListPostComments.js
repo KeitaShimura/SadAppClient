@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { map } from "lodash";
 import { useNavigate } from "react-router-dom";
+import { API_HOST } from "../../utils/constant";
 
 export default function ListPostComments(props) {
   const { postComments: initialPostComments, onCommentDeleted } = props;
@@ -57,7 +58,7 @@ function PostComment({ comment, authUser, onCommentDeleted }) {
     }
   };
 
-  const iconUrl = comment.user?.icon ? comment.user.icon : IconNotFound;
+  const iconUrl = comment.user?.icon ? `${API_HOST}${comment.user.icon}` : IconNotFound;
 
   return (
     <div className="comment">
@@ -68,7 +69,9 @@ function PostComment({ comment, authUser, onCommentDeleted }) {
           handleUserProfileShow(comment.user.id);
         }}
       >
-        <Image className="icon" src={iconUrl} roundedCircle />
+                <div className="icon-container">
+          <Image className="icon" src={iconUrl} roundedCircle />
+        </div>
         {comment.user && (
           <div className="name">
             {comment.user.name}

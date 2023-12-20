@@ -273,14 +273,16 @@ function EventComments(props) {
   };
 
   const iconUrl =
-    event && event.user && event.user.icon ? event.user.icon : IconNotFound;
+    event && event.user && event.user.icon ? `${API_HOST}${event.user.icon}` : IconNotFound;
 
   console.log(iconUrl);
   return (
     <BasicLayout className="event">
       <div className="event">
         <div className="header-container">
+        <div className="icon-container">
           <Image className="icon" src={iconUrl} roundedCircle />
+        </div>
           {event && event.user && (
             <div className="name">
               {event.user.name}
