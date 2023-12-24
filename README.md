@@ -62,7 +62,7 @@
 
 - CI / CD: GitHub Actions
 - 環境構築: Docker / Docker Compose
-- インフラ: GCP / Nginx / Vercel
+- インフラ: Render / Nginx / Vercel
 
 <h2>機能一覧</h2>
     <ul>
