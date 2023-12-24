@@ -23,17 +23,13 @@ export default function PostModal(props) {
     }
 
     try {
-      // createPostApiを呼び出してメッセージと画像を作成
       await createPostApi({ content: message }, image);
-
-      // メッセージをクリアしてモーダルを閉じる
       toast.success("投稿が作成されました。");
       setMessage("");
       setImage(null);
       setShow(false);
       window.location.reload();
     } catch (error) {
-      // エラーをハンドル
       console.error("Error creating post:", error);
       toast.warning(
         "投稿の送信中にエラーが発生しました。お時間を置いてもう一度お試しください。",
