@@ -16,9 +16,14 @@ export default function EventModal(props) {
   const onSubmit = async (e) => {
     e.preventDefault();
     // バリデーションチェック
-    if (formData.title.trim().length === 0 || formData.title.trim().length > 100) {
+    if (
+      formData.title.trim().length === 0 ||
+      formData.title.trim().length > 100
+    ) {
       // タイトルのバリデーションチェック
-      toast.warning("イベントタイトルは1文字以上100文字以下である必要があります。");
+      toast.warning(
+        "イベントタイトルは1文字以上100文字以下である必要があります。",
+      );
       return;
     }
     if (formData.content.trim().length > 500) {

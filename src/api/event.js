@@ -87,11 +87,15 @@ export function createEventApi(eventData, image) {
     .catch((error) => {
       // エラーハンドリングの強化
       if (error.response && error.response.data) {
-          throw new Error(error.response.data.error || "イベント作成中にエラーが発生しました。");
+        throw new Error(
+          error.response.data.error || "イベント作成中にエラーが発生しました。",
+        );
       } else {
-          throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
+        throw new Error(
+          "ネットワークエラー：リクエストが送信されませんでした。",
+        );
       }
-  });
+    });
 }
 
 export function getEventApi(id) {
