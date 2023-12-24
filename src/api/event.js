@@ -85,20 +85,13 @@ export function createEventApi(eventData, image) {
       return response.data;
     })
     .catch((error) => {
-      // エラーハンドリング
-      if (error.response) {
-        // サーバーからのエラーレスポンス
-        throw new Error(error.response.data.message);
-      } else if (error.request) {
-        // リクエストがサーバーに到達しなかった場合
-        throw new Error(
-          "ネットワークエラー：リクエストが送信されませんでした。",
-        );
+      // エラーハンドリングの強化
+      if (error.response && error.response.data) {
+          throw new Error(error.response.data.error || "イベント作成中にエラーが発生しました。");
       } else {
-        // その他のエラー
-        throw new Error("エラーが発生しました：" + error.message);
+          throw new Error("ネットワークエラー：リクエストが送信されませんでした。");
       }
-    });
+  });
 }
 
 export function getEventApi(id) {
