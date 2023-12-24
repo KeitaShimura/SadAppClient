@@ -60,24 +60,24 @@ export function createPostApi(postData, image) {
   const formData = new FormData();
   formData.append("content", postData.content);
   if (image) {
-      // 画像ファイルのサイズや種類の検証が必要な場合、ここに追加
-      formData.append("image", image);
+    // 画像ファイルのサイズや種類の検証が必要な場合、ここに追加
+    formData.append("image", image);
   }
 
-  return axios.post(`${API_HOST}/api/user/posts`, formData, {
+  return axios
+    .post(`${API_HOST}/api/user/posts`, formData, {
       headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${getTokenApi()}`,
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${getTokenApi()}`,
       },
       withCredentials: true,
-  })
-  .then(response => response)
-  .catch(error => {
+    })
+    .then((response) => response)
+    .catch((error) => {
       console.error("投稿の作成中にエラーが発生しました:", error);
       throw error;
-  });
+    });
 }
-
 
 // 特定の投稿を取得
 export function getPostApi(id) {
