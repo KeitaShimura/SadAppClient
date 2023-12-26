@@ -93,7 +93,7 @@ export default function Users() {
         {filteredUsers && filteredUsers.length > 0 ? (
           <ListUsers users={filteredUsers} setUsers={setFilteredUsers} />
         ) : (
-          <p className="text-center mt-2 fw-bold">投稿は存在しません</p>
+          <p className="text-center mt-2 fw-bold">ユーザーは存在しません</p>
         )}
         {hasMoreData && (
           <Button onClick={moreData}>
