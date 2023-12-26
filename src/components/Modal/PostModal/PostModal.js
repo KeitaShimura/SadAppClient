@@ -59,7 +59,6 @@ export default function PostModal(props) {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={onSubmit}>
-          <Form.Label>画像をアップロード</Form.Label>
           <Form.Control type="file" accept="image/*" onChange={onChangeFile} />
           <Form.Control
             as="textarea"

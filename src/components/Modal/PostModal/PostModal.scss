@@ -59,6 +59,47 @@
           margin-top: 10px;
           font-weight: bold;
         }
+
+        input[type="file"] {
+          display: block;
+          width: 90%; /* Adjust as necessary */
+          margin: 10px auto;
+          padding: 10px 15px;
+          border: 1px solid $primary-grey; /* Use your color variables */
+          border-radius: 5px;
+          background-color: $background-light;
+          color: $font-dark;
+          font-size: 16px; /* Match with your form's font size */
+  
+          &:hover {
+            background-color: lighten($background-light, 5%); /* Slightly lighter on hover */
+            cursor: pointer;
+          }
+  
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 5px $primary;
+          }
+  
+          &::-webkit-file-upload-button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            background-color: $primary;
+            border-color: $primary;
+            font-weight: bold;
+          
+            &:hover {
+              background-color: rgba(218, 26, 87, 1);
+            }
+            
+            &:hover {
+              background-color: darken($primary, 10%);
+            }
+          }
+        }
       }
     }
   }
