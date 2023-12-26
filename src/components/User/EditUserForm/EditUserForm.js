@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { updateUserData } from "../../../api/user";
 import { Button, Form, Spinner } from "react-bootstrap";
+// import { useDropzone } from "react-dropzone";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 
