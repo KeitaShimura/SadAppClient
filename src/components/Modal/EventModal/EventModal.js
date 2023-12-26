@@ -88,6 +88,15 @@ export default function EventModal(props) {
           </Form.Group>
           <Form.Group className="form-group">
             <Form.Control
+              type="text"
+              name="event_url"
+              placeholder="イベントURL"
+              value={formData.event_url} // valueプロパティを追加
+              onChange={onChange} // onChangeイベントハンドラを追加
+            />
+          </Form.Group>
+          <Form.Group className="form-group">
+            <Form.Control
               as="textarea"
               rows={6}
               type="text"
@@ -104,15 +113,6 @@ export default function EventModal(props) {
           >
             {formData.content.length}
           </span>
-          <Form.Group className="form-group">
-            <Form.Control
-              type="text"
-              name="event_url"
-              placeholder="イベントURL"
-              value={formData.event_url} // valueプロパティを追加
-              onChange={onChange} // onChangeイベントハンドラを追加
-            />
-          </Form.Group>
           {/* <Form.Group className="form-group">
             <Form.Control
               type="datetime-local"
