@@ -113,7 +113,7 @@ export default function EventModal(props) {
               onChange={onChange} // onChangeイベントハンドラを追加
             />
           </Form.Group>
-          <Form.Group className="form-group">
+          {/* <Form.Group className="form-group">
             <Form.Control
               type="datetime-local"
               name="event_date"
@@ -121,7 +121,7 @@ export default function EventModal(props) {
               value={formData.event_date} // valueプロパティを追加
               onChange={onChange} // onChangeイベントハンドラを追加
             />
-          </Form.Group>
+          </Form.Group> */}
 
           <Button
             type="submit"
@@ -151,6 +151,6 @@ function initialFromValue() {
     title: "",
     content: "",
     event_url: "",
-    event_date: "",
+    // event_date: "",
   };
 }

@@ -317,10 +317,10 @@ function EventComments(props) {
                     {event.event_url}
                   </a>
                 </div>
-                <div>
+                {/* <div>
                   <strong>開催日: </strong>
                   {event.event_date}
-                </div>
+                </div> */}
               </div>
               <div
                 className="content"

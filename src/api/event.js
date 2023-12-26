@@ -67,7 +67,7 @@ export function createEventApi(eventData, image) {
   formData.append("title", eventData.title);
   formData.append("content", eventData.content);
   formData.append("event_url", eventData.event_url);
-  formData.append("event_date", eventData.event_date);
+  // formData.append("event_date", eventData.event_date);
 
   if (image) {
     formData.append("image", image);
