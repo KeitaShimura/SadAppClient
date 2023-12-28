@@ -1,5 +1,5 @@
 import axios from "axios";
-import { registerApi, loginApi } from "./auth"; // あなたのAPIファイルへのパス
+import { registerApi, loginApi } from "./auth";
 import { API_HOST } from "../utils/constant";
 
 jest.mock("axios"); // axiosモジュールをモック化
@@ -23,7 +23,7 @@ describe("registerApiとloginApiのテスト", () => {
 
     // axios.postが適切に呼び出されたことを確認
     expect(axios.post).toHaveBeenCalledWith(
-      `${API_HOST}/api/user/register`,
+      `${API_HOST}/api/user/register/`, // 末尾にスラッシュを追加
       user,
     );
 
@@ -42,7 +42,10 @@ describe("registerApiとloginApiのテスト", () => {
     const result = await loginApi(user);
 
     // axios.postが適切に呼び出されたことを確認
-    expect(axios.post).toHaveBeenCalledWith(`${API_HOST}/api/user/login`, user);
+    expect(axios.post).toHaveBeenCalledWith(
+      `${API_HOST}/api/user/login/`, // 末尾にスラッシュを追加
+      user,
+    );
 
     // 適切なレスポンスが返されたことを確認
     expect(result).toEqual(responseData);
