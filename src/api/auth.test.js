@@ -24,7 +24,7 @@ describe("registerApiとloginApiのテスト", () => {
     // axios.postが適切に呼び出されたことを確認
     expect(axios.post).toHaveBeenCalledWith(
       `${API_HOST}/api/user/register`,
-      user
+      user,
     );
 
     // 適切なレスポンスが返されたことを確認
@@ -42,10 +42,7 @@ describe("registerApiとloginApiのテスト", () => {
     const result = await loginApi(user);
 
     // axios.postが適切に呼び出されたことを確認
-    expect(axios.post).toHaveBeenCalledWith(
-      `${API_HOST}/api/user/login`,
-      user
-    );
+    expect(axios.post).toHaveBeenCalledWith(`${API_HOST}/api/user/login`, user);
 
     // 適切なレスポンスが返されたことを確認
     expect(result).toEqual(responseData);
