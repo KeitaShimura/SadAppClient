@@ -15,7 +15,6 @@ export function likePostApi(postId) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getTokenApi()}`,
         },
-        ,
       },
     )
     .then((response) => response.data)
@@ -35,7 +34,6 @@ export function unlikePostApi(postId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -54,7 +52,6 @@ export function checkIfPostLikedApi(postId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -73,7 +70,6 @@ export function getLikesForPostApi(postId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => response.data)
     .catch((error) => {

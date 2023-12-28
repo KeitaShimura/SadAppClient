@@ -285,10 +285,6 @@ function Event({ event, authUser, onEventDeleted }) {
               {event.event_url}
             </a>
           </div>
-          {/* <div>
-            <strong>開催日: </strong>
-            {event.event_date}
-          </div> */}
         </div>
         <div
           className="content"

@@ -89,7 +89,6 @@ describe("API Tests", () => {
       title: "Updated Event",
       content: "This is an updated event",
       event_url: "https://updated-example.com",
-      // event_date: "2024-01-01",
     };
 
     // モックの設定

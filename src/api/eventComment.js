@@ -42,7 +42,6 @@ export function createEventCommentApi(eventId, commentData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => {
       return response.data;
@@ -72,7 +71,6 @@ export function updateEventCommentApi(commentId, commentData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => {
       return response.data;
@@ -101,7 +99,6 @@ export function deleteEventCommentApi(commentId) {
       headers: {
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => {
       return response.data;

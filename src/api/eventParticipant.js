@@ -15,7 +15,6 @@ export function ParticipationEventApi(eventId) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getTokenApi()}`,
         },
-        ,
       },
     )
     .then((response) => response.data)
@@ -35,7 +34,6 @@ export function leaveEventApi(eventId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -54,7 +52,6 @@ export function checkIfEventParticipantsApi(eventId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -73,7 +70,6 @@ export function getParticipantsForEventApi(eventId, page, pageSize) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => response.data)
     .catch((error) => {

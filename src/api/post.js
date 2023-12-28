@@ -10,7 +10,6 @@ export function getPostsApi(page, pageSize) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => {
       return response;
@@ -41,7 +40,6 @@ export function getUserPostsApi(id, page, pageSize) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getTokenApi()}`,
     },
-    ,
   })
     .then((response) => {
       if (response.status >= 400) {
@@ -70,7 +68,6 @@ export function createPostApi(postData, image) {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => response)
     .catch((error) => {
@@ -103,7 +100,6 @@ export function updatePostApi(id, postData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -120,7 +116,6 @@ export function deletePostApi(id) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => response)
     .catch((error) => {
@@ -139,7 +134,6 @@ export function getUserLikedPostsApi(userId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      ,
     })
     .then((response) => response.data)
     .catch((error) => {

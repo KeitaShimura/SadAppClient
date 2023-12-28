@@ -15,7 +15,6 @@ export function followUserApi(userId) {
           Authorization: `Bearer ${getTokenApi()}`,
           "Content-Type": "application/json",
         },
-        ,
       },
     )
     .then((response) => {
@@ -40,7 +39,6 @@ export function unfollowUserApi(userId) {
         Authorization: `Bearer ${getTokenApi()}`,
         "Content-Type": "application/json",
       },
-      ,
     })
     .then((response) => {
       return response.data;
@@ -64,7 +62,6 @@ export function checkIfFollowingApi(authUserId, targetUserId) {
         Authorization: `Bearer ${getTokenApi()}`,
         "Content-Type": "application/json",
       },
-      ,
     })
     .then((response) => {
       return response.data;
