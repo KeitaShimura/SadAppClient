@@ -129,8 +129,8 @@ export default function EventModal(props) {
               formData.content.length > maxLength ||
               formData.title.length < 1 ||
               formData.content.length < 1 ||
-              formData.event_url.length < 1 ||
-              formData.event_date.length < 1
+              formData.event_url.length < 1
+              // formData.event_date.length < 1
             }
           >
             イベントを投稿する
