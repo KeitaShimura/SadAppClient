@@ -13,7 +13,6 @@ export function getAllUsersApi(page, pageSize) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getTokenApi()}`, // 認証トークンを含める
     },
-    withCredentials: true,
   };
 
   // fetchリクエストを実行
@@ -94,7 +93,6 @@ export function updateUserData(profileData, iconFile, bannerFile) {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -120,7 +118,6 @@ export async function updatePassword(currentPassword, newPassword) {
         Authorization: `Bearer ${getTokenApi()}`,
         "Content-Type": "application/json",
       },
-      withCredentials: true,
     })
     .then((response) => {
       // 成功時の処理

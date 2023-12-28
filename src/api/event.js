@@ -9,7 +9,6 @@ export function getEventsApi(page, pageSize) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
     })
     .then((response) => {
       return response;
@@ -40,7 +39,6 @@ export function getUserEventsApi(id, page, pageSize) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
     })
     .then((response) => {
       return response.data;
@@ -79,7 +77,6 @@ export function createEventApi(eventData, image) {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
     })
     .then((response) => {
       return response.data;
@@ -133,7 +130,6 @@ export function updateEventApi(id, eventData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
     })
     .then((response) => {
       return response;
@@ -162,7 +158,6 @@ export function deleteEventApi(id) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
     })
     .then((response) => {
       return response;
@@ -192,7 +187,6 @@ export function getUserLikedEventsApi(userId, page, pageSize) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -210,7 +204,6 @@ export function getUserParticipatedEvents(userId, page, pageSize) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
     })
     .then((response) => {
       return response.data;

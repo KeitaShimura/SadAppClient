@@ -2,11 +2,20 @@ import axios from "axios";
 import { API_HOST, TOKEN } from "../utils/constant";
 import { jwtDecode } from "jwt-decode";
 
+// Axiosの設定
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export function registerApi(user) {
-  const url = `${API_HOST}/api/user/register`;
+  const url = `${API_HOST}/api/user/register/`;
 
   return axios
-    .post(url, user, { withCredentials: true })
+    .post(url, user)
     .then((response) => {
       // 登録成功時の処理
       if (response.data.token) {
@@ -35,7 +44,7 @@ export function loginApi(user) {
   const url = `${API_HOST}/api/user/login`;
 
   return axios
-    .post(url, user, { withCredentials: true })
+    .post(url, user)
     .then((response) => {
       // ログイン成功時の処理
       if (response.data.token) {

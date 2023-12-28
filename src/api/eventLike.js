@@ -15,7 +15,7 @@ export function likeEventApi(eventId) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getTokenApi()}`,
         },
-        withCredentials: true,
+        ,
       },
     )
     .then((response) => response.data)
@@ -35,7 +35,7 @@ export function unlikeEventApi(eventId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
+      ,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -54,7 +54,7 @@ export function checkIfEventLikedApi(eventId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
+      ,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -73,7 +73,7 @@ export function getLikesForEventApi(eventId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
+      ,
     })
     .then((response) => response.data)
     .catch((error) => {

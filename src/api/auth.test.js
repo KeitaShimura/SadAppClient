@@ -20,7 +20,6 @@ test("registerApiがユーザーデータと共にPOSTリクエストを送信�
   expect(axios.post).toHaveBeenCalledWith(
     `${API_HOST}/api/user/register`,
     user,
-    { withCredentials: true },
   );
 
   // 適切なレスポンスが返されたことを確認
@@ -38,9 +37,11 @@ test("loginApiがユーザーデータと共にPOSTリクエストを送信す�
   const result = await loginApi(user);
 
   // axios.postが適切に呼び出されたことを確認
-  expect(axios.post).toHaveBeenCalledWith(`${API_HOST}/api/user/login`, user, {
-    withCredentials: true,
-  });
+  expect(axios.post).toHaveBeenCalledWith(
+    `${API_HOST}/api/user/login`,
+    user,
+    {},
+  );
 
   // 適切なレスポンスが返されたことを確認
   expect(result).toEqual(responseData);

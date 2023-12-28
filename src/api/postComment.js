@@ -29,7 +29,7 @@ export function createPostCommentApi(postId, commentData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
+      ,
     })
     .then((response) => {
       return response.data;
@@ -59,7 +59,7 @@ export function updatePostCommentApi(commentId, commentData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
+      ,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -76,7 +76,7 @@ export function deletePostCommentApi(commentId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getTokenApi()}`,
       },
-      withCredentials: true,
+      ,
     })
     .then((response) => response)
     .catch((error) => {
