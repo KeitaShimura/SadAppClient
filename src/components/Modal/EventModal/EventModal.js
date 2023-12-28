@@ -113,16 +113,6 @@ export default function EventModal(props) {
           >
             {formData.content.length}
           </span>
-          {/* <Form.Group className="form-group">
-            <Form.Control
-              type="datetime-local"
-              name="event_date"
-              placeholder="開催日"
-              value={formData.event_date} // valueプロパティを追加
-              onChange={onChange} // onChangeイベントハンドラを追加
-            />
-          </Form.Group> */}
-
           <Button
             type="submit"
             disabled={
@@ -130,7 +120,6 @@ export default function EventModal(props) {
               formData.title.length < 1 ||
               formData.content.length < 1 ||
               formData.event_url.length < 1
-              // formData.event_date.length < 1
             }
           >
             イベントを投稿する
@@ -151,6 +140,5 @@ function initialFromValue() {
     title: "",
     content: "",
     event_url: "",
-    // event_date: "",
   };
 }
