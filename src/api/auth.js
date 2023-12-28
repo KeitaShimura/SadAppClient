@@ -41,7 +41,7 @@ export function registerApi(user) {
 }
 
 export function loginApi(user) {
-  const url = `${API_HOST}/api/user/login`;
+  const url = `${API_HOST}/api/user/login/`;
 
   return axios
     .post(url, user)
