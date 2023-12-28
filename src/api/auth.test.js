@@ -4,45 +4,50 @@ import { API_HOST } from "../utils/constant";
 
 jest.mock("axios"); // axiosモジュールをモック化
 
-test("registerApiがユーザーデータと共にPOSTリクエストを送信する", async () => {
-  const user = {
-    name: "志村",
-    email: "1k1eitashim111ura202s1111@gmail.com",
-    password: "111111111",
-    password_confirm: "111111111",
-  };
-  const responseData = { token: "testToken" };
-  axios.post.mockResolvedValue({ data: responseData }); // axios.postのモックを設定
+describe("registerApiとloginApiのテスト", () => {
+  afterEach(() => {
+    axios.post.mockClear(); // 各テストの後にaxios.postのモックをクリア
+  });
 
-  const result = await registerApi(user);
+  test("registerApiがユーザーデータと共にPOSTリクエストを送信する", async () => {
+    const user = {
+      name: "志村",
+      email: "1k1eitashim111ura202s1111@gmail.com",
+      password: "111111111",
+      password_confirm: "111111111",
+    };
+    const responseData = { token: "testToken" };
+    axios.post.mockResolvedValue({ data: responseData }); // axios.postのモックを設定
 
-  // axios.postが適切に呼び出されたことを確認
-  expect(axios.post).toHaveBeenCalledWith(
-    `${API_HOST}/api/user/register`,
-    user,
-  );
+    const result = await registerApi(user);
 
-  // 適切なレスポンスが返されたことを確認
-  expect(result).toEqual(responseData);
-});
+    // axios.postが適切に呼び出されたことを確認
+    expect(axios.post).toHaveBeenCalledWith(
+      `${API_HOST}/api/user/register`,
+      user
+    );
 
-test("loginApiがユーザーデータと共にPOSTリクエストを送信する", async () => {
-  const user = {
-    email: "keitashimura2023@gmail.com",
-    password: "11111111",
-  };
-  const responseData = { token: "testToken" };
-  axios.post.mockResolvedValue({ data: responseData }); // axios.postのモックを設定
+    // 適切なレスポンスが返されたことを確認
+    expect(result).toEqual(responseData);
+  });
 
-  const result = await loginApi(user);
+  test("loginApiがユーザーデータと共にPOSTリクエストを送信する", async () => {
+    const user = {
+      email: "keitashimura2023@gmail.com",
+      password: "11111111",
+    };
+    const responseData = { token: "testToken" };
+    axios.post.mockResolvedValue({ data: responseData }); // axios.postのモックを設定
 
-  // axios.postが適切に呼び出されたことを確認
-  expect(axios.post).toHaveBeenCalledWith(
-    `${API_HOST}/api/user/login`,
-    user,
-    {},
-  );
+    const result = await loginApi(user);
 
-  // 適切なレスポンスが返されたことを確認
-  expect(result).toEqual(responseData);
+    // axios.postが適切に呼び出されたことを確認
+    expect(axios.post).toHaveBeenCalledWith(
+      `${API_HOST}/api/user/login`,
+      user
+    );
+
+    // 適切なレスポンスが返されたことを確認
+    expect(result).toEqual(responseData);
+  });
 });
