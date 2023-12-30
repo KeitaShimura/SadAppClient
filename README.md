@@ -37,12 +37,6 @@
 <p>COCOLOTalkは「対人恐怖症、社交不安障害（SAD）の方のお悩みを解決したい！」という想いから作られた、無料のSNSです。</p>
 <p>自分と同じお悩みを持つ方に悩みを打ち明けることができます。</p>
 
-<h3>▼ サービスURL</h3>
-<p>
-<a href="https://cocolo-talk.vercel.app" target="_blank">https://cocolo-talk.vercel.app</a>
-<p>レスポンシブ対応済のため、PCでもスマートフォンでも快適にご利用いただけます。</p>
-</p>
-
 <h2>メイン機能の使い方</h2>
 
 <h2>使用技術一覧</h2>
